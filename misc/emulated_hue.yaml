@@ -1,0 +1,48 @@
+expose_by_default: false
+entities:
+  cover.garage_door:
+    hidden: false
+  input_boolean.single_occupancy_mode:
+    hidden: false
+  light.basement_light:
+    hidden: false
+  light.bedroom_light:
+    hidden: false
+  light.dining_room_light:
+    hidden: false
+  light.game_room_lamp:
+    hidden: false
+  light.game_room_light:
+    hidden: false
+  light.game_room_volume:
+    hidden: false
+  light.living_room_volume:
+    hidden: false
+  light.office_light:
+    hidden: false
+  media_player.basement_tv:
+    hidden: false
+  media_player.game_room_receiver:
+    hidden: false
+  media_player.game_room_tv:
+    hidden: false
+  media_player.living_room_receiver:
+    hidden: false
+  media_player.living_room_tv:
+    hidden: false
+  script.living_room_hulu:
+    name: Hulu
+    hidden: false
+  script.living_room_netflix:
+    name: Netflix
+    hidden: false
+  script.living_room_plex:
+    name: Plex
+    hidden: false
+  script.living_room_youtube:
+    name: Youtube
+    hidden: false
+  switch.entry_light:
+    hidden: false
+  switch.ps4:
+    hidden: false

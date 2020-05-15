@@ -1,0 +1,41 @@
+bed_presets:
+  options:
+    - Read
+    - Watch TV
+    - Flat
+    - Zero G
+    - Snore
+    - Favorite
+living_room_source:
+  options:
+    - Netflix
+    - Hulu
+    - Plex
+    - YouTube
+    - Music
+living_room_lamp_color:
+  options:
+    - greenyellow
+    - green
+    - aqua
+    - blue
+    - purple
+    - pink
+    - red
+    - orange
+    - yellow
+inovelli_light_color:
+  options:
+    - Red
+    - Orange
+    - Green
+    - Blue
+    - Pink
+    - Yellow
+    - Cyan
+inovelli_light_effect:
+  options:
+    - Slow Blink
+    - Fast Blink
+    - Pulse
+    - Solid

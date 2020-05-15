@@ -1,0 +1,37 @@
+- platform: template
+  sensors:
+    basement_door:
+      friendly_name: Basement Door
+      device_class: door
+      entity_id: sensor.sensative_strips_basement_door_access_control
+      value_template: "{{ is_state('sensor.sensative_strips_basement_door_access_control', '22') }}"
+    front_door:
+      friendly_name: Front Door
+      device_class: door
+      entity_id: sensor.sensative_strips_front_door_access_control
+      value_template: "{{ is_state('sensor.sensative_strips_front_door_access_control', '22') }}"
+    garage_door:
+      friendly_name: Garage Door
+      device_class: garage_door
+      entity_id: binary_sensor.garage_door_tilt_sensor
+      value_template: "{{ is_state('binary_sensor.garage_door_tilt_sensor', 'on') }}"
+    garage_inner_door:
+      friendly_name: Garage Inner Door
+      device_class: door
+      entity_id: sensor.sensative_strips_garage_inner_door_access_control
+      value_template: "{{ is_state('sensor.sensative_strips_garage_inner_door_access_control', '22') }}"
+    garage_outer_door:
+      friendly_name: Garage Outer Door
+      device_class: door
+      entity_id: sensor.sensative_strips_garage_outer_door_access_control
+      value_template: "{{ is_state('sensor.sensative_strips_garage_outer_door_access_control', '22') }}"
+    kitchen_window:
+      friendly_name: Kitchen Window
+      device_class: window
+      entity_id: sensor.sensative_strips_kitchen_window_access_control
+      value_template: "{{ is_state('sensor.sensative_strips_kitchen_window_access_control', '22') }}"
+    sliding_side_door:
+      friendly_name: Sliding Side Door
+      device_class: door
+      entity_id: sensor.sensative_strips_sliding_side_door_access_control
+      value_template: "{{ is_state('sensor.sensative_strips_sliding_side_door_access_control', '22') }}"

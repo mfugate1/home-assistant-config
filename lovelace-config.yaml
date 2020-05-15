@@ -1,0 +1,25 @@
+mode: yaml
+resources:
+  - url: /hacsfiles/rgb-light-card/card.js
+    type: module
+  - url: /hacsfiles/lovelace-slider-entity-row/slider-entity-row.js
+    type: module
+  - url: /hacsfiles/lovelace-card-mod/card-mod.js
+    type: module
+  - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+    type: module
+  - url: /hacsfiles/lovelace-layout-card/layout-card.js
+    type: module
+  - url: /hacsfiles/button-card/button-card.js
+    type: module
+  - url: /hacsfiles/custom-header/custom-header.js
+    type: module
+dashboards:
+  livingroom-tablet:
+    mode: yaml
+    filename: livingroom-tablet.yaml
+    title: Tablet
+  phone-ui:
+    mode: yaml
+    filename: phone-ui.yaml
+    title: Phone

@@ -1,0 +1,78 @@
+bed_position_foot:
+  icon: mdi:bed
+  name: Foot
+  min: 0
+  max: 100
+bed_position_head:
+  icon: mdi:bed
+  name: Head
+  min: 0
+  max: 100
+bed_sleep_number_left:
+  icon: mdi:bed
+  name: Left
+  min: 0
+  max: 100
+bed_sleep_number_right:
+  icon: mdi:bed
+  name: Right
+  min: 0
+  max: 100
+climate_cool_away_temp:
+  icon: mdi:home-thermometer
+  name: "[Cooling] Away"
+  min: 50
+  max: 80
+climate_cool_asleep_temp:
+  icon: mdi:home-thermometer
+  name: "[Cooling] Asleep"
+  min: 50
+  max: 80
+climate_cool_home_temp:
+  icon: mdi:home-thermometer
+  name: "[Cooling] Home"
+  min: 50
+  max: 80
+climate_heat_away_temp:
+  icon: mdi:home-thermometer
+  name: "[Heating] Away"
+  min: 50
+  max: 80
+climate_heat_asleep_temp:
+  icon: mdi:home-thermometer
+  name: "[Heating] Asleep"
+  min: 50
+  max: 80
+climate_heat_home_temp:
+  icon: mdi:home-thermometer
+  name: "[Heating] Home"
+  min: 50
+  max: 80
+dehumidifier_off_threshold:
+  icon: mdi:arrow-collapse-down
+  name: Dehumidifier Off Threshold
+  min: 0
+  max: 100
+  mode: box
+dehumidifier_on_threshold:
+  icon: mdi:arrow-collapse-up
+  name: Dehumidifier On Threshold
+  min: 0
+  max: 100
+  mode: box
+game_room_receiver_volume:
+  icon: mdi:volume-high
+  name: Game Room Volume
+  min: 0
+  max: 70
+living_room_receiver_volume:
+  icon: mdi:volume-high
+  name: Living Room Volume
+  min: 0
+  max: 50
+inovelli_light_level:
+  min: 0
+  max: 10
+inovelli_light_duration:
+  min: 0
+  max: 120

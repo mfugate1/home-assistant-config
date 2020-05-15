@@ -1,0 +1,50 @@
+- platform: universal
+  name: Living Room Media
+  children:
+    - media_player.living_room_roku
+    - media_player.playstation_4_office
+    - media_player.livingroom
+    - media_player.living_room_tv
+    - media_player.living_room_receiver
+  commands:
+    turn_off:
+      - service: media_player.media_pause
+        entity_id: media_player.living_room_roku
+      - service: media_player.turn_off
+        entity_id:
+          - media_player.living_room_tv
+          - media_player.living_room_receiver
+    turn_on:
+      - service: automation.trigger
+        entity_id:
+        
+        skip_condition: false
+    select_source:
+      service: input_select.select_option
+      data_template:
+        entity_id: input_select.living_room_source
+        option: "{{ source }}"
+    volume_up:
+      service: media_player.volume_up
+      data:
+        entity_id: media_player.living_room_receiver
+    volume_down:
+      service: media_player.volume_down
+      data:
+        entity_id: media_player.living_room_receiver
+    volume_set:
+      service: media_player.volume_set
+      data:
+        entity_id: media_player.living_room_receiver
+    volume_mute:
+      service: media_player.volume_mute
+      data:
+        entity_id: media_player.living_room_receiver
+  attributes:
+    source: input_select.living_room_source
+    source_list: input_select.living_room_source|options
+    state: media_player.living_room_receiver
+    volume_level: media_player.living_room_receiver|volume_level
+    is_volume_muted: media_player.living_room_receiver|is_volume_muted
+    
+    

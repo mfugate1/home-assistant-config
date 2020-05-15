@@ -1,0 +1,78 @@
+- alias: 'Workout mode on via first movement in basement'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.basement_motion
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: input_boolean.workout_mode_available
+    state: 'on'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.workout_mode
+
+- alias: 'Workout mode on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.workout_mode
+    to: 'on'
+  action:
+    - service: light.turn_on
+      entity_id: light.basement_light
+    - service: shell_command.curl
+      data:
+        url: !secret workout_music_url
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.workout_mode_available
+    - service: switch.turn_on
+      entity_id: switch.basement_stereo
+    - condition: state
+      entity_id: climate.honeywell_thermostat
+      state: heat
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.honeywell_thermostat
+        temperature: "{{ states('input_number.climate_heat_away_temp') }}"
+        
+- alias: 'Workout mode off delayed'
+  trigger:
+    platform: webhook
+    webhook_id: !secret workout_mode_off_webhook
+  condition:
+    condition: state
+    entity_id: input_boolean.workout_mode
+    state: 'on'
+  action:
+    - wait_template: "{{ is_state('binary_sensor.basement_door', 'on') }}"
+      timeout: '01:00:00'
+    - wait_template: "{{ is_state('binary_sensor.basement_door', 'off') }}"
+      timeout: '01:00:00'
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.workout_mode
+
+- alias: 'Workout mode off'
+  trigger:
+    platform: state
+    entity_id: input_boolean.workout_mode
+    to: 'off'
+  action:
+    - service: homeassistant.turn_off
+      entity_id: group.basement
+    - service: shell_command.curl
+      data:
+        url: !secret workout_music_stop_url
+    - condition: state
+      entity_id: climate.honeywell_thermostat
+      state: heat
+    - service: climate.set_temperature
+      data_template:
+        entity_id: climate.honeywell_thermostat
+        temperature: "{{ states('input_number.climate_heat_home_temp') }}"
+        
+- alias: 'Enable workout mode each day'
+  trigger:
+    platform: time
+    at: '00:05:00'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.workout_mode_available

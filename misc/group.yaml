@@ -1,0 +1,23 @@
+basement:
+  entities:
+    - input_boolean.workout_mode
+    - light.basement_light
+    - media_player.basement_tv
+    - switch.basement_stereo
+garmin_watch:
+  entities:
+    - cover.garage_door
+    - input_boolean.workout_mode
+    - light.basement_light
+    - light.bedroom_light
+    - light.dining_room_light
+    - light.entry_light
+    - light.game_room_lamp
+    - light.game_room_light
+    - light.living_room_lamp
+    - light.office_light
+    - light.patio_light
+    - light.upstairs_bathroom_light
+    - media_player.living_room_media
+    - switch.basement_stereo
+    - switch.ps4

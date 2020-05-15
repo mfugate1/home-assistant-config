@@ -1,0 +1,215 @@
+#- platform: command_line
+#  name: FreeNAS CPU Temperature
+#  command: "ssh -o ConnectTimeout=2 user@ip sysctl -a | egrep -E temperature | awk -F: '{print $2}' | awk -F. '{sum+=$1}END{print sum/8}'"
+#  scan_interval: 60
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_cpu_temp_raw
+#  command: >-
+#    ssh freenas "sysctl -a" | grep temperature | sort | cut -d' ' -f2 | cut -dC -f1 | tr '\n' ' '
+#  scan_interval: 300
+#- platform: command_line
+#  name: freenas_media_storage_raw
+#  command: >-
+#    ssh freenas "zpool list" | grep media_storage
+#  scan_interval: 300
+#- platform: command_line
+#  name: freenas_database_raw
+#  command: >-
+#    ssh freenas "zpool list" | grep database
+#  scan_interval: 300
+#- platform: command_line
+#  name: freenas_jail_storage2_raw
+#  command: >-
+#    ssh freenas "zpool list" | grep jail_storage2
+#  scan_interval: 300
+#- platform: command_line
+#  name: freenas_repository_raw
+#  command: >-
+#    ssh freenas "zpool list" | grep repository
+#  scan_interval: 300
+#- platform: command_line
+#  name: freenas_boot_raw
+#  command : >-
+#    ssh freenas "zpool list" | grep freenas-boot
+#  scan_interval: 300
+#- platform: command_line
+#  name: freenas_ada0_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada0" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada1_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada1" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada2_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada2" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada3_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada3" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada4_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada4" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada5_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada5" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada6_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada6" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada7_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada7" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada8_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada8" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada9_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada9" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada10_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada10" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_ada11_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/ada11" | grep Temperature | awk '{print $10}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_da0_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/da0" | grep "Current Drive Temperature" | awk '{print $4}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_da1_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/da1" | grep "Current Drive Temperature" | awk '{print $4}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_da2_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/da2" | grep "Current Drive Temperature" | awk '{print $4}'
+#  scan_interval: 600 
+#  unit_of_measurement: "C"
+#- platform: command_line
+#  name: freenas_da3_temp
+#  command: >-
+#    ssh freenas "sudo smartctl -A /dev/da3" | grep "Current Drive Temperature" | awk '{print $4}'
+#  scan_interval: 600
+#  unit_of_measurement: "C"
+#- platform: template
+#  sensors:
+#    freenas_media_storage_health:
+#      friendly_name: Health
+#      value_template: "{{ states.sensor.freenas_media_storage_raw.state.split()[8] }}"
+#      entity_id: sensor.freenas_media_storage_raw
+#    freenas_media_storage_allocated:
+#      value_template: "{{ states.sensor.freenas_media_storage_raw.state.split()[2] }}"
+#      entity_id: sensor.freenas_media_storage_raw
+#    freenas_media_storage_size:
+#      value_template: "{{ states.sensor.freenas_media_storage_raw.state.split()[1] }}"
+#      entity_id: sensor.freenas_media_storage_raw
+#    freenas_media_storage_percent_allocated:
+#      value_template: "{{ states.sensor.freenas_media_storage_raw.state.split()[6] }}"
+#      entity_id: sensor.freenas_media_storage_raw
+#    freenas_media_storage_free:
+#      friendly_name: Free Space
+#      value_template: "{{ states.sensor.freenas_media_storage_raw.state.split()[3] }}"
+#      entity_id: sensor.freenas_media_storage_raw
+#    freenas_media_storage_capacity:
+#      friendly_name: Storage Capacity
+#      value_template: >-
+#        {{ states.sensor.freenas_media_storage_allocated.state }} / {{ states.sensor.freenas_media_storage_size.state }} ({{ states.sensor.freenas_media_storage_percent_allocated.state }})
+#      entity_id: 
+#        - sensor.freenas_media_storage_allocated
+#        - sensor.freenas_media_storage_size
+#        - sensor.freenas_media_storage_percent_allocated
+#    freenas_cpu_0_temp:
+#      friendly_name: CPU 0 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[0] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_1_temp:
+#      friendly_name: CPU 1 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[1] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_2_temp:
+#      friendly_name: CPU 2 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[2] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_3_temp:
+#      friendly_name: CPU 3 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[3] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_4_temp:
+#      friendly_name: CPU 4 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[4] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_5_temp:
+#      friendly_name: CPU 5 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[5] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_6_temp:
+#      friendly_name: CPU 6 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[6] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_7_temp:
+#      friendly_name: CPU 7 Temperature
+#      value_template: "{{ states.sensor.freenas_cpu_temp_raw.state.split()[7] }}"
+#      entity_id: sensor.freenas_cpu_temp_raw
+#      unit_of_measurement: C
+#    freenas_cpu_avg_temp:
+#      friendly_name: Average CPU Temperature
+#      value_template: >-
+#        {{ ( states.sensor.freenas_cpu_0_temp.state | float + states.sensor.freenas_cpu_1_temp.state | float
+#           + states.sensor.freenas_cpu_2_temp.state | float + states.sensor.freenas_cpu_3_temp.state | float
+#           + states.sensor.freenas_cpu_4_temp.state | float + states.sensor.freenas_cpu_5_temp.state | float
+#           + states.sensor.freenas_cpu_6_temp.state | float + states.sensor.freenas_cpu_7_temp.state | float ) / 8 | round(1) }} 
+#      entity_id:
+#        - sensor.freenas_cpu_0_temp
+#        - sensor.freenas_cpu_1_temp
+#        - sensor.freenas_cpu_2_temp
+#        - sensor.freenas_cpu_3_temp
+#        - sensor.freenas_cpu_4_temp
+#        - sensor.freenas_cpu_5_temp
+#        - sensor.freenas_cpu_6_temp
+#        - sensor.freenas_cpu_7_temp
+#      unit_of_measurement: C

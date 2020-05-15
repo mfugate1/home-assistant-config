@@ -1,0 +1,9 @@
+- name: Work
+  latitude: !secret work_lat
+  longitude: !secret work_long
+  icon: mdi:briefcase
+  
+- name: ALDI
+  latitude: !secret aldi_lat
+  longitude: !secret aldi_long
+  icon: mdi:cart

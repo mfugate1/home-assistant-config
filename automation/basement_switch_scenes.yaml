@@ -1,0 +1,54 @@
+- alias: 'Basement double tap up - turn on workout mode'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.basement_light
+        scene_id: 2
+        scene_data: 7860
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.workout_mode
+
+- alias: 'Basement double tap down - turn off everything'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.basement_light
+        scene_id: 1
+        scene_data: 7860
+  action:
+    service: homeassistant.turn_off
+    entity_id: group.basement
+    
+- alias: 'Basement triple tap up - ps4 bike mode'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.basement_light
+        scene_id: 2
+        scene_data: 7920
+  action:
+    - service: media_player.turn_on
+      entity_id: 
+        - media_player.playstation_4_office
+        - media_player.basement_tv
+    - service: light.turn_off
+      entity_id: light.basement_light
+    - service: shell_command.curl
+      data:
+        url: 'http://192.168.1.90:9000?p0=playlist&p1=clear'
+        
+- alias: 'Basement triple tap down - skip song'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.basement_light
+        scene_id: 1
+        scene_data: 7920
+  action:
+    - service: media_player.media_next_track
+      entity_id: media_player.basement

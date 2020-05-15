@@ -1,0 +1,107 @@
+- alias: 'Open garage door when leaving'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.garage_inner_door
+    to: 'on'
+  condition:
+    condition: or
+    conditions: 
+      - condition: and
+        conditions: 
+          - condition: time
+            after: '08:40:00'
+            before: '09:10:00'
+          - condition: template
+            value_template: "{{ now().weekday() == 6 }}"
+      - condition: and
+        conditions:
+          - condition: time
+            after: '05:30:00'
+            before: '06:10:00'
+          - condition: template
+            value_template: "{{ now().weekday() in [0,1,2,3,4] }}"
+  action:
+    - wait_template: "{{ is_state('binary_sensor.garage_inner_door', 'off') }}"
+      timeout: 00:00:12
+      continue_on_timeout: 'false'
+    - delay: 00:00:10
+    - service: cover.open_cover
+      entity_id: cover.garage_door
+      
+- alias: 'Close garage door after leaving'
+  trigger:
+    platform: state
+    entity_id: person.mike
+    to: 'not_home'
+  condition:
+    condition: state
+    entity_id: cover.garage_door
+    state: 'open'
+  action:
+    - service: notify.email
+      data_template: 
+        title: 'Closing garage door'
+        message: "Closing garage door because you left {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+
+- alias: 'Open garage door when arriving then close'
+  trigger:
+    platform: state
+    entity_id: person.mike
+    to: 'home'
+  condition:
+    condition: state
+    entity_id: input_boolean.garage_door_arrival_open_enabled
+    state: 'on'
+  action:
+    - service: notify.email
+      data_template: 
+        title: 'Opening garage door'
+        message: "Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
+    - service: cover.open_cover
+      entity_id: cover.garage_door
+    - wait_template: "{{ is_state('binary_sensor.garage_inner_door', 'on') }}"
+      timeout: 00:10:00
+      continue_on_timeout: 'false'
+    - service: cover.close_cover
+      entity_id: cover.garage_door
+      
+- alias: 'Disable arrival opening when garage door opens'
+  trigger:
+    platform: state
+    entity_id: cover.garage_door
+    to: 'open'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.garage_door_arrival_open_enabled
+    
+- alias: 'Enable arrival opening garage door'
+  trigger:
+    platform: state
+    entity_id: input_boolean.garage_door_arrival_open_enabled
+    to: 'off'
+    for: '00:10:00'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.garage_door_arrival_open_enabled
+
+- alias: 'Garage door cooldown'
+  trigger:
+    platform: state
+    entity_id: input_boolean.garage_door_cooldown
+    to: 'on'
+    for: '00:00:10'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.garage_door_cooldown
+
+- alias: 'Garage door relay shut off'
+  trigger:
+    platform: state
+    entity_id: switch.garage_door_relay
+    to: 'on'
+    for: '00:00:02'
+  action:
+    service: switch.turn_off
+    entity_id: switch.garage_door_relay

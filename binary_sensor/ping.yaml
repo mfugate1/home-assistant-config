@@ -1,0 +1,6 @@
+- platform: ping
+  name: office_pc
+  host: !secret office_pc_ip
+- platform: ping
+  name: freenas_server
+  host: !secret freenas_server_ip

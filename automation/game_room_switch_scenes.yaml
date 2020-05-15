@@ -1,0 +1,59 @@
+- alias: 'Game room double tap up - turn on lamp'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.gameroom_light
+        scene_id: 2
+        scene_data: 7860
+  action:
+    service: light.turn_on
+    entity_id: light.game_room_lamp
+      
+- alias: 'Game room double tap down - turn off lamp'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.gameroom_light
+        scene_id: 1
+        scene_data: 7860
+  action:
+    service: light.turn_off
+    entity_id: light.game_room_lamp
+        
+- alias: 'Game room triple tap up - turn on ps4 and tv'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.gameroom_light
+        scene_id: 2
+        scene_data: 7920
+  action:
+    - service: switch.turn_on
+      entity_id: switch.ps4
+    - service: zwave.set_config_parameter
+      data:
+        node_id: 23
+        parameter: 16
+        size: 4
+        value: 34015832
+      
+- alias: 'Game room triple tap down - turn off ps4 and tv'
+  trigger:
+    - platform: event
+      event_type: zwave.scene_activated
+      event_data:
+        entity_id: zwave.gameroom_light
+        scene_id: 1
+        scene_data: 7920
+  action:
+    - service: switch.turn_off
+      entity_id: switch.ps4
+    - service: zwave.set_config_parameter
+      data:
+        node_id: 23
+        parameter: 16
+        size: 4
+        value: 34015745

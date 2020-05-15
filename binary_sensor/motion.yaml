@@ -1,0 +1,19 @@
+- platform: template
+  sensors:
+    basement_motion:
+      entity_id: sensor.basement_motion
+      value_template: "{{ is_state('sensor.basement_motion', '8') }}"
+    bedroom_motion:
+      entity_id: sensor.bedroom_motion
+      value_template: "{{ is_state('sensor.bedroom_motion', '8') }}"
+    dining_room_motion:
+      entity_id: sensor.dining_room_motion
+      value_template: "{{ is_state('sensor.dining_room_motion', '8') }}"
+    office_motion:
+      entity_id: sensor.office_motion
+      value_template: "{{ is_state('sensor.office_motion', '8') }}"
+    upstairs_bathroom_motion:
+      entity_id:
+        - sensor.upstairs_bathroom_dimmer_burglar
+        - sensor.upstairs_bathroom_vent_switch_burglar
+      value_template: "{{ is_state('sensor.upstairs_bathroom_dimmer_burglar', '8') or is_state('sensor.upstairs_bathroom_vent_switch_burglar', '8') }}"

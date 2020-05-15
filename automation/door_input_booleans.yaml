@@ -1,0 +1,19 @@
+- alias: 'Outer door triggered'
+  trigger:
+    platform: state
+    entity_id:
+      - sensor.front_door
+      - sensor.garage_door
+    to: 'open'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.outer_door_triggered
+- alias: 'Outer door reset'
+  trigger:
+    platform: state
+    entity_id: input_boolean.outer_door_triggered
+    to: 'on'
+    for: '00:05:00'
+  action:
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.outer_door_triggered

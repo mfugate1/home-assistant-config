@@ -1,0 +1,32 @@
+- alias: 'Basement light off'
+  trigger:
+    - platform: state
+      entity_id: 
+        - binary_sensor.bedroom_motion
+        - binary_sensor.dining_room_motion
+        - binary_sensor.office_motion
+      to: 'on'
+    - platform: state
+      entity_id: 
+        - sensor.garage_inner_door
+        - sensor.sliding_side_door
+  condition:
+    condition: state
+    entity_id: input_boolean.workout_mode
+    state: 'off'
+  action:
+    service: light.turn_off
+    entity_id: light.basement_light
+    
+- alias: 'Basement light on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.basement_motion
+    to: 'on'
+  condition:
+    condition: state
+    entity_id: light.basement_light
+    state: 'off'
+  action:
+    service: light.turn_on
+    entity_id: light.basement_light

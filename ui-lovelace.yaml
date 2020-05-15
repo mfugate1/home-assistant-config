@@ -1,0 +1,313 @@
+title: Overlord
+background: var(--background-image)
+views:
+  - title: Media
+    icon: mdi:television
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: entities
+            entities:
+              - media_player.living_room_tv
+              - entity: media_player.living_room_receiver
+                type: custom:slider-entity-row
+                hide_when_off: true
+                step: 1
+              - media_player.game_room_tv
+              - media_player.playstation_4
+              - entity: media_player.game_room_receiver
+                type: custom:slider-entity-row
+                hide_when_off: true
+                step: 1
+              - switch.basement_stereo
+          - type: horizontal-stack
+            cards:
+              - type: custom:button-card
+                name: Bootstrap
+                label: Music DB
+                show_label: true
+                entity: script.bootstrap_music_db
+                icon: mdi:music
+                style: "ha-card { height: 100%; }"
+                tap_action:
+                  action: call-service
+                  service: script.turn_on
+                  service_data:
+                    entity_id: script.bootstrap_music_db
+                styles:
+                  grid:
+                    - grid-template-areas: '"n" "i" "s" "l"'
+              - type: custom:button-card
+                name: Rescan
+                label: LMS
+                show_label: true
+                entity: script.rescan_lms
+                icon: mdi:music
+                style: "ha-card { height: 100%; }"
+                tap_action:
+                  action: call-service
+                  service: script.turn_on
+                  service_data:
+                    entity_id: script.rescan_lms
+                styles:
+                  grid:
+                    - grid-template-areas: '"n" "i" "s" "l"'
+              - type: custom:button-card
+                name: Update
+                label: Music DB
+                show_label: true
+                entity: script.update_music_db
+                icon: mdi:music
+                style: "ha-card { height: 100%; }"
+                tap_action:
+                  action: call-service
+                  service: script.turn_on
+                  service_data:
+                    entity_id: script.update_music_db
+                styles:
+                  grid:
+                    - grid-template-areas: '"n" "i" "s" "l"'
+  - icon: mdi:lightbulb-on
+    title: Lighting
+    cards:
+      - type: entities
+        entities: 
+          - entity: light.game_room_lamp
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.game_room_lamp
+            type: "custom:rgb-light-card"
+            justify: center
+            colors:
+              - color_name: red
+              - color_name: pink
+              - color_name: blue
+              - color_name: green
+              - color_name: white
+              - color_name: yellow
+              - color_name: purple
+              - color_name: orange
+          - entity: light.living_room_lamp 
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.living_room_lamp 
+            type: "custom:rgb-light-card"
+            justify: center
+            colors:
+              - color_name: red
+              - color_name: pink
+              - color_name: blue
+              - color_name: green
+              - color_name: white
+              - color_name: yellow
+              - color_name: purple
+              - color_name: orange
+          - entity: light.basement_light
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.bedroom_light
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.dining_room_light
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.game_room_light
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.office_light
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: light.patio_light
+            type: custom:slider-entity-row
+            toggle: true
+          - entity: switch.entry_light
+            icon: mdi:lightbulb
+      - type: entities
+        title: Inovelli Notification LED
+        entities:
+          - input_select.inovelli_light_color
+          - input_select.inovelli_light_effect
+          - input_number.inovelli_light_level
+          - input_number.inovelli_light_duration
+          - type: custom:button-card
+            entity: zwave.basement_light
+            layout: icon_name_state
+            icon: mdi:alarm-light
+            name: Send Inovelli LED Command
+            tap_action:
+              action: call-service
+              service: python_scripts.inovelli_led
+              service_data:
+                level: '[[[ return states["input_number.inovelli_light_level"].state ]]]'
+                color: '[[[ return states["input_select.inovelli_light_color"].state ]]]'
+                effect: '[[[ return states["input_select.inovelli_light_effect"].state ]]]'
+                duration: '[[[ return states["input_number.inovelli_light_duration"].state ]]]'
+  - icon: mdi:fan
+    title: Climate
+    cards:
+      - type: thermostat
+        entity: climate.honeywell_thermostat
+        name: Honeywell T6 Pro
+      - type: entities
+        title: Temperature Settings
+        entities:
+          - input_number.climate_cool_away_temp
+          - input_number.climate_cool_asleep_temp
+          - input_number.climate_cool_home_temp
+          - input_number.climate_heat_away_temp
+          - input_number.climate_heat_asleep_temp
+          - input_number.climate_heat_home_temp
+      - type: picture-entity
+        entity: camera.grafana_hvac_usage_graph
+        show_name: false
+        show_state: false
+      - type: entities
+        title: Automation
+        entities:
+          - automation.turn_off_hvac_if_any_doors_or_windows_are_open
+          - automation.turn_on_hvac_when_all_doors_and_windows_are_closed
+  - icon: mdi:shield-home
+    title: Security
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Presence Detection
+        entities:
+          - person.mike
+      - type: entities
+        title: Doors
+        entities:
+          - binary_sensor.basement_door
+          - binary_sensor.front_door
+          - binary_sensor.garage_door
+          - binary_sensor.garage_inner_door
+          - binary_sensor.garage_outer_door
+          - binary_sensor.sliding_side_door
+      - type: entities
+        title: Windows
+        entities:
+          - binary_sensor.kitchen_window
+      - type: entities
+        title: Security Automation
+        entities:
+          - automation.door_alarm
+          - automation.motion_detected
+      - type: entities
+        title: Room Occupancy
+        entities:
+          - binary_sensor.game_room_occupied
+          - binary_sensor.d6t_sensor
+      - type: entities
+        entities:
+          - cover.garage_door
+  - icon: mdi:auto-fix
+    title: Automation
+    theme: dark-mode
+    cards:
+      - type: entities
+        title: Dehumidifier
+        entities:
+          - sensor.basement_humidity
+          - switch.basement_dehumidifier
+          - input_number.dehumidifier_off_threshold
+          - input_number.dehumidifier_on_threshold
+          - automation.turn_on_dehumidifier_if_above_threshold
+      - type: entities
+        title: Mouse Trap
+        entities:
+          - binary_sensor.mouse_trap
+          - automation.mouse_trap_activated
+      - type: entities
+        title: Garage Door
+        entities:
+          - automation.garage_door_cooldown
+          - automation.garage_door_open_for_20_minutes
+          - automation.open_garage_door_in_morning_when_leaving_for_work
+          - automation.open_garage_door_when_arriving_then_close
+      - type: entities
+        title: Lights
+        entities:
+          - input_boolean.single_occupancy_mode
+          - automation.basement_light_off
+          - automation.basement_light_on
+          - automation.bedroom_light_off
+          - automation.bedroom_light_on
+          - automation.dining_room_light_off
+          - automation.dining_room_light_on
+          - automation.office_light_off
+          - automation.office_light_on
+          - automation.game_room_light_off
+  - icon: mdi:battery
+    title: Battery Levels
+    theme: dark-mode
+    cards:
+      - type: gauge
+        entity: sensor.basement_door_sensor_battery_level
+        name: Basement Door
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.front_door_sensor_battery_level
+        name: Front Door
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.garage_door_tilt_sensor_battery_level
+        name: Garage Door
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.garage_inner_door_sensor_battery_level
+        name: Garage Inner Door
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.garage_outer_door_sensor_battery_level
+        name: Garage Outer Door
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.kitchen_window_sensor_battery_level
+        name: Kitchen Window
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.living_room_smoke_detector_battery_level
+        name: LR Smoke Detector
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.mikes_phone_battery
+        name: Galaxy S8
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.mouse_trap_battery_level
+        name: Mouse Trap
+        severity:
+          red: 0
+          yellow: 35
+          green: 75
+      - type: gauge
+        entity: sensor.tablet_battery
+        name: Tablet
+        severity:
+          red: 0
+          yellow: 35
+          green: 75

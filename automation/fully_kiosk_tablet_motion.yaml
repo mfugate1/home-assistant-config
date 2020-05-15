@@ -1,0 +1,15 @@
+- alias: 'Motion detected by fully kiosk tablet'
+  trigger:
+    platform: mqtt
+    topic: !secret fully_kiosk_on_motion_topic
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.upper_entry_motion
+    
+- alias: 'Motion not detected by fully kiosk tablet'
+  trigger:
+    platform: mqtt
+    topic: !secret fully_kiosk_on_screensaver_start_topic
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.upper_entry_motion

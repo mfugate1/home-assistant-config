@@ -1,0 +1,66 @@
+title: Overlord
+background: var(--background-image)
+views:
+  - icon: mdi:home
+    cards:
+      - type: thermostat
+        entity: climate.honeywell_thermostat
+        name: Honeywell T6 Pro
+      - type: custom:mini-media-player
+        entity: media_player.living_room_media
+        name: Living Room Media
+        artwork: none
+        volume_stateless: true
+        source: full
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.entry_light
+            name: Entry
+            style: "ha-card { height: 100%; }"
+          - type: light
+            entity: light.dining_room_light
+            name: Dining Room
+          - type: light
+            entity: light.basement_light
+            name: Basement
+            style: "ha-card { height: 100%; }"
+      - type: horizontal-stack
+        cards:
+          - type: light
+            entity: light.game_room_light
+            name: Game Room
+          - type: light
+            entity: light.office_light
+            name: Office
+            style: "ha-card { height: 100%; }"
+          - type: light
+            entity: light.bedroom_light
+            name: Bedroom
+            style: "ha-card { height: 100%; }"
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            entity: cover.garage_door
+            name: Garage
+            style: "ha-card { height: 100%; }"
+            show_state: true
+            styles:
+              grid:
+                - grid-template-areas: '"n" "i" "s" "l"'
+          - type: light
+            entity: light.living_room_lamp
+            name: Lamp
+            style: "ha-card { height: 100%; }"
+          - type: custom:rgb-light-card
+            entity: light.living_room_lamp
+            justify: center
+            colors:
+              - color_name: red
+              - color_name: pink
+              - color_name: blue
+              - color_name: green
+              - color_name: white
+              - color_name: yellow
+              - color_name: purple
+              - color_name: orange

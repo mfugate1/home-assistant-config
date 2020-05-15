@@ -1,0 +1,36 @@
+- alias: 'Upstairs bathroom light on'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.upstairs_bathroom_motion
+    to: 'on'
+  action:
+    service: light.turn_on
+    entity_id: light.upstairs_bathroom_light
+    data_template:
+      brightness: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          255
+        {% elif is_state('binary_sensor.someone_is_sleeping', 'on') %}
+          1
+        {% else %}
+          70
+        {% endif %}
+      transition: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          5
+        {% elif is_state('binary_sensor.someone_is_sleeping', 'on') %}
+          1
+        {% else %}
+          8
+        {% endif %}
+        
+- alias: 'Upstairs bathroom light off'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.upstairs_bathroom_motion
+    to: 'off'
+    for:
+      minutes: 10
+  action:
+    service: light.turn_off
+    entity_id: light.upstairs_bathroom_light

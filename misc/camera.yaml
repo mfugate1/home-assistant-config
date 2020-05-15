@@ -1,0 +1,11 @@
+- platform: generic
+  name: grafana_hvac_usage_graph
+  still_image_url: !secret grafana_hvac_usage_graph_url
+  username: !secret grafana_user
+  password: !secret grafana_password
+  
+- platform: onvif
+  host: !secret garage_exterior_camera_ip
+  port: !secret garage_exterior_camera_port
+  username: !secret garage_exterior_camera_user
+  password: !secret garage_exterior_camera_pass

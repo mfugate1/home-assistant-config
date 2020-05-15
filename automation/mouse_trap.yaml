@@ -1,0 +1,10 @@
+- alias: 'Mouse trap activated'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.mouse_trap
+    to: 'on'
+  action:
+    service: notify.email
+    data_template: 
+      title: 'Mouse trap activated'
+      message: "Mouse trap activated! {{ states.sensor.date.state }} {{ states.sensor.time.state}}"

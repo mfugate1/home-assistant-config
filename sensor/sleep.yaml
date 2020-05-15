@@ -1,0 +1,7 @@
+- platform: history_stats
+  name: mike_sleep_time
+  entity_id: binary_sensor.sleepnumber_master_bed_mike_is_in_bed
+  state: 'on'
+  type: time
+  start: "{{ as_timestamp(now().replace(hour=12).replace(minute=0).replace(second=0)) - 24*3600 }}"
+  end: "{{ now() }}"

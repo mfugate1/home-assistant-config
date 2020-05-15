@@ -1,0 +1,4 @@
+- platform: ping
+  consider_home: 25
+  hosts:
+    mikes_phone: !secret galaxy_s8_ip

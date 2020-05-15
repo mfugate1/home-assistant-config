@@ -1,0 +1,33 @@
+- platform: history_stats
+  name: hvac_cool_on_today
+  entity_id: binary_sensor.hvac_cool_on
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: hvac_heat_on_today
+  entity_id: binary_sensor.hvac_heat_on
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: history_stats
+  name: hvac_fan_only_on_today
+  entity_id: binary_sensor.hvac_only_fan_on
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: template
+  sensors:
+    hvac_current_temperature:
+      entity_id: climate.honeywell_thermostat
+      value_template: "{{ state_attr('climate.honeywell_thermostat', 'current_temperature') }}"
+    hvac_target_temperature:
+      entity_id: climate.honeywell_thermostat
+      value_template: "{{ state_attr('climate.honeywell_thermostat', 'temperature') }}"
+  

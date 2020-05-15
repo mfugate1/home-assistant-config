@@ -1,0 +1,20 @@
+garage_door_arrival_open_enabled:
+  initial: on
+garage_door_cooldown:
+  initial: off
+living_room_media:
+mike_home:
+music_database_updater:
+occupancy_basement:
+occupancy_bedroom:
+occupancy_dining_room:
+occupancy_office:
+occupancy_upstairs_bathroom:
+outer_door_triggered:
+  initial: off
+single_occupancy_mode:
+  name: Single Occupancy Mode
+upper_entry_motion:
+workout_mode:
+  name: Workout Mode
+workout_mode_available:

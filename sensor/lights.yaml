@@ -1,0 +1,63 @@
+- platform: history_stats
+  name: basement_light_on
+  entity_id: light.basement_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: bedroom_light_on
+  entity_id: light.bedroom_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: history_stats
+  name: dining_room_light_on
+  entity_id: light.dining_room_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: history_stats
+  name: entry_light_on
+  entity_id: switch.entry_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: history_stats
+  name: game_room_light_on
+  entity_id: light.game_room_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: history_stats
+  name: living_room_lamp_on
+  entity_id: light.living_room_lamp
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+  
+- platform: history_stats
+  name: office_light_on
+  entity_id: light.office_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"
+
+- platform: history_stats
+  name: upstairs_bathroom_light_on
+  entity_id: light.upstairs_bathroom_light
+  state: 'on'
+  type: time
+  start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
+  end: "{{ now() }}"

@@ -1,0 +1,29 @@
+- alias: 'Tablet charging off'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.tablet_battery
+      above: 85
+    - platform: homeassistant
+      event: start
+  condition:
+    condition: numeric_state
+    entity_id: sensor.tablet_battery
+    above: 85
+  action:
+    service: switch.turn_off
+    entity_id: switch.tablet_power
+    
+- alias: 'Tablet charging on'
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.tablet_battery
+      below: 20
+    - platform: homeassistant
+      event: start
+  condition:
+    condition: numeric_state
+    entity_id: sensor.tablet_battery
+    below: 20
+  action:
+    service: switch.turn_on
+    entity_id: switch.tablet_power

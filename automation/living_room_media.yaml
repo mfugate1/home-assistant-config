@@ -1,0 +1,145 @@
+- alias: 'Living room media source selected - roku channel'
+  trigger:
+    - platform: state
+      entity_id: input_select.living_room_source
+  condition:
+    condition: template
+    value_template: "{{ states('input_select.living_room_source') in ['Netflix','Hulu','Plex','YouTube'] }}"
+  action:
+    - service: media_player.turn_on
+      entity_id: 
+        - media_player.living_room_receiver
+        - media_player.living_room_tv
+    - service: media_player.select_source
+      entity_id: media_player.living_room_roku
+      data_template:
+        source: >-
+          {% if is_state('input_select.living_room_source', 'Plex') %}
+            Plex - Stream Free TV & Movies
+          {% else %}
+            {{ states('input_select.living_room_source') }}
+          {% endif %}
+    - service: media_player.select_source
+      entity_id: media_player.living_room_receiver
+      data:
+        source: tv/cd
+    - service: media_player.select_source
+      entity_id: media_player.living_room_tv
+      data:
+        source: HDMI_IN_2
+      
+# This needs to have the condition because it might be triggered by the media on automation and should only run if music is selected      
+- alias: 'Living room media source selected - music'
+  trigger:
+    platform: state
+    entity_id: input_select.living_room_source
+    to: Music
+  condition:
+    condition: state
+    entity_id: input_select.living_room_source
+    state: Music
+  action:
+    - service: media_player.turn_on
+      entity_id: media_player.living_room_media
+    - service: media_player.select_source
+      entity_id: media_player.living_room_receiver
+      data:
+        source: Video2
+    - service: media_player.turn_off
+      entity_id: media_player.living_room_tv
+
+- alias: 'Living room media input boolean sync'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_receiver
+  action:
+    service_template: input_boolean.turn_{{ trigger.to_state.state }}
+    entity_id: input_boolean.living_room_media
+    
+- alias: 'Living room media sync with roku source'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_roku
+  condition:
+    condition: template
+    value_template: "{{ state_attr('media_player.living_room_roku', 'source') in ['Netflix','Hulu','Plex','YouTube'] }}"
+  action:
+    service: input_select.select_source
+    entity_id: input_select.living_room_source
+    data_template:
+      option: >-
+        {% if is_state('input_select.living_room_source', 'Plex') %}
+          Plex - Stream Free TV & Movies
+        {% else %}
+          {{ states('input_select.living_room_source') }}
+        {% endif %}
+        
+- alias: 'Living room media sync with music source'
+  trigger:
+    platform: template
+    value_template: "{{ is_state_attr('media_player.living_room_receiver', 'source', 'Video 2') }}"
+  action:
+    service: input_select.select_source
+    entity_id: input_select.living_room_source
+    data:
+      option: Music
+       
+- alias: 'Living room media on'
+  trigger:
+    platform: state
+    entity_id: input_boolean.living_room_media
+    to: 'on'
+  action:
+    - service: media_player.turn_on
+      entity_id: media_player.living_room_receiver
+    - service: automation.trigger
+      entity_id: 
+        - automation.living_room_media_source_selected_music
+        - automation.living_room_media_source_selected_roku_channel
+      data:
+        skip_condition: false
+    - condition: template
+      value_template: "{{ not is_state('input_select.living_room_source', 'Music') }}"
+    - service: media_player.turn_on
+      entity_id: media_player.living_room_tv
+        
+- alias: 'Living room media off'
+  trigger:
+    platform: state
+    entity_id: input_boolean.living_room_media
+    to: 'off'
+  action:
+    - service: media_player.media_pause
+      entity_id: 
+        - media_player.living_room_roku
+        - media_player.livingroom
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.living_room_receiver
+        - media_player.living_room_tv
+        
+- alias: 'Turn on living room receiver when tv turns on'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_tv
+    to: 'on'
+  action:
+    - service: input_boolean.turn_on
+      entity_id: input_boolean.living_room_media
+    - delay: 00:00:03
+    - service: media_player.select_source
+      entity_id: media_player.living_room_receiver
+      data:
+        source: tv/cd
+        
+- alias: 'Turn off living room receiver when tv turns off'
+  trigger:
+    platform: state
+    entity_id: media_player.living_room_tv
+    to: 'off'
+  condition:
+    condition: template
+    value_template: "{{ state_attr('media_player.living_room_receiver', 'source') == 'cd_tv/cd' }}"
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.living_room_media
