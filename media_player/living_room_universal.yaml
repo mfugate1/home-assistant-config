@@ -2,23 +2,17 @@
   name: Living Room Media
   children:
     - media_player.living_room_roku
-    - media_player.playstation_4_office
     - media_player.livingroom
-    - media_player.living_room_tv
     - media_player.living_room_receiver
   commands:
     turn_off:
-      - service: media_player.media_pause
-        entity_id: media_player.living_room_roku
-      - service: media_player.turn_off
-        entity_id:
-          - media_player.living_room_tv
-          - media_player.living_room_receiver
+      service: input_boolean.turn_off
+      data:
+        entity_id: input_boolean.living_room_media
     turn_on:
-      - service: automation.trigger
-        entity_id:
-        
-        skip_condition: false
+      service: input_boolean.turn_on
+      data:
+        entity_id: input_boolean.living_room_media
     select_source:
       service: input_select.select_option
       data_template:
@@ -46,5 +40,3 @@
     state: media_player.living_room_receiver
     volume_level: media_player.living_room_receiver|volume_level
     is_volume_muted: media_player.living_room_receiver|is_volume_muted
-    
-    
