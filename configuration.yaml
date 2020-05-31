@@ -15,15 +15,7 @@ fastdotcom:
 frontend:
   themes: !include_dir_merge_named themes
   
-homeassistant:
-  latitude: !secret latitude
-  longitude: !secret longitude
-  elevation: !secret elevation
-  unit_system: !secret unit_system
-  time_zone: !secret time_zone
-  
 http:
-  base_url: !secret base_url
   use_x_forwarded_for: true
   trusted_proxies: !secret trusted_proxies
   ip_ban_enabled: true
@@ -36,7 +28,7 @@ panel_custom:
     url_path: zwave
   
 roku:
-  - host: 192.168.1.66
+  - host: !secret living_room_roku_ip
     
 sleepiq:
   username: !secret email_address
