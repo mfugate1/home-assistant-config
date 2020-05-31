@@ -51,4 +51,4 @@
         scene_data: 7920
   action:
     - service: media_player.media_next_track
-      entity_id: media_player.basement
+      entity_id: media_player.basement_squeezelite
