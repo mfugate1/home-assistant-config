@@ -39,7 +39,7 @@
       entity_id: light.basement_light
     - service: shell_command.curl
       data:
-        url: 'http://192.168.1.90:9000?p0=playlist&p1=clear'
+        url: !secret workout_music_stop_url
         
 - alias: 'Basement triple tap down - skip song'
   trigger:
