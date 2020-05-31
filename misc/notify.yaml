@@ -7,5 +7,5 @@
   encryption: starttls
   username: !secret email_address
   password: !secret gmail_pass
-  recipient: !email_address
+  recipient: !secret email_address
   sender_name: Home Assistant
