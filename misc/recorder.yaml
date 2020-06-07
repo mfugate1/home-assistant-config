@@ -2,8 +2,12 @@ db_url: !secret mariadb_url
 purge_keep_days: 30
 include:
   domains:
+    - climate
+    - cover
     - input_boolean
     - input_number
+    - light
+    - person
     - switch
     - updater
   entities:
@@ -13,8 +17,8 @@ include:
     - binary_sensor.basement_motion
     - binary_sensor.bedroom_motion
     - binary_sensor.dining_room_motion
+    - binary_sensor.freenas_server
     - binary_sensor.front_door
-    - binary_sensor.game_room_occupied
     - binary_sensor.garage_door
     - binary_sensor.garage_inner_door
     - binary_sensor.garage_outer_door
@@ -24,36 +28,34 @@ include:
     - binary_sensor.kitchen_window
     - binary_sensor.mouse_trap
     - binary_sensor.office_motion
+    - binary_sensor.office_pc
     - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
     - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
     - binary_sensor.sliding_side_door
     - binary_sensor.someone_is_sleeping
+    - binary_sensor.updater
     - binary_sensor.upstairs_bathroom_motion
-    - climate.honeywell_thermostat
-    - cover.garage_door
-    - light.basement_light
-    - light.bedroom_light
-    - light.dining_room_light
-    - light.game_room_light
-    - light.game_room_volume
-    - light.living_room_volume
-    - light.office_light
-    - media_player.basement
+    - media_player.basement_squeezelite
     - media_player.basement_tv
     - media_player.game_room_receiver
     - media_player.game_room_tv
     - media_player.gameroom
     - media_player.garage
     - media_player.living_room_receiver
+    - media_player.living_room_roku
     - media_player.living_room_tv
-    - person.caitlin
-    - person.mike
+    - media_player.livingroom_squeezelite
+    - media_player.playstation_4
+    - media_player.playstation_4_office
+    - sensor.active_kilocalories
+    - sensor.active_time
     - sensor.basement_door_sensor_battery_level
     - sensor.basement_humidity
+    - sensor.basement_light_on
     - sensor.basement_motion
-    - sensor.basement_temperature
+    - sensor.basement_sensor_luminance
+    - sensor.basement_sensor_temperature
     - sensor.bedroom_motion
-    - sensor.caitlin_sleep_time
     - sensor.dining_room_motion
     - sensor.disk_use_percent
     - sensor.front_door_sensor_battery_level
@@ -66,8 +68,19 @@ include:
     - sensor.hvac_target_temperature
     - sensor.kitchen_window_alarm
     - sensor.kitchen_window_sensor_battery_level
+    - sensor.memory_free
+    - sensor.memory_use
+    - sensor.memory_use_percent
     - sensor.mike_sleep_time
     - sensor.mouse_trap_battery_level
+    - sensor.office_light_on
     - sensor.office_motion
+    - sensor.sleepnumber_master_bed_guest_sleepnumber
+    - sensor.sleepnumber_master_bed_mike_sleepnumber
     - sensor.sliding_side_door_sensor_battery_level
+    - sensor.sm_g950u1_battery_level
+    - sensor.tablet
+    - sensor.tablet_battery
+    - sensor.total_kilocalories
+    - sensor.total_steps
     - sensor.upstairs_bathroom_humidity
