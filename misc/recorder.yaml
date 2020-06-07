@@ -1,4 +1,5 @@
-purge_keep_days: 5
+db_url: !secret mariadb_url
+purge_keep_days: 30
 include:
   domains:
     - input_boolean
@@ -6,11 +7,6 @@ include:
     - switch
     - updater
   entities:
-    - automation.door_alarm
-    - automation.motion_detected
-    - automation.single_occupancy_mode
-    - automation.turn_off_dehumidifier_if_below_threshold
-    - automation.turn_on_dehumidifier_if_above_threshold
     - binary_sensor.basement_door
     - binary_sensor.basement_humidity_above_threshold
     - binary_sensor.basement_humidity_below_threshold
@@ -73,7 +69,5 @@ include:
     - sensor.mike_sleep_time
     - sensor.mouse_trap_battery_level
     - sensor.office_motion
-    - sensor.sleepnumber_caitlin_caitlin_sleepnumber
-    - sensor.sleepnumber_caitlin_mike_sleepnumber
     - sensor.sliding_side_door_sensor_battery_level
     - sensor.upstairs_bathroom_humidity
