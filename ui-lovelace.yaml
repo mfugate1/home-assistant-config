@@ -310,7 +310,6 @@ views:
         entities:
           - automation.garage_door_cooldown
           - automation.garage_door_open_for_20_minutes
-          - automation.open_garage_door_in_morning_when_leaving_for_work
           - automation.open_garage_door_when_arriving_then_close
       - type: entities
         title: Lights
