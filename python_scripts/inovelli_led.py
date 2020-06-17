@@ -17,7 +17,7 @@ effects = {
     "slow blink": 4
 }
 
-logger.info("Inovelli LED INFO: level = %s, color = %s, effect = %s, duration = %s", data.get('level'), data.get('color'), data.get('effect'), data.get('duration'))
+logger.warning("Inovelli LED INFO: level = %s, color = %s, effect = %s, duration = %s", data.get('level'), data.get('color'), data.get('effect'), data.get('duration'))
 
 level = int(float(data.get('level', 10)))
 if level > 10:
