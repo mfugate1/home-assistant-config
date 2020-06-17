@@ -92,12 +92,6 @@
   action:
     - service: media_player.turn_on
       entity_id: media_player.living_room_receiver
-    - service: automation.trigger
-      entity_id: 
-        - automation.living_room_media_source_selected_music
-        - automation.living_room_media_source_selected_roku_channel
-      data:
-        skip_condition: false
     - condition: template
       value_template: "{{ not is_state('input_select.living_room_source', 'Music') }}"
     - service: media_player.turn_on
