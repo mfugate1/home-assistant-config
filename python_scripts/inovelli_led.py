@@ -31,7 +31,7 @@ if color_name in colors:
 else:
     color = int(color_name)
     
-effect = data.get('effect', 'blink')
+effect = data.get('effect', 'blink').lower()
 if effect in effects:
     effect = effects[effect]
 else:
