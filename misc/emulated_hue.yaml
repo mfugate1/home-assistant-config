@@ -42,6 +42,9 @@ entities:
   script.living_room_youtube:
     name: Youtube
     hidden: false
+  switch.circulation:
+    name: Circulation
+    hidden: false
   switch.entry_light:
     hidden: false
   switch.ps4:
