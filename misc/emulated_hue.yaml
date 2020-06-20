@@ -1,5 +1,8 @@
 expose_by_default: false
 entities:
+  climate.honeywell_thermostat:
+    name: Temperature
+    hidden: false
   cover.garage_door:
     hidden: false
   input_boolean.single_occupancy_mode:
