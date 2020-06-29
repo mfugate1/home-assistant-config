@@ -2,3 +2,10 @@
   consider_home: 25
   hosts:
     mikes_phone: !secret galaxy_s8_ip
+- platform: traccar
+  host: !secret docker_host
+  port: !secret traccar_port
+  username: !secret traccar_user
+  password: !secret traccar_pass
+  event:
+    - all_events
