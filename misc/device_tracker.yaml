@@ -8,4 +8,4 @@
   username: !secret traccar_user
   password: !secret traccar_pass
   event: ['all_events']
-  monitored_conditions: ['12F']
+  monitored_conditions: ['12F', '10C']
