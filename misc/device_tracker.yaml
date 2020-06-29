@@ -7,5 +7,5 @@
   port: !secret traccar_port
   username: !secret traccar_user
   password: !secret traccar_pass
-  event:
-    - all_events
+  event: ['all_events']
+  monitored_conditions: ['12F']
