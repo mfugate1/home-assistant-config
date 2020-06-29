@@ -35,6 +35,9 @@ include:
     - binary_sensor.someone_is_sleeping
     - binary_sensor.updater
     - binary_sensor.upstairs_bathroom_motion
+    - device_tracker.truck
+    - truck_running_rpm
+    - truck_running_status
     - media_player.basement_squeezelite
     - media_player.basement_tv
     - media_player.game_room_receiver
@@ -83,4 +86,7 @@ include:
     - sensor.tablet_battery
     - sensor.total_kilocalories
     - sensor.total_steps
+    - sensor.truck_fuel_level
+    - sensor.truck_rpm
+    - sensor.truck_status
     - sensor.upstairs_bathroom_humidity

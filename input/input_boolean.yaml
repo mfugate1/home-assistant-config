@@ -14,6 +14,8 @@ outer_door_triggered:
   initial: off
 single_occupancy_mode:
   name: Single Occupancy Mode
+truck_running_rpm:
+truck_running_status:
 upper_entry_motion:
 workout_mode:
   name: Workout Mode
