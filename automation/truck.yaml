@@ -6,14 +6,14 @@
     service: input_boolean.turn_on
     entity_id: input_boolean.truck_running_rpm
     
-#- alias: 'Truck stopped rpm'
-#  trigger:
-#    platform: state
-#    entity_id: sensor.truck_rpm
-#    for: '00:01:00'
-#  action:
-#    service: input_boolean.turn_off
-#    entity_id: input_boolean.truck_running_rpm
+- alias: 'Truck stopped rpm'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.truck_rpm_not_changing
+    to: 'on'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.truck_running_rpm
     
 - alias: 'Truck started status'
   trigger:
