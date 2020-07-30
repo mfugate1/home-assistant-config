@@ -21,12 +21,6 @@ http:
   ip_ban_enabled: true
   login_attempts_threshold: 3
   
-panel_custom:
-  - name: zwavegraph
-    sidebar_title: ZWave Graph
-    sidebar_icon: mdi:access-point-network
-    url_path: zwave
-  
 roku:
   - host: !secret living_room_roku_ip
     
