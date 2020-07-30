@@ -12,3 +12,8 @@
   host: !secret basement_tv_ip
   name: Basement TV
   power_on_enabled: true
+- platform: samsungtv_encrypted
+  host: !secret bedroom_tv_ip
+  port: !secret bedroom_tv_port
+  token: !secret bedroom_tv_token
+  sessionid: !secret bedroom_tv_sessionid
