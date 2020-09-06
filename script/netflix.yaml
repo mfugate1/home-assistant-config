@@ -1,4 +1,4 @@
 sequence:
   event: MEDIA_CONTROLLER_COMMAND
   event_data:
-    - source: netflix
+    source: netflix
