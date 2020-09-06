@@ -41,7 +41,7 @@ binary_sensor: !include_dir_merge_list binary_sensor/
 camera: !include misc/camera.yaml
 cover: !include misc/garage_door_cover.yaml
 device_tracker: !include misc/device_tracker.yaml
-#emulated_hue: !include misc/emulated_hue.yaml
+emulated_hue: !include misc/emulated_hue.yaml
 group: !include misc/group.yaml
 influxdb: !include misc/influxdb.yaml
 input_boolean: !include input/input_boolean.yaml
