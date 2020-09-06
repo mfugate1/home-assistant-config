@@ -33,22 +33,23 @@ entities:
     hidden: false
   media_player.living_room_tv:
     hidden: false
-  script.living_room_hulu:
+  script.hulu:
     name: Hulu
     hidden: false
-  script.living_room_netflix:
+  script.netflix:
     name: Netflix
     hidden: false
-  script.living_room_plex:
+  script.plex:
     name: Plex
     hidden: false
-  script.living_room_youtube:
+  script.ps4:
+    name: PS4
+    hidden: false
+  script.youtube:
     name: Youtube
     hidden: false
   switch.circulation:
     name: Circulation
     hidden: false
   switch.entry_light:
-    hidden: false
-  switch.ps4:
     hidden: false

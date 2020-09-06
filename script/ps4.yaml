@@ -1,0 +1,4 @@
+sequence:
+  event: MEDIA_CONTROLLER_COMMAND
+  event_data:
+    - source: ps4
