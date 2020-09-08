@@ -1,5 +1,4 @@
 expose_by_default: false
-listen_port: 80
 entities:
   climate.honeywell_thermostat:
     name: Temperature
