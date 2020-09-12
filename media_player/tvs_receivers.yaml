@@ -1,19 +1,18 @@
 - platform: onkyo
-  host: !secret living_room_receiver_ip
-  name: Living Room Receiver
+  host: !secret livingroom_receiver_ip
+  name: livingroom_receiver
+  max_volume: 50
+  receiver_max_volume: 78
 - platform: onkyo
-  host: !secret game_room_receiver_ip
-  name: Game Room Receiver
+  host: !secret gameroom_receiver_ip
+  name: gameroom_receiver
+  max_volume: 70
+  receiver_max_volume: 100
 - platform: aquostv
-  host: !secret living_room_tv_ip
-  name: Living Room TV
+  host: !secret livingroom_tv_ip
+  name: livingroom_tv
   power_on_enabled: true
 - platform: aquostv
   host: !secret basement_tv_ip
-  name: Basement TV
+  name: basement_tv
   power_on_enabled: true
-- platform: samsungtv_encrypted
-  host: !secret bedroom_tv_ip
-  port: !secret bedroom_tv_port
-  token: !secret bedroom_tv_token
-  sessionid: !secret bedroom_tv_sessionid
