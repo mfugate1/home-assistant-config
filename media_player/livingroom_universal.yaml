@@ -1,5 +1,5 @@
 - platform: universal
-  name: Living Room Media
+  name: livingroom_media
   children:
     - media_player.livingroom_roku
     - media_player.livingroom_squeezelite
