@@ -19,7 +19,7 @@ http:
   use_x_forwarded_for: true
   trusted_proxies: !secret trusted_proxies
   ip_ban_enabled: true
-  login_attempts_threshold: 3
+  login_attempts_threshold: 10
   
 roku:
   - host: !secret living_room_roku_ip
