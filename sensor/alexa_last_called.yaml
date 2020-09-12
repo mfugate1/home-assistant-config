@@ -1,15 +1,13 @@
 - platform: template
   sensors:
-    alexa_last_called_room:
+    alexa_last_called_device:
       entity_id:
         - media_player.basement_echo_dot
         - media_player.bedroom_echo_dot
         - media_player.gameroom_echo_dot
         - media_player.livingroom_echo
         - media_player.office_echo_dot
-      value_template: >-
-        {% for state in states.media_player %}
-          {% if 'echo' in state.entity_id and is_state_attr(state.entity_id, 'last_called', true) %}
-            {{ state.entity_id.split('.')[1].split('_')[0] }}
-          {% endif %}
-        {% endfor %}
+      value_template: "{{ states.media_player | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first }}"
+    alexa_last_called_room:
+      entity_id: sensor.alexa_last_called_device
+      value_template: "{{ states('sensor.alexa_last_called_device').split('.')[1].split('_')[0] }}"
