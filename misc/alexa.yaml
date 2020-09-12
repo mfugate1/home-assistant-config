@@ -1,0 +1,32 @@
+smart_home:
+  endpoint: !secret alexa_endpoint
+  filter:
+    include_domains:
+      - climate
+      - cover
+      - script
+    include_entity_globs:
+      - media_player.*_receiver
+      - media_player.*_tv
+      - light.*_lamp*
+      - light.*_light
+      - light.*_volume
+    include_entities:
+      - switch.circulation
+    exclude_entities:
+      - script.bootstrap_music_db
+      - script.rescan_lms
+      - script.update_music_db
+  entity_config:
+    climate.honeywell_thermostat:
+      name: Temperature
+    script.hulu:
+      name: Hulu
+    script.netflix:
+      name: Netflix
+    script.plex:
+      name: Plex
+    script.ps4:
+      name: PS4
+    script.youtube:
+      name: YouTube
