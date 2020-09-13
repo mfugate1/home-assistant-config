@@ -117,29 +117,43 @@ views:
             entity: climate.honeywell_thermostat
             name: Thermostat
           - type: custom:mini-media-player
-            entity: media_player.living_room_media
+            entity: media_player.livingroom_media
             name: Living Room Media
             artwork: none
             volume_stateless: true
-            source: full
             shortcuts:
               columns: 5
               buttons: 
+                - icon: mdi:playstation
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: ps4
                 - icon: mdi:netflix
-                  type: source
-                  id: Netflix
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: netflix
                 - icon: mdi:hulu
-                  type: source
-                  id: Hulu
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: hulu
                 - icon: mdi:plex
-                  type: source
-                  id: Plex
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: plex
                 - icon: mdi:youtube
-                  type: source
-                  id: YouTube
-                - icon: mdi:music
-                  type: source
-                  id: Music
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: youtube
   - icon: mdi:lightbulb-on
     title: Lighting
     cards:
