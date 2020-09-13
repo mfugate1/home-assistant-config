@@ -124,7 +124,7 @@ views:
             shortcuts:
               columns: 5
               buttons: 
-                - icon: mdi:playstation
+                - icon: mdi:sony-playstation
                   type: script
                   id: script.media_controller_command
                   data:
