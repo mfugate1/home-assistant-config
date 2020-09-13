@@ -2,6 +2,7 @@
   name: livingroom_media
   children:
     - media_player.livingroom_roku
+    - media_player.playstation_4_office
     - media_player.livingroom_squeezelite
     - media_player.livingroom_receiver
     - media_player.livingroom_tv
