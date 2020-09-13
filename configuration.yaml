@@ -22,7 +22,7 @@ http:
   login_attempts_threshold: 10
   
 roku:
-  - host: !secret living_room_roku_ip
+  - host: !secret livingroom_roku_ip
     
 sleepiq:
   username: !secret email_address
