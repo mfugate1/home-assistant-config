@@ -31,8 +31,10 @@
         scene_id: 2
         scene_data: 7920
   action:
-    - service: switch.turn_on
-      entity_id: switch.ps4
+    - service: script.media_controller_command
+      data:
+        room: gameroom
+        source: ps4
     - service: zwave.set_config_parameter
       data:
         node_id: 23
@@ -49,8 +51,11 @@
         scene_id: 1
         scene_data: 7920
   action:
-    - service: switch.turn_off
-      entity_id: switch.ps4
+    - service: media_player.turn_off
+      entity_id:
+        - media_player.playstation_4
+        - media_player.gameroom_tv
+        - media_player.gameroom_receiver
     - service: zwave.set_config_parameter
       data:
         node_id: 23
