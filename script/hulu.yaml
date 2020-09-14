@@ -1,4 +1,6 @@
 sequence:
-  event: MEDIA_CONTROLLER_COMMAND
-  event_data:
-    source: hulu
+  - delay:
+      seconds: 2
+  - event: MEDIA_CONTROLLER_COMMAND
+    event_data:
+      source: hulu
