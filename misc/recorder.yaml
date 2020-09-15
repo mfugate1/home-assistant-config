@@ -41,13 +41,13 @@ include:
     - input_boolean.truck_running_status
     - media_player.basement_squeezelite
     - media_player.basement_tv
-    - media_player.game_room_receiver
-    - media_player.game_room_tv
+    - media_player.gameroom_receiver
+    - media_player.gameroom_tv
     - media_player.gameroom
     - media_player.garage
-    - media_player.living_room_receiver
-    - media_player.living_room_roku
-    - media_player.living_room_tv
+    - media_player.livingroom_receiver
+    - media_player.livingroom_roku
+    - media_player.livingroom_tv
     - media_player.livingroom_squeezelite
     - media_player.playstation_4
     - media_player.playstation_4_office
