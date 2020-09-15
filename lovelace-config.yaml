@@ -15,7 +15,7 @@ resources:
   - url: /hacsfiles/custom-header/custom-header.js
     type: module
   - url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js
-    type: module
+    type: js
 dashboards:
   livingroom-tablet:
     mode: yaml
