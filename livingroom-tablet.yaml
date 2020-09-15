@@ -116,6 +116,9 @@ views:
           - type: thermostat
             entity: climate.honeywell_thermostat
             name: Thermostat
+          - type: custom:mini-climate
+            entity: climate.honeywell_thermostat
+            name: Thermostat
           - type: custom:mini-media-player
             entity: media_player.livingroom_media
             name: Living Room Media
