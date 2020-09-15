@@ -122,7 +122,7 @@ views:
             artwork: none
             volume_stateless: true
             shortcuts:
-              columns: 5
+              columns: 6
               buttons: 
                 - icon: mdi:sony-playstation
                   type: script
@@ -148,6 +148,12 @@ views:
                   data:
                     room: livingroom
                     source: plex
+                - icon: mdi:steam
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: steam
                 - icon: mdi:youtube
                   type: script
                   id: script.media_controller_command

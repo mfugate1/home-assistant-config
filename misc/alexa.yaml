@@ -30,5 +30,7 @@ smart_home:
       name: Plex
     script.ps4:
       name: PS4
+    script.steam:
+      name: Steam
     script.youtube:
       name: YouTube

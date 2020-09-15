@@ -1,0 +1,6 @@
+sequence:
+  - delay:
+      seconds: 2
+  - event: MEDIA_CONTROLLER_COMMAND
+    event_data:
+      source: steam
