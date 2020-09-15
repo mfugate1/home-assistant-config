@@ -121,6 +121,8 @@ views:
             name: Living Room Media
             artwork: none
             volume_stateless: true
+            hide:
+              source: true
             shortcuts:
               columns: 6
               buttons: 
