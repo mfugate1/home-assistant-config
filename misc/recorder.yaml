@@ -35,6 +35,7 @@ include:
     - binary_sensor.someone_is_sleeping
     - binary_sensor.updater
     - binary_sensor.upstairs_bathroom_motion
+    - device_tracker.sm_g950u1
     - device_tracker.truck
     - input_boolean.truck_running_rpm
     - input_boolean.truck_running_status
