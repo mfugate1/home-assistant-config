@@ -113,9 +113,6 @@ views:
                 name: Basement
                 style: "ha-card { height: 100%; }"
           - break
-          - type: thermostat
-            entity: climate.honeywell_thermostat
-            name: Thermostat
           - type: custom:mini-climate
             entity: climate.honeywell_thermostat
             name: Thermostat
