@@ -1,4 +1,6 @@
 alias: Steam
+icon: mdi:steam
+description: Start Steam based on the last alexa device that was called
 sequence:
   - delay:
       seconds: 2

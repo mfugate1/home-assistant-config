@@ -1,4 +1,6 @@
 alias: Plex
+icon: mdi:plex
+description: Start the Plex app based on the last alexa device that was called
 sequence:
   - delay:
       seconds: 2

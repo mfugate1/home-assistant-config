@@ -1,4 +1,6 @@
 alias: Hulu
+icon: mdi:hulu
+description: Start the Hulu app based on the last alexa device that was called
 sequence:
   - delay:
       seconds: 2

@@ -1,4 +1,6 @@
 alias: Netflix
+icon: mdi:netflix
+description: Start the Netflix app based on the last alexa device that was called
 sequence:
   - delay:
       seconds: 2
