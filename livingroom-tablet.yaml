@@ -135,6 +135,12 @@ views:
                   data:
                     room: livingroom
                     source: ps4
+                - icon: mdi:steam
+                  type: script
+                  id: script.media_controller_command
+                  data:
+                    room: livingroom
+                    source: steam
                 - icon: mdi:netflix
                   type: script
                   id: script.media_controller_command
@@ -153,12 +159,6 @@ views:
                   data:
                     room: livingroom
                     source: plex
-                - icon: mdi:steam
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: steam
                 - icon: mdi:youtube
                   type: script
                   id: script.media_controller_command
