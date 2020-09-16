@@ -18,6 +18,4 @@ garmin_watch:
     - light.office_light
     - light.patio_light
     - light.upstairs_bathroom_light
-    - media_player.living_room_media
     - switch.basement_stereo
-    - switch.ps4
