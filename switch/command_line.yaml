@@ -1,6 +1,0 @@
-- platform: command_line
-  switches:
-    dummy:
-      command_on: "echo"
-      command_off: "echo"
-      command_state: "echo"
