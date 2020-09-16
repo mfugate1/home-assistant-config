@@ -1,3 +1,4 @@
+alias: Netflix
 sequence:
   - delay:
       seconds: 2

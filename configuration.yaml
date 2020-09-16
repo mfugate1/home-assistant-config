@@ -15,6 +15,9 @@ fastdotcom:
 frontend:
   themes: !include_dir_merge_named themes
   
+homeassistant:
+  customize: !include misc/customize.yaml
+
 http:
   use_x_forwarded_for: true
   trusted_proxies: !secret trusted_proxies

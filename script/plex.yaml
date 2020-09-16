@@ -1,3 +1,4 @@
+alias: Plex
 sequence:
   - delay:
       seconds: 2

@@ -1,3 +1,4 @@
+alias: Steam
 sequence:
   - delay:
       seconds: 2

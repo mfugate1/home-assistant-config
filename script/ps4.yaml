@@ -1,3 +1,4 @@
+alias: PS4
 sequence:
   - delay:
       seconds: 2

@@ -1,3 +1,4 @@
+alias: Youtube
 sequence:
   - delay:
       seconds: 2

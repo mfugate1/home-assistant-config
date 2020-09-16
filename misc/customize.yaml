@@ -1,0 +1,10 @@
+media_player.basement_tv:
+  name: Basement TV
+media_player.gameroom_receiver:
+  name: Game Room Receiver
+media_player.gameroom_tv:
+  name: Game Room TV
+media_player.livingroom_receiver:
+  name: Living Room Receiver
+media_player.livingroom_tv:
+  name: Living Room TV
