@@ -18,6 +18,7 @@ smart_home:
     exclude_entities:
       - script.bootstrap_music_db
       - script.rescan_lms
+      - script.media_controller_command
       - script.update_music_db
   entity_config:
     climate.honeywell_thermostat:
