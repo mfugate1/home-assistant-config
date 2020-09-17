@@ -41,7 +41,7 @@
       - condition: numeric_state
         entity_id: sensor.basement_humidity
         below: input_number.dehumidifier_off_threshold
-      - condtion: state
+      - condition: state
         entity_id: 
           - binary_sensor.basement_motion
           - input_boolean.workout_mode
