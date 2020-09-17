@@ -1,8 +1,7 @@
 - alias: 'Turn on dehumidifier if above threshold'
   trigger:
     - platform: state
-      entity_id: binary_sensor.basement_humidity_above_threshold
-      to: 'on'
+      entity_id: sensor.basement_humidity
     - platform: state
       entity_id: 
         - binary_sensor.basement_motion
@@ -11,20 +10,15 @@
         - switch.basement_stereo
       to: 'off'
   condition:
+    - condition: numeric_state
+      entity_id: sensor.basement_humidity
+      above: input_number.dehumidifier_on_threshold
     - condition: state
-      entity_id: binary_sensor.basement_humidity_above_threshold
-      state: 'on'
-    - condition: state
-      entity_id: binary_sensor.basement_motion
-      state: 'off'
-    - condition: state
-      entity_id: input_boolean.workout_mode
-      state: 'off'
-    - condition: state
-      entity_id: media_player.basement_tv
-      state: 'off'
-    - condition: state
-      entity_id: switch.basement_stereo
+      entity_id: 
+        - binary_sensor.basement_motion
+        - input_boolean.workout_mode
+        - media_player.basement_tv
+        - switch.basement_stereo
       state: 'off'
   action:
     service: switch.turn_on
@@ -32,14 +26,28 @@
 
 - alias: 'Turn off dehumidifier if below threshold or basement occupied'
   trigger:
-    platform: state
-    entity_id: 
-      - binary_sensor.basement_humidity_below_threshold
-      - binary_sensor.basement_motion
-      - input_boolean.workout_mode
-      - media_player.basement_tv
-      - switch.basement_stereo
-    to: 'on'
+    - platform: state
+      entity_id: sensor.basement_humidity
+    - platform: state
+      entity_id: 
+        - binary_sensor.basement_motion
+        - input_boolean.workout_mode
+        - media_player.basement_tv
+        - switch.basement_stereo
+      to: 'on'
+  condition:
+    condition: or
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.basement_humidity
+        below: input_number.dehumidifier_off_threshold
+      - condtion: state
+        entity_id: 
+          - binary_sensor.basement_motion
+          - input_boolean.workout_mode
+          - media_player.basement_tv
+          - switch.basement_stereo
+        state: 'on'
   action:
     service: switch.turn_off
     entity_id: switch.basement_dehumidifier

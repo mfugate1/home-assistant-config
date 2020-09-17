@@ -12,8 +12,6 @@ include:
     - updater
   entities:
     - binary_sensor.basement_door
-    - binary_sensor.basement_humidity_above_threshold
-    - binary_sensor.basement_humidity_below_threshold
     - binary_sensor.basement_motion
     - binary_sensor.bedroom_motion
     - binary_sensor.dining_room_motion
