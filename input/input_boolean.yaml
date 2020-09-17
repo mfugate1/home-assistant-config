@@ -10,8 +10,6 @@ occupancy_bedroom:
 occupancy_dining_room:
 occupancy_office:
 occupancy_upstairs_bathroom:
-outer_door_triggered:
-  initial: off
 single_occupancy_mode:
   name: Single Occupancy Mode
 truck_running_rpm:
