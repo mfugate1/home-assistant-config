@@ -17,7 +17,7 @@ resources:
   - url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js
     type: module
   - url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
-    type: module
+    type: js
 dashboards:
   livingroom-tablet:
     mode: yaml

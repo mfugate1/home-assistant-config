@@ -119,7 +119,8 @@ views:
             card:
               type: gauge
               entity: sensor.media_storage_backup_percentage
-              name_template: "Movies Backed Up {{ state_attr('sensor.media_storage_counts', 'uploadedCount') }}/{{ state_attr('sensor.media_storage_counts', 'totalCount') }}"
+              name_template: >-
+                Movies Backed Up {{ state_attr('sensor.media_storage_counts', 'uploadedCount') }}/{{ state_attr('sensor.media_storage_counts', 'totalCount') }}
           - type: custom:mini-climate
             entity: climate.honeywell_thermostat
             name: Thermostat
