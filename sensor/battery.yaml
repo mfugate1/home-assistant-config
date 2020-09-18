@@ -1,8 +1,6 @@
 - platform: template
   sensors:
     mikes_phone_battery:
-      entity_id: device_tracker.mike_owntracks
       value_template: "{{ state_attr('device_tracker.mike_owntracks', 'battery_level') }}"
     tablet_battery:
-      entity_id: sensor.tablet
       value_template: "{{ state_attr('sensor.tablet', 'batteryLevel') }}"

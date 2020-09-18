@@ -4,4 +4,4 @@
       value_template: "{{ states.media_player | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first }}"
     alexa_last_called_room:
       value_template: "{{ states('sensor.alexa_last_called_device').split('.')[1].split('_')[0] }}"
-      availability_template: "{{ states('sensor.alexa_last_called_device').contains('media_player') }}"
+      availability_template: "{{ 'media_player' in states('sensor.alexa_last_called_device') }}"

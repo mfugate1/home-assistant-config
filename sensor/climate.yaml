@@ -25,9 +25,7 @@
 - platform: template
   sensors:
     hvac_current_temperature:
-      entity_id: climate.honeywell_thermostat
       value_template: "{{ state_attr('climate.honeywell_thermostat', 'current_temperature') }}"
     hvac_target_temperature:
-      entity_id: climate.honeywell_thermostat
       value_template: "{{ state_attr('climate.honeywell_thermostat', 'temperature') }}"
   
