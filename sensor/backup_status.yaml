@@ -1,0 +1,6 @@
+- platform: rest
+  name: media_storage_counts
+  resource: !secret backup_status_url
+  json_attributes:
+    - uploadedCount
+    - totalCount
