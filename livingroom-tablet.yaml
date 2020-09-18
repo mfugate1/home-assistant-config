@@ -121,7 +121,7 @@ views:
             card:
               type: gauge
               entity: sensor.media_storage_backup_percentage
-              name: "Movies Backed Up ${vars[0].uploadedCount}/${vars[0].totalCount}"
+              name: "${'Movies Backed Up ' + vars[0].uploadedCount + '/' + vars[0].totalCount}"
           - type: custom:mini-climate
             entity: climate.honeywell_thermostat
             name: Thermostat

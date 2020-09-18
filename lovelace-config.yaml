@@ -16,8 +16,6 @@ resources:
     type: module
   - url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js
     type: module
-  - url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
-    type: js
   - url: /hacsfiles/config-template-card/config-template-card.js
     type: module
 dashboards:
