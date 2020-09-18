@@ -4,3 +4,10 @@
   json_attributes:
     - uploadedCount
     - totalCount
+
+- platform: template
+  sensors:
+    media_storage_backup_percentage:
+      friendly_name: Movies Backed Up
+      unit_of_measurement: '%'
+      value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedCount') | int / state_attr('sensor.media_storage_counts', 'totalCount') | int * 100) | round(1, 'common') }}"
