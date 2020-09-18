@@ -1,5 +1,4 @@
 - platform: template
   sensors:
     truck_rpm_not_changing:
-      entity_id: sensor.truck_rpm
       value_template: "{{ as_timestamp(now()) - as_timestamp(states.sensor.truck_rpm.last_changed) > 60 }}"

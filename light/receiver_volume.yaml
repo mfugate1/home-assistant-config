@@ -2,7 +2,6 @@
   lights:
     game_room_volume:
       friendly_name: Volume
-      entity_id: media_player.gameroom_receiver
       level_template: >-
         {% if is_state('media_player.gameroom_receiver', 'on') %}
           {{ states.media_player.gameroom_receiver.attributes.volume_level | float * 80 }}
@@ -36,7 +35,6 @@
           volume_level: "{{ (brightness / 255 * 100) | int / 80 }}"
     living_room_volume:
       friendly_name: Living Room Volume
-      entity_id: media_player.livingroom_receiver
       level_template: >-
         {% if is_state('media_player.livingroom_receiver', 'on') %}
           {{ states.media_player.livingroom_receiver.attributes.volume_level | float * 80 }}
