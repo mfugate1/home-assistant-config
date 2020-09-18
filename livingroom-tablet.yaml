@@ -113,6 +113,8 @@ views:
                 name: Basement
                 style: "ha-card { height: 100%; }"
           - break
+          - type: gauge
+            entity: sensor.media_storage_backup_percentage
           - type: custom:mini-climate
             entity: climate.honeywell_thermostat
             name: Thermostat
