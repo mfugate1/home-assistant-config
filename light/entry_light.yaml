@@ -2,7 +2,6 @@
   lights:
     entry_light:
       friendly_name: Entry Light
-      entity_id: switch.entry_light
       level_template: >-
         {% if is_state('switch.entry_light', 'on') %}
           100
