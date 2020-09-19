@@ -42,11 +42,16 @@
         entity_id: sensor.basement_humidity
         below: input_number.dehumidifier_off_threshold
       - condition: state
-        entity_id: 
-          - binary_sensor.basement_motion
-          - input_boolean.workout_mode
-          - media_player.basement_tv
-          - switch.basement_stereo
+        entity_id: binary_sensor.basement_motion
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.workout_mode
+        state: 'on'
+      - condition: state
+        entity_id: media_player.basement_tv
+        state: 'on'
+      - condition: state
+        entity_id: switch.basement_stereo
         state: 'on'
   action:
     service: switch.turn_off
