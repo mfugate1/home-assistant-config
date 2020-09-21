@@ -4,6 +4,13 @@ basement:
     - light.basement_light
     - media_player.basement_tv
     - switch.basement_stereo
+echos:
+  entities:
+    - media_player.basement_echo_dot
+    - media_player.bedroom_echo_dot
+    - media_player.gameroom_echo_dot
+    - media_player.livingroom_echo
+    - media_player.office_echo_dot
 garmin_watch:
   entities:
     - cover.garage_door
