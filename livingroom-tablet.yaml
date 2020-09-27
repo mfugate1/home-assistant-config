@@ -47,6 +47,11 @@ views:
                 name: Garage
                 style: "ha-card { height: 100%; }"
                 show_state: true
+                tap_action:
+                  action: call-service
+                  service: cover.toggle
+                  service_data:
+                    entity_id: cover.garage_door
                 styles:
                   grid:
                     - grid-template-areas: '"n" "i" "s" "l"'
