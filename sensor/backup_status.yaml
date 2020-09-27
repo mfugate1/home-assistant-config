@@ -2,12 +2,24 @@
   name: media_storage_counts
   resource: !secret backup_status_url
   json_attributes:
-    - uploadedCount
-    - totalCount
+    - uploadedMoviesCount
+    - totalMoviesCount
+    - uploadedMusicCount
+    - totalMusicCount
+    - uploadedTVCount
+    - totalTVCount
 
 - platform: template
   sensors:
-    media_storage_backup_percentage:
+    movie_backup_percentage:
       friendly_name: Movies Backed Up
       unit_of_measurement: '%'
-      value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedCount') | int / state_attr('sensor.media_storage_counts', 'totalCount') | int * 100) | round(1, 'common') }}"
+      value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedMoviesCount') | int / state_attr('sensor.media_storage_counts', 'totalMoviesCount') | int * 100) | round(1, 'common') }}"
+    music_backup_percentage:
+      friendly_name: Movies Backed Up
+      unit_of_measurement: '%'
+      value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedMusicCount') | int / state_attr('sensor.media_storage_counts', 'totalMusicCount') | int * 100) | round(1, 'common') }}"
+    tv_show_backup_percentage:
+      friendly_name: Movies Backed Up
+      unit_of_measurement: '%'
+      value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedTVCount') | int / state_attr('sensor.media_storage_counts', 'totalTVCount') | int * 100) | round(1, 'common') }}"

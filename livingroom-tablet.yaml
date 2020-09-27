@@ -113,15 +113,38 @@ views:
                 name: Basement
                 style: "ha-card { height: 100%; }"
           - break
-          - type: custom:config-template-card
-            variables:
-              - states['sensor.media_storage_counts'].attributes
-            entities:
-              - sensor.media_storage_counts
-            card:
-              type: gauge
-              entity: sensor.media_storage_backup_percentage
-              name: "${'Movies Backed Up ' + vars[0].uploadedCount + '/' + vars[0].totalCount}"
+          - type: horizontal-stack
+            cards:
+              - type: custom:config-template-card
+                variables:
+                  - states['sensor.media_storage_counts'].attributes
+                entities:
+                  - sensor.media_storage_counts
+                  - sensor.movie_backup_percentage
+                card:
+                  type: gauge
+                  entity: sensor.movie_backup_percentage
+                  name: "${'Movies ' + vars[0].uploadedMoviesCount + '/' + vars[0].totalMoviesCount}"
+              - type: custom:config-template-card
+                variables:
+                  - states['sensor.media_storage_counts'].attributes
+                entities:
+                  - sensor.media_storage_counts
+                  - music_backup_percentage
+                card:
+                  type: gauge
+                  entity: sensor.music_backup_percentage
+                  name: "${'Music ' + vars[0].uploadedMusicCount + '/' + vars[0].totalMusicCount}"
+              - type: custom:config-template-card
+                variables:
+                  - states['sensor.media_storage_counts'].attributes
+                entities:
+                  - sensor.media_storage_counts
+                  - tv_show_backup_percentage
+                card:
+                  type: gauge
+                  entity: sensor.tv_show_backup_percentage
+                  name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
           - type: custom:mini-climate
             entity: climate.honeywell_thermostat
             name: Thermostat
