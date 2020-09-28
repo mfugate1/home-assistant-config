@@ -18,6 +18,8 @@ resources:
     type: module
   - url: /hacsfiles/config-template-card/config-template-card.js
     type: module
+  - url: /hacsfiles/simple-thermostat/simple-thermostat.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml

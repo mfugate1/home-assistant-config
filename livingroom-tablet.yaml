@@ -150,11 +150,11 @@ views:
                   type: gauge
                   entity: sensor.tv_show_backup_percentage
                   name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
-          - type: custom:mini-climate
+          - type: custom:simple-thermostat
             entity: climate.honeywell_thermostat
-            name: Thermostat
-            temperature:
-              unit: '°F'
+            name: false
+            step_size: 1
+            step_layout: row
           - type: custom:mini-media-player
             entity: media_player.livingroom_media
             name: Living Room Media
