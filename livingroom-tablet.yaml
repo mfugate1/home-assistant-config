@@ -155,7 +155,7 @@ views:
               - type: custom:simple-thermostat
                 no_card: true
                 canary_style:
-                  margin: '-16px 25px -8px'
+                  margin: '-16px 25px -20px'
                 entity: climate.honeywell_thermostat
                 name: false
                 decimals: 0
