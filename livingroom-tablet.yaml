@@ -163,6 +163,10 @@ views:
                 step_layout: row
                 control: false
               - type: custom:paper-buttons-row
+                base_config:
+                  style:
+                    button:
+                      border-radius: 40px
                 buttons:
                   - entity: switch.hvac_off
                     name: false
@@ -170,14 +174,14 @@ views:
                     name: false
                     state_styles:
                       'on':
-                        icon:
-                          color: orange
+                        button:
+                          background-color: orange
                   - entity: switch.cool_mode
                     name: false
                     state_styles:
                       'on':
-                        icon:
-                          color: blue
+                        button:
+                          background-color: var(--label-badge-blue)
               - type: custom:paper-buttons-row
                 buttons:
                   - entity: switch.next_fan_mode
