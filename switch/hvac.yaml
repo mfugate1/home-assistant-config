@@ -81,7 +81,7 @@
           entity_id: climate.honeywell_thermostat
           hvac_mode: 'off'
     cool_mode:
-      icon_template: mdi:fire
+      icon_template: mdi:snowflake
       value_template: "{{ is_state('climate.honeywell_thermostat', 'cool') }}"
       availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
       turn_on:
@@ -95,7 +95,7 @@
           entity_id: climate.honeywell_thermostat
           hvac_mode: 'off'
     hvac_off:
-      icon_template: mdi:fire
+      icon_template: mdi:power
       value_template: "{{ is_state('climate.honeywell_thermostat', 'off') }}"
       availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
       turn_on:

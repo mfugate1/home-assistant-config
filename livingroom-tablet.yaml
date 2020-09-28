@@ -161,15 +161,7 @@ views:
                 decimals: 0
                 step_size: 1
                 step_layout: row
-                control:
-                  _headings: false
-                  hvac:
-                    'off':
-                      name: false
-                    cool:
-                      name: false
-                    heat:
-                      name: false
+                control: false
               - type: custom:paper-buttons-row
                 buttons:
                   - entity: switch.hvac_off
