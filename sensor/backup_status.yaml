@@ -17,11 +17,14 @@
       friendly_name: Movies Backed Up
       unit_of_measurement: '%'
       value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedMoviesCount') | int / state_attr('sensor.media_storage_counts', 'totalMoviesCount') | int * 100) | round(1, 'common') }}"
+      availability_template: "{{ not is_state('sensor.media_storage_counts', 'unavailable')}}"
     music_backup_percentage:
       friendly_name: Music Backed Up
       unit_of_measurement: '%'
       value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedMusicCount') | int / state_attr('sensor.media_storage_counts', 'totalMusicCount') | int * 100) | round(1, 'common') }}"
+      availability_template: "{{ not is_state('sensor.media_storage_counts', 'unavailable')}}"
     tv_show_backup_percentage:
       friendly_name: TV Shows Backed Up
       unit_of_measurement: '%'
       value_template: "{{ (state_attr('sensor.media_storage_counts', 'uploadedTVCount') | int / state_attr('sensor.media_storage_counts', 'totalTVCount') | int * 100) | round(1, 'common') }}"
+      availability_template: "{{ not is_state('sensor.media_storage_counts', 'unavailable')}}"
