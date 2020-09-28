@@ -1,0 +1,16 @@
+- name: Docker
+  containers:
+    - appdaemon
+    - backup-status-app
+    - certbot
+    - database
+    - git
+    - grafana
+    - home-assistant
+    - influxdb
+    - minecraft
+    - mosquitto
+    - nginx
+    - renderer
+    - unifi
+    - workout-site
