@@ -1,0 +1,49 @@
+- platform: template
+  switches:
+    circulation:
+      friendly_name: Circulate
+      icon_template: mdi:fan
+      value_template: "{{ is_state_attr('climate.honeywell_thermostat', 'fan_mode', 'Circulate') }}"
+      availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
+      turn_on:
+        service: climate.set_fan_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          fan_mode: Circulate
+      turn_off:
+        service: climate.set_fan_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          fan_mode: Auto Low
+    fan_auto:
+      friendly_name: Auto
+      icon_template: mdi:fan
+      value_template: "{{ is_state_attr('climate.honeywell_thermostat', 'fan_mode', 'Auto Low') }}"
+      availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
+      turn_on:
+        service: climate.set_fan_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          fan_mode: Auto Low
+      turn_off:
+        service: climate.set_fan_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          fan_mode: Auto Low
+    fan_on:
+      friendly_name: 'On'
+      icon_template: mdi:fan
+      value_template: "{{ is_state_attr('climate.honeywell_thermostat', 'fan_mode', 'On Low') }}"
+      availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
+      turn_on:
+        service: climate.set_fan_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          fan_mode: 'On Low'
+      turn_off:
+        service: climate.set_fan_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          fan_mode: Auto Low
+
+      
