@@ -150,30 +150,36 @@ views:
                   type: gauge
                   entity: sensor.tv_show_backup_percentage
                   name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
-          - type: custom:simple-thermostat
-            entity: climate.honeywell_thermostat
-            name: false
-            decimals: 0
-            step_size: 1
-            step_layout: row
-            control:
-              _headings: false
-              fan:
-                'Circulate':
-                  icon: false
-                'On Low':
-                  name: 'On'
-                  icon: false
-                'Auto Low':
-                  name: Auto
-                  icon: false
-              hvac:
-                'off':
-                  name: false
-                cool:
-                  name: false
-                heat:
-                  name: false
+          - type: entities
+            entities:
+              - type: custom:simple-thermostat
+                no_card: true
+                canary_style:
+                  margin: '-16px -16px -8px'
+                entity: climate.honeywell_thermostat
+                name: false
+                decimals: 0
+                step_size: 1
+                step_layout: row
+                control:
+                  _headings: false
+                  hvac:
+                    'off':
+                      name: false
+                    cool:
+                      name: false
+                    heat:
+                      name: false
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: switch.next_fan_mode
+                    name: false
+                  - entity: switch.fan_auto
+                    icon: false
+                  - entity: switch.fan_on
+                    icon: false
+                  - entity: switch.circulation
+                    icon: false
           - type: custom:mini-media-player
             entity: media_player.livingroom_media
             name: Living Room Media
