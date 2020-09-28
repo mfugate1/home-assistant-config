@@ -155,7 +155,7 @@ views:
               - type: custom:simple-thermostat
                 no_card: true
                 canary_style:
-                  margin: '-16px -16px -8px'
+                  margin: '-16px 25px -8px'
                 entity: climate.honeywell_thermostat
                 name: false
                 decimals: 0
@@ -170,6 +170,22 @@ views:
                       name: false
                     heat:
                       name: false
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: switch.hvac_off
+                    name: false
+                  - entity: switch.heat_mode
+                    name: false
+                    state_styles:
+                      'on':
+                        text:
+                          color: orange
+                  - entity: switch.cool_mode
+                    name: false
+                    state_styles:
+                      'on':
+                        text:
+                          color: blue
               - type: custom:paper-buttons-row
                 buttons:
                   - entity: switch.next_fan_mode

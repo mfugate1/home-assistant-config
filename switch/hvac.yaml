@@ -66,4 +66,46 @@
         data:
           entity_id: climate.honeywell_thermostat
           fan_mode: "{{ state_attr('climate.honeywell_thermostat', 'fan_mode') }}"
+    heat_mode:
+      icon_template: mdi:fire
+      value_template: "{{ is_state('climate.honeywell_thermostat', 'heat') }}"
+      availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          hvac_mode: heat
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          hvac_mode: 'off'
+    cool_mode:
+      icon_template: mdi:fire
+      value_template: "{{ is_state('climate.honeywell_thermostat', 'cool') }}"
+      availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          hvac_mode: cool
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          hvac_mode: 'off'
+    hvac_off:
+      icon_template: mdi:fire
+      value_template: "{{ is_state('climate.honeywell_thermostat', 'off') }}"
+      availability_template: "{{ not is_state('climate.honeywell_thermostat', 'unavailable') }}"
+      turn_on:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          hvac_mode: 'off'
+      turn_off:
+        service: climate.set_hvac_mode
+        data:
+          entity_id: climate.honeywell_thermostat
+          hvac_mode: 'off'
       
