@@ -155,6 +155,24 @@ views:
             name: false
             step_size: 1
             step_layout: row
+            control:
+              _headings: false
+              fan:
+                'Circulate':
+                  icon: false
+                'On Low':
+                  name: 'Fan On'
+                  icon: false
+                'Auto Low':
+                  name: 'Fan Auto'
+                  icon: false
+              hvac:
+                'off':
+                  name: false
+                cool:
+                  name: false
+                heat:
+                  name: false
           - type: custom:mini-media-player
             entity: media_player.livingroom_media
             name: Living Room Media
