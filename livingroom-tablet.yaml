@@ -170,13 +170,13 @@ views:
                     name: false
                     state_styles:
                       'on':
-                        text:
+                        icon:
                           color: orange
                   - entity: switch.cool_mode
                     name: false
                     state_styles:
                       'on':
-                        text:
+                        icon:
                           color: blue
               - type: custom:paper-buttons-row
                 buttons:
