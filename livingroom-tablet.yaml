@@ -153,6 +153,7 @@ views:
           - type: custom:simple-thermostat
             entity: climate.honeywell_thermostat
             name: false
+            decimals: 0
             step_size: 1
             step_layout: row
             control:
@@ -161,10 +162,10 @@ views:
                 'Circulate':
                   icon: false
                 'On Low':
-                  name: 'Fan On'
+                  name: 'On'
                   icon: false
                 'Auto Low':
-                  name: 'Fan Auto'
+                  name: Auto
                   icon: false
               hvac:
                 'off':
