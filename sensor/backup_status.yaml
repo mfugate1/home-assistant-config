@@ -1,6 +1,8 @@
 - platform: rest
   name: media_storage_counts
   resource: !secret backup_status_url
+  timeout: 60
+  force_update: true
   json_attributes:
     - uploadedMoviesCount
     - totalMoviesCount
