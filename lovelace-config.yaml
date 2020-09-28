@@ -20,6 +20,8 @@ resources:
     type: module
   - url: /hacsfiles/simple-thermostat/simple-thermostat.js
     type: module
+  - url: /hacsfiles/lovelace-paper-buttons-row/paper-buttons-row.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
