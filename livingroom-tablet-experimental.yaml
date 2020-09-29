@@ -150,8 +150,8 @@ views:
                   type: gauge
                   entity: sensor.tv_show_backup_percentage
                   name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
-          - type: entities
-            entities:
+          - type: vertical-stack
+            cards:
               - type: horizontal-stack
                 no_card: true
                 cards:
@@ -167,7 +167,7 @@ views:
                       - type: custom:simple-thermostat
                         no_card: true
                         canary_style:
-                          margin: '-16px 25px -20px'
+                          margin: '-16px -16px -8px'
                         entity: climate.honeywell_thermostat
                         name: false
                         decimals: 0
