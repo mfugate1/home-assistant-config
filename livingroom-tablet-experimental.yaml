@@ -214,6 +214,10 @@ views:
               - type: custom:paper-buttons-row
                 canary_style:
                   margin: '-30px 0px 0px'
+                base_config:
+                  style:
+                    button:
+                      border-radius: 20px
                 buttons:
                   - entity: switch.next_fan_mode
                     name: false
