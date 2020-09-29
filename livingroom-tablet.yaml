@@ -150,39 +150,79 @@ views:
                   type: gauge
                   entity: sensor.tv_show_backup_percentage
                   name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
-          - type: entities
-            entities:
-              - type: custom:simple-thermostat
+          - type: custom:vertical-stack-in-card
+            cards:
+              - type: horizontal-stack
                 no_card: true
-                canary_style:
-                  margin: '-16px 25px -20px'
-                entity: climate.honeywell_thermostat
-                name: false
-                decimals: 0
-                step_size: 1
-                step_layout: row
-                control: false
+                cards:
+                  - type: custom:html-template-card
+                    no_card: true
+                    canary_style:
+                      margin: '0px -35px 0px 20px'
+                    ignore_line_breaks: true
+                    content: |
+                      <style type="text/css">td {padding: 0 4px;}</style><br>
+                      <table>
+                        <tr>
+                          <td>Indoor:</td>
+                          <td align="center">{{ states('sensor.honeywell_thermostat_temperature') }} {{ state_attr('sensor.honeywell_thermostat_temperature', 'unit_of_measurement') }}</td>
+                          <td align="center">{{ states('sensor.honeywell_thermostat_relative_humidity') }} {{ state_attr('sensor.honeywell_thermostat_relative_humidity', 'unit_of_measurement') }}</td>
+                        </tr>
+                        <tr>
+                          <td>Outdoor:</td>
+                          <td align="center">{{ states('sensor.dark_sky_temperature') }} {{ state_attr('sensor.dark_sky_temperature', 'unit_of_measurement') }}</td>
+                          <td align="center">{{ states('sensor.dark_sky_humidity') }} {{ state_attr('sensor.dark_sky_humidity', 'unit_of_measurement') }}</td>
+                        </tr>
+                        <tr>
+                          <td>System Status:</td>
+                          <td colspan="2" align="center">{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td>
+                        </tr>
+                      </table>
+                  - type: entities
+                    no_card: true
+                    canary_style:
+                      margin: '0px -5px -12px 5px'
+                    entities:
+                      - type: custom:simple-thermostat
+                        no_card: true
+                        canary_style:
+                          margin: '-16px -16px -30px'
+                        entity: climate.honeywell_thermostat
+                        name: false
+                        decimals: 0
+                        step_size: 1
+                        step_layout: row
+                        control: false
+                        hide:
+                          temperature: true
+                          state: true
+                      - type: custom:paper-buttons-row
+                        base_config:
+                          style:
+                            button:
+                              border-radius: 40px
+                        buttons:
+                          - entity: switch.hvac_off
+                            name: false
+                          - entity: switch.heat_mode
+                            name: false
+                            state_styles:
+                              'on':
+                                button:
+                                  background-color: orange
+                          - entity: switch.cool_mode
+                            name: false
+                            state_styles:
+                              'on':
+                                button:
+                                  background-color: var(--label-badge-blue)
               - type: custom:paper-buttons-row
+                canary_style:
+                  margin: '-30px 0px 0px'
                 base_config:
                   style:
                     button:
-                      border-radius: 40px
-                buttons:
-                  - entity: switch.hvac_off
-                    name: false
-                  - entity: switch.heat_mode
-                    name: false
-                    state_styles:
-                      'on':
-                        button:
-                          background-color: orange
-                  - entity: switch.cool_mode
-                    name: false
-                    state_styles:
-                      'on':
-                        button:
-                          background-color: var(--label-badge-blue)
-              - type: custom:paper-buttons-row
+                      border-radius: 20px
                 buttons:
                   - entity: switch.next_fan_mode
                     name: false
