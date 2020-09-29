@@ -158,16 +158,11 @@ views:
                   - type: custom:html-template-card
                     no_card: true
                     canary_style:
-                      margin: '0px -35px 0px 10px'
+                      margin: '0px -35px 0px 20px'
                     ignore_line_breaks: true
                     content: |
-                      <style type="text/css">td {padding: 0 4px;}</style>
+                      <style type="text/css">td {padding: 0 4px;}</style><br>
                       <table>
-                        <tr>
-                          <td></td>
-                          <td align="center">Temp</td>
-                          <td align="center">Humidity</td>
-                        </tr>
                         <tr>
                           <td>Indoor:</td>
                           <td align="center">{{ states('sensor.honeywell_thermostat_temperature') }} {{ state_attr('sensor.honeywell_thermostat_temperature', 'unit_of_measurement') }}</td>
