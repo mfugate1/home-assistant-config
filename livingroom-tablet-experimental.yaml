@@ -154,9 +154,16 @@ views:
             cards:
               - type: horizontal-stack
                 no_card: true
+                canary_style:
+                  margin: '-16px 0px -40px'
                 cards:
-                  - type: entities
+                  - type: custom:html-template-card
                     no_card: true
+                    ignore_line_breaks: true
+                    content: |
+                      Indoor Temperature: {{ states('sensor.honeywell_thermostat_temperature') }}</br>
+                      Outdoor Temperature: {{ states('sensor.dark_sky_temperature') }}</br>
+                      System Status: {{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}
                     entities:
                       - entity: sensor.dark_sky_temperature
                         name: Outside Temperature
@@ -169,7 +176,7 @@ views:
                       - type: custom:simple-thermostat
                         no_card: true
                         canary_style:
-                          margin: '-16px -16px -8px'
+                          margin: '-16px -16px -30px'
                         entity: climate.honeywell_thermostat
                         name: false
                         decimals: 0
@@ -200,6 +207,8 @@ views:
                                 button:
                                   background-color: var(--label-badge-blue)
               - type: custom:paper-buttons-row
+                canary_style:
+                  margin: '-30px 0px 0px'
                 buttons:
                   - entity: switch.next_fan_mode
                     name: false
