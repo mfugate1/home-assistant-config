@@ -176,7 +176,7 @@ views:
                         <tr>
                           <td>Outdoor:</td>
                           <td>{{ states('sensor.dark_sky_temperature') }} {{ state_attr('sensor.dark_sky_temperature', 'unit_of_measurement') }}</td>
-                          <td>{{ states('sensor.sensor.dark_sky_humidity') }} {{ state_attr('sensor.sensor.dark_sky_humidity', 'unit_of_measurement') }}</td>
+                          <td>{{ states('sensor.dark_sky_humidity') }} {{ state_attr('sensor.dark_sky_humidity', 'unit_of_measurement') }}</td>
                         </tr>
                         <tr>
                           <td>System Status:</td>
