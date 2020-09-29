@@ -150,7 +150,7 @@ views:
                   type: gauge
                   entity: sensor.tv_show_backup_percentage
                   name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
-          - type: vertical-stack
+          - type: custom:vertical-stack-in-card
             cards:
               - type: horizontal-stack
                 no_card: true
@@ -160,7 +160,9 @@ views:
                     entities:
                       - entity: sensor.dark_sky_temperature
                         name: Outside Temperature
+                        icon: false
                       - entity: sensor.honeywell_thermostat_temperature
+                        icon: false
                   - type: entities
                     no_card: true
                     entities:

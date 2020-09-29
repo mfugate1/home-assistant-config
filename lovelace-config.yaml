@@ -24,6 +24,8 @@ resources:
     type: module
   - url: /hacsfiles/lovelace-canary/canary.js
     type: module
+  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
