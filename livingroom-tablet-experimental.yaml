@@ -159,11 +159,15 @@ views:
                 cards:
                   - type: custom:html-template-card
                     no_card: true
+                    canary_style:
+                      margin: '20px 40px 0px'
                     ignore_line_breaks: true
                     content: |
-                      Indoor Temperature: {{ states('sensor.honeywell_thermostat_temperature') }}</br>
-                      Outdoor Temperature: {{ states('sensor.dark_sky_temperature') }}</br>
-                      System Status: {{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}
+                      <table>
+                        <tr><td>Indoor Temperature:</td><td>{{ states('sensor.honeywell_thermostat_temperature') }}</td></tr>
+                        <tr><td>Outdoor Temperature:</td><td>{{ states('sensor.dark_sky_temperature') }}</td></tr>
+                        <tr><td>System Status:</td><td>{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td></tr>
+                      </table>
                     entities:
                       - entity: sensor.dark_sky_temperature
                         name: Outside Temperature
