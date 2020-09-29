@@ -158,15 +158,15 @@ views:
                   - type: custom:html-template-card
                     no_card: true
                     canary_style:
-                      margin: '0px -35px 0px -5px'
+                      margin: '0px -35px 0px 10px'
                     ignore_line_breaks: true
                     content: |
-                      <style type="text/css">td {padding: 0 2px;}</style>
+                      <style type="text/css">td {padding: 0 4px;}</style>
                       <table>
                         <tr>
                           <td></td>
-                          <td>Temp</td>
-                          <td>Humidity</td>
+                          <td align="center">Temp</td>
+                          <td align="center">Humidity</td>
                         </tr>
                         <tr>
                           <td>Indoor:</td>
