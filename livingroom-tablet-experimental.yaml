@@ -167,12 +167,6 @@ views:
                         <tr><td>Outdoor Temperature:</td><td>{{ states('sensor.dark_sky_temperature') }} {{ state_attr('sensor.dark_sky_temperature', 'unit_of_measurement') }}</td></tr>
                         <tr><td>System Status:</td><td>{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td></tr>
                       </table>
-                    entities:
-                      - entity: sensor.dark_sky_temperature
-                        name: Outside Temperature
-                        icon: false
-                      - entity: sensor.honeywell_thermostat_temperature
-                        icon: false
                   - type: entities
                     no_card: true
                     canary_style:
