@@ -154,13 +154,11 @@ views:
             cards:
               - type: horizontal-stack
                 no_card: true
-                canary_style:
-                  margin: '-16px 0px -40px'
                 cards:
                   - type: custom:html-template-card
                     no_card: true
                     canary_style:
-                      margin: '0px -40px 0px -5px'
+                      margin: '0px -35px 0px -5px'
                     ignore_line_breaks: true
                     content: |
                       <style type="text/css">td {padding: 0 15px;}</style>
@@ -178,7 +176,7 @@ views:
                   - type: entities
                     no_card: true
                     canary_style:
-                      margin: '0px 0px -15px'
+                      margin: '0px -5px -12px 5px'
                     entities:
                       - type: custom:simple-thermostat
                         no_card: true
