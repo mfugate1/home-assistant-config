@@ -161,7 +161,7 @@ views:
                       margin: '0px -35px 0px -5px'
                     ignore_line_breaks: true
                     content: |
-                      <style type="text/css">td {padding: 0 10px;}</style>
+                      <style type="text/css">td {padding: 0 2px;}</style>
                       <table>
                         <tr>
                           <td></td>
@@ -170,17 +170,17 @@ views:
                         </tr>
                         <tr>
                           <td>Indoor:</td>
-                          <td>{{ states('sensor.honeywell_thermostat_temperature') }} {{ state_attr('sensor.honeywell_thermostat_temperature', 'unit_of_measurement') }}</td>
-                          <td>{{ states('sensor.honeywell_thermostat_relative_humidity') }} {{ state_attr('sensor.honeywell_thermostat_relative_humidity', 'unit_of_measurement') }}</td>
+                          <td align="center">{{ states('sensor.honeywell_thermostat_temperature') }} {{ state_attr('sensor.honeywell_thermostat_temperature', 'unit_of_measurement') }}</td>
+                          <td align="center">{{ states('sensor.honeywell_thermostat_relative_humidity') }} {{ state_attr('sensor.honeywell_thermostat_relative_humidity', 'unit_of_measurement') }}</td>
                         </tr>
                         <tr>
                           <td>Outdoor:</td>
-                          <td>{{ states('sensor.dark_sky_temperature') }} {{ state_attr('sensor.dark_sky_temperature', 'unit_of_measurement') }}</td>
-                          <td>{{ states('sensor.dark_sky_humidity') }} {{ state_attr('sensor.dark_sky_humidity', 'unit_of_measurement') }}</td>
+                          <td align="center">{{ states('sensor.dark_sky_temperature') }} {{ state_attr('sensor.dark_sky_temperature', 'unit_of_measurement') }}</td>
+                          <td align="center">{{ states('sensor.dark_sky_humidity') }} {{ state_attr('sensor.dark_sky_humidity', 'unit_of_measurement') }}</td>
                         </tr>
                         <tr>
                           <td>System Status:</td>
-                          <td colspan="2">{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td>
+                          <td colspan="2" align="center">{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td>
                         </tr>
                       </table>
                   - type: entities
