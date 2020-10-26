@@ -1,8 +1,0 @@
-- platform: template
-  sensors:
-    truck_fuel_level:
-      value_template: "{{ state_attr('device_tracker.truck', '12F') }}"
-    truck_rpm:
-      value_template: "{{ state_attr('device_tracker.truck', '10C') }}"
-    truck_status:
-      value_template: "{{ state_attr('device_tracker.truck', 'status') }}"
