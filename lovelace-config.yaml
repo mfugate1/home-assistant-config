@@ -12,8 +12,6 @@ resources:
     type: module
   - url: /hacsfiles/button-card/button-card.js
     type: module
-  - url: /hacsfiles/custom-header/custom-header.js
-    type: module
   - url: /hacsfiles/mini-climate-card/mini-climate-card-bundle.js
     type: module
   - url: /hacsfiles/config-template-card/config-template-card.js

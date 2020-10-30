@@ -1,10 +1,4 @@
 background: var(--background-image)
-custom_header:
-  background: rgba(155, 155, 155, 0.25)
-  compact_mode: true
-  disable_sidebar: true
-  button_text:
-    options: '{{ date }} {{ time }}'
 views:
   - icon: mdi:home
     panel: true
