@@ -180,7 +180,7 @@ views:
                 hide_when_off: true
                 step: 1
               - media_player.game_room_tv
-              - media_player.playstation_4
+              - media_player.playstation_4_basement
               - media_player.playstation_4_office
               - entity: media_player.game_room_receiver
                 type: custom:slider-entity-row

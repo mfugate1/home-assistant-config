@@ -47,7 +47,7 @@ include:
     - media_player.livingroom_roku
     - media_player.livingroom_tv
     - media_player.livingroom_squeezelite
-    - media_player.playstation_4
+    - media_player.playstation_4_basement
     - media_player.playstation_4_office
     - sensor.active_kilocalories
     - sensor.active_time
