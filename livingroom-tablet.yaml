@@ -112,38 +112,6 @@ views:
                 name: Basement
                 style: "ha-card { height: 100%; }"
           - break
-          - type: horizontal-stack
-            cards:
-              - type: custom:config-template-card
-                variables:
-                  - states['sensor.media_storage_counts'].attributes
-                entities:
-                  - sensor.media_storage_counts
-                  - sensor.movie_backup_percentage
-                card:
-                  type: gauge
-                  entity: sensor.movie_backup_percentage
-                  name: "${'Movies ' + vars[0].uploadedMoviesCount + '/' + vars[0].totalMoviesCount}"
-              - type: custom:config-template-card
-                variables:
-                  - states['sensor.media_storage_counts'].attributes
-                entities:
-                  - sensor.media_storage_counts
-                  - music_backup_percentage
-                card:
-                  type: gauge
-                  entity: sensor.music_backup_percentage
-                  name: "${'Music ' + vars[0].uploadedMusicCount + '/' + vars[0].totalMusicCount}"
-              - type: custom:config-template-card
-                variables:
-                  - states['sensor.media_storage_counts'].attributes
-                entities:
-                  - sensor.media_storage_counts
-                  - tv_show_backup_percentage
-                card:
-                  type: gauge
-                  entity: sensor.tv_show_backup_percentage
-                  name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
           - type: custom:vertical-stack-in-card
             cards:
               - type: horizontal-stack
@@ -175,12 +143,12 @@ views:
                   - type: entities
                     no_card: true
                     canary_style:
-                      margin: '0px -5px -12px 5px'
+                      margin: '20px -5px -12px 5px'
                     entities:
                       - type: custom:simple-thermostat
                         no_card: true
                         canary_style:
-                          margin: '-16px -16px -30px'
+                          margin: '-16px -16px -20px'
                         entity: climate.honeywell_thermostat
                         name: false
                         decimals: 0
