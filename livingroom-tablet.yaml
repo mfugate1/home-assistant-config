@@ -1,4 +1,6 @@
 background: var(--background-image)
+kiosk_mode:
+  hide_sidebar: true
 views:
   - icon: mdi:home
     panel: true
