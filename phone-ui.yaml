@@ -5,14 +5,10 @@ views:
     cards:
       - type: custom:simple-thermostat
         entity: climate.honeywell_thermostat
-        name: false
+        show_header: false
         decimals: 0
         step_size: 1
         step_layout: row
-        control: false
-        hide:
-          temperature: true
-          state: true
       - type: entities
         entities:
           - type: section
