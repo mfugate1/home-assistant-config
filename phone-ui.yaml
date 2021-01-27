@@ -52,13 +52,15 @@ views:
                 name: Lamp
           - type: conditional
             conditions:
-              - entity: media_player.livingroom_media
-                state_not: 'off'
+              - entity: media_player.livingroom_receiver
+                state: 'on'
             row:
               type: custom:slider-entity-row
-              entity: media_player.livingroom_receiver
-              full_row: true
+              entity: light.living_room_volume
+              icon: mdi:volume-high
+              show_name: false
               step: 1
+              max: 45
           - type: section
             label: Game Room
           - type: buttons
