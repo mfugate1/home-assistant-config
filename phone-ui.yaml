@@ -80,7 +80,9 @@ views:
           - type: divider
           - type: custom:slider-entity-row
             entity: light.office_light
+            name: Office
             toggle: true
           - type: custom:slider-entity-row
             entity: light.patio_light
+            name: Patio
             toggle: true
