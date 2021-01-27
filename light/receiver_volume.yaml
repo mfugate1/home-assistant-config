@@ -4,7 +4,7 @@
       friendly_name: Volume
       level_template: >-
         {% if is_state('media_player.gameroom_receiver', 'on') %}
-          {{ (state_attr('media_player.gameroom_receiver', 'volume_level') | float * 80) | int }}
+          {{ (state_attr('media_player.gameroom_receiver', 'volume_level') * 80 * 255 / 100) | int }}
         {% else %}
           0
         {% endif %}
@@ -37,7 +37,7 @@
       friendly_name: Living Room Volume
       level_template: >-
         {% if is_state('media_player.livingroom_receiver', 'on') %}
-          {{ (state_attr('media_player.livingroom_receiver', 'volume_level') | float * 80) | int }}
+          {{ (state_attr('media_player.livingroom_receiver', 'volume_level') * 80 * 255 / 100) | int }}
         {% else %}
           0
         {% endif %}
