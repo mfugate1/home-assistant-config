@@ -13,17 +13,6 @@ views:
         hide:
           temperature: true
           state: true
-      - type: conditional
-        conditions:
-          - entity: media_player.livingroom_receiver
-            state: "on"
-        card:
-           type: custom:mini-media-player
-           entity: media_player.livingroom_media
-           name: Living Room Media
-           artwork: none
-           volume_stateless: true
-           source: full
       - type: entities
         entities:
           - type: section
@@ -52,6 +41,8 @@ views:
             label: Living Room
           - type: buttons
             entities:
+              - entity: media_player.livingroom_media
+                show_name: false
               - entity: light.dining_room_light
                 name: Dining Room
               - entity: switch.entry_light
@@ -59,7 +50,15 @@ views:
                 icon: mdi:lightbulb
               - entity: light.living_room_lamp
                 name: Lamp
-          - media_player.livingroom_media
+          - type: conditional
+            conditions:
+              - entity: media_player.livingroom_media
+                state_not: 'off'
+            row:
+              type: custom:slider-entity-row
+              entity: media_player.livingroom_receiver
+              full_row: true
+              step: 1
           - type: section
             label: Game Room
           - type: buttons
