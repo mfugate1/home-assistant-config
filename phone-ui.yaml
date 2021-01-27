@@ -59,6 +59,7 @@ views:
                 icon: mdi:lightbulb
               - entity: light.living_room_lamp
                 name: Lamp
+          - media_player.livingroom_media
           - type: section
             label: Game Room
           - type: buttons
