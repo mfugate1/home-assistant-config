@@ -1,12 +1,10 @@
 - platform: onkyo
   host: !secret livingroom_receiver_ip
   name: livingroom_receiver
-  max_volume: 50
   receiver_max_volume: 78
 - platform: onkyo
   host: !secret gameroom_receiver_ip
   name: gameroom_receiver
-  max_volume: 70
   receiver_max_volume: 100
 - platform: aquostv
   host: !secret livingroom_tv_ip
