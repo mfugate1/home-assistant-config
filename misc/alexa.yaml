@@ -16,6 +16,7 @@ smart_home:
     include_entities:
       - switch.basement_dehumidifier
       - switch.basement_stereo
+      - switch.bedroom_fan
       - switch.circulation
       - switch.pc
     exclude_entities:
