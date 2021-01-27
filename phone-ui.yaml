@@ -34,7 +34,9 @@ views:
                 name: Overhead
               - entity: light.bedroom_lamps
                 name: Lamps
-          - switch.bedroom_fan
+              - entity: switch.bedroom_fan
+                icon: mdi:fan
+                show_name: false
           - type: section
             label: Basement
           - type: buttons
@@ -54,6 +56,7 @@ views:
                 name: Dining Room
               - entity: switch.entry_light
                 name: Entry
+                icon: mdi:lightbulb
               - entity: light.living_room_lamp
                 name: Lamp
           - type: section
