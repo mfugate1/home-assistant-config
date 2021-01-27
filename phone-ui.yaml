@@ -78,5 +78,9 @@ views:
                 icon: mdi:fan
                 show_name: false
           - type: divider
-          - light.office_light
-          - light.patio_light
+          - type: custom:slider-entity-row
+            entity: light.office_light
+            toggle: true
+          - type: custom:slider-entity-row
+            entity: light.patio_light
+            toggle: true
