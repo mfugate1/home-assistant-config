@@ -26,15 +26,53 @@ views:
            source: full
       - type: entities
         entities:
-          - light.basement_light
-          - light.bedroom_lamps
-          - light.bedroom_light
-          - light.dining_room_light
-          - switch.entry_light
-          - light.game_room_light
-          - light.living_room_lamp
+          - type: section
+            label: Bedroom
+          - type: buttons
+            entities:
+              - entity: light.bedroom_light
+                name: Overhead
+              - entity: light.bedroom_lamps
+                name: Lamps
+          - switch.bedroom_fan
+          - type: section
+            label: Basement
+          - type: buttons
+            entities:
+              - entity: light.basement_light
+                show_name: false
+              - entity: switch.basement_stereo
+                icon: mdi:audio-video
+                show_name: false
+              - entity: media_player.basement_tv
+                show_name: false
+          - type: section
+            label: Living Room
+          - type: buttons
+            entities:
+              - entity: light.dining_room_light
+                name: Dining Room
+              - entity: switch.entry_light
+                name: Entry
+              - entity: light.living_room_lamp
+                name: Lamp
+          - type: section
+            label: Game Room
+          - type: buttons
+            entities:
+              - entity: light.game_room_light
+                show_name: false
+              - entity: media_player.gameroom_tv
+                show_name: false
+          - type: section
+            label: Upstairs Bathroom
+          - type: buttons
+            entities:
+              - entity: light.upstairs_bathroom_light
+                show_name: false
+              - entity: switch.upstairs_bathroom_vent
+                icon: mdi:fan
+                show_name: false
+          - type: divider
           - light.office_light
           - light.patio_light
-          - light.upstairs_bathroom_light
-          - switch.bedroom_fan
-          - switch.basement_stereo
