@@ -58,7 +58,7 @@ views:
               type: custom:slider-entity-row
               entity: light.living_room_volume
               icon: mdi:volume-high
-              name: 
+              name: false
               step: 1
               max: 45
           - type: section
