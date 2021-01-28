@@ -9,6 +9,10 @@ views:
         decimals: 0
         step_size: 1
         step_layout: row
+        control:
+          _headings: false
+          hvac: true
+          fan: true
       - type: entities
         entities:
           - type: section
