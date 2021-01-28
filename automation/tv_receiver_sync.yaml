@@ -29,5 +29,5 @@
     platform: state
     entity_id: media_player.basement_tv
   action:
-    service: switch.turn_{{ trigger.to_state }}
+    service: switch.turn_{{ trigger.to_state.state }}
     entity_id: switch.basement_stereo
