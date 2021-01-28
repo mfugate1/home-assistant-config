@@ -105,3 +105,4 @@ views:
             entity: light.patio_light
             name: Patio
             toggle: true
+          - cover.garage_door
