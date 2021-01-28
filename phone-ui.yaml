@@ -43,6 +43,12 @@ views:
                 show_name: false
               - entity: media_player.basement_tv
                 show_name: false
+              - entity: media_player.playstation_4_basement
+                icon: mdi:playstation
+                show_name: false
+              - entity: input_boolean.workout_mode
+                icon: mdi:weight-lifter
+                show_name: false
           - type: section
             label: Living Room
           - type: buttons
