@@ -56,6 +56,50 @@ views:
                 icon: mdi:lightbulb
               - entity: light.living_room_lamp
                 name: Lamp
+          - type: custom:paper-buttons-row
+            buttons:
+              - icon: mdi:sony-playstation
+                tap_action:
+                  action: call-service
+                  service: script.media_controller_command
+                  service_data:
+                    room: livingroom
+                    source: ps4
+              - icon: mdi:steam
+                tap_action:
+                  action: call-service
+                  service: script.media_controller_command
+                  service_data:
+                    room: livingroom
+                    source: steam
+              - icon: mdi:netflix
+                tap_action:
+                  action: call-service
+                  service: script.media_controller_command
+                  service_data:
+                    room: livingroom
+                    source: netflix
+              - icon: mdi:hulu
+                tap_action:
+                  action: call-service
+                  service: script.media_controller_command
+                  service_data:
+                    room: livingroom
+                    source: hulu
+              - icon: mdi:plex
+                tap_action:
+                  action: call-service
+                  service: script.media_controller_command
+                  service_data:
+                    room: livingroom
+                    source: plex
+              - icon: mdi:youtube
+                tap_action:
+                  action: call-service
+                  service: script.media_controller_command
+                  service_data:
+                    room: livingroom
+                    source: youtube
           - type: conditional
             conditions:
               - entity: media_player.livingroom_receiver
