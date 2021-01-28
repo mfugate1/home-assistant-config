@@ -11,7 +11,13 @@ views:
         step_layout: row
         control:
           _headings: false
-          hvac: true
+          hvac: 
+            "off": 
+              name: false
+            heat:
+              name: false
+            cool:
+              name: false
           fan: true
       - type: entities
         entities:
