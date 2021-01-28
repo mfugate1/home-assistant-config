@@ -23,3 +23,11 @@
   action:
     service: media_player.turn_off
     entity_id: media_player.livingroom_receiver
+
+- alias: 'Sync basement stereo to tv'
+  trigger:
+    platform: state
+    entity_id: media_player.basement_tv
+  action:
+    service: switch.turn_{{ trigger.to_state }}
+    entity_id: switch.basement_stereo
