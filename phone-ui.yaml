@@ -32,6 +32,35 @@ views:
               - entity: switch.bedroom_fan
                 icon: mdi:fan
                 show_name: false
+          - type: custom:paper-buttons-row
+            buttons:
+              - icon: mdi:bed-empty
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.bed_presets
+                    option: Flat
+              - icon: mdi:television
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.bed_presets
+                    option: Watch TV
+              - icon: mdi:book-open
+                tap_action:
+                  action: call-service
+                  service: input_select.select_option
+                  service_data:
+                    entity_id: input_select.bed_presets
+                    option: Read
+          - type: custom:slider-entity-row
+            entity: input_number.bed_sleep_number_left
+            name: Left
+          - type: custom:slider-entity-row
+            entity: input_number.bed_sleep_number_right
+            name: Right
           - type: section
             label: Basement
           - type: buttons
@@ -54,6 +83,7 @@ views:
           - type: buttons
             entities:
               - entity: media_player.livingroom_media
+                icon: mdi:cast
                 show_name: false
               - entity: light.dining_room_light
                 name: Dining Room
