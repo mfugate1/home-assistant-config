@@ -57,9 +57,11 @@ views:
                     option: Read
           - type: custom:slider-entity-row
             entity: input_number.bed_sleep_number_left
+            hide_state: false
             name: Left
           - type: custom:slider-entity-row
             entity: input_number.bed_sleep_number_right
+            hide_state: false
             name: Right
           - type: section
             label: Basement
