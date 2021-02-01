@@ -116,6 +116,29 @@ views:
                     icon: mdi:weight-lifter
                     show_name: false
           - type: entities
+            title: Game Room
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.game_room_light
+                    show_name: false
+                  - entity: media_player.gameroom_tv
+                    show_name: false
+              - type: conditional
+                conditions:
+                  - entity: media_player.gameroom_receiver
+                    state: 'on'
+                row:
+                  type: custom:slider-entity-row
+                  entity: light.game_room_volume
+                  icon: mdi:volume-high
+                  full_row: true
+                  step: 1
+                  min: 20
+                  max: 100
+      - type: vertical-stack
+        cards:
+          - type: entities
             title: Living Room
             entities:
               - type: buttons
@@ -188,29 +211,6 @@ views:
                   full_row: true
                   step: 1
                   max: 45
-      - type: vertical-stack
-        cards:
-          - type: entities
-            title: Game Room
-            entities:
-              - type: buttons
-                entities:
-                  - entity: light.game_room_light
-                    show_name: false
-                  - entity: media_player.gameroom_tv
-                    show_name: false
-              - type: conditional
-                conditions:
-                  - entity: media_player.gameroom_receiver
-                    state: 'on'
-                row:
-                  type: custom:slider-entity-row
-                  entity: light.game_room_volume
-                  icon: mdi:volume-high
-                  full_row: true
-                  step: 1
-                  min: 20
-                  max: 100
           - type: entities
             title: Upstairs Bathroom
             entities:
