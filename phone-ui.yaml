@@ -4,17 +4,20 @@ views:
   - icon: mdi:home
     cards:
       - type: entities
+        no_card: true
         canary_style:
           margin: '-20px -20px -20px -20px'
         entities:
           - type: custom:simple-thermostat
             entity: climate.honeywell_thermostat
+            no_card: true
             show_header: false
             decimals: 0
             step_size: 1
             step_layout: row
             control: false
           - type: custom:paper-buttons-row
+            no_card: true
             base_config:
               style:
                 button:
@@ -35,6 +38,7 @@ views:
                     button:
                       background-color: var(--label-badge-blue)
           - type: custom:paper-buttons-row
+            no_card: true
             canary_style:
               margin: '-30px 0px 0px'
             base_config:
