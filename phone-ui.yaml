@@ -3,22 +3,51 @@ background: var(--background-image)
 views:
   - icon: mdi:home
     cards:
-      - type: custom:simple-thermostat
-        entity: climate.honeywell_thermostat
-        show_header: false
-        decimals: 0
-        step_size: 1
-        step_layout: row
-        control:
-          _headings: false
-          hvac: 
-            "off": 
-              name: false
-            heat:
-              name: false
-            cool:
-              name: false
-          fan: true
+      - type: entities
+        entities:
+          - type: custom:simple-thermostat
+            entity: climate.honeywell_thermostat
+            show_header: false
+            decimals: 0
+            step_size: 1
+            step_layout: row
+            control: false
+          - type: custom:paper-buttons-row
+            base_config:
+              style:
+                button:
+                  border-radius: 40px
+            buttons:
+              - entity: switch.hvac_off
+                name: false
+              - entity: switch.heat_mode
+                name: false
+                state_styles:
+                  'on':
+                    button:
+                      background-color: orange
+              - entity: switch.cool_mode
+                name: false
+                state_styles:
+                  'on':
+                    button:
+                      background-color: var(--label-badge-blue)
+          - type: custom:paper-buttons-row
+            canary_style:
+              margin: '-30px 0px 0px'
+            base_config:
+              style:
+                button:
+                  border-radius: 20px
+            buttons:
+              - entity: switch.next_fan_mode
+                name: false
+              - entity: switch.fan_auto
+                icon: false
+              - entity: switch.fan_on
+                icon: false
+              - entity: switch.circulation
+                icon: false
       - type: entities
         title: Bedroom
         entities:
