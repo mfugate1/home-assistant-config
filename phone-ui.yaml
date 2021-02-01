@@ -4,6 +4,8 @@ views:
   - icon: mdi:home
     cards:
       - type: entities
+        canary_style:
+          margin: '-20px -20px -20px -20px'
         entities:
           - type: custom:simple-thermostat
             entity: climate.honeywell_thermostat
