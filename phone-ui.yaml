@@ -22,8 +22,6 @@ views:
       - type: entities
         title: Bedroom
         entities:
-          - type: section
-            label: Bedroom
           - type: buttons
             entities:
               - entity: light.bedroom_light
