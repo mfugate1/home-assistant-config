@@ -1,222 +1,44 @@
 background: var(--background-image)
-custom_header:
-  background: rgba(155, 155, 155, 0.25)
-  compact_mode: true
-  disable_sidebar: true
-  button_text:
-    options: '{{ date }} {{ time }}'
 views:
   - icon: mdi:home
-    panel: true
     cards:
-      - type: custom:layout-card
-        layout: vertical
+      - type: vertical-stack
         cards:
-          - type: horizontal-stack
-            cards:
-              - type: custom:button-card
-                entity: input_boolean.workout_mode
-                name: Workout
-                label: Mode
-                show_label: true
-                icon: mdi:weight-lifter
-                style: "ha-card { height: 100%; }"
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-              - type: custom:button-card
-                entity: input_boolean.workout_mode_available
-                name: WM Avail
-                icon: mdi:weight-lifter
-                style: "ha-card { height: 100%; }"
-                show_state: true
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-              - type: custom:button-card
-                entity: input_boolean.single_occupancy_mode
-                name: SOM
-                icon: mdi:account-group
-                style: "ha-card { height: 100%; }"
-                show_state: true
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-              - type: custom:button-card
-                entity: cover.garage_door
-                name: Garage
-                style: "ha-card { height: 100%; }"
-                show_state: true
-                tap_action:
-                  action: call-service
-                  service: cover.toggle
-                  service_data:
-                    entity_id: cover.garage_door
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-              - type: custom:button-card
-                entity: binary_sensor.mouse_trap
-                name: "Mouse"
-                label: "Trap"
-                show_label: true
-                icon: mdi:rodent
-                style: "ha-card { height: 100%; }"
-                tap_action:
-                  action: more-info
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-                state:
-                  - value: 'on'
-                    color: red
-                    styles:
-                      card:
-                        - animation: blink 2s ease infinite
-                  - operator: default
-                    color: green
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.entry_light
-                name: Entry
-                style: "ha-card { height: 100%; }"
-              - type: light
-                entity: light.dining_room_light
-                name: Dining Room
-              - type: light
-                entity: light.living_room_lamp
-                name: Lamp
-                style: "ha-card { height: 100%; }"
-              - type: custom:rgb-light-card
-                entity: light.living_room_lamp
-                justify: center
-                colors:
-                  - color_name: red
-                  - color_name: pink
-                  - color_name: blue
-                  - color_name: green
-                  - color_name: white
-                  - color_name: yellow
-                  - color_name: purple
-                  - color_name: orange
-          - type: horizontal-stack
-            cards:
-              - type: light
-                entity: light.game_room_light
-                name: Game Room
-              - type: light
-                entity: light.office_light
-                name: Office
-                style: "ha-card { height: 100%; }"
-              - type: light
-                entity: light.bedroom_light
-                name: Bedroom
-                style: "ha-card { height: 100%; }"
-              - type: light
-                entity: light.basement_light
-                name: Basement
-                style: "ha-card { height: 100%; }"
-          - break
-          - type: horizontal-stack
-            cards:
-              - type: custom:config-template-card
-                variables:
-                  - states['sensor.media_storage_counts'].attributes
-                entities:
-                  - sensor.media_storage_counts
-                  - sensor.movie_backup_percentage
-                card:
-                  type: gauge
-                  entity: sensor.movie_backup_percentage
-                  name: "${'Movies ' + vars[0].uploadedMoviesCount + '/' + vars[0].totalMoviesCount}"
-              - type: custom:config-template-card
-                variables:
-                  - states['sensor.media_storage_counts'].attributes
-                entities:
-                  - sensor.media_storage_counts
-                  - music_backup_percentage
-                card:
-                  type: gauge
-                  entity: sensor.music_backup_percentage
-                  name: "${'Music ' + vars[0].uploadedMusicCount + '/' + vars[0].totalMusicCount}"
-              - type: custom:config-template-card
-                variables:
-                  - states['sensor.media_storage_counts'].attributes
-                entities:
-                  - sensor.media_storage_counts
-                  - tv_show_backup_percentage
-                card:
-                  type: gauge
-                  entity: sensor.tv_show_backup_percentage
-                  name: "${'TV ' + vars[0].uploadedTVCount + '/' + vars[0].totalTVCount}"
-          - type: custom:vertical-stack-in-card
-            cards:
-              - type: horizontal-stack
+          - type: entities
+            entities:
+              - type: custom:simple-thermostat
+                entity: climate.honeywell_thermostat
+                canary_style:
+                  margin: '-20px -20px -20px -20px'
                 no_card: true
-                cards:
-                  - type: custom:html-template-card
-                    no_card: true
-                    canary_style:
-                      margin: '0px -35px 0px 20px'
-                    ignore_line_breaks: true
-                    content: |
-                      <style type="text/css">td {padding: 0 4px;}</style><br>
-                      <table>
-                        <tr>
-                          <td>Indoor:</td>
-                          <td align="center">{{ states('sensor.honeywell_thermostat_temperature') }} {{ state_attr('sensor.honeywell_thermostat_temperature', 'unit_of_measurement') }}</td>
-                          <td align="center">{{ states('sensor.honeywell_thermostat_relative_humidity') }} {{ state_attr('sensor.honeywell_thermostat_relative_humidity', 'unit_of_measurement') }}</td>
-                        </tr>
-                        <tr>
-                          <td>Outdoor:</td>
-                          <td align="center">{{ states('sensor.dark_sky_temperature') }} {{ state_attr('sensor.dark_sky_temperature', 'unit_of_measurement') }}</td>
-                          <td align="center">{{ states('sensor.dark_sky_humidity') }} {{ state_attr('sensor.dark_sky_humidity', 'unit_of_measurement') }}</td>
-                        </tr>
-                        <tr>
-                          <td>System Status:</td>
-                          <td colspan="2" align="center">{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td>
-                        </tr>
-                      </table>
-                  - type: entities
-                    no_card: true
-                    canary_style:
-                      margin: '0px -5px -12px 5px'
-                    entities:
-                      - type: custom:simple-thermostat
-                        no_card: true
-                        canary_style:
-                          margin: '-16px -16px -30px'
-                        entity: climate.honeywell_thermostat
-                        name: false
-                        decimals: 0
-                        step_size: 1
-                        step_layout: row
-                        control: false
-                        hide:
-                          temperature: true
-                          state: true
-                      - type: custom:paper-buttons-row
-                        base_config:
-                          style:
-                            button:
-                              border-radius: 40px
-                        buttons:
-                          - entity: switch.hvac_off
-                            name: false
-                          - entity: switch.heat_mode
-                            name: false
-                            state_styles:
-                              'on':
-                                button:
-                                  background-color: orange
-                          - entity: switch.cool_mode
-                            name: false
-                            state_styles:
-                              'on':
-                                button:
-                                  background-color: var(--label-badge-blue)
+                show_header: false
+                decimals: 0
+                step_size: 1
+                step_layout: row
+                control: false
               - type: custom:paper-buttons-row
+                no_card: true
+                base_config:
+                  style:
+                    button:
+                      border-radius: 40px
+                buttons:
+                  - entity: switch.hvac_off
+                    name: false
+                  - entity: switch.heat_mode
+                    name: false
+                    state_styles:
+                      'on':
+                        button:
+                          background-color: orange
+                  - entity: switch.cool_mode
+                    name: false
+                    state_styles:
+                      'on':
+                        button:
+                          background-color: var(--label-badge-blue)
+              - type: custom:paper-buttons-row
+                no_card: true
                 canary_style:
                   margin: '-30px 0px 0px'
                 base_config:
@@ -232,72 +54,181 @@ views:
                     icon: false
                   - entity: switch.circulation
                     icon: false
-          - type: custom:mini-media-player
-            entity: media_player.livingroom_media
-            name: Living Room Media
-            artwork: none
-            volume_stateless: true
-            hide:
-              source: true
-            shortcuts:
-              columns: 6
-              buttons: 
-                - icon: mdi:sony-playstation
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: ps4
-                - icon: mdi:steam
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: steam
-                - icon: mdi:netflix
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: netflix
-                - icon: mdi:hulu
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: hulu
-                - icon: mdi:plex
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: plex
-                - icon: mdi:youtube
-                  type: script
-                  id: script.media_controller_command
-                  data:
-                    room: livingroom
-                    source: youtube
-  - icon: mdi:lightbulb-on
-    title: Lighting
-    cards:
-      - type: entities
-        title: Inovelli Notification LED
-        entities:
-          - input_select.inovelli_light_color
-          - input_select.inovelli_light_effect
-          - input_number.inovelli_light_level
-          - input_number.inovelli_light_duration
-          - type: custom:button-card
-            entity: zwave.basement_light
-            layout: icon_name_state
-            icon: mdi:alarm-light
-            name: Send Inovelli LED Command
-            tap_action:
-              action: call-service
-              service: python_script.inovelli_led
-              service_data:
-                level: '[[[ return states["input_number.inovelli_light_level"].state ]]]'
-                color: '[[[ return states["input_select.inovelli_light_color"].state ]]]'
-                effect: '[[[ return states["input_select.inovelli_light_effect"].state ]]]'
-                duration: '[[[ return states["input_number.inovelli_light_duration"].state ]]]'
+          - type: entities
+            title: Bedroom
+            entities:
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: light.bedroom_light
+                    icon: mdi:ceiling-light
+                    name: false
+                  - entity: light.bedroom_lamps
+                    icon: mdi:lamps
+                    name: false
+                  - entity: switch.bedroom_fan
+                    icon: mdi:fan
+                    name: false
+                  - icon: mdi:bed-empty
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.bed_presets
+                        option: Flat
+                  - icon: mdi:television
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.bed_presets
+                        option: Watch TV
+                  - icon: mdi:book-open
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.bed_presets
+                        option: Read
+              - type: custom:slider-entity-row
+                entity: input_number.bed_sleep_number_left
+                hide_state: false
+                name: Left
+              - type: custom:slider-entity-row
+                entity: input_number.bed_sleep_number_right
+                hide_state: false
+                name: Right
+          - type: entities
+            title: Basement
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.basement_light
+                    show_name: false
+                  - entity: switch.basement_stereo
+                    icon: mdi:audio-video
+                    show_name: false
+                  - entity: media_player.basement_tv
+                    show_name: false
+                  - entity: media_player.playstation_4_basement
+                    icon: mdi:sony-playstation
+                    show_name: false
+                  - entity: input_boolean.workout_mode
+                    icon: mdi:weight-lifter
+                    show_name: false
+          - type: entities
+            title: Living Room
+            entities:
+              - type: buttons
+                entities:
+                  - entity: media_player.livingroom_media
+                    icon: mdi:cast
+                    show_name: false
+                  - entity: light.dining_room_light
+                    name: Dining Room
+                  - entity: switch.entry_light
+                    name: Entry
+                    icon: mdi:lightbulb
+                  - entity: light.living_room_lamp
+                    name: Lamp
+              - type: custom:paper-buttons-row
+                buttons:
+                  - icon: mdi:sony-playstation
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: ps4
+                    hold_action:
+                      action: more-info
+                      entity: media_player.playstation_4_office
+                  - icon: mdi:steam
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: steam
+                  - icon: mdi:netflix
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: netflix
+                  - icon: mdi:hulu
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: hulu
+                  - icon: mdi:plex
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: plex
+                  - icon: mdi:youtube
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: youtube
+              - type: conditional
+                conditions:
+                  - entity: media_player.livingroom_receiver
+                    state: 'on'
+                row:
+                  type: custom:slider-entity-row
+                  entity: light.living_room_volume
+                  icon: mdi:volume-high
+                  full_row: true
+                  step: 1
+                  max: 45
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Game Room
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.game_room_light
+                    show_name: false
+                  - entity: media_player.gameroom_tv
+                    show_name: false
+              - type: conditional
+                conditions:
+                  - entity: media_player.gameroom_receiver
+                    state: 'on'
+                row:
+                  type: custom:slider-entity-row
+                  entity: light.game_room_volume
+                  icon: mdi:volume-high
+                  full_row: true
+                  step: 1
+                  min: 20
+                  max: 100
+          - type: entities
+            title: Upstairs Bathroom
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.upstairs_bathroom_light
+                    show_name: false
+                  - entity: switch.upstairs_bathroom_vent
+                    icon: mdi:fan
+                    show_name: false
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.office_light
+                name: Office
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.patio_light
+                name: Patio
+                toggle: true
+              - cover.garage_door
