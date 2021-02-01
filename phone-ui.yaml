@@ -22,17 +22,17 @@ views:
       - type: entities
         title: Bedroom
         entities:
-          - type: buttons
-            entities:
-              - entity: light.bedroom_light
-                name: Overhead
-              - entity: light.bedroom_lamps
-                name: Lamps
-              - entity: switch.bedroom_fan
-                icon: mdi:fan
-                show_name: false
           - type: custom:paper-buttons-row
             buttons:
+              - entity: light.bedroom_light
+                icon: mdi:ceiling-light
+                name: false
+              - entity: light.bedroom_lamps
+                icon: mdi:lamps
+                name: false
+              - entity: switch.bedroom_fan
+                icon: mdi:fan
+                name: false
               - icon: mdi:bed-empty
                 tap_action:
                   action: call-service
