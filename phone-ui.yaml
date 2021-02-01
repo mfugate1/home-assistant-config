@@ -1,4 +1,3 @@
-title: Overlord
 background: var(--background-image)
 views:
   - icon: mdi:home
