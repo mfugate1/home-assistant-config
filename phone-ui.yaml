@@ -20,6 +20,7 @@ views:
               name: false
           fan: true
       - type: entities
+        title: Bedroom
         entities:
           - type: section
             label: Bedroom
@@ -63,8 +64,9 @@ views:
             entity: input_number.bed_sleep_number_right
             hide_state: false
             name: Right
-          - type: section
-            label: Basement
+      - type: entities
+        title: Basement
+        entities:
           - type: buttons
             entities:
               - entity: light.basement_light
@@ -80,8 +82,9 @@ views:
               - entity: input_boolean.workout_mode
                 icon: mdi:weight-lifter
                 show_name: false
-          - type: section
-            label: Living Room
+      - type: entities
+        title: Living Room
+        entities:
           - type: buttons
             entities:
               - entity: media_player.livingroom_media
@@ -152,8 +155,9 @@ views:
               full_row: true
               step: 1
               max: 45
-          - type: section
-            label: Game Room
+      - type: entities
+        title: Game Room
+        entities:
           - type: buttons
             entities:
               - entity: light.game_room_light
@@ -172,8 +176,9 @@ views:
               step: 1
               min: 20
               max: 100
-          - type: section
-            label: Upstairs Bathroom
+      - type: entities
+        title: Upstairs Bathroom
+        entities:
           - type: buttons
             entities:
               - entity: light.upstairs_bathroom_light
@@ -181,7 +186,8 @@ views:
               - entity: switch.upstairs_bathroom_vent
                 icon: mdi:fan
                 show_name: false
-          - type: divider
+      - type: entities
+        entities:
           - type: custom:slider-entity-row
             entity: light.office_light
             name: Office
