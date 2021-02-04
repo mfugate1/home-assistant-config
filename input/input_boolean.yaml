@@ -12,8 +12,6 @@ occupancy_office:
 occupancy_upstairs_bathroom:
 single_occupancy_mode:
   name: Single Occupancy Mode
-truck_running_rpm:
-truck_running_status:
 upper_entry_motion:
 workout_mode:
   name: Workout Mode
