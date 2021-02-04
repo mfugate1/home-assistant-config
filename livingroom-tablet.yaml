@@ -99,7 +99,7 @@ views:
           - type: horizontal-stack
             cards:
               - type: light
-                entity: light.game_room_light
+                entity: light.gameroom_overhead
                 name: Game Room
               - type: light
                 entity: light.office_light

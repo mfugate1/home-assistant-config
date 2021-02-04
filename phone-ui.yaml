@@ -191,7 +191,7 @@ views:
         entities:
           - type: buttons
             entities:
-              - entity: light.game_room_light
+              - entity: light.gameroom_overhead
                 show_name: false
               - entity: media_player.gameroom_tv
                 show_name: false
