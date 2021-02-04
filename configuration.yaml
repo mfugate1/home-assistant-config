@@ -44,7 +44,6 @@ light: !include_dir_merge_list light/
 lovelace: !include lovelace-config.yaml
 media_player: !include_dir_merge_list media_player/
 monitor_docker: !include misc/monitor_docker.yaml
-mqtt: !include misc/mqtt.yaml
 notify: !include misc/notify.yaml
 person: !include misc/person.yaml
 proximity: !include misc/proximity.yaml
