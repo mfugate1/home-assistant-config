@@ -11,6 +11,12 @@ echos:
     - media_player.gameroom_echo_dot
     - media_player.livingroom_echo
     - media_player.office_echo_dot
+gameroom:
+  entities:
+    - light.game_room_lamp
+    - light.gameroom_overhead
+    - media_player.gameroom_receiver
+    - media_player.gameroom_tv
 garmin_watch:
   entities:
     - cover.garage_door
