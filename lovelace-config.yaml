@@ -37,7 +37,7 @@ dashboards:
     mode: yaml
     filename: phone-ui.yaml
     title: Phone
-  lte:
+  lrt-e:
     mode: yaml
     filename: livingroom-tablet-experimental.yaml
     title: LRT-E
