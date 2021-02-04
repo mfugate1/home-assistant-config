@@ -12,7 +12,6 @@ occupancy_office:
 occupancy_upstairs_bathroom:
 single_occupancy_mode:
   name: Single Occupancy Mode
-upper_entry_motion:
 workout_mode:
   name: Workout Mode
 workout_mode_available:
