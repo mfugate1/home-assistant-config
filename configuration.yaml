@@ -19,9 +19,6 @@ homeassistant:
 http:
   use_x_forwarded_for: true
   trusted_proxies: !secret trusted_proxies
-  
-roku:
-  - host: !secret livingroom_roku_ip
     
 sleepiq:
   username: !secret email_address
