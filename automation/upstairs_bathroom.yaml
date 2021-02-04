@@ -1,36 +1,59 @@
-- alias: 'Upstairs bathroom light on'
+- alias: 'Upstairs bathroom lights on'
   trigger:
     platform: state
     entity_id: binary_sensor.upstairs_bathroom_motion
     to: 'on'
   action:
-    service: light.turn_on
-    entity_id: light.upstairs_bathroom_light
-    data_template:
-      brightness: >-
-        {% if is_state('sun.sun', 'above_horizon') %}
-          255
-        {% elif is_state('binary_sensor.someone_is_sleeping', 'on') %}
-          1
-        {% else %}
-          70
-        {% endif %}
-      transition: >-
-        {% if is_state('sun.sun', 'above_horizon') %}
-          5
-        {% elif is_state('binary_sensor.someone_is_sleeping', 'on') %}
-          1
-        {% else %}
-          8
-        {% endif %}
+    - service: light.turn_on
+      entity_id: light.upstairs_bathroom_light
+      data:
+        brightness: >-
+          {% if is_state('sun.sun', 'above_horizon') %}
+            255
+          {% elif is_state('binary_sensor.someone_is_sleeping', 'on') %}
+            1
+          {% else %}
+            70
+          {% endif %}
+        transition: 1
+    - service: switch.turn_on
+      entity_id: switch.upstairs_bathroom_vent
+
+- alias: 'Upstairs bathroom lights off if door opens'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.upstairsbathroom_door
+    to: 'on'
+  action:
+    - wait_for_trigger:
+        platform: state
+        entity_id: binary_sensor.upstairs_bathroom_motion
+        to: 'off'
+        for: '00:00:20'
+        timeout: '00:02:00'
+        continue_on_timeout: false
+    - service: homeassistant.turn_off
+      entity_id: 
+        - light.upstairs_bathroom_light
+        - switch.upstairs_bathroom_vent
         
 - alias: 'Upstairs bathroom light off'
   trigger:
     platform: state
     entity_id: binary_sensor.upstairs_bathroom_motion
     to: 'off'
-    for:
-      minutes: 10
+    for: >-
+      {% if is_state('binary_sensor.upstairsbathroom_door', 'on') %}
+        00:01:00
+      {% else %}
+        00:20:00
+      {% endif %}
+  condition:
+    condition: state
+    entity_id: binary_sensor.upstairsbathroom_door
+    state: 'on'
   action:
-    service: light.turn_off
-    entity_id: light.upstairs_bathroom_light
+    service: homeassistant.turn_off
+    entity_id: 
+      - light.upstairs_bathroom_light
+      - switch.upstairs_bathroom_vent
