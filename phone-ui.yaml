@@ -240,11 +240,11 @@ views:
           - automation.turn_on_sleep_mode
           - type: divider
           - entity: input_datetime.keep_sleep_mode_on_until
-            name: Keep On Until (Wakeup Time)
+            name: Keep On Until (Wakeup Time) (hh:mm)
           - entity: input_datetime.turn_on_sleep_mode_after
-            name: Turn On After (Bedtime)
+            name: Turn On After (Bedtime) (hh:mm)
           - entity: input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for
-            name: Turn Off If Bed Unoccupied For
+            name: Turn Off If Bed Unoccupied For (mm:ss)
       - type: entities
         title: Upstairs Bathroom 
         entities:
@@ -261,12 +261,12 @@ views:
           - type: section
             label: Door opens, turn off light if...
           - entity: input_datetime.upstairsbathroom_door_opened_motion_off_for
-            name: Motion Off For 
+            name: Motion Off For (mm:ss)
           - entity: input_datetime.upstairsbathroom_door_opened_motion_off_timeout
-            name: Motion Off Timeout
+            name: Motion Off Timeout (mm:ss)
           - type: section
             label: Light off after no motion for...
           - entity: input_datetime.upstairsbathroom_light_off_door_open_for
-            name: (Door Open)
+            name: Door Open (mm:ss)
           - entity: input_datetime.upstairsbathroom_light_off_door_closed_for
-            name: (Door Closed)
+            name: Door Closed (mm:ss)

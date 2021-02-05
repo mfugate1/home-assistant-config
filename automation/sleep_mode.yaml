@@ -20,7 +20,7 @@
     - platform: state
       entity_id: binary_sensor.bed_occupied
       to: 'off'
-      for: "00:{{ states('input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for') }}"
+      for: "00:{{ ':'.join(states('input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for').split(':')[0:2]) }}"
     - platform: time
       at: input_datetime.keep_sleep_mode_on_until
   condition:
