@@ -4,20 +4,43 @@
     entity_id: binary_sensor.upstairs_bathroom_motion
     to: 'on'
   action:
-    - service: light.turn_on
-      entity_id: light.upstairs_bathroom_light
-      data:
-        brightness: >-
-          {% if is_state('sun.sun', 'above_horizon') %}
-            255
-          {% elif is_state('binary_sensor.someone_is_sleeping', 'on') %}
-            1
-          {% else %}
-            70
-          {% endif %}
-        transition: 1
-    - service: switch.turn_on
-      entity_id: switch.upstairs_bathroom_vent
+    service: light.turn_on
+    entity_id: light.upstairs_bathroom_light
+    data:
+      brightness: "{{ states(input_number.upstairsbathroom_light_brightness)}}"
+      transition: "{{ states(input_number.upstairsbathroom_light_transition)}}"
+
+- alias: 'Upstairs bathroom vent control'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.upstairsbathroom_door
+  action:
+    service: >-
+      {% if trigger.to_state.state == 'on' %}
+        switch.turn_off
+      {% else %}
+        switch.turn_on
+      {% endif %}
+    entity_id: switch.upstairs_bathroom_vent
+
+- alias: 'Set upstairs bathroom light brightness'
+  trigger:
+    platform: state
+    entity_id:
+      - input_boolean.sleep_mode
+      - sun.sun
+  action:
+    service: input_number.set_value
+    entity_id: input_number.upstairsbathroom_light_brightness
+    data:
+      value: >-
+        {% if is_state('input_boolean.sleep_mode', 'on') %}
+          {{ states('input_number.upstairsbathroom_light_sleeping_brightness') }}
+        {% elif is_state('sun.sun', 'above_horizon') %}
+          {{ states('input_number.upstairsbathroom_light_day_brightness') }}
+        {% else %}
+          {{ states('input_number.upstairsbathroom_light_night_brightness') }}
+        {% endif %}
 
 - alias: 'Upstairs bathroom lights off if door opens'
   trigger:
@@ -29,8 +52,8 @@
         platform: state
         entity_id: binary_sensor.upstairs_bathroom_motion
         to: 'off'
-        for: '00:00:20'
-      timeout: '00:02:00'
+        for: "00:{{ states('input_datetime.upstairsbathroom_door_opened_motion_off_for') }}"
+      timeout: "00:{{ states('input_datetime.upstairsbathroom_door_opened_motion_off_timeout')}}"
       continue_on_timeout: false
     - service: homeassistant.turn_off
       entity_id: 
@@ -44,9 +67,9 @@
     to: 'off'
     for: >-
       {% if is_state('binary_sensor.upstairsbathroom_door', 'on') %}
-        00:01:00
+        00:{{ states('input_datetime.upstairsbathroom_light_off_door_open_for') }}
       {% else %}
-        00:20:00
+        00:{{ states('input_datetime.upstairsbathroom_light_off_door_closed_for') }}
       {% endif %}
   condition:
     condition: state
