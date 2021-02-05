@@ -7,8 +7,8 @@
     service: light.turn_on
     entity_id: light.upstairs_bathroom_light
     data:
-      brightness: "{{ states(input_number.upstairsbathroom_light_brightness)}}"
-      transition: "{{ states(input_number.upstairsbathroom_light_transition)}}"
+      brightness: "{{ states('input_number.upstairsbathroom_light_brightness')}}"
+      transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
 
 - alias: 'Upstairs bathroom vent control'
   trigger:
