@@ -34,6 +34,7 @@ include:
     - binary_sensor.updater
     - binary_sensor.upstairs_bathroom_motion
     - device_tracker.sm_g950u1
+    - input_boolean.sleep_mode
     - media_player.basement_squeezelite
     - media_player.basement_tv
     - media_player.gameroom_receiver
