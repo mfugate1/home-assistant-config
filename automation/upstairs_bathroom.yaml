@@ -52,8 +52,8 @@
         platform: state
         entity_id: binary_sensor.upstairs_bathroom_motion
         to: 'off'
-        for: "00:{{ states('input_datetime.upstairsbathroom_door_opened_motion_off_for') }}"
-      timeout: "00:{{ states('input_datetime.upstairsbathroom_door_opened_motion_off_timeout')}}"
+        for: "00:{{ ':'.join(states('input_datetime.upstairsbathroom_door_opened_motion_off_for').split(':')[0:2]) }}"
+      timeout: "00:{{ ':'.join(states('input_datetime.upstairsbathroom_door_opened_motion_off_timeout').split(':')[0:2]) }}"
       continue_on_timeout: false
     - service: homeassistant.turn_off
       entity_id: 
@@ -67,9 +67,9 @@
     to: 'off'
     for: >-
       {% if is_state('binary_sensor.upstairsbathroom_door', 'on') %}
-        00:{{ states('input_datetime.upstairsbathroom_light_off_door_open_for') }}
+        00:{{ ':'.join(states('input_datetime.upstairsbathroom_light_off_door_open_for').split(':')[0:2]) }}
       {% else %}
-        00:{{ states('input_datetime.upstairsbathroom_light_off_door_closed_for') }}
+        00:{{ ':'.join(states('input_datetime.upstairsbathroom_light_off_door_closed_for').split(':')[0:2]) }}
       {% endif %}
   condition:
     condition: state
