@@ -2,5 +2,5 @@ keep_sleep_mode_on_until:
   has_time: true
 turn_on_sleep_mode_after:
   has_time: true
-turn_off_sleep_mode_if_bed_occupied_for:
+turn_off_sleep_mode_if_bed_unoccupied_for:
   has_time: true
