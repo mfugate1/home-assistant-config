@@ -233,13 +233,14 @@ views:
       - type: entities
         title: Sleep Mode
         entities:
-          - input_boolean.sleep_mode
+          - entity: input_boolean.sleep_mode
+            name: Sleep Mode
           - automation.turn_off_sleep_mode
           - automation.turn_on_sleep_mode
           - entity: input_datetime.keep_sleep_mode_on_until
-            name: Keep On Until
+            name: Keep On Until (Wakeup Time)
           - entity: input_datetime.turn_on_sleep_mode_after
-            name: Turn On After
+            name: Turn On After (Bedtime)
           - entity: input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for
             name: Turn Off If Bed Unoccupied For
 
