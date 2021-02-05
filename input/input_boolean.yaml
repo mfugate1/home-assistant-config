@@ -10,6 +10,7 @@ occupancy_bedroom:
 occupancy_dining_room:
 occupancy_office:
 occupancy_upstairs_bathroom:
+sleep_mode:
 single_occupancy_mode:
   name: Single Occupancy Mode
 workout_mode:

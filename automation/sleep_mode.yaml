@@ -1,0 +1,34 @@
+- alias: 'Turn on sleep mode'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bed_occupied
+      to: 'on'
+    - platform: time
+      at: input_datetime.turn_on_sleep_mode_after
+  condition:
+    - condition: state
+      entity_id: binary_sensor.bed_occupied
+      state: 'on'
+    - condition: time
+      after: input_datetime.turn_on_sleep_mode_after
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.sleep_mode
+
+- alias: 'Turn off sleep mode'
+  trigger:
+    - platform: state
+      entity_id: binary_sensor.bed_occupied
+      to: 'off'
+      for: "{{ states('input_datetime.turn_off_sleep_mode_if_bed_occupied_for') }}"
+    - platform: time
+      at: input_datetime.keep_sleep_mode_on_until
+  condition:
+    - condition: state
+      entity_id: binary_sensor.bed_occupied
+      state: 'off'
+    - condition: time
+      after: input_datetime.keep_sleep_mode_on_until
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.sleep_mode
