@@ -79,10 +79,10 @@ views:
     cards:
       - type: entities
         entities: 
-          - entity: light.game_room_lamp
+          - entity: light.gameroom_lamp
             type: custom:slider-entity-row
             toggle: true
-          - entity: light.game_room_lamp
+          - entity: light.gameroom_lamp
             type: "custom:rgb-light-card"
             justify: center
             colors:

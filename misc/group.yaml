@@ -13,7 +13,7 @@ echos:
     - media_player.office_echo_dot
 gameroom:
   entities:
-    - light.game_room_lamp
+    - light.gameroom_lamp
     - light.gameroom_overhead
     - media_player.gameroom_receiver
     - media_player.gameroom_tv
@@ -25,7 +25,7 @@ garmin_watch:
     - light.bedroom_light
     - light.dining_room_light
     - light.entry_light
-    - light.game_room_lamp
+    - light.gameroom_lamp
     - light.gameroom_overhead
     - light.living_room_lamp
     - light.office_light

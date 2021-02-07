@@ -8,7 +8,7 @@
         value: KeyPressed2x
   action:
     service: light.turn_on
-    entity_id: light.game_room_lamp
+    entity_id: light.gameroom_lamp
       
 - alias: 'Game room double tap down - turn off lamp'
   trigger:
@@ -20,7 +20,7 @@
         value: KeyPressed2x
   action:
     service: light.turn_off
-    entity_id: light.game_room_lamp
+    entity_id: light.gameroom_lamp
         
 - alias: 'Game room triple tap up - turn on ps4 and tv'
   trigger:
