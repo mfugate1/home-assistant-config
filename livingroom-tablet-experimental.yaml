@@ -121,6 +121,10 @@ views:
               - type: buttons
                 entities:
                   - entity: light.gameroom_overhead
+                    icon: mdi:ceiling-light
+                    show_name: false
+                  - entity: light.gameroom_lamp
+                    icon: mdi:lamps
                     show_name: false
                   - entity: media_player.gameroom_tv
                     show_name: false
