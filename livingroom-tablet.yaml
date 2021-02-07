@@ -81,11 +81,11 @@ views:
                 entity: light.dining_room_light
                 name: Dining Room
               - type: light
-                entity: light.living_room_lamp
+                entity: light.livingroom_lamp
                 name: Lamp
                 style: "ha-card { height: 100%; }"
               - type: custom:rgb-light-card
-                entity: light.living_room_lamp
+                entity: light.livingroom_lamp
                 justify: center
                 colors:
                   - color_name: red

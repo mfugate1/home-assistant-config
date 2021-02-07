@@ -155,7 +155,7 @@ views:
                   - entity: switch.entry_light
                     name: Entry
                     icon: mdi:lightbulb
-                  - entity: light.living_room_lamp
+                  - entity: light.livingroom_lamp
                     name: Lamp
               - type: custom:paper-buttons-row
                 buttons:

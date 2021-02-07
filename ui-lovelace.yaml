@@ -94,10 +94,10 @@ views:
               - color_name: yellow
               - color_name: purple
               - color_name: orange
-          - entity: light.living_room_lamp 
+          - entity: light.livingroom_lamp 
             type: custom:slider-entity-row
             toggle: true
-          - entity: light.living_room_lamp 
+          - entity: light.livingroom_lamp 
             type: "custom:rgb-light-card"
             justify: center
             colors:

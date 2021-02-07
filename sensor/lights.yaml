@@ -40,7 +40,7 @@
   
 - platform: history_stats
   name: living_room_lamp_on
-  entity_id: light.living_room_lamp
+  entity_id: light.livingroom_lamp
   state: 'on'
   type: time
   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
