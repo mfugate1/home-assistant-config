@@ -78,7 +78,7 @@ views:
                 name: Entry
                 style: "ha-card { height: 100%; }"
               - type: light
-                entity: light.dining_room_light
+                entity: light.diningroom
                 name: Dining Room
               - type: light
                 entity: light.livingroom_lamp

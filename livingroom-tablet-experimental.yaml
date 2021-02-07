@@ -150,7 +150,7 @@ views:
                   - entity: media_player.livingroom_media
                     icon: mdi:cast
                     show_name: false
-                  - entity: light.dining_room_light
+                  - entity: light.diningroom
                     name: Dining Room
                   - entity: switch.entry_light
                     name: Entry

@@ -130,7 +130,7 @@ views:
               - color_name: yellow
               - color_name: purple
               - color_name: orange
-          - entity: light.dining_room_light
+          - entity: light.diningroom
             type: custom:slider-entity-row
             toggle: true
           - entity: light.gameroom_overhead
