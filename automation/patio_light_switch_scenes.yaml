@@ -8,7 +8,7 @@
         scene_data: 7860
   action:
     service: light.turn_on
-    entity_id: light.living_room_lamp
+    entity_id: light.livingroom_lamp
       
 - alias: 'Patio switch double tap down - turn on lamp'
   trigger:
@@ -20,7 +20,7 @@
         scene_data: 7860
   action:
     service: light.turn_off
-    entity_id: light.living_room_lamp
+    entity_id: light.livingroom_lamp
     
 - alias: 'Patio switch triple tap up - cycle lamp color'
   trigger:

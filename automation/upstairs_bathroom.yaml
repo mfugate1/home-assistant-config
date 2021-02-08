@@ -21,7 +21,7 @@
       {% else %}
         switch.turn_on
       {% endif %}
-    entity_id: switch.upstairs_bathroom_vent
+    entity_id: switch.upstairsbathroom_vent
 
 - alias: 'Set upstairs bathroom light brightness'
   trigger:
@@ -58,7 +58,7 @@
     - service: homeassistant.turn_off
       entity_id: 
         - light.upstairs_bathroom_light
-        - switch.upstairs_bathroom_vent
+        - switch.upstairsbathroom_vent
         
 - alias: 'Upstairs bathroom light off'
   trigger:
@@ -79,4 +79,4 @@
     service: homeassistant.turn_off
     entity_id: 
       - light.upstairs_bathroom_light
-      - switch.upstairs_bathroom_vent
+      - switch.upstairsbathroom_vent

@@ -218,7 +218,7 @@ views:
             entities:
               - entity: light.upstairs_bathroom_light
                 show_name: false
-              - entity: switch.upstairs_bathroom_vent
+              - entity: switch.upstairsbathroom_vent
                 icon: mdi:fan
                 show_name: false
       - type: entities
