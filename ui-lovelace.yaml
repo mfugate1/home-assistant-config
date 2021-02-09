@@ -142,7 +142,7 @@ views:
           - entity: light.patio_light
             type: custom:slider-entity-row
             toggle: true
-          - entity: light.upstairs_bathroom_light
+          - entity: light.upstairsbathroom
             type: custom:slider-entity-row
             toggle: true
           - entity: switch.entry_light

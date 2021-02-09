@@ -30,5 +30,5 @@ garmin_watch:
     - light.livingroom_lamp
     - light.office_light
     - light.patio_light
-    - light.upstairs_bathroom_light
+    - light.upstairsbathroom
     - switch.basement_stereo

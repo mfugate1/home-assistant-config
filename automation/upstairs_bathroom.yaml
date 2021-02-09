@@ -1,11 +1,11 @@
 - alias: 'Upstairs bathroom lights on'
   trigger:
     platform: state
-    entity_id: binary_sensor.upstairs_bathroom_motion
+    entity_id: binary_sensor.upstairsbathroom_motion
     to: 'on'
   action:
     service: light.turn_on
-    entity_id: light.upstairs_bathroom_light
+    entity_id: light.upstairsbathroom
     data:
       brightness: "{{ states('input_number.upstairsbathroom_light_brightness')}}"
       transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
@@ -50,20 +50,20 @@
   action:
     - wait_for_trigger:
         platform: state
-        entity_id: binary_sensor.upstairs_bathroom_motion
+        entity_id: binary_sensor.upstairsbathroom_motion
         to: 'off'
         for: "00:{{ ':'.join(states('input_datetime.upstairsbathroom_door_opened_motion_off_for').split(':')[0:2]) }}"
       timeout: "00:{{ ':'.join(states('input_datetime.upstairsbathroom_door_opened_motion_off_timeout').split(':')[0:2]) }}"
       continue_on_timeout: false
     - service: homeassistant.turn_off
       entity_id: 
-        - light.upstairs_bathroom_light
+        - light.upstairsbathroom
         - switch.upstairsbathroom_vent
         
 - alias: 'Upstairs bathroom light off'
   trigger:
     platform: state
-    entity_id: binary_sensor.upstairs_bathroom_motion
+    entity_id: binary_sensor.upstairsbathroom_motion
     to: 'off'
     for: >-
       {% if is_state('binary_sensor.upstairsbathroom_door', 'on') %}
@@ -78,5 +78,5 @@
   action:
     service: homeassistant.turn_off
     entity_id: 
-      - light.upstairs_bathroom_light
+      - light.upstairsbathroom
       - switch.upstairsbathroom_vent

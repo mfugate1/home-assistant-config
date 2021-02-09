@@ -32,7 +32,7 @@ include:
     - binary_sensor.sliding_side_door
     - binary_sensor.someone_is_sleeping
     - binary_sensor.updater
-    - binary_sensor.upstairs_bathroom_motion
+    - binary_sensor.upstairsbathroom_motion
     - device_tracker.sm_g950u1
     - input_boolean.sleep_mode
     - media_player.basement_squeezelite

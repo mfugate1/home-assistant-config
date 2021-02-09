@@ -216,7 +216,7 @@ views:
         entities:
           - type: buttons
             entities:
-              - entity: light.upstairs_bathroom_light
+              - entity: light.upstairsbathroom
                 show_name: false
               - entity: switch.upstairsbathroom_vent
                 icon: mdi:fan
@@ -252,6 +252,15 @@ views:
       - type: entities
         title: Upstairs Bathroom 
         entities:
+          - type: buttons
+            entities:
+              - entity: binary_sensor.upstairsbathroom_motion
+                show_name: false
+              - entity: light.upstairsbathroom
+                show_name: false
+              - entity: switch.upstairsbathroom_vent
+                icon: mdi:fan
+                show_name: false
           - entity: input_number.upstairsbathroom_light_brightness
             name: Current Brightness
           - entity: input_number.upstairsbathroom_light_transition

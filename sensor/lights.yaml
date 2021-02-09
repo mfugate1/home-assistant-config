@@ -56,7 +56,7 @@
 
 - platform: history_stats
   name: upstairs_bathroom_light_on
-  entity_id: light.upstairs_bathroom_light
+  entity_id: light.upstairsbathroom
   state: 'on'
   type: time
   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"

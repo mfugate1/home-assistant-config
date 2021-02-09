@@ -220,7 +220,7 @@ views:
             entities:
               - type: buttons
                 entities:
-                  - entity: light.upstairs_bathroom_light
+                  - entity: light.upstairsbathroom
                     show_name: false
                   - entity: switch.upstairsbathroom_vent
                     icon: mdi:fan
