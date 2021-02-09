@@ -1,51 +1,13 @@
-- alias: 'Game room double tap up - turn on lamp'
+- alias: 'Game room config button - toggle tv and receiver'
   trigger:
     - platform: event
       event_type: zwave_js_event
       event_data:
         node_id: 6
-        property_key_name: '002'
-        value: KeyPressed2x
+        property_key_name: '003'
+        value: KeyPressed
   action:
-    service: light.turn_on
-    entity_id: light.gameroom_lamp
-      
-- alias: 'Game room double tap down - turn off lamp'
-  trigger:
-    - platform: event
-      event_type: zwave_js_event
-      event_data:
-        node_id: 6
-        property_key_name: '001'
-        value: KeyPressed2x
-  action:
-    service: light.turn_off
-    entity_id: light.gameroom_lamp
-        
-- alias: 'Game room triple tap up - turn on ps4 and tv'
-  trigger:
-    - platform: event
-      event_type: zwave_js_event
-      event_data:
-        node_id: 6
-        property_key_name: '002'
-        value: KeyPressed3x
-  action:
-    service: media_player.turn_on
-    entity_id:
-      - media_player.gameroom_receiver
-      - media_player.gameroom_tv
-      
-- alias: 'Game room triple tap down - turn off ps4 and tv'
-  trigger:
-    - platform: event
-      event_type: zwave_js_event
-      event_data:
-        node_id: 6
-        property_key_name: '001'
-        value: KeyPressed3x
-  action:
-    service: media_player.turn_off
+    service: media_player.toggle
     entity_id:
       - media_player.gameroom_tv
       - media_player.gameroom_receiver
