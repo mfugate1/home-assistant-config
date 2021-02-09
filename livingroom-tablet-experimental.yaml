@@ -228,7 +228,7 @@ views:
           - type: entities
             entities:
               - type: custom:slider-entity-row
-                entity: light.office_light
+                entity: light.office
                 name: Office
                 toggle: true
               - type: custom:slider-entity-row

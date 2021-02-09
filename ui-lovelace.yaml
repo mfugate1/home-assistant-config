@@ -136,7 +136,7 @@ views:
           - entity: light.gameroom_overhead
             type: custom:slider-entity-row
             toggle: true
-          - entity: light.office_light
+          - entity: light.office
             type: custom:slider-entity-row
             toggle: true
           - entity: light.patio_light

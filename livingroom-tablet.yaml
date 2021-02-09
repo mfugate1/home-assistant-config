@@ -102,7 +102,7 @@ views:
                 entity: light.gameroom_overhead
                 name: Game Room
               - type: light
-                entity: light.office_light
+                entity: light.office
                 name: Office
                 style: "ha-card { height: 100%; }"
               - type: light
