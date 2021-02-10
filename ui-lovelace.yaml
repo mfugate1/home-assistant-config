@@ -112,7 +112,7 @@ views:
           - entity: light.basement_light
             type: custom:slider-entity-row
             toggle: true
-          - entity: light.bedroom_light
+          - entity: light.bedroom_overhead
             type: custom:slider-entity-row
             toggle: true
           - entity: light.bedroom_lamps

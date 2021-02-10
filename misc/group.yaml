@@ -22,7 +22,7 @@ garmin_watch:
     - cover.garage_door
     - input_boolean.workout_mode
     - light.basement_light
-    - light.bedroom_light
+    - light.bedroom_overhead
     - light.diningroom
     - light.entry_light
     - light.gameroom_lamp

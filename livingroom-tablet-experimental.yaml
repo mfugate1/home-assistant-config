@@ -59,7 +59,7 @@ views:
             entities:
               - type: custom:paper-buttons-row
                 buttons:
-                  - entity: light.bedroom_light
+                  - entity: light.bedroom_overhead
                     icon: mdi:ceiling-light
                     name: false
                   - entity: light.bedroom_lamps

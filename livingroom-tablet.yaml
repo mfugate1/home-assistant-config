@@ -106,7 +106,7 @@ views:
                 name: Office
                 style: "ha-card { height: 100%; }"
               - type: light
-                entity: light.bedroom_light
+                entity: light.bedroom_overhead
                 name: Bedroom
                 style: "ha-card { height: 100%; }"
               - type: light
