@@ -102,7 +102,7 @@ views:
             entities:
               - type: buttons
                 entities:
-                  - entity: light.basement_light
+                  - entity: light.basement
                     show_name: false
                   - entity: switch.basement_stereo
                     icon: mdi:audio-video

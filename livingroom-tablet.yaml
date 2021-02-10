@@ -110,7 +110,7 @@ views:
                 name: Bedroom
                 style: "ha-card { height: 100%; }"
               - type: light
-                entity: light.basement_light
+                entity: light.basement
                 name: Basement
                 style: "ha-card { height: 100%; }"
           - break

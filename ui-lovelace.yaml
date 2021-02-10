@@ -109,7 +109,7 @@ views:
               - color_name: yellow
               - color_name: purple
               - color_name: orange
-          - entity: light.basement_light
+          - entity: light.basement
             type: custom:slider-entity-row
             toggle: true
           - entity: light.bedroom_overhead

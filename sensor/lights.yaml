@@ -1,6 +1,6 @@
 - platform: history_stats
   name: basement_light_on
-  entity_id: light.basement_light
+  entity_id: light.basement
   state: 'on'
   type: time
   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"

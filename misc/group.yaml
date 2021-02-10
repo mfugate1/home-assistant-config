@@ -1,7 +1,7 @@
 basement:
   entities:
     - input_boolean.workout_mode
-    - light.basement_light
+    - light.basement
     - media_player.basement_tv
     - switch.basement_stereo
 echos:
@@ -21,7 +21,7 @@ garmin_watch:
   entities:
     - cover.garage_door
     - input_boolean.workout_mode
-    - light.basement_light
+    - light.basement
     - light.bedroom_overhead
     - light.diningroom
     - light.entry_light

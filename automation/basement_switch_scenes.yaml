@@ -36,7 +36,7 @@
         - media_player.playstation_4_office
         - media_player.basement_tv
     - service: light.turn_off
-      entity_id: light.basement_light
+      entity_id: light.basement
     - service: shell_command.curl
       data:
         url: !secret workout_music_stop_url
