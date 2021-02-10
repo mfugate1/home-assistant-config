@@ -139,7 +139,7 @@ views:
           - entity: light.office
             type: custom:slider-entity-row
             toggle: true
-          - entity: light.patio_light
+          - entity: light.patio
             type: custom:slider-entity-row
             toggle: true
           - entity: light.upstairsbathroom

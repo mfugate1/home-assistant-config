@@ -29,6 +29,6 @@ garmin_watch:
     - light.gameroom_overhead
     - light.livingroom_lamp
     - light.office
-    - light.patio_light
+    - light.patio
     - light.upstairsbathroom
     - switch.basement_stereo
