@@ -16,11 +16,11 @@ views:
                 step_size: 1
                 step_layout: row
                 control: false
+                hide:
+                  temperature: true
                 sensors:
                   - entity: sensor.diningroom_temperature
                     name: Temperature
-                  - attribute: hvac_action
-                    name: State
               - type: custom:paper-buttons-row
                 no_card: true
                 base_config:
