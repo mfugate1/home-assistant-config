@@ -1,5 +1,6 @@
 - platform: universal
   name: livingroom_media
+  state_template: "{{ states('media_player.livingroom_receiver') }}"
   children:
     - media_player.livingroom_roku
     - media_player.playstation_4_office
