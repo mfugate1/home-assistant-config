@@ -236,3 +236,54 @@ views:
                 name: Patio
                 toggle: true
               - cover.garage_door
+  - icon: mdi:auto-fix
+    cards:
+      - type: entities
+        title: Sleep Mode
+        entities:
+          - entity: input_boolean.sleep_mode
+            name: Sleep Mode
+          - type: divider
+          - automation.turn_off_sleep_mode
+          - automation.turn_on_sleep_mode
+          - type: divider
+          - entity: input_datetime.keep_sleep_mode_on_until
+            name: Keep On Until (Wakeup Time) (hh:mm)
+          - entity: input_datetime.turn_on_sleep_mode_after
+            name: Turn On After (Bedtime) (hh:mm)
+          - entity: input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for
+            name: Turn Off If Bed Unoccupied For (mm:ss)
+      - type: entities
+        title: Upstairs Bathroom
+        entities:
+          - type: buttons
+            entities:
+              - entity: binary_sensor.upstairsbathroom_motion
+                show_name: false
+              - entity: light.upstairsbathroom
+                show_name: false
+              - entity: switch.upstairsbathroom_vent
+                icon: mdi:fan
+                show_name: false
+          - entity: input_number.upstairsbathroom_light_brightness
+            name: Current Brightness
+          - entity: input_number.upstairsbathroom_light_transition
+            name: Transition
+          - entity: input_number.upstairsbathroom_light_sleeping_brightness
+            name: Sleeping Brightness
+          - entity: input_number.upstairsbathroom_light_day_brightness
+            name: Daytime Brightness
+          - entity: input_number.upstairsbathroom_light_night_brightness
+            name: Nighttime Brightness
+          - type: section
+            label: Door opens, turn off light if...
+          - entity: input_datetime.upstairsbathroom_door_opened_motion_off_for
+            name: Motion Off For (mm:ss)
+          - entity: input_datetime.upstairsbathroom_door_opened_motion_off_timeout
+            name: Motion Off Timeout (mm:ss)
+          - type: section
+            label: Light off after no motion for...
+          - entity: input_datetime.upstairsbathroom_light_off_door_open_for
+            name: Door Open (mm:ss)
+          - entity: input_datetime.upstairsbathroom_light_off_door_closed_for
+            name: Door Closed (mm:ss)
