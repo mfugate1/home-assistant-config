@@ -54,6 +54,8 @@ views:
                     icon: false
                   - entity: switch.circulation
                     icon: false
+          - type: entity
+            entity: cover.garage_door
           - type: entities
             title: Bedroom
             entities:
