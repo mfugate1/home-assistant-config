@@ -1,405 +1,238 @@
-title: Overlord
 background: var(--background-image)
 views:
-  - title: Home
-    icon: mdi:home
-    cards:
-      - type: thermostat
-        entity: climate.thermostat
-        name: Thermostat
-      - type: custom:mini-media-player
-        entity: media_player.living_room_media
-        name: Living Room Media
-        artwork: none
-        volume_stateless: true
-        source: full
-        shortcuts:
-          columns: 5
-          buttons: 
-            - icon: mdi:netflix
-              type: source
-              id: Netflix
-            - icon: mdi:hulu
-              type: source
-              id: Hulu
-            - icon: mdi:plex
-              type: source
-              id: Plex
-            - icon: mdi:youtube
-              type: source
-              id: YouTube
-            - icon: mdi:music
-              type: source
-              id: Music
-      - type: horizontal-stack
-        cards:
-          - type: custom:button-card
-            entity: input_boolean.workout_mode
-            name: Workout
-            label: Mode
-            show_label: true
-            icon: mdi:weight-lifter
-            style: "ha-card { height: 100%; }"
-            styles:
-              grid:
-                - grid-template-areas: '"n" "i" "s" "l"'
-          - type: custom:button-card
-            entity: input_boolean.workout_mode_available
-            name: WM Avail
-            icon: mdi:weight-lifter
-            style: "ha-card { height: 100%; }"
-            show_state: true
-            styles:
-              grid:
-                - grid-template-areas: '"n" "i" "s" "l"'
-          - type: custom:button-card
-            entity: input_boolean.single_occupancy_mode
-            name: SOM
-            icon: mdi:account-group
-            style: "ha-card { height: 100%; }"
-            show_state: true
-            styles:
-              grid:
-                - grid-template-areas: '"n" "i" "s" "l"'
-          - type: custom:button-card
-            entity: cover.garage_door
-            name: Garage
-            style: "ha-card { height: 100%; }"
-            show_state: true
-            tap_action:
-              action: call-service
-              service: cover.toggle
-              service_data:
-                entity_id: cover.garage_door
-            styles:
-              grid:
-                - grid-template-areas: '"n" "i" "s" "l"'
-  - icon: mdi:lightbulb-on
-    title: Lighting
-    cards:
-      - type: entities
-        entities: 
-          - entity: light.gameroom_lamp
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.gameroom_lamp
-            type: "custom:rgb-light-card"
-            justify: center
-            colors:
-              - color_name: red
-              - color_name: pink
-              - color_name: blue
-              - color_name: green
-              - color_name: white
-              - color_name: yellow
-              - color_name: purple
-              - color_name: orange
-          - entity: light.livingroom_lamp 
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.livingroom_lamp 
-            type: "custom:rgb-light-card"
-            justify: center
-            colors:
-              - color_name: red
-              - color_name: pink
-              - color_name: blue
-              - color_name: green
-              - color_name: white
-              - color_name: yellow
-              - color_name: purple
-              - color_name: orange
-          - entity: light.basement
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.bedroom_overhead
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.bedroom_lamps
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.bedroom_lamps 
-            type: "custom:rgb-light-card"
-            justify: center
-            colors:
-              - color_name: red
-              - color_name: pink
-              - color_name: blue
-              - color_name: green
-              - color_name: white
-              - color_name: yellow
-              - color_name: purple
-              - color_name: orange
-          - entity: light.diningroom
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.gameroom_overhead
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.office
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.patio
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: light.upstairsbathroom
-            type: custom:slider-entity-row
-            toggle: true
-          - entity: switch.entry_light
-            icon: mdi:lightbulb
-      - type: entities
-        title: Inovelli Notification LED
-        entities:
-          - input_select.inovelli_light_color
-          - input_select.inovelli_light_effect
-          - input_number.inovelli_light_level
-          - input_number.inovelli_light_duration
-          - type: custom:button-card
-            entity: zwave.basement_light
-            layout: icon_name_state
-            icon: mdi:alarm-light
-            name: Send Inovelli LED Command
-            tap_action:
-              action: call-service
-              service: python_scripts.inovelli_led
-              service_data:
-                level: '[[[ return states["input_number.inovelli_light_level"].state ]]]'
-                color: '[[[ return states["input_select.inovelli_light_color"].state ]]]'
-                effect: '[[[ return states["input_select.inovelli_light_effect"].state ]]]'
-                duration: '[[[ return states["input_number.inovelli_light_duration"].state ]]]'
-  - title: Media
-    icon: mdi:television
+  - icon: mdi:home
     cards:
       - type: vertical-stack
         cards:
           - type: entities
             entities:
-              - media_player.living_room_tv
-              - entity: media_player.living_room_receiver
-                type: custom:slider-entity-row
-                hide_when_off: true
-                step: 1
-              - media_player.game_room_tv
-              - media_player.playstation_4_basement
-              - media_player.playstation_4_office
-              - entity: media_player.game_room_receiver
-                type: custom:slider-entity-row
-                hide_when_off: true
-                step: 1
-              - media_player.basement_tv
-              - switch.basement_stereo
-          - type: horizontal-stack
-            cards:
-              - type: custom:button-card
-                name: Bootstrap
-                label: Music DB
-                show_label: true
-                entity: script.bootstrap_music_db
-                icon: mdi:music
-                style: "ha-card { height: 100%; }"
-                tap_action:
-                  action: call-service
-                  service: script.turn_on
-                  service_data:
-                    entity_id: script.bootstrap_music_db
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-              - type: custom:button-card
-                name: Rescan
-                label: LMS
-                show_label: true
-                entity: script.rescan_lms
-                icon: mdi:music
-                style: "ha-card { height: 100%; }"
-                tap_action:
-                  action: call-service
-                  service: script.turn_on
-                  service_data:
-                    entity_id: script.rescan_lms
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-              - type: custom:button-card
-                name: Update
-                label: Music DB
-                show_label: true
-                entity: script.update_music_db
-                icon: mdi:music
-                style: "ha-card { height: 100%; }"
-                tap_action:
-                  action: call-service
-                  service: script.turn_on
-                  service_data:
-                    entity_id: script.update_music_db
-                styles:
-                  grid:
-                    - grid-template-areas: '"n" "i" "s" "l"'
-  - icon: mdi:fan
-    title: Climate
-    cards:
-      - type: thermostat
-        entity: climate.thermostat
-        name: Honeywell T6 Pro
-      - type: entities
-        title: Temperature Settings
-        entities:
-          - input_number.climate_cool_away_temp
-          - input_number.climate_cool_asleep_temp
-          - input_number.climate_cool_home_temp
-          - input_number.climate_heat_away_temp
-          - input_number.climate_heat_asleep_temp
-          - input_number.climate_heat_home_temp
-      - type: picture-entity
-        entity: camera.grafana_hvac_usage_graph
-        show_name: false
-        show_state: false
-      - type: entities
-        title: Automation
-        entities:
-          - automation.turn_off_hvac_if_any_doors_or_windows_are_open
-          - automation.turn_on_hvac_when_all_doors_and_windows_are_closed
-  - icon: mdi:shield-home
-    title: Security
-    theme: dark-mode
-    cards:
-      - type: entities
-        title: Presence Detection
-        entities:
-          - person.mike
-      - type: entities
-        title: Doors
-        entities:
-          - binary_sensor.basement_door
-          - binary_sensor.front_door
-          - binary_sensor.garage_door
-          - binary_sensor.garage_inner_door
-          - binary_sensor.garage_outer_door
-          - binary_sensor.sliding_side_door
-      - type: entities
-        title: Windows
-        entities:
-          - binary_sensor.kitchen_window
-      - type: entities
-        title: Security Automation
-        entities:
-          - automation.door_alarm
-          - automation.motion_detected
-      - type: entities
-        title: Room Occupancy
-        entities:
-          - binary_sensor.game_room_occupied
-          - binary_sensor.d6t_sensor
-      - type: entities
-        entities:
-          - cover.garage_door
-  - icon: mdi:auto-fix
-    title: Automation
-    theme: dark-mode
-    cards:
-      - type: entities
-        title: Dehumidifier
-        entities:
-          - sensor.basement_humidity
-          - switch.basement_dehumidifier
-          - input_number.dehumidifier_off_threshold
-          - input_number.dehumidifier_on_threshold
-          - automation.turn_on_dehumidifier_if_above_threshold
-      - type: entities
-        title: Mouse Trap
-        entities:
-          - binary_sensor.mouse_trap
-          - automation.mouse_trap_activated
-      - type: entities
-        title: Garage Door
-        entities:
-          - automation.garage_door_cooldown
-          - automation.garage_door_open_for_20_minutes
-          - automation.open_garage_door_when_arriving_then_close
-      - type: entities
-        title: Lights
-        entities:
-          - input_boolean.single_occupancy_mode
-          - automation.basement_light_off
-          - automation.basement_light_on
-          - automation.bedroom_light_off
-          - automation.bedroom_light_on
-          - automation.dining_room_light_off
-          - automation.dining_room_light_on
-          - automation.office_light_off
-          - automation.office_light_on
-          - automation.game_room_light_off
-  - icon: mdi:battery
-    title: Battery Levels
-    theme: dark-mode
-    cards:
-      - type: gauge
-        entity: sensor.basement_door_sensor_battery_level
-        name: Basement Door
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.front_door_sensor_battery_level
-        name: Front Door
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.garage_door_tilt_sensor_battery_level
-        name: Garage Door
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.garage_inner_door_sensor_battery_level
-        name: Garage Inner Door
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.garage_outer_door_sensor_battery_level
-        name: Garage Outer Door
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.kitchen_window_sensor_battery_level
-        name: Kitchen Window
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.living_room_smoke_detector_battery_level
-        name: LR Smoke Detector
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.mikes_phone_battery
-        name: Galaxy S8
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.mouse_trap_battery_level
-        name: Mouse Trap
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
-      - type: gauge
-        entity: sensor.tablet_battery
-        name: Tablet
-        severity:
-          red: 0
-          yellow: 35
-          green: 75
+              - type: custom:simple-thermostat
+                entity: climate.thermostat
+                canary_style:
+                  margin: '-20px -20px -20px -20px'
+                no_card: true
+                show_header: false
+                decimals: 0
+                step_size: 1
+                step_layout: row
+                control: false
+              - type: custom:paper-buttons-row
+                no_card: true
+                base_config:
+                  style:
+                    button:
+                      border-radius: 40px
+                buttons:
+                  - entity: switch.hvac_off
+                    name: false
+                  - entity: switch.heat_mode
+                    name: false
+                    state_styles:
+                      'on':
+                        button:
+                          background-color: orange
+                  - entity: switch.cool_mode
+                    name: false
+                    state_styles:
+                      'on':
+                        button:
+                          background-color: var(--label-badge-blue)
+              - type: custom:paper-buttons-row
+                no_card: true
+                canary_style:
+                  margin: '-30px 0px 0px'
+                base_config:
+                  style:
+                    button:
+                      border-radius: 20px
+                buttons:
+                  - entity: switch.next_fan_mode
+                    name: false
+                  - entity: switch.fan_auto
+                    icon: false
+                  - entity: switch.fan_on
+                    icon: false
+                  - entity: switch.circulation
+                    icon: false
+          - type: entities
+            title: Bedroom
+            entities:
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: light.bedroom_overhead
+                    icon: mdi:ceiling-light
+                    name: false
+                  - entity: light.bedroom_lamps
+                    icon: mdi:lamps
+                    name: false
+                  - entity: switch.bedroom_fan
+                    icon: mdi:fan
+                    name: false
+                  - icon: mdi:bed-empty
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.bed_presets
+                        option: Flat
+                  - icon: mdi:television
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.bed_presets
+                        option: Watch TV
+                  - icon: mdi:book-open
+                    tap_action:
+                      action: call-service
+                      service: input_select.select_option
+                      service_data:
+                        entity_id: input_select.bed_presets
+                        option: Read
+              - type: custom:slider-entity-row
+                entity: input_number.bed_sleep_number_left
+                hide_state: false
+                name: Left
+              - type: custom:slider-entity-row
+                entity: input_number.bed_sleep_number_right
+                hide_state: false
+                name: Right
+          - type: entities
+            title: Basement
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.basement
+                    show_name: false
+                  - entity: switch.basement_stereo
+                    icon: mdi:audio-video
+                    show_name: false
+                  - entity: media_player.basement_tv
+                    show_name: false
+                  - entity: media_player.playstation_4_basement
+                    icon: mdi:sony-playstation
+                    show_name: false
+                  - entity: input_boolean.workout_mode
+                    icon: mdi:weight-lifter
+                    show_name: false
+          - type: entities
+            title: Game Room
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.gameroom_overhead
+                    icon: mdi:ceiling-light
+                    show_name: false
+                  - entity: light.gameroom_lamp
+                    icon: mdi:lamps
+                    show_name: false
+                  - entity: media_player.gameroom_tv
+                    show_name: false
+              - type: conditional
+                conditions:
+                  - entity: media_player.gameroom_receiver
+                    state: 'on'
+                row:
+                  type: custom:slider-entity-row
+                  entity: light.game_room_volume
+                  icon: mdi:volume-high
+                  full_row: true
+                  step: 1
+                  min: 20
+                  max: 100
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Living Room
+            entities:
+              - type: buttons
+                entities:
+                  - entity: media_player.livingroom_media
+                    icon: mdi:cast
+                    show_name: false
+                  - entity: light.diningroom
+                    name: Dining Room
+                  - entity: switch.entry_light
+                    name: Entry
+                    icon: mdi:lightbulb
+                  - entity: light.livingroom_lamp
+                    name: Lamp
+              - type: custom:paper-buttons-row
+                buttons:
+                  - icon: mdi:sony-playstation
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: ps4
+                    hold_action:
+                      action: more-info
+                      entity: media_player.playstation_4_office
+                  - icon: mdi:steam
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: steam
+                  - icon: mdi:netflix
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: netflix
+                  - icon: mdi:hulu
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: hulu
+                  - icon: mdi:plex
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: plex
+                  - icon: mdi:youtube
+                    tap_action:
+                      action: fire-event
+                      event_type: MEDIA_CONTROLLER_COMMAND
+                      event_data:
+                        room: livingroom
+                        source: youtube
+              - type: conditional
+                conditions:
+                  - entity: media_player.livingroom_receiver
+                    state: 'on'
+                row:
+                  type: custom:slider-entity-row
+                  entity: light.living_room_volume
+                  icon: mdi:volume-high
+                  full_row: true
+                  step: 1
+                  max: 45
+          - type: entities
+            title: Upstairs Bathroom
+            entities:
+              - type: buttons
+                entities:
+                  - entity: light.upstairsbathroom
+                    show_name: false
+                  - entity: switch.upstairsbathroom_vent
+                    icon: mdi:fan
+                    show_name: false
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.office
+                name: Office
+                toggle: true
+              - type: custom:slider-entity-row
+                entity: light.patio
+                name: Patio
+                toggle: true
+              - cover.garage_door

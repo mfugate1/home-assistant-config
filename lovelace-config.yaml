@@ -28,16 +28,3 @@ resources:
     type: module
   - url: /hacsfiles/kiosk-mode/kiosk-mode.js
     type: module
-dashboards:
-  livingroom-tablet:
-    mode: yaml
-    filename: livingroom-tablet.yaml
-    title: Tablet
-  phone-ui:
-    mode: yaml
-    filename: phone-ui.yaml
-    title: Phone
-  lrt-e:
-    mode: yaml
-    filename: livingroom-tablet-experimental.yaml
-    title: LRT-E
