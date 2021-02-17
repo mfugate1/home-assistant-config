@@ -5,7 +5,7 @@ views:
     icon: mdi:home
     cards:
       - type: thermostat
-        entity: climate.honeywell_thermostat
+        entity: climate.thermostat
         name: Thermostat
       - type: custom:mini-media-player
         entity: media_player.living_room_media
@@ -239,7 +239,7 @@ views:
     title: Climate
     cards:
       - type: thermostat
-        entity: climate.honeywell_thermostat
+        entity: climate.thermostat
         name: Honeywell T6 Pro
       - type: entities
         title: Temperature Settings

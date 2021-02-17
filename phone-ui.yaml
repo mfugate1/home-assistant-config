@@ -5,7 +5,7 @@ views:
       - type: entities
         entities:
           - type: custom:simple-thermostat
-            entity: climate.honeywell_thermostat
+            entity: climate.thermostat
             canary_style:
               margin: '-20px -20px -20px -20px'
             no_card: true

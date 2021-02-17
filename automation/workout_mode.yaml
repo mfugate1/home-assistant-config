@@ -27,11 +27,11 @@
     - service: switch.turn_on
       entity_id: switch.basement_stereo
     - condition: state
-      entity_id: climate.honeywell_thermostat
+      entity_id: climate.thermostat
       state: heat
     - service: climate.set_temperature
       data_template:
-        entity_id: climate.honeywell_thermostat
+        entity_id: climate.thermostat
         temperature: "{{ states('input_number.climate_heat_away_temp') }}"
         
 - alias: 'Workout mode off delayed'
@@ -62,11 +62,11 @@
       data:
         url: !secret workout_music_stop_url
     - condition: state
-      entity_id: climate.honeywell_thermostat
+      entity_id: climate.thermostat
       state: heat
     - service: climate.set_temperature
       data_template:
-        entity_id: climate.honeywell_thermostat
+        entity_id: climate.thermostat
         temperature: "{{ states('input_number.climate_heat_home_temp') }}"
         
 - alias: 'Enable workout mode each day'

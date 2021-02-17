@@ -139,7 +139,7 @@ views:
                         </tr>
                         <tr>
                           <td>System Status:</td>
-                          <td colspan="2" align="center">{{ state_attr('climate.honeywell_thermostat', 'hvac_action') | capitalize }}</td>
+                          <td colspan="2" align="center">{{ state_attr('climate.thermostat', 'hvac_action') | capitalize }}</td>
                         </tr>
                       </table>
                   - type: entities
@@ -151,7 +151,7 @@ views:
                         no_card: true
                         canary_style:
                           margin: '-16px -16px -20px'
-                        entity: climate.honeywell_thermostat
+                        entity: climate.thermostat
                         name: false
                         decimals: 0
                         step_size: 1

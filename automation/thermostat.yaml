@@ -23,9 +23,9 @@
   action:
     service: climate.set_temperature
     data_template:
-      entity_id: climate.honeywell_thermostat
+      entity_id: climate.thermostat
       temperature: >-
-        {% if is_state('climate.honeywell_thermostat', 'heat') %}
+        {% if is_state('climate.thermostat', 'heat') %}
           {{ states('input_number.climate_heat_home_temp') }}
         {% else %}
           {{ states('input_number.climate_cool_home_temp') }}
@@ -48,9 +48,9 @@
   action:
     service: climate.set_temperature
     data_template:
-      entity_id: climate.honeywell_thermostat
+      entity_id: climate.thermostat
       temperature: >-
-        {% if is_state('climate.honeywell_thermostat', 'heat') %}
+        {% if is_state('climate.thermostat', 'heat') %}
           {{ states('input_number.climate_heat_away_temp') }}
         {% else %}
           {{ states('input_number.climate_cool_away_temp') }}
@@ -80,9 +80,9 @@
   action:
     service: climate.set_temperature
     data_template:
-      entity_id: climate.honeywell_thermostat
+      entity_id: climate.thermostat
       temperature: >-
-        {% if is_state('climate.honeywell_thermostat', 'heat') %}
+        {% if is_state('climate.thermostat', 'heat') %}
           {{ states('input_number.climate_heat_away_temp') }}
         {% else %}
           {{ states('input_number.climate_cool_away_temp') }}
