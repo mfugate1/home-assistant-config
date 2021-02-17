@@ -238,7 +238,6 @@ views:
                 entity: light.patio
                 name: Patio
                 toggle: true
-              - cover.garage_door
   - icon: mdi:auto-fix
     cards:
       - type: entities
