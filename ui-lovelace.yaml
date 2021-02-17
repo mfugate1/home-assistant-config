@@ -294,3 +294,9 @@ views:
             name: Door Open (mm:ss)
           - entity: input_datetime.upstairsbathroom_light_off_door_closed_for
             name: Door Closed (mm:ss)
+  - icon: mdi:cctv
+    panel: true
+    cards:
+      - type: picture-entity
+        entity: camera.driveway
+        camera_view: live
