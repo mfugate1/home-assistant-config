@@ -144,8 +144,7 @@ views:
                     name: Lamp
               - type: custom:paper-buttons-row
                 buttons:
-                  - icon: mdi:sony-playstation
-                    entity: switch.livingroom_ps4
+                  - entity: switch.livingroom_ps4
                     name: false
                     hold_action:
                       action: more-info
@@ -157,11 +156,9 @@ views:
                       event_data:
                         room: livingroom
                         source: steam
-                  - icon: mdi:netflix
-                    entity: switch.livingroom_netflix
+                  - entity: switch.livingroom_netflix
                     name: false
-                  - icon: mdi:hulu
-                    entity: switch.livingroom_hulu
+                  - entity: switch.livingroom_hulu
                     name: false
                   - icon: mdi:plex
                     tap_action:

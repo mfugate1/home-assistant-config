@@ -2,8 +2,8 @@
   switches:
     livingroom_hulu:
       icon_template: mdi:hulu
-      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu')  and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_2') }}"
-      availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"
+      value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu') }}"
+      availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
       turn_on:
         - service: media_player.turn_on
           entity_id: media_player.livingroom_media
@@ -18,9 +18,9 @@
         service: media_player.turn_off
         entity_id: media_player.livingroom_media
     livingroom_netflix:
-      icon_template: mdi:hulu
-      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix')  and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_2') }}"
-      availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"
+      icon_template: mdi:netflix
+      value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix') }}"
+      availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
       turn_on:
         - service: media_player.turn_on
           entity_id: media_player.livingroom_media
