@@ -133,6 +133,8 @@ views:
                   - entity: media_player.livingroom_media
                     icon: mdi:cast
                     show_name: false
+                    tap_action:
+                      action: toggle
                   - entity: light.diningroom
                     name: Dining Room
                   - entity: switch.entry_light
