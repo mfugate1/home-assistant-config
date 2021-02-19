@@ -1,0 +1,16 @@
+- platform: template
+  switches:
+    livingroom_hulu:
+      icon_template: mdi:hulu
+      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu') }}"
+      availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable')}}"
+      turn_on:
+        - service: media_player.turn_on
+          entity_id: media_player.livingroom_media
+        - service: media_player.select_source
+          entity_id: media_player.livingroom_roku
+          data:
+            source: Hulu
+      turn_off:
+        service: media_player.turn_off
+        entity_id: media_player.livingroom_media

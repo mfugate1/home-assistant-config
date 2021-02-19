@@ -167,12 +167,7 @@ views:
                         room: livingroom
                         source: netflix
                   - icon: mdi:hulu
-                    tap_action:
-                      action: fire-event
-                      event_type: MEDIA_CONTROLLER_COMMAND
-                      event_data:
-                        room: livingroom
-                        source: hulu
+                    entity: switch.livingroom_hulu
                   - icon: mdi:plex
                     tap_action:
                       action: fire-event
