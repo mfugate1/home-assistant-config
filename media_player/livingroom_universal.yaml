@@ -16,11 +16,11 @@
             - media_player.livingroom_tv
             - media_player.livingroom_receiver
     turn_on:
-      service: media_player.turn_on
-      data:
-        entity_id: 
-          - media_player.livingroom_tv
-          - media_player.livingroom_receiver
+      - service: media_player.turn_on
+        data:
+          entity_id: 
+            - media_player.livingroom_tv
+            - media_player.livingroom_receiver
     volume_up:
       service: media_player.volume_up
       data:
