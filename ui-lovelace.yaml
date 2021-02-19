@@ -168,6 +168,7 @@ views:
                         source: netflix
                   - icon: mdi:hulu
                     entity: switch.livingroom_hulu
+                    name: false
                   - icon: mdi:plex
                     tap_action:
                       action: fire-event
