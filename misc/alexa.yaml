@@ -12,7 +12,7 @@ smart_home:
       - media_player.*_receiver
       - media_player.*_tv
     include_entities:
-      - switch.basement_dehumidifier
+      - switch.dehumidifier
       - switch.basement_stereo
       - switch.bedroom_fan
       - switch.circulation

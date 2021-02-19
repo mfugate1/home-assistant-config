@@ -22,7 +22,7 @@
       state: 'off'
   action:
     service: switch.turn_on
-    entity_id: switch.basement_dehumidifier
+    entity_id: switch.dehumidifier
 
 - alias: 'Turn off dehumidifier if below threshold or basement occupied'
   trigger:
@@ -55,4 +55,4 @@
         state: 'on'
   action:
     service: switch.turn_off
-    entity_id: switch.basement_dehumidifier
+    entity_id: switch.dehumidifier
