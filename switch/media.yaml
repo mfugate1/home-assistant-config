@@ -63,3 +63,8 @@
         - service: script.select_livingroom_sources
           data:
             media_type: steam
+      turn_off:
+        service: homeassistant.turn_off
+        entity_id: 
+          - switch.pc
+          - media_player.livingroom_media
