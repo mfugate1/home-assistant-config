@@ -145,12 +145,8 @@ views:
               - type: custom:paper-buttons-row
                 buttons:
                   - icon: mdi:sony-playstation
-                    tap_action:
-                      action: fire-event
-                      event_type: MEDIA_CONTROLLER_COMMAND
-                      event_data:
-                        room: livingroom
-                        source: ps4
+                    entity: switch.livingroom_ps4
+                    name: false
                     hold_action:
                       action: more-info
                       entity: media_player.playstation_4_office
@@ -162,12 +158,8 @@ views:
                         room: livingroom
                         source: steam
                   - icon: mdi:netflix
-                    tap_action:
-                      action: fire-event
-                      event_type: MEDIA_CONTROLLER_COMMAND
-                      event_data:
-                        room: livingroom
-                        source: netflix
+                    entity: switch.livingroom_netflix
+                    name: false
                   - icon: mdi:hulu
                     entity: switch.livingroom_hulu
                     name: false
