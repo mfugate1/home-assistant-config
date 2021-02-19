@@ -11,6 +11,9 @@
           entity_id: media_player.livingroom_roku
           data:
             source: Hulu
+        - service: script.select_livingroom_sources
+          data:
+            media_type: roku
       turn_off:
         service: media_player.turn_off
         entity_id: media_player.livingroom_media
@@ -25,6 +28,9 @@
           entity_id: media_player.livingroom_roku
           data:
             source: Netflix
+        - service: script.select_livingroom_sources
+          data:
+            media_type: roku
       turn_off:
         service: media_player.turn_off
         entity_id: media_player.livingroom_media
@@ -37,10 +43,9 @@
           entity_id:
             - media_player.playstation_4_office
             - media_player.livingroom_media
-        - service: media_player.select_source
-          entity_id: media_player.livingroom_tv
+        - service: script.select_livingroom_sources
           data:
-            source: HDMI_IN_3
+            media_type: ps4
       turn_off:
         service: media_player.turn_off
         entity_id: 

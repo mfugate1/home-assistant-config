@@ -1,0 +1,28 @@
+description: Select the right TV and receiver sources based on what the media type is
+fields:
+  media_type:
+    description: The type of media that should be displayed and heard in the living room (roku, ps4, music)
+    example: roku
+mode: restart
+sequence:
+  - wait_template: "{{ is_state('media_player.livingroom_receiver', 'on') }}"
+  - service: media_player.select_source
+    entity_id: media_player.livingroom_receiver
+    data:
+      source: >-
+        {% if media_type == 'music' %}
+          Video 2
+        {% else %}
+          tv/cd
+        {% endif %}
+  - condition: "{{ media_type != 'music' }}"
+  - wait_template: "{{ is_state('media_player.livingroom_tv', 'on') }}"
+  - service: media_player.select_source
+    entity_id: media_player.livingroom_tv
+    data:
+      source: >-
+        {% if media_type == 'roku' %}
+          HDMI_IN_2
+        {% else %}
+          HDMI_IN_3
+        {% endif %}
