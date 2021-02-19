@@ -2,7 +2,7 @@
   switches:
     livingroom_hulu:
       icon_template: mdi:hulu
-      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu') }}"
+      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu')  and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_2') }}"
       availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"
       turn_on:
         - service: media_player.turn_on
@@ -16,7 +16,7 @@
         entity_id: media_player.livingroom_media
     livingroom_netflix:
       icon_template: mdi:hulu
-      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix') }}"
+      value_template: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix')  and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_2') }}"
       availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"
       turn_on:
         - service: media_player.turn_on
@@ -30,7 +30,7 @@
         entity_id: media_player.livingroom_media
     livingroom_ps4:
       icon_template: mdi:sony-playstation
-      value_template: "{{ is_state('media_player.playstation_4_office', 'on') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3')}}"
+      value_template: "{{ not is_state('media_player.playstation_4_office', 'standby') and not is_state('media_player.playstation_4_office', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
       availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_office', 'unavailable') }}"
       turn_on:
         - service: media_player.turn_on
