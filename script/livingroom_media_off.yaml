@@ -1,0 +1,9 @@
+description: Pause whatever is playing in the living room and turn off all media devices
+sequence:
+  - service: media_player.media_pause
+    entity_id: media_player.livingroom_roku
+  - service: media_player.turn_off
+    data:
+      entity_id: 
+        - media_player.livingroom_tv
+        - media_player.livingroom_receiver

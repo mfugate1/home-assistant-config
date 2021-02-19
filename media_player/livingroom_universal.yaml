@@ -8,19 +8,13 @@
     - media_player.livingroom_tv
   commands:
     turn_off:
-      - service: media_player.media_pause
-        entity_id: media_player.livingroom_roku
-      - service: media_player.turn_off
-        data:
-          entity_id: 
-            - media_player.livingroom_tv
-            - media_player.livingroom_receiver
+      service: script.livingroom_media_off
     turn_on:
-      - service: media_player.turn_on
-        data:
-          entity_id: 
-            - media_player.livingroom_tv
-            - media_player.livingroom_receiver
+      service: media_player.turn_on
+      data:
+        entity_id: 
+          - media_player.livingroom_tv
+          - media_player.livingroom_receiver
     volume_up:
       service: media_player.volume_up
       data:
