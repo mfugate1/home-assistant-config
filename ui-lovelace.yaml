@@ -149,13 +149,8 @@ views:
                     hold_action:
                       action: more-info
                       entity: media_player.playstation_4_office
-                  - icon: mdi:steam
-                    tap_action:
-                      action: fire-event
-                      event_type: MEDIA_CONTROLLER_COMMAND
-                      event_data:
-                        room: livingroom
-                        source: steam
+                  - entity: switch.livingroom_steam
+                    name: false
                   - entity: switch.livingroom_netflix
                     name: false
                   - entity: switch.livingroom_hulu

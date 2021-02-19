@@ -51,3 +51,15 @@
         entity_id: 
           - media_player.playstation_4_office
           - media_player.livingroom_media
+    livingroom_steam:
+      icon_template: mdi:steam
+      value_template: "{{ is_state('switch.pc', 'on') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_1') }}"
+      availability_template: "{{ not is_state('switch.pc', 'unavailable') and not is_state('media_player.livingroom_tv', 'unavailable') }}"
+      turn_on:
+        - service: homeassistant.turn_on
+          entity_id:
+            - switch.pc
+            - media_player.livingroom_media
+        - service: script.select_livingroom_sources
+          data:
+            media_type: steam

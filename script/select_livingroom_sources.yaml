@@ -1,7 +1,7 @@
 description: Select the right TV and receiver sources based on what the media type is
 fields:
   media_type:
-    description: The type of media that should be displayed and heard in the living room (roku, ps4, music)
+    description: The type of media that should be displayed and heard in the living room (roku, ps4, steam, music)
     example: roku
 mode: restart
 sequence:
@@ -22,7 +22,9 @@ sequence:
     entity_id: media_player.livingroom_tv
     data:
       source: >-
-        {% if media_type == 'roku' %}
+        {% if media_type == 'steam' %}
+          HDMI_IN_1
+        {% elif media_type == 'roku' %}
           HDMI_IN_2
         {% else %}
           HDMI_IN_3
