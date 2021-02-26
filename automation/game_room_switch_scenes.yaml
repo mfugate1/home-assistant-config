@@ -1,11 +1,11 @@
 - alias: 'Game room config button - toggle tv and receiver'
   trigger:
-    - platform: event
-      event_type: zwave_js_event
-      event_data:
-        node_id: 6
-        property_key_name: '003'
-        value: KeyPressed
+    platform: event
+    event_type: zwave_js_event
+    event_data:
+      node_id: 6
+      property_key_name: '003'
+      value: 0
   action:
     service: media_player.toggle
     entity_id:
