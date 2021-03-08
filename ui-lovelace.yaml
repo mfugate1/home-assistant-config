@@ -284,3 +284,23 @@ views:
       - type: picture-entity
         entity: camera.driveway
         camera_view: live
+  - icon: mdi:home-alert
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            entity: switch.entry_light
+          - type: custom:button-card
+            entity: light.livingroom_lamp
+          - type: custom:button-card
+            entity: light.diningroom
+          - type: custom:button-card
+            entity: cover.garage_door
+          - type: custom:button-card
+            entity: group.update_available
+            template: alerter
+            variables:
+              color: blue
+
+
+      
