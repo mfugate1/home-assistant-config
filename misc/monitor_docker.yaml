@@ -16,3 +16,7 @@
     - workout-site
   monitored_conditions:
     - allinone
+- name: office_raspi4
+  url: tcp://192.168.1.164:2376
+  monitored_conditions:
+    - allinone
