@@ -1,20 +1,33 @@
 - alias: 'Notify phone when new hass version is available'
   trigger:
-    platform: state
+    - platform: state
+      entity_id: binary_sensor.updater
+      to: 'on'
+    - platform: homeassistant
+      event: start
+  condition:
+    condition: state
     entity_id: binary_sensor.updater
-    to: 'on'
+    state: 'on'
   action:
     service: notify.mobile_app_sm_g981u1
     data:
       message: "New version of HASS is available: {{ state_attr('binary_sensor.updater', 'newest_version') }}"
       data:
+        sticky: 'true'
         tag: hass_update
 
 - alias: 'Clear hass update notification on phone'
   trigger:
-    platform: state
+    - platform: state
+      entity_id: binary_sensor.updater
+      to: 'off'
+    - platform: homeassistant
+      event: start
+  condition:
+    condition: state
     entity_id: binary_sensor.updater
-    to: 'off'
+    state: 'off'
   action:
     service: notify.mobile_app_sm_g981u1
     data:
