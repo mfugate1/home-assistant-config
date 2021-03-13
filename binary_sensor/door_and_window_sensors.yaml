@@ -8,10 +8,6 @@
       friendly_name: Front Door
       device_class: door
       value_template: "{{ is_state('sensor.sensative_strips_front_door_access_control', '22') }}"
-    garage_door:
-      friendly_name: Garage Door
-      device_class: garage_door
-      value_template: "{{ is_state('binary_sensor.garage_door_tilt_sensor', 'on') }}"
     garage_inner_door:
       friendly_name: Garage Inner Door
       device_class: door
