@@ -24,11 +24,6 @@ http:
 sleepiq:
   username: !secret email_address
   password: !secret sleepiq_pass
-    
-zwave:
-  config_path: /zwave-config
-  usb_path: !secret zwave_usb_path
-  polling_interval: 30000
 
 alexa: !include misc/alexa.yaml
 automation: !include_dir_merge_list automation/
