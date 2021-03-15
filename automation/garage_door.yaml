@@ -25,17 +25,16 @@
     entity_id: input_boolean.garage_door_arrival_open_enabled
     state: 'on'
   action:
-    - service: notify.email
-      data_template: 
-        title: 'Opening garage door'
+    - service: notify.mobile_app_sm_g981u1
+      data:
         message: "Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
-    - service: cover.open_cover
-      entity_id: cover.garage_door
-    - wait_template: "{{ is_state('binary_sensor.garage_inner_door', 'on') }}"
-      timeout: 00:10:00
-      continue_on_timeout: 'false'
-    - service: cover.close_cover
-      entity_id: cover.garage_door
+    #- service: cover.open_cover
+    #  entity_id: cover.garage_door
+    #- wait_template: "{{ is_state('binary_sensor.garage_inner_door', 'on') }}"
+    #  timeout: 00:10:00
+    #  continue_on_timeout: 'false'
+    #- service: cover.close_cover
+    #  entity_id: cover.garage_door
       
 - alias: 'Disable arrival opening when garage door opens'
   trigger:
