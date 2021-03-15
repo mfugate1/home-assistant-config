@@ -12,6 +12,7 @@ smart_home:
       - media_player.*_receiver
       - media_player.*_tv
     include_entities:
+      - binary_sensor.run_vacuum
       - input_boolean.run_vacuum
       - switch.dehumidifier
       - switch.basement_stereo
