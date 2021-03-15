@@ -2,4 +2,3 @@
   sensors:
     run_vacuum:
       value_template: "{{ is_state('input_boolean.run_vacuum', 'on') }}"
-      device_class: presence

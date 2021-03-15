@@ -24,3 +24,6 @@ smart_home:
       - script.rescan_lms
       - script.media_controller_command
       - script.update_music_db
+  entity_config:
+    binary_sensor.run_vacuum:
+      display_categories: CONTACT_SENSOR
