@@ -25,6 +25,8 @@
             - service: notify.alexa_media_bedroom_echo_dot
               data:
                 message: You forgot to charge your watch
+                data:
+                  type: tts
       default:
         - service: switch.turn_on
           entity_id:
