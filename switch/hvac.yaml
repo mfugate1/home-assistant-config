@@ -3,48 +3,48 @@
     circulation:
       friendly_name: Circulate
       icon_template: mdi:fan
-      value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Circulate') }}"
+      value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Circulation') }}"
       availability_template: "{{ not is_state('climate.thermostat', 'unavailable') }}"
       turn_on:
         service: climate.set_fan_mode
         data:
           entity_id: climate.thermostat
-          fan_mode: Circulate
+          fan_mode: Circulation
       turn_off:
         service: climate.set_fan_mode
         data:
           entity_id: climate.thermostat
-          fan_mode: Auto Low
+          fan_mode: Auto low
     fan_auto:
       friendly_name: Auto
       icon_template: mdi:fan
-      value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Auto Low') }}"
+      value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Auto low') }}"
       availability_template: "{{ not is_state('climate.thermostat', 'unavailable') }}"
       turn_on:
         service: climate.set_fan_mode
         data:
           entity_id: climate.thermostat
-          fan_mode: Auto Low
+          fan_mode: Auto low
       turn_off:
         service: climate.set_fan_mode
         data:
           entity_id: climate.thermostat
-          fan_mode: Auto Low
+          fan_mode: Auto low
     fan_on:
       friendly_name: 'On'
       icon_template: mdi:fan
-      value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'On Low') }}"
+      value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Low') }}"
       availability_template: "{{ not is_state('climate.thermostat', 'unavailable') }}"
       turn_on:
         service: climate.set_fan_mode
         data:
           entity_id: climate.thermostat
-          fan_mode: 'On Low'
+          fan_mode: 'Low'
       turn_off:
         service: climate.set_fan_mode
         data:
           entity_id: climate.thermostat
-          fan_mode: Auto Low
+          fan_mode: Auto low
     next_fan_mode:
       icon_template: mdi:fan
       value_template: false
@@ -54,12 +54,12 @@
         data:
           entity_id: climate.thermostat
           fan_mode: >-
-            {% if is_state_attr('climate.thermostat', 'fan_mode', 'On Low') %}
-              Circulate
-            {% elif is_state_attr('climate.thermostat', 'fan_mode', 'Auto Low') %}
-              On Low
+            {% if is_state_attr('climate.thermostat', 'fan_mode', 'Low') %}
+              Circulation
+            {% elif is_state_attr('climate.thermostat', 'fan_mode', 'Auto low') %}
+              Low
             {% else %}
-              Auto Low
+              Auto low
             {% endif %}
       turn_off:
         service: climate.set_fan_mode
