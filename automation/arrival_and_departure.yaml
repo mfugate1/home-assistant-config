@@ -1,0 +1,26 @@
+- alias: 'Turn on lights when arriving home'
+  trigger:
+    platform: state
+    entity_id: person.mike
+    to: 'home'
+  condition:
+    condition: state
+    entity_id: sun.sun
+    state: below_horizon
+  action:
+    service: switch.turn_on
+    entity_id: switch.entry_light
+
+- alias: 'Turn off everything after leaving'
+  trigger:
+    platform: state
+    entity_id: person.mike
+    to: 'away'
+  action:
+    - service: notify.mobile_app_sm_g981u1
+      data:
+        message: "It looks like you've left the house. Turning off everything"
+    #- service: homeassistant.turn_off
+    #  entity_id: group.everything
+    #- service: cover.close_cover
+    #  entity_id: cover.garage_door
