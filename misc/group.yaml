@@ -3,7 +3,17 @@ basement:
     - input_boolean.workout_mode
     - light.basement
     - media_player.basement_tv
+    - media_player.playstation_4_basement
     - switch.basement_stereo
+bedroom:
+  entities:
+    - light.bedroom_lamps
+    - light.bedroom_overhead
+    - switch.bedroom_fan
+    - switch.bedroom_noise_machine
+diningroom:
+  entities:
+    - light.diningroom
 echos:
   entities:
     - media_player.basement_echo_dot
@@ -11,6 +21,15 @@ echos:
     - media_player.gameroom_echo_dot
     - media_player.livingroom_echo
     - media_player.office_echo_dot
+everything:
+  entities:
+    - group.basement
+    - group.bedroom
+    - group.diningroom
+    - group.gameroom
+    - group.livingroom
+    - group.office
+    - group.patio
 gameroom:
   entities:
     - light.gameroom_lamp
@@ -39,6 +58,19 @@ inovelli_lights:
     - light.gameroom_overhead
     - light.livingroom_wall_switch_1
     - light.livingroom_wall_switch_2
+    - light.patio
+livingroom:
+  entities:
+    - light.livingroom_lamp
+    - media_player.livingroom_receiver
+    - media_player.livingroom_tv
+    - media_player.playstation_4_office
+    - switch.entry_light
+office:
+  entities:
+    - light.office
+patio:
+  entities:
     - light.patio
 update_available:
   entities:
