@@ -17,7 +17,7 @@
           Good night. 
           {% if states('sensor.bedroom_phone_charger_power') | float < 1 %}
             Don't forget to charge your phone.
-          {% else if is_state('switch.watch_charging_in_bedroom', 'off') %}
+          {% elif is_state('switch.watch_charging_in_bedroom', 'off') %}
             Don't forget to charge your watch.
           {% endif %}
     - service: switch.turn_on
