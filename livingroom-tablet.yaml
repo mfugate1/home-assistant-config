@@ -13,9 +13,6 @@ views:
             entity: cover.garage_door
           - type: custom:button-card
             entity: group.update_available
-            template: alerter
-            variables:
-              color: blue
       - type: vertical-stack
         cards:
           - !include lovelace/thermostat.yaml
