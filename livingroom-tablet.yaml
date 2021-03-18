@@ -3,11 +3,8 @@ views:
     cards:
       - type: horizontal-stack
         cards:
-          - type: custom:layout-card
-            layout_type: vertical
-            layout_options:
-              width: 360
-              max_cols: 1
+          - type: grid
+            columns: 1
             cards:
               - type: custom:button-card
                 entity: switch.entry_light
