@@ -26,3 +26,8 @@ resources:
     type: module
   - url: /hacsfiles/decluttering-card/decluttering-card.js
     type: module
+dashboards:
+  livingroom-tablet:
+    mode: yaml
+    filename: livingroom-tablet.yaml
+    title: Tablet

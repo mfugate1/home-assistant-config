@@ -1,0 +1,31 @@
+views:
+  - icon: mdi:home
+    cards:
+      - type: vertical-stack
+        cards:
+          - type: custom:button-card
+            entity: switch.entry_light
+          - type: custom:button-card
+            entity: light.livingroom_lamp
+          - type: custom:button-card
+            entity: light.diningroom
+          - type: custom:button-card
+            entity: cover.garage_door
+          - type: custom:button-card
+            entity: group.update_available
+            template: alerter
+            variables:
+              color: blue
+      - type: vertical-stack
+        cards:
+          - type: custom:decluttering-card
+            template: thermostat
+          - type: weather-forecast
+            entity: weather.home
+      - type: vertical-stack
+        cards:
+          - type: custom:decluttering-card
+            template: livingroom-controls
+          - type: entities
+            entities: 
+              - cover.garage_door
