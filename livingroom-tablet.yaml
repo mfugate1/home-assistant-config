@@ -3,8 +3,9 @@ views:
     cards:
       - type: horizontal-stack
         cards:
-          - type: custom:vertical-layout
-            layout:
+          - type: custom:layout-card
+            layout_type: vertical
+            layout_options:
               width: 360
               max_cols: 1
             cards:
