@@ -23,8 +23,7 @@ views:
             entity: weather.home
       - type: vertical-stack
         cards:
-          - type: custom:decluttering-card
-            template: livingroom-controls
+          - !include lovelace/livingroom-controls.yaml
           - type: entities
             entities: 
               - cover.garage_door
