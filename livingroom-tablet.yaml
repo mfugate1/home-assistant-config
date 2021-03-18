@@ -1,26 +1,32 @@
 views:
   - icon: mdi:home
     cards:
-      - type: vertical-stack
+      - type: horizontal-stack
         cards:
-          - type: custom:button-card
-            entity: switch.entry_light
-          - type: custom:button-card
-            entity: light.livingroom_lamp
-          - type: custom:button-card
-            entity: light.diningroom
-          - type: custom:button-card
-            entity: cover.garage_door
-          - type: custom:button-card
-            entity: group.update_available
-      - type: vertical-stack
-        cards:
-          - !include lovelace/thermostat.yaml
-          - type: weather-forecast
-            entity: weather.home
-      - type: vertical-stack
-        cards:
-          - !include lovelace/livingroom-controls.yaml
-          - type: entities
-            entities: 
-              - cover.garage_door
+          - type: custom:vertical-layout
+            layout:
+              width: 360
+              max_cols: 1
+            cards:
+              - type: custom:button-card
+                entity: switch.entry_light
+              - type: custom:button-card
+                entity: light.livingroom_lamp
+              - type: custom:button-card
+                entity: light.diningroom
+              - type: custom:button-card
+                entity: cover.garage_door
+              - type: custom:button-card
+                entity: group.update_available
+          - type: vertical-stack
+            cards:
+              - !include lovelace/thermostat.yaml
+              - type: weather-forecast
+                entity: weather.home
+                show_forecast: true
+          - type: vertical-stack
+            cards:
+              - !include lovelace/livingroom-controls.yaml
+              - type: entities
+                entities: 
+                  - cover.garage_door
