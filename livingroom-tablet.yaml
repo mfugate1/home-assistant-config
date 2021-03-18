@@ -18,8 +18,7 @@ views:
               color: blue
       - type: vertical-stack
         cards:
-          - type: custom:decluttering-card
-            template: thermostat
+          - !include lovelace/thermostat.yaml
           - type: weather-forecast
             entity: weather.home
       - type: vertical-stack
