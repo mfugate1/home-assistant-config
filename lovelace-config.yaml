@@ -24,3 +24,5 @@ resources:
     type: module
   - url: /hacsfiles/kiosk-mode/kiosk-mode.js
     type: module
+  - url: /hacsfiles/decluttering-card/decluttering-card.js
+    type: module
