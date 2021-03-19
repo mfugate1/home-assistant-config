@@ -1,30 +1,34 @@
 views:
   - icon: mdi:home
+    type: custom:grid-layout
+    layout:
+      grid-template-columns: 20% 40% 40%
+      grid-template-rows: 20% 20% 20% 20% 20%
+      grid-template-areas: |
+        "btn1 thermostat ."
+        "btn2 thermostat ."
+        "btn3 . ."
+        "btn4 . ."
+        "btn5 . ."
     cards:
-      - type: horizontal-stack
-        cards:
-          - type: grid
-            columns: 1
-            cards:
-              - type: custom:button-card
-                entity: switch.entry_light
-              - type: custom:button-card
-                entity: light.livingroom_lamp
-              - type: custom:button-card
-                entity: light.diningroom
-              - type: custom:button-card
-                entity: cover.garage_door
-              - type: custom:button-card
-                entity: group.update_available
-          - type: vertical-stack
-            cards:
-              - !include lovelace/thermostat.yaml
-              - type: weather-forecast
-                entity: weather.home
-                show_forecast: true
-          - type: vertical-stack
-            cards:
-              - !include lovelace/livingroom-controls.yaml
-              - type: entities
-                entities: 
-                  - cover.garage_door
+      - type: button
+        entity: switch.entry_light
+        view_layout:
+          grid-area: btn1
+      - type: button
+        entity: light.livingroom_lamp
+        view_layout:
+          grid-area: btn2
+      - type: button
+        entity: light.diningroom
+        view_layout:
+          grid-area: btn3
+      - type: button
+        entity: cover.garage_door
+        view_layout:
+          grid-area: btn4
+      - type: button
+        entity: group.update_available
+        view_layout:
+          grid-area: btn5
+      - !include lovelace/thermostat.yaml
