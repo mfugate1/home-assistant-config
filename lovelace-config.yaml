@@ -20,6 +20,8 @@ resources:
     type: module
   - url: /hacsfiles/numberbox-card/numberbox-card.js
     type: module
+  - url: /hacsfiles/stack-in-card/stack-in-card.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
