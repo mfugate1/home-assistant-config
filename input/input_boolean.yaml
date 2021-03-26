@@ -1,7 +1,5 @@
 garage_door_arrival_open_enabled:
   initial: on
-garage_door_cooldown:
-  initial: off
 living_room_media:
 mike_home:
 music_database_updater:
