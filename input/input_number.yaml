@@ -11,21 +11,27 @@ bed_sleep_number_right:
   min: 0
   max: 100
 climate_cool_away_temp:
+  name: Away
   min: 50
   max: 80
 climate_cool_asleep_temp:
+  name: Asleep
   min: 50
   max: 80
 climate_cool_home_temp:
+  name: Home
   min: 50
   max: 80
 climate_heat_away_temp:
+  name: Away
   min: 50
   max: 80
 climate_heat_asleep_temp:
+  name: Asleep
   min: 50
   max: 80
 climate_heat_home_temp:
+  name: Home
   min: 50
   max: 80
 dehumidifier_off_threshold:

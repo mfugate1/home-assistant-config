@@ -186,13 +186,22 @@ views:
                 name: current
               - entity: sensor.target_temp_cooling
                 name: cool
-          - input_number.climate_heat_away_temp
-          - input_number.climate_heat_asleep_temp
-          - input_number.climate_heat_home_temp
-          - type: divider
-          - input_number.climate_cool_away_temp
-          - input_number.climate_cool_asleep_temp
-          - input_number.climate_cool_home_temp
+          - type: section
+            label: Heating
+          - entity: input_number.climate_heat_away_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_heat_asleep_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_heat_home_temp
+            type: custom:numberbox-card
+          - type: section
+            label: Cooling
+          - entity: input_number.climate_cool_away_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_cool_asleep_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_cool_home_temp
+            type: custom:numberbox-card
       - type: entities
         title: Upstairs Bathroom
         entities:
