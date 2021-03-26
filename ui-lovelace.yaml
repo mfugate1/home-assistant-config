@@ -177,15 +177,17 @@ views:
       - type: vertical-stack
         title: Climate
         cards:
-          - type: custom:multiple-entity-row
-            name: Target Temperatures
-            entity: sensor.target_temp_heating
-            state_header: heat
+          - type: entities
             entities:
-              - entity: climate.thermostat
-                name: current
-              - entity: sensor.target_temp_cooling
-                name: cool
+              - type: custom:multiple-entity-row
+                name: Target Temperatures
+                entity: sensor.target_temp_heating
+                state_header: heat
+                entities:
+                  - entity: climate.thermostat
+                    name: current
+                  - entity: sensor.target_temp_cooling
+                    name: cool
           - type: horizontal-stack
             cards:
               - type: entities
