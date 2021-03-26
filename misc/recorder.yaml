@@ -75,12 +75,12 @@ include:
     - sensor.mouse_trap_battery_level
     - sensor.office_light_on
     - sensor.office_motion
+    - sensor.outside_temp
     - sensor.sleepnumber_master_bed_guest_sleepnumber
     - sensor.sleepnumber_master_bed_mike_sleepnumber
     - sensor.sliding_side_door_sensor_battery_level
     - sensor.sm_g950u1_battery_level
     - sensor.tablet
     - sensor.tablet_battery
-    - sensor.total_kilocalories
-    - sensor.total_steps
-    - sensor.upstairs_bathroom_humidity
+    - sensor.upstairsbathroom_humidity
+    - sensor.upstairsbathroom_temperature
