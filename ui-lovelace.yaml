@@ -175,6 +175,25 @@ views:
           - entity: input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for
             name: Turn Off If Bed Unoccupied For (mm:ss)
       - type: entities
+        title: Climate
+        entities:
+          - type: custom:multiple-entity-row
+            name: Target Temperatures
+            entity: sensor.target_temp_heating
+            state_header: heat
+            entities:
+              - entity: climate.thermostat
+                name: current
+              - entity: sensor.target_temp_cooling
+                name: cool
+          - input_number.climate_heat_away_temp
+          - input_number.climate_heat_asleep_temp
+          - input_number.climate_heat_home_temp
+          - type: divider
+          - input_number.climate_cool_away_temp
+          - input_number.climate_cool_asleep_temp
+          - input_number.climate_cool_home_temp
+      - type: entities
         title: Upstairs Bathroom
         entities:
           - type: buttons

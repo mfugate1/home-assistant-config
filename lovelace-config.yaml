@@ -10,19 +10,13 @@ resources:
     type: module
   - url: /hacsfiles/button-card/button-card.js
     type: module
-  - url: /hacsfiles/config-template-card/config-template-card.js
-    type: module
   - url: /hacsfiles/simple-thermostat/simple-thermostat.js
     type: module
   - url: /hacsfiles/lovelace-paper-buttons-row/paper-buttons-row.js
     type: module
   - url: /hacsfiles/lovelace-canary/canary.js
     type: module
-  - url: /hacsfiles/vertical-stack-in-card/vertical-stack-in-card.js
-    type: module
-  - url: /hacsfiles/Home-Assistant-Lovelace-HTML-Jinja2-Template-card/html-template-card.js
-    type: module
-  - url: /hacsfiles/kiosk-mode/kiosk-mode.js
+  - url: /hacsfiles/lovelace-multiple-entity-row/multiple-entity-row.js
     type: module
 dashboards:
   livingroom-tablet:
