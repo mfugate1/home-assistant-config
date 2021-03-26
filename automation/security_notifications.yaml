@@ -1,46 +1,59 @@
 - alias: 'Garage Door Open For 20 Minutes'
   trigger:
     platform: state
-    entity_id: sensor.garage_door
+    entity_id: cover.garage_door
     to: 'open'
     for: 00:20:00
   action:
-    service: notify.email
-    data_template: 
-      title: 'Garage door is open'
+    service: notify.mobile_app_sm_g981u1
+    data: 
       message: "Garage door is open! {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
+      data:
+        tag: garage
 - alias: 'Door Alarm'
   trigger:
-    platform: state
-    entity_id: 
-      - sensor.basement_door
-      - sensor.front_door
-      - sensor.garage_door
-      - sensor.garage_inner_door
-      - sensor.sliding_side_door
-      - sensor.kitchen_window
-    to: 'open'
+    - platform: state
+      entity_id: 
+        - binary_sensor.basement_door
+        - binary_sensor.front_door
+        - binary_sensor.garage_inner_door
+        - binary_sensor.garage_outer_door
+        - binary_sensor.kitchen_window
+        - binary_sensor.upstairsbathroom_door
+      to: 'on'
+    - platform: state
+      entity_id: cover.garage_door
+      to: 'open'
   condition:
-    condition: template
-    value_template: "{{ not is_state('person.mike', 'home') }}"
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: person.mike
+        state: 'home'
   action:
-    service: notify.email
-    data_template: 
-      title: 'Door or window sensor triggered'
+    service: notify.mobile_app_sm_g981u1
+    data: 
       message: "Sensor triggered! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}"
+      data:
+        tag: door_window
 - alias: 'Motion detected'
   trigger:
     platform: state
     entity_id:
       - binary_sensor.basement_motion
       - binary_sensor.bedroom_motion
-      - binary_sensor.dining_room_motion
       - binary_sensor.office_motion
+      - binary_sensor.upstairsbathroom_motion
+    to: 'on'
   condition:
-    condition: template
-    value_template: "{{ not is_state('person.mike', 'home') }}"
+    condition: not
+    conditions:
+      - condition: state
+        entity_id: person.mike
+        state: 'home'
   action:
-    service: notify.email
-    data_template: 
-      title: 'Motion detected'
+    service: notify.mobile_app_sm_g981u1
+    data: 
       message: "Motion detected! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}"
+      data:
+        tag: motion
