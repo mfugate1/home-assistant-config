@@ -179,6 +179,8 @@ views:
         cards:
           - type: entities
             entities:
+              - automation.set_thermostat_temperature
+              - type: divider
               - type: custom:multiple-entity-row
                 name: Target Temperatures
                 entity: sensor.target_temp_heating
