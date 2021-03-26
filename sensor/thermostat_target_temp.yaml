@@ -1,0 +1,20 @@
+- platform: template
+  sensors:
+    target_temp_heating:
+      value_template: >-
+        {% if not is_state('person.mike', 'home') %}
+          {{ states('input_number.climate_heat_away_temp') }}
+        {% elif is_state('input_boolean.sleep_mode', 'on') %}
+          {{ states('input_number.climate_heat_asleep_temp') }}
+        {% else %}
+          {{ states('input_number.climate_heat_home_temp') }}
+        {% endif %}
+    target_temp_cooling:
+      value_template: >-
+        {% if not is_state('person.mike', 'home') %}
+          {{ states('input_number.climate_cool_away_temp') }}
+        {% elif is_state('input_boolean.sleep_mode', 'on') %}
+          {{ states('input_number.climate_cool_asleep_temp') }}
+        {% else %}
+          {{ states('input_number.climate_cool_home_temp') }}
+        {% endif %}

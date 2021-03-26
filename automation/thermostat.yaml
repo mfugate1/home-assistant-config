@@ -1,89 +1,16 @@
-- alias: 'Set thermostat when home'
-  trigger: 
-    - platform: state
-      entity_id: 
-        - person.mike
-      to: home
-    - platform: state
-      entity_id: binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-      to: 'off'
-    - platform: state
-      entity_id: 
-        - input_number.climate_cool_home_temp
-        - input_number.climate_heat_home_temp
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: person.mike
-        state: 'home'
-      - condition: state
-        entity_id: binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-        state: 'off'
+- alias: 'Set thermostat temperature'
+  trigger:
+    platform: state
+    entity_id:
+      - sensor.target_temp_heating
+      - sensor.target_temp_cooling
   action:
     service: climate.set_temperature
-    data_template:
-      entity_id: climate.thermostat
+    entity_id: climate.thermostat
+    data:
       temperature: >-
         {% if is_state('climate.thermostat', 'heat') %}
-          {{ states('input_number.climate_heat_home_temp') }}
+          {{ states('sensor.target_temp_heating') }}
         {% else %}
-          {{ states('input_number.climate_cool_home_temp') }}
-        {% endif %}
-        
-- alias: 'Set thermostat when away'
-  trigger: 
-    - platform: state
-      entity_id: 
-        - person.mike
-      to: 'not_home'
-    - platform: state
-      entity_id: 
-        - input_number.climate_cool_away_temp
-        - input_number.climate_heat_away_temp
-  condition:
-    condition: state
-    entity_id: person.mike
-    state: 'not_home'
-  action:
-    service: climate.set_temperature
-    data_template:
-      entity_id: climate.thermostat
-      temperature: >-
-        {% if is_state('climate.thermostat', 'heat') %}
-          {{ states('input_number.climate_heat_away_temp') }}
-        {% else %}
-          {{ states('input_number.climate_cool_away_temp') }}
-        {% endif %}
-        
-- alias: 'Set thermostat when asleep'
-  trigger: 
-    - platform: state
-      entity_id: binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-      to: 'on'
-    - platform: state
-      entity_id: 
-        - input_number.climate_cool_asleep_temp
-        - input_number.climate_heat_asleep_temp
-    - platform: time_pattern
-      hours: "*"  
-      minutes: 5
-  condition:
-    condition: and
-    conditions:
-      - condition: time
-        after: '19:30:00'
-      - condition: state
-        entity_id: binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-        state: 'on'
-          
-  action:
-    service: climate.set_temperature
-    data_template:
-      entity_id: climate.thermostat
-      temperature: >-
-        {% if is_state('climate.thermostat', 'heat') %}
-          {{ states('input_number.climate_heat_away_temp') }}
-        {% else %}
-          {{ states('input_number.climate_cool_away_temp') }}
+          {{ states('sensor.target_temp_cooling') }}
         {% endif %}
