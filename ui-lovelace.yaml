@@ -174,9 +174,9 @@ views:
             name: Turn On After (Bedtime) (hh:mm)
           - entity: input_datetime.turn_off_sleep_mode_if_bed_unoccupied_for
             name: Turn Off If Bed Unoccupied For (mm:ss)
-      - type: entities
+      - type: vertical-stack
         title: Climate
-        entities:
+        cards:
           - type: custom:multiple-entity-row
             name: Target Temperatures
             entity: sensor.target_temp_heating
@@ -186,22 +186,28 @@ views:
                 name: current
               - entity: sensor.target_temp_cooling
                 name: cool
-          - type: section
-            label: Heating
-          - entity: input_number.climate_heat_away_temp
-            type: custom:numberbox-card
-          - entity: input_number.climate_heat_asleep_temp
-            type: custom:numberbox-card
-          - entity: input_number.climate_heat_home_temp
-            type: custom:numberbox-card
-          - type: section
-            label: Cooling
-          - entity: input_number.climate_cool_away_temp
-            type: custom:numberbox-card
-          - entity: input_number.climate_cool_asleep_temp
-            type: custom:numberbox-card
-          - entity: input_number.climate_cool_home_temp
-            type: custom:numberbox-card
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - type: section
+                    label: Heating
+                  - entity: input_number.climate_heat_away_temp
+                    type: custom:numberbox-card
+                  - entity: input_number.climate_heat_asleep_temp
+                    type: custom:numberbox-card
+                  - entity: input_number.climate_heat_home_temp
+                    type: custom:numberbox-card
+              - type: entities
+                entities:
+                  - type: section
+                    label: Cooling
+                  - entity: input_number.climate_cool_away_temp
+                    type: custom:numberbox-card
+                  - entity: input_number.climate_cool_asleep_temp
+                    type: custom:numberbox-card
+                  - entity: input_number.climate_cool_home_temp
+                    type: custom:numberbox-card
       - type: entities
         title: Upstairs Bathroom
         entities:
