@@ -188,6 +188,7 @@ views:
                     name: current
                   - entity: sensor.target_temp_cooling
                     name: cool
+              - type: divider
           - type: horizontal-stack
             cards:
               - type: entities
