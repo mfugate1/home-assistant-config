@@ -1,0 +1,23 @@
+type: entities
+view_layout:
+  grid-area: exercise_progress
+title: "Today's Exercise Progress"
+entities:
+  - type: conditional
+    conditions:
+      - entity: sensor.required_run_mileage_for_today
+        state_not: '0'
+    row:
+      type: custom:card-templater
+      card: 
+        type: custom:bar-card
+        entity: sensor.run_mileage_today
+        name: Run
+        min: 0
+        max_template: "{{ states('sensor.required_run_mileage_for_today') }}"
+        unit_of_measurement: miles
+        entity_row: true
+        positions:
+          indicator: 'off'
+          minmax: 'off'
+          name: outside

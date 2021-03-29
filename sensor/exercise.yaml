@@ -21,3 +21,9 @@
         {% else %}
           0
         {% endif %}
+    run_mileage_today:
+      value_template: '0'
+    bike_mileage_today:
+      value_template: '0'
+    walk_mileage_today:
+      value_template: '0'

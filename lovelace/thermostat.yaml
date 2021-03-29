@@ -1,4 +1,6 @@
 type: entities
+view_layout:
+  grid-area: thermostat
 entities:
   - type: custom:simple-thermostat
     entity: climate.thermostat

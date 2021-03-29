@@ -22,6 +22,10 @@ resources:
     type: module
   - url: /hacsfiles/stack-in-card/stack-in-card.js
     type: module
+  - url: /hacsfiles/bar-card/bar-card.js
+    type: module
+  - url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml

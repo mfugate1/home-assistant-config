@@ -1,34 +1,99 @@
+button_card_templates:
+  left_col_buttons:
+    styles:
+      card:
+        - height: 150px
+        - width: 150px
+  btn_separator:
+    color_type: blank-card
+    styles:
+      card:
+        - height: 50px
+        - width: 150px
 views:
-  - icon: mdi:home
+  - title: custom grid layout
     type: custom:grid-layout
     layout:
-      grid-template-columns: 20% 40% 40%
-      grid-template-rows: 20% 20% 20% 20% 20%
+      grid-template-columns: 10% 30% 60%
+      grid-template-rows: auto
       grid-template-areas: |
         "btn1 thermostat ."
-        "btn2 thermostat ."
+        "btn2 . ."
         "btn3 . ."
         "btn4 . ."
         "btn5 . ."
     cards:
-      - type: button
+      - type: custom:button-card
         entity: switch.entry_light
+        template: left_col_buttons
         view_layout:
           grid-area: btn1
-      - type: button
-        entity: light.livingroom_lamp
+        styles:
+          card:
+            - box-shadow: 0px 0px 15px 8px #FFEF2C;
+      - type: custom:button-card
+        template: btn_separator
         view_layout:
           grid-area: btn2
-      - type: button
-        entity: light.diningroom
+      - type: custom:button-card
+        entity: light.livingroom_lamp
+        template: left_col_buttons
+        view_layout:
+          grid-area: btn2
+      - type: custom:button-card
+        template: btn_separator
         view_layout:
           grid-area: btn3
-      - type: button
-        entity: cover.garage_door
+      - type: custom:button-card
+        entity: light.diningroom
+        template: left_col_buttons
+        view_layout:
+          grid-area: btn3
+      - type: custom:button-card
+        template: btn_separator
         view_layout:
           grid-area: btn4
-      - type: button
+      - type: custom:button-card
+        entity: cover.garage_door
+        template: left_col_buttons
+        view_layout:
+          grid-area: btn4
+      - type: custom:button-card
+        template: btn_separator
+        view_layout:
+          grid-area: btn5
+      - type: custom:button-card
         entity: group.update_available
+        template: left_col_buttons
         view_layout:
           grid-area: btn5
       - !include lovelace/thermostat.yaml
+  - title: vertical layout
+    type: custom:vertical-layout
+    layout:
+      column_widths: 150px 885px 885px
+      max_cols: 3
+    cards:
+      - type: custom:button-card
+        entity: switch.entry_light
+        template: left_col_buttons
+      - type: custom:button-card
+        entity: light.livingroom_lamp
+        template: left_col_buttons
+      - type: custom:button-card
+        entity: light.diningroom
+        template: left_col_buttons
+      - type: custom:button-card
+        entity: cover.garage_door
+        template: left_col_buttons
+      - type: custom:button-card
+        entity: group.update_available
+        template: left_col_buttons
+      - type: custom:layout-break
+      - !include lovelace/thermostat.yaml
+      - type: custom:layout-break
+      - type: weather-forecast
+        entity: weather.home
+        show_forecast: true
+      - !include lovelace/todays_exercise.yaml
+            
