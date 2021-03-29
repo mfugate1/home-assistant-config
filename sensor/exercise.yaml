@@ -1,0 +1,23 @@
+- platform: template
+  sensors:
+    required_run_mileage_for_today:
+      value_template: >-
+        {% if state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_run', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+    required_bike_mileage_for_today:
+      value_template: >-
+        {% if state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_bike', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+    required_walk_mileage_for_today:
+      value_template: >-
+        {% if state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_walk', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
