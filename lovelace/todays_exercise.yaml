@@ -56,7 +56,7 @@ entities:
     row:
       type: custom:bar-card
       entity: sensor.total_steps
-      icon: mdi:show-print
+      icon: mdi:shoe-print
       name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
       min: 0
       max: "${GOAL}"
