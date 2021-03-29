@@ -26,6 +26,8 @@ resources:
     type: module
   - url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
     type: module
+  - url: /hacsfiles/config-template-card/config-template-card.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
