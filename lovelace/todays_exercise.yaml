@@ -8,16 +8,79 @@ entities:
       - entity: sensor.required_run_mileage_for_today
         state_not: '0'
     row:
-      type: custom:card-templater
-      card: 
+      type: custom:config-template-card
+      variables:
+        REQ_MILES: states['sensor.required_run_mileage_for_today'].state
+        CUR_MILES: states['sensor.run_mileage_today'].state
+      entities:
+        - sensor.required_run_mileage_for_today
+        - sensor.run_mileage_today
+      row:
         type: custom:bar-card
         entity: sensor.run_mileage_today
-        name: Run
+        icon: mdi:run
+        name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
         min: 0
-        max_template: "{{ states('sensor.required_run_mileage_for_today') }}"
-        unit_of_measurement: miles
+        max: "${REQ_MILES}"
         entity_row: true
         positions:
-          indicator: 'off'
-          minmax: 'off'
-          name: outside
+          value: 'off'
+        severity:
+          - from: 0
+            to: "${parseFloat(REQ_MILES) - .01}"
+            color: darkred
+          - from: "${REQ_MILES}"
+            to: "${parseFloat(REQ_MILES) + 1000}"
+            color: darkgreen
+        style: |
+          bar-card-contentbar {
+            font-weight: bold;
+            color: gold;
+          }
+          bar-card-name {
+            margin-left: 10px;
+          }
+          bar-card-currentbar {
+            border-radius: 10px;
+          }
+          bar-card-backgroundbar {
+            border-radius: 10px;
+          }
+  - type: custom:config-template-card
+    variables:
+      GOAL: states['sensor.daily_step_goal'].state
+      STEPS: states['sensor.total_steps'].state
+    entities:
+      - sensor.daily_step_goal
+      - sensor.total_steps
+    row:
+      type: custom:bar-card
+      entity: sensor.total_steps
+      icon: mdi:show-print
+      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
+      min: 0
+      max: "${GOAL}"
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: "${parseInt(GOAL) - 1}"
+          color: darkred
+        - from: "${GOAL}"
+          to: "${parseInt(GOAL) + 100000}"
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
