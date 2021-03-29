@@ -1,6 +1,0 @@
-- platform: template
-  sensors:
-    mikes_phone_battery:
-      value_template: "{{ state_attr('device_tracker.mike_owntracks', 'battery_level') }}"
-    tablet_battery:
-      value_template: "{{ state_attr('sensor.tablet', 'batteryLevel') }}"

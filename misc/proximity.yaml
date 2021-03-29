@@ -1,7 +1,0 @@
-home:
-  ignored_zones:
-    - work
-  devices:
-    - device_tracker.mike_owntracks
-  tolerance: 50
-  unit_of_measurement: mi
