@@ -1,8 +1,9 @@
 - platform: github
   access_token: !secret github_access_token
   repositories:
-    - path: 'zwave-js/zwavejs2mqtt'
+    - path: 'grafana/grafana'
     - path: 'jacobalberty/unifi-docker'
+    - path: 'zwave-js/zwavejs2mqtt'
 
 - platform: template
   sensors:
