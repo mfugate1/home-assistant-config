@@ -2,8 +2,8 @@ button_card_templates:
   left_col_buttons:
     styles:
       card:
-        - height: 143px
-        - width: 143px
+        - height: 138px
+        - width: 138px
 views:
   - title: custom grid layout
     type: custom:grid-layout
