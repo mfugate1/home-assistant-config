@@ -4,6 +4,7 @@ button_card_templates:
       card:
         - height: 138px
         - width: 138px
+        - border-radius: 10%
 views:
   - title: custom grid layout
     type: custom:grid-layout
