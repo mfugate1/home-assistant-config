@@ -5,4 +5,5 @@ sequence:
   - delay:
       seconds: 2
   - service: switch.turn_on
-    entity_id: "switch.{{ states('sensor.alexa_last_called_room') }}_netflix"
+    target:
+      entity_id: "switch.{{ states('sensor.alexa_last_called_room') }}_netflix"
