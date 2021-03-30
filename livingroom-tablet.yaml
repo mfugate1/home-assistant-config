@@ -2,14 +2,8 @@ button_card_templates:
   left_col_buttons:
     styles:
       card:
-        - height: 150px
-        - width: 150px
-  btn_separator:
-    color_type: blank-card
-    styles:
-      card:
-        - height: 50px
-        - width: 150px
+        - height: 140px
+        - width: 140px
 views:
   - title: custom grid layout
     type: custom:grid-layout
@@ -17,11 +11,11 @@ views:
       grid-template-columns: 10% 30% 60%
       grid-template-rows: auto
       grid-template-areas: |
-        "btn1 col2 ."
-        "btn2 col2 ."
-        "btn3 col2 ."
-        "btn4 col2 ."
-        "btn5 col2 ."
+        "btn1 col2 col3"
+        "btn2 col2 col3"
+        "btn3 col2 col3"
+        "btn4 col2 col3"
+        "btn5 col2 col3"
     cards:
       - type: custom:button-card
         entity: switch.entry_light
@@ -53,6 +47,13 @@ views:
           grid-area: col2
         cards:
           - !include lovelace/thermostat.yaml
+          - type: weather-forecast
+            entity: weather.home
+      - type: vertical-stack
+        view_layout:
+          grid-area: col3
+        cards:
+          - !include lovelace/todays_exercise.yaml
   - title: horizontal stack
     panel: true
     cards:
@@ -61,26 +62,36 @@ views:
           - type: grid
             columns: 2
             cards:
-              - type: button
+              - type: custom:button-card
                 entity: switch.entry_light
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: light.livingroom_lamp
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: light.diningroom
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: cover.garage_door
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: group.update_available
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: switch.livingroom_netflix
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: switch.livingroom_hulu
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: switch.livingroom_ps4
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: switch.livingroom_steam
-              - type: button
+                template: left_col_buttons
+              - type: custom:button-card
                 entity: input_boolean.workout_mode
+                template: left_col_buttons
           - type: vertical-stack
             cards:
               - !include lovelace/thermostat.yaml
