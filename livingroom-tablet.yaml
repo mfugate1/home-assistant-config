@@ -5,6 +5,21 @@ button_card_templates:
         - height: 137px
         - width: 137px
         - border-radius: 10%
+  warning_flash:
+    template: left_col_buttons
+    extra_styles: |
+      [[[ return `
+        @keyframes pulse {
+          20% {
+            background-color: red;
+          }
+        }
+      `]]]
+    state:
+      - value: 'on'
+        styles:
+          card:
+            - animation: pulse 1s infinite
 views:
   - title: custom grid layout
     type: custom:grid-layout
@@ -41,26 +56,13 @@ views:
           grid-area: btn3
       - type: custom:button-card
         entity: cover.garage_door
-        template: left_col_buttons
+        template: warning_flash
         view_layout:
           grid-area: btn4
       - type: custom:button-card
         entity: group.update_available
         name: '[[[ if (entity.state == "on") return "Updates"; else return "No Updates"]]]'
-        template: left_col_buttons
-        extra_styles: |
-          [[[ return `
-            @keyframes pulse {
-              20% {
-                background-color: red;
-              }
-            }
-          `]]]
-        state:
-          - value: 'on'
-            styles:
-              card:
-                - animation: pulse 1s infinite
+        template: warning_flash
         view_layout:
           grid-area: btn5
       - type: custom:button-card
