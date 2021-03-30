@@ -17,57 +17,42 @@ views:
       grid-template-columns: 10% 30% 60%
       grid-template-rows: auto
       grid-template-areas: |
-        "btn1 thermostat ."
-        "btn2 . ."
-        "btn3 . ."
-        "btn4 . ."
-        "btn5 . ."
+        "btn1 col2 ."
+        "btn2 col2 ."
+        "btn3 col2 ."
+        "btn4 col2 ."
+        "btn5 col2 ."
     cards:
       - type: custom:button-card
         entity: switch.entry_light
         template: left_col_buttons
         view_layout:
           grid-area: btn1
-        styles:
-          card:
-            - box-shadow: 0px 0px 15px 8px #FFEF2C;
-      - type: custom:button-card
-        template: btn_separator
-        view_layout:
-          grid-area: btn2
       - type: custom:button-card
         entity: light.livingroom_lamp
         template: left_col_buttons
         view_layout:
           grid-area: btn2
       - type: custom:button-card
-        template: btn_separator
-        view_layout:
-          grid-area: btn3
-      - type: custom:button-card
         entity: light.diningroom
         template: left_col_buttons
         view_layout:
           grid-area: btn3
-      - type: custom:button-card
-        template: btn_separator
-        view_layout:
-          grid-area: btn4
       - type: custom:button-card
         entity: cover.garage_door
         template: left_col_buttons
         view_layout:
           grid-area: btn4
       - type: custom:button-card
-        template: btn_separator
-        view_layout:
-          grid-area: btn5
-      - type: custom:button-card
         entity: group.update_available
         template: left_col_buttons
         view_layout:
           grid-area: btn5
-      - !include lovelace/thermostat.yaml
+      - type: vertical-stack
+        view_layout:
+          grid-area: col2
+        cards:
+          - !include lovelace/thermostat.yaml
   - title: horizontal stack
     panel: true
     cards:
