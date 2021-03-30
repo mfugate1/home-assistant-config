@@ -69,37 +69,39 @@ views:
           grid-area: btn5
       - !include lovelace/thermostat.yaml
   - title: horizontal stack
-    type: horizontal-stack
+    panel: true
     cards:
-      - type: grid
-        columns: 2
+      - type: horizontal-stack
         cards:
-          - type: button
-            entity: switch.entry_light
-          - type: button
-            entity: light.livingroom_lamp
-          - type: button
-            entity: light.diningroom
-          - type: button
-            entity: cover.garage_door
-          - type: button
-            entity: group.update_available
-          - type: button
-            entity: switch.livingroom_netflix
-          - type: button
-            entity: switch.livingroom_hulu
-          - type: button
-            entity: switch.livingroom_ps4
-          - type: button
-            entity: switch.livingroom_steam
-          - type: button
-            entity: input_boolean.workout_mode
-      - type: vertical-stack
-        cards:
-          - !include lovelace/thermostat.yaml
-          - type: weather-forecast
-            entity: weather.home
-      - type: vertical-stack
-        cards:
-          - !include lovelace/todays_exercise.yaml
+          - type: grid
+            columns: 2
+            cards:
+              - type: button
+                entity: switch.entry_light
+              - type: button
+                entity: light.livingroom_lamp
+              - type: button
+                entity: light.diningroom
+              - type: button
+                entity: cover.garage_door
+              - type: button
+                entity: group.update_available
+              - type: button
+                entity: switch.livingroom_netflix
+              - type: button
+                entity: switch.livingroom_hulu
+              - type: button
+                entity: switch.livingroom_ps4
+              - type: button
+                entity: switch.livingroom_steam
+              - type: button
+                entity: input_boolean.workout_mode
+          - type: vertical-stack
+            cards:
+              - !include lovelace/thermostat.yaml
+              - type: weather-forecast
+                entity: weather.home
+          - type: vertical-stack
+            cards:
+              - !include lovelace/todays_exercise.yaml
             
