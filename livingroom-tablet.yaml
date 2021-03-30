@@ -20,16 +20,22 @@ views:
     cards:
       - type: custom:button-card
         entity: switch.entry_light
+        icon: mdi:ceiling-light
+        name: Entry
         template: left_col_buttons
         view_layout:
           grid-area: btn1
       - type: custom:button-card
-        entity: light.livingroom_lamp
+        entity: light.diningroom
+        icon: mdi:ceiling-light
+        name: Dining Room
         template: left_col_buttons
         view_layout:
           grid-area: btn2
       - type: custom:button-card
-        entity: light.diningroom
+        entity: light.livingroom_lamp
+        name: Lamp
+        icon: mdi:lamp
         template: left_col_buttons
         view_layout:
           grid-area: btn3
@@ -40,7 +46,13 @@ views:
           grid-area: btn4
       - type: custom:button-card
         entity: group.update_available
+        name: '[[[ if (entity.state == "on") return "Updates"; else return "No Updates"]]]'
         template: left_col_buttons
+        state:
+          - value: 'on'
+            styles:
+              card:
+                - animation: pulse 1s infinite
         view_layout:
           grid-area: btn5
       - type: custom:button-card
