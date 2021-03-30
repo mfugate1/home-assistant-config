@@ -4,6 +4,5 @@ description: Start the Netflix app based on the last alexa device that was calle
 sequence:
   - delay:
       seconds: 2
-  - event: MEDIA_CONTROLLER_COMMAND
-    event_data:
-      source: netflix
+  - service: switch.turn_on
+    entity_id: "switch.{{ states('sensor.alexa_last_called_room') }}_netflix"

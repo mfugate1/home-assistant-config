@@ -4,6 +4,5 @@ description: Start the PS4 based on the last alexa device that was called
 sequence:
   - delay:
       seconds: 2
-  - event: MEDIA_CONTROLLER_COMMAND
-    event_data:
-      source: ps4
+  - service: switch.turn_on
+    entity_id: "switch.{{ states('sensor.alexa_last_called_room') }}_ps4"
