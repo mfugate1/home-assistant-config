@@ -15,4 +15,5 @@ single_occupancy_mode:
   name: Single Occupancy Mode
 workout_mode:
   name: Workout Mode
+  icon: mdi:weight-lifter
 workout_mode_available:
