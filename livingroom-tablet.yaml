@@ -59,6 +59,9 @@ views:
         template: warning_flash
         view_layout:
           grid-area: btn4
+        styles:
+          icon:
+            - color: var(--paper-item-icon-color)
       - type: custom:button-card
         entity: group.update_available
         name: '[[[ if (entity.state == "on") return "Updates"; else return "No Updates"]]]'
