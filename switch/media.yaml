@@ -1,6 +1,7 @@
 - platform: template
   switches:
     livingroom_hulu:
+      friendly_name: Hulu
       icon_template: mdi:hulu
       value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu') }}"
       availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
@@ -18,6 +19,7 @@
         service: media_player.turn_off
         entity_id: media_player.livingroom_media
     livingroom_netflix:
+      friendly_name: Netflix
       icon_template: mdi:netflix
       value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix') }}"
       availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
@@ -35,6 +37,7 @@
         service: media_player.turn_off
         entity_id: media_player.livingroom_media
     livingroom_ps4:
+      friendly_name: PS4
       icon_template: mdi:sony-playstation
       value_template: "{{ not is_state('media_player.playstation_4_office', 'standby') and not is_state('media_player.playstation_4_office', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
       availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_office', 'unavailable') }}"
@@ -52,6 +55,7 @@
           - media_player.playstation_4_office
           - media_player.livingroom_media
     livingroom_steam:
+      friendly_name: Steam
       icon_template: mdi:steam
       value_template: "{{ is_state('switch.pc', 'on') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_1') }}"
       availability_template: "{{ not is_state('switch.pc', 'unavailable') and not is_state('media_player.livingroom_tv', 'unavailable') }}"
