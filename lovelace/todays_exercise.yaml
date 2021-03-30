@@ -61,7 +61,7 @@ entities:
       row:
         type: custom:bar-card
         entity: sensor.bike_mileage_today
-        icon: mdi:run
+        icon: mdi:bike
         name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
         min: 0
         max: "${REQ_MILES}"
@@ -104,7 +104,7 @@ entities:
       row:
         type: custom:bar-card
         entity: sensor.walk_mileage_today
-        icon: mdi:run
+        icon: mdi:walk
         name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
         min: 0
         max: "${REQ_MILES}"
