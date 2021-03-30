@@ -52,7 +52,7 @@ views:
           [[[ return `
             @keyframes pulse {
               20% {
-                background-color: ${variables.color};
+                background-color: red;
               }
             }
           `]]]
