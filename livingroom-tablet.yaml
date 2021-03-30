@@ -68,32 +68,38 @@ views:
         view_layout:
           grid-area: btn5
       - !include lovelace/thermostat.yaml
-  - title: vertical layout
-    type: custom:vertical-layout
-    layout:
-      column_widths: 150px 885px 885px
-      max_cols: 3
+  - title: horizontal stack
+    type: horizontal-stack
     cards:
-      - type: custom:button-card
-        entity: switch.entry_light
-        template: left_col_buttons
-      - type: custom:button-card
-        entity: light.livingroom_lamp
-        template: left_col_buttons
-      - type: custom:button-card
-        entity: light.diningroom
-        template: left_col_buttons
-      - type: custom:button-card
-        entity: cover.garage_door
-        template: left_col_buttons
-      - type: custom:button-card
-        entity: group.update_available
-        template: left_col_buttons
-      - type: custom:layout-break
-      - !include lovelace/thermostat.yaml
-      - type: custom:layout-break
-      - type: weather-forecast
-        entity: weather.home
-        show_forecast: true
-      - !include lovelace/todays_exercise.yaml
+      - type: grid
+        columns: 2
+        cards:
+          - type: button
+            entity: switch.entry_light
+          - type: button
+            entity: light.livingroom_lamp
+          - type: button
+            entity: light.diningroom
+          - type: button
+            entity: cover.garage_door
+          - type: button
+            entity: group.update_available
+          - type: button
+            entity: switch.livingroom_netflix
+          - type: button
+            entity: switch.livingroom_hulu
+          - type: button
+            entity: switch.livingroom_ps4
+          - type: button
+            entity: switch.livingroom_steam
+          - type: button
+            entity: input_boolean.workout_mode
+      - type: vertical-stack
+        cards:
+          - !include lovelace/thermostat.yaml
+          - type: weather-forecast
+            entity: weather.home
+      - type: vertical-stack
+        cards:
+          - !include lovelace/todays_exercise.yaml
             
