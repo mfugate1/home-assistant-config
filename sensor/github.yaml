@@ -7,6 +7,8 @@
 
 - platform: template
   sensors:
+    grafana_latest_version:
+      value_template: "{{ state_attr('sensor.grafana', 'latest_release_tag')[1:] }}"
     unifi_latest_version:
       value_template: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
     zwavejs2mqtt_latest_version:
