@@ -3,3 +3,10 @@
   repositories:
     - path: 'zwave-js/zwavejs2mqtt'
     - path: 'jacobalberty/unifi-docker'
+
+- platform: template
+  sensors:
+    unifi_latest_version:
+      value_template: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
+    zwavejs2mqtt_latest_version:
+      value_template: "{{ state_attr('sensor.zwavejs2mqtt', 'latest_release_tag')[1:] }}"
