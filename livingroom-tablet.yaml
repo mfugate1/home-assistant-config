@@ -2,8 +2,8 @@ button_card_templates:
   left_col_buttons:
     styles:
       card:
-        - height: 138px
-        - width: 138px
+        - height: 137px
+        - width: 137px
         - border-radius: 10%
 views:
   - title: custom grid layout
@@ -48,6 +48,14 @@ views:
         entity: group.update_available
         name: '[[[ if (entity.state == "on") return "Updates"; else return "No Updates"]]]'
         template: left_col_buttons
+        extra_styles: |
+          [[[ return `
+            @keyframes pulse {
+              20% {
+                background-color: ${variables.color};
+              }
+            }
+          `]]]
         state:
           - value: 'on'
             styles:
