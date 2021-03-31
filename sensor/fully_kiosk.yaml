@@ -20,3 +20,8 @@
     - currentPage
   resource: !secret tablet_rest_url
   value_template: '{{ value_json.isScreenOn }}'
+
+- platform: template
+  sensors:
+    tablet_battery:
+      value_template: "{{ state_attr('sensor.tablet', 'batteryLevel') }}"
