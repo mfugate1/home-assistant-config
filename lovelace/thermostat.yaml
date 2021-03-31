@@ -1,9 +1,11 @@
 type: entities
 view_layout:
   grid-area: thermostat
-styles:
-  card:
-    - border-radius: 10%
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 10px;
+    }
 entities:
   - type: custom:simple-thermostat
     entity: climate.thermostat
