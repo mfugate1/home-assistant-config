@@ -1,6 +1,9 @@
 type: entities
 view_layout:
   grid-area: thermostat
+styles:
+  card:
+    - border-radius: 10%
 entities:
   - type: custom:simple-thermostat
     entity: climate.thermostat

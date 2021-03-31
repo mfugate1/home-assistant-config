@@ -148,6 +148,9 @@ views:
               - !include lovelace/thermostat.yaml
               - type: weather-forecast
                 entity: weather.home
+                styles:
+                  card:
+                    - border-radius: 10%
           - type: vertical-stack
             cards:
               - !include lovelace/todays_exercise.yaml

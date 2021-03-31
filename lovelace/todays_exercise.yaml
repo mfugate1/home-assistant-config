@@ -1,6 +1,9 @@
 type: entities
 view_layout:
   grid-area: exercise_progress
+styles:
+  card:
+    - border-radius: 10%
 title: "Today's Exercise Progress"
 entities:
   - type: conditional
