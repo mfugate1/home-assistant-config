@@ -28,6 +28,8 @@ resources:
     type: module
   - url: /hacsfiles/config-template-card/config-template-card.js
     type: module
+  - url: /hacsfiles/weather-card/weather-card.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml

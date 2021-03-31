@@ -146,7 +146,7 @@ views:
           - type: vertical-stack
             cards:
               - !include lovelace/thermostat.yaml
-              - type: weather-forecast
+              - type: custom:weather-card
                 entity: weather.home
                 card_mod:
                   style: |
