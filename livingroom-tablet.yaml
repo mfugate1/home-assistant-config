@@ -1,3 +1,5 @@
+decluttering_templates:
+  mileage_progress_bar: !include lovelace/mileage_progress_bar.yaml
 button_card_templates:
   left_col_buttons:
     styles:

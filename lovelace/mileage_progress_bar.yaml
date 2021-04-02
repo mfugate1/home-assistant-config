@@ -1,0 +1,44 @@
+card:
+  type: conditional
+  conditions:
+    - entity: '[[ required_sensor ]]'
+      state_not: '0'
+  row:
+    type: custom:config-template-card
+    variables:
+      REQ_MILES: states['[[ required_sensor ]]'].state
+      CUR_MILES: states['[[ mileage_sensor ]]'].state
+    entities:
+      - '[[ required_sensor ]]'
+      - '[[ mileage_sensor ]]'
+    row:
+      type: custom:bar-card
+      entity: '[[ mileage_sensor ]]'
+      icon: mdi:run
+      name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
+      min: 0
+      max: "${REQ_MILES}"
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: "${parseFloat(REQ_MILES) - .01}"
+          color: darkred
+        - from: "${REQ_MILES}"
+          to: "${parseFloat(REQ_MILES) + 1000}"
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
