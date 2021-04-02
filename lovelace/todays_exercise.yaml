@@ -8,21 +8,135 @@ card_mod:
     }
 title: "Today's Exercise Progress"
 entities:
-  - type: custom:decluttering-card
-    template: mileage_progress_bar
-    variables:
-      - required_sensor: sensor.required_run_mileage_for_today
-      - mileage_sensor: sensor.run_mileage_today
-  - type: custom:decluttering-card
-    template: mileage_progress_bar
-    variables:
-      - required_sensor: sensor.required_bike_mileage_for_today
-      - mileage_sensor: sensor.bike_mileage_today
-  - type: custom:decluttering-card
-    template: mileage_progress_bar
-    variables:
-      - required_sensor: sensor.required_walk_mileage_for_today
-      - mileage_sensor: sensor.walk_mileage_today
+  - type: conditional
+    conditions:
+      - entity: sensor.required_run_mileage_for_today
+        state_not: '0'
+    row:
+      type: custom:config-template-card
+      variables:
+        REQ_MILES: states['sensor.required_run_mileage_for_today'].state
+        CUR_MILES: states['sensor.run_mileage_today'].state
+      entities:
+        - sensor.required_run_mileage_for_today
+        - sensor.run_mileage_today
+      row:
+        type: custom:bar-card
+        entity: sensor.run_mileage_today
+        icon: mdi:run
+        name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
+        min: 0
+        max: "${REQ_MILES}"
+        entity_row: true
+        positions:
+          value: 'off'
+        severity:
+          - from: 0
+            to: "${parseFloat(REQ_MILES) - .01}"
+            color: darkred
+          - from: "${REQ_MILES}"
+            to: "${parseFloat(REQ_MILES) + 1000}"
+            color: darkgreen
+        style: |
+          bar-card-contentbar {
+            font-weight: bold;
+            color: gold;
+          }
+          bar-card-name {
+            margin-left: 10px;
+          }
+          bar-card-currentbar {
+            border-radius: 10px;
+          }
+          bar-card-backgroundbar {
+            border-radius: 10px;
+          }
+  - type: conditional
+    conditions:
+      - entity: sensor.required_bike_mileage_for_today
+        state_not: '0'
+    row:
+      type: custom:config-template-card
+      variables:
+        REQ_MILES: states['sensor.required_bike_mileage_for_today'].state
+        CUR_MILES: states['sensor.bike_mileage_today'].state
+      entities:
+        - sensor.required_bike_mileage_for_today
+        - sensor.bike_mileage_today
+      row:
+        type: custom:bar-card
+        entity: sensor.bike_mileage_today
+        icon: mdi:bike
+        name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
+        min: 0
+        max: "${REQ_MILES}"
+        entity_row: true
+        positions:
+          value: 'off'
+        severity:
+          - from: 0
+            to: "${parseFloat(REQ_MILES) - .01}"
+            color: darkred
+          - from: "${REQ_MILES}"
+            to: "${parseFloat(REQ_MILES) + 1000}"
+            color: darkgreen
+        style: |
+          bar-card-contentbar {
+            font-weight: bold;
+            color: gold;
+          }
+          bar-card-name {
+            margin-left: 10px;
+          }
+          bar-card-currentbar {
+            border-radius: 10px;
+          }
+          bar-card-backgroundbar {
+            border-radius: 10px;
+          }
+  - type: conditional
+    conditions:
+      - entity: sensor.required_walk_mileage_for_today
+        state_not: '0'
+    row:
+      type: custom:config-template-card
+      variables:
+        REQ_MILES: states['sensor.required_walk_mileage_for_today'].state
+        CUR_MILES: states['sensor.walk_mileage_today'].state
+      entities:
+        - sensor.required_walk_mileage_for_today
+        - sensor.walk_mileage_today
+      row:
+        type: custom:bar-card
+        entity: sensor.walk_mileage_today
+        icon: mdi:walk
+        name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
+        min: 0
+        max: "${REQ_MILES}"
+        entity_row: true
+        positions:
+          value: 'off'
+        severity:
+          - from: 0
+            to: "${parseFloat(REQ_MILES) - .01}"
+            color: darkred
+          - from: "${REQ_MILES}"
+            to: "${parseFloat(REQ_MILES) + 1000}"
+            color: darkgreen
+        style: |
+          bar-card-contentbar {
+            font-weight: bold;
+            color: gold;
+          }
+          bar-card-name {
+            margin-left: 10px;
+          }
+          bar-card-currentbar {
+            border-radius: 10px;
+          }
+          bar-card-backgroundbar {
+            border-radius: 10px;
+          }
   - type: custom:config-template-card
     variables:
       GOAL: states['sensor.daily_step_goal'].state
