@@ -16,7 +16,7 @@ entities:
     row:
       type: custom:bar-card
       entity: sensor.april_namaste
-      icon: mdi:run
+      icon: mdi:yoga
       name: "${'April Namaste (Yoga)  ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed')}"
       min: 0
       max: 60
@@ -52,10 +52,11 @@ entities:
     row:
       type: custom:bar-card
       entity: sensor.april_cycling_climb
-      icon: mdi:run
+      icon: mdi:bike
       name: "${'April Cycling Climb  ' + (parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 feet completed')}"
       min: 0
       max: 20000
+      target: "${20000 / 30 * (new Date().getDate())}"
       entity_row: true
       positions:
         value: 'off'
