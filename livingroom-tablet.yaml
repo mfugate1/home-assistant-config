@@ -20,6 +20,10 @@ button_card_templates:
         styles:
           card:
             - animation: pulse 1s infinite
+      - value: 'open'
+        styles:
+          card:
+            - animation: pulse 1s infinite
 views:
   - title: custom grid layout
     type: custom:grid-layout
