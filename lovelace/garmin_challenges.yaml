@@ -17,7 +17,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_namaste
       icon: mdi:yoga
-      name: "${'April Namaste (Yoga) ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed')}"
+      name: "${'April Namaste ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed')}"
       min: 0
       max: 60
       entity_row: true
