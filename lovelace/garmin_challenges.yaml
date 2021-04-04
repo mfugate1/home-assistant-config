@@ -17,7 +17,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_namaste
       icon: mdi:yoga
-      name: "${'April Namaste (Yoga)  ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed')}"
+      name: "${'April Namaste (Yoga) ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed')}"
       min: 0
       max: 60
       entity_row: true
@@ -53,10 +53,9 @@ entities:
       type: custom:bar-card
       entity: sensor.april_cycling_climb
       icon: mdi:bike
-      name: "${'April Cycling Climb  ' + (parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 feet completed')}"
+      name: "${'April Cycling Climb ' + (parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 feet completed')}"
       min: 0
       max: 20000
-      target: "${20000 / 30 * (new Date().getDate())}"
       entity_row: true
       positions:
         value: 'off'
@@ -65,6 +64,150 @@ entities:
           to: 19999.99
           color: darkred
         - from: 20000
+          to: 100000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.april_rundown'].state
+    entities:
+      - sensor.april_rundown
+    row:
+      type: custom:bar-card
+      entity: sensor.april_rundown
+      icon: mdi:run
+      name: "${'April Rundown ' + (parseFloat(CURRENT) >= 50 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 50 miles completed')}"
+      min: 0
+      max: 50
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 49.99
+          color: darkred
+        - from: 50
+          to: 100000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.cycling_stage_2'].state
+    entities:
+      - sensor.cycling_stage_2
+    row:
+      type: custom:bar-card
+      entity: sensor.cycling_stage_2
+      icon: mdi:bike
+      name: "${'Cycling Stage 2 ' + (parseFloat(CURRENT) >= 505 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 505 miles completed')}"
+      min: 0
+      max: 505
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 504.99
+          color: darkred
+        - from: 505
+          to: 100000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.running_stage_2'].state
+    entities:
+      - sensor.running_stage_2
+    row:
+      type: custom:bar-card
+      entity: sensor.running_stage_2
+      icon: mdi:run
+      name: "${'Running Stage 2 ' + (parseFloat(CURRENT) >= 313.8 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 313.8 miles completed')}"
+      min: 0
+      max: 313.8
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 313.79
+          color: darkred
+        - from: 313.8
+          to: 100000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.walking_stage_2'].state
+    entities:
+      - sensor.walking_stage_2
+    row:
+      type: custom:bar-card
+      entity: sensor.walking_stage_2
+      icon: mdi:walk
+      name: "${'Walking Stage 2 ' + (parseFloat(CURRENT) >= 91 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 91 miles completed')}"
+      min: 0
+      max: 91
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 90.99
+          color: darkred
+        - from: 91
           to: 100000
           color: darkgreen
       style: |
