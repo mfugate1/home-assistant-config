@@ -1,0 +1,82 @@
+type: entities
+view_layout:
+  grid-area: garmin_challenges
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 10px;
+    }
+title: Garmin Challenges
+entities:
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.april_namaste'].state
+    entities:
+      - sensor.april_namaste
+    row:
+      type: custom:bar-card
+      entity: sensor.april_namaste
+      icon: mdi:run
+      name: "${parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed'}"
+      min: 0
+      max: "${CURRENT}"
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 59.99
+          color: darkred
+        - from: 60
+          to: 1000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.april_cycling_climb'].state
+    entities:
+      - sensor.april_cycling_climb
+    row:
+      type: custom:bar-card
+      entity: sensor.april_cycling_climb
+      icon: mdi:run
+      name: "${parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 feet completed'}"
+      min: 0
+      max: "${CURRENT}"
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 19999.99
+          color: darkred
+        - from: 20000
+          to: 100000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
