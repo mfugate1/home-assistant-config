@@ -1,0 +1,4 @@
+- platform: template
+  sensors:
+    watch_connected_to_phone:
+      value_template: "{{ 'F0:99:19:65:FB:D2' in state_attr('sensor.sm_g981u1_bluetooth_connection', 'connected_paired_devices') }}"

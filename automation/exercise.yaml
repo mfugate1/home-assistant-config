@@ -77,3 +77,13 @@
         entity_id: climate.thermostat
       data:
         temperature: "{{ states('input_number.climate_heat_home_temp') }}"
+
+- alias: 'Run Garmin Update in Jenkins'
+  trigger:
+    platform: state
+    entity_id: binary_sensor.watch_connected_to_phone
+    to: 'on'
+  action:
+    service: shell_command.curl
+    data:
+      url: !secret jenkins_garmin_update_url
