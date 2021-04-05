@@ -227,30 +227,27 @@ views:
                     type: custom:numberbox-card
           - type: custom:apexcharts-card
             graph_span: 14d
+            y_axis_precision: 0
             all_series_config:
               fill_raw: zero
+              group_by:
+                func: max
+                duration: 1d
+              show:
+                legend_value: false
             series:
               - type: column
                 entity: sensor.hvac_heat_on_today
                 name: Heat
                 color: orange
-                group_by:
-                  func: max
-                  duration: 1d
               - type: column
                 entity: sensor.hvac_fan_only_on_today
                 name: Fan
                 color: yellow
-                group_by:
-                  func: max
-                  duration: 1d
               - type: column
                 entity: sensor.hvac_cool_on_today
                 name: Cool
                 color: blue
-                group_by:
-                  func: max
-                  duration: 1d
       - type: entities
         title: Upstairs Bathroom
         entities:
