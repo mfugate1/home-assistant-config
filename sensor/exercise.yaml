@@ -43,7 +43,7 @@
 
     # challenges
     - name: april_namaste
-      query: "SELECT IFNULL(SUM(duration_seconds), 0) * 60 as total_time FROM garmin_activities WHERE activityType = 'yoga' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-04-07 23:59:59';"
+      query: "SELECT IFNULL(SUM(duration_seconds), 0) / 60 as total_time FROM garmin_activities WHERE activityType = 'yoga' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-04-07 23:59:59';"
       column: total_time
       value_template: "{{ value | round(2) if value != '0' else value }}"
       unit_of_measurement: minutes
