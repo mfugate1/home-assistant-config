@@ -251,12 +251,6 @@ views:
                 group_by:
                   func: max
                   duration: 1d
-              - type: line
-                entity: sensor.outside_temp
-                color: green
-                group_by:
-                  func: avg
-                  duration: 30min
       - type: entities
         title: Upstairs Bathroom
         entities:
