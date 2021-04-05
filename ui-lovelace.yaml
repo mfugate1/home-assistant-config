@@ -161,6 +161,16 @@ views:
     cards:
       - !include lovelace/todays_exercise.yaml
       - !include lovelace/garmin_challenges.yaml
+      - type: custom:apexcharts-card
+        graph_span: 7d
+        series:
+          - type: column
+            entity: sensor.run_mileage_today
+            name: Run
+            fill_raw: zero
+            group_by:
+              func: max
+              duration: 1d
   - icon: mdi:auto-fix
     cards:
       - type: entities
