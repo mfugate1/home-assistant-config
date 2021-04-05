@@ -157,6 +157,10 @@ views:
                 entity: light.patio
                 name: Patio
                 toggle: true
+  - icon: mdi:weight-lifter
+    cards:
+      - !include lovelace/todays_exercise.yaml
+      - !include lovelace/garmin_challenges.yaml
   - icon: mdi:auto-fix
     cards:
       - type: entities
