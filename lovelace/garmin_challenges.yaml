@@ -55,7 +55,7 @@ entities:
       icon: mdi:shoe-print
       name: "${'Step Into April ' + (parseInt(CURRENT) >= 115000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 115,000 steps completed')}"
       min: 0
-      max: 60
+      max: 115000
       entity_row: true
       positions:
         value: 'off'
@@ -91,7 +91,7 @@ entities:
       icon: mdi:shoe-print
       name: "${'April Step Month ' + (parseInt(CURRENT) >= 300000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 300,000 steps completed')}"
       min: 0
-      max: 60
+      max: 300000
       entity_row: true
       positions:
         value: 'off'
