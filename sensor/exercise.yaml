@@ -40,6 +40,14 @@
       column: mileage
       value_template: "{{ value | round(2) if value != '0' else value }}"
       unit_of_measurement: miles
+    - name: steps_today
+      query: "SELECT totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
+      column: steps
+      unit_of_measurement: steps
+    - name: step_goal_today
+      query: "SELECT dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
+      column: dailyStepGoal
+      unit_of_measurement: steps
 
     # challenges
     - name: april_namaste

@@ -139,14 +139,14 @@ entities:
           }
   - type: custom:config-template-card
     variables:
-      GOAL: states['sensor.daily_step_goal'].state
-      STEPS: states['sensor.total_steps'].state
+      GOAL: states['sensor.step_goal_today'].state
+      STEPS: states['sensor.steps_today'].state
     entities:
-      - sensor.daily_step_goal
-      - sensor.total_steps
+      - sensor.step_goal_today
+      - sensor.steps_today
     row:
       type: custom:bar-card
-      entity: sensor.total_steps
+      entity: sensor.steps_today
       icon: mdi:shoe-print
       name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
       min: 0
