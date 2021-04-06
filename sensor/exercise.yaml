@@ -42,7 +42,7 @@
       unit_of_measurement: miles
     - name: steps_today
       query: "SELECT totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
-      column: steps
+      column: totalSteps
       unit_of_measurement: steps
     - name: step_goal_today
       query: "SELECT dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
