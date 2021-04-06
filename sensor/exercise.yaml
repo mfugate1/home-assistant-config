@@ -21,6 +21,10 @@
         {% else %}
           0
         {% endif %}
+    april_namaste_with_attr:
+      value_template: "{{ states('sensor.april_namaste') }}"
+      attribute_templates:
+        display: "{{ states('sensor.april_namaste')|int }} / 60 min ({{ strptime('2021-04-07', '%Y-%m-%d').timetuple().tm_yday - now().timetuple().tm_yday + 1 }} days remaining)"
 
 - platform: sql
   db_url: !secret fitnessdb_url
