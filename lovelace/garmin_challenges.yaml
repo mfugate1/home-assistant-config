@@ -11,13 +11,14 @@ entities:
   - type: custom:config-template-card
     variables:
       CURRENT: states['sensor.april_namaste'].state
+      DAYS_REMAINING: Math.ceil((new Date("2021-04-07").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
     entities:
       - sensor.april_namaste
     row:
       type: custom:bar-card
       entity: sensor.april_namaste
       icon: mdi:yoga
-      name: "${'April Namaste ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 minutes completed')}"
+      name: "${'April Namaste ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 min (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: 60
       entity_row: true
@@ -53,7 +54,7 @@ entities:
       type: custom:bar-card
       entity: sensor.step_into_april
       icon: mdi:shoe-print
-      name: "${'Step Into April ' + (parseInt(CURRENT) >= 115000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 115,000 steps completed')}"
+      name: "${'Step Into April ' + (parseInt(CURRENT) >= 115000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 115,000 steps')}"
       min: 0
       max: 115000
       entity_row: true
@@ -89,7 +90,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_step_month
       icon: mdi:shoe-print
-      name: "${'April Step Month ' + (parseInt(CURRENT) >= 300000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 300,000 steps completed')}"
+      name: "${'April Step Month ' + (parseInt(CURRENT) >= 300000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 300,000 steps')}"
       min: 0
       max: 300000
       entity_row: true
@@ -125,7 +126,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_cycling_climb
       icon: mdi:bike
-      name: "${'April Cycling Climb ' + (parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 feet completed')}"
+      name: "${'April Cycling Climb ' + (parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 ft')}"
       min: 0
       max: 20000
       entity_row: true
@@ -161,7 +162,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_rundown
       icon: mdi:run
-      name: "${'April Rundown ' + (parseFloat(CURRENT) >= 50 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 50 miles completed')}"
+      name: "${'April Rundown ' + (parseFloat(CURRENT) >= 50 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 50 mi')}"
       min: 0
       max: 50
       entity_row: true
@@ -197,7 +198,7 @@ entities:
       type: custom:bar-card
       entity: sensor.cycling_stage_2
       icon: mdi:bike
-      name: "${'Cycling Stage 2 ' + (parseFloat(CURRENT) >= 505 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 505 miles completed')}"
+      name: "${'Cycling Stage 2 ' + (parseFloat(CURRENT) >= 505 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 505 mi')}"
       min: 0
       max: 505
       entity_row: true
@@ -233,7 +234,7 @@ entities:
       type: custom:bar-card
       entity: sensor.running_stage_2
       icon: mdi:run
-      name: "${'Running Stage 2 ' + (parseFloat(CURRENT) >= 313.8 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 313.8 miles completed')}"
+      name: "${'Running Stage 2 ' + (parseFloat(CURRENT) >= 313.8 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 313.8 mi')}"
       min: 0
       max: 313.8
       entity_row: true
@@ -269,7 +270,7 @@ entities:
       type: custom:bar-card
       entity: sensor.walking_stage_2
       icon: mdi:walk
-      name: "${'Walking Stage 2 ' + (parseFloat(CURRENT) >= 91 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 91 miles completed')}"
+      name: "${'Walking Stage 2 ' + (parseFloat(CURRENT) >= 91 ? 'COMPLETE! (' + CURRENT + ' mi)' : CURRENT + ' / 91 mi')}"
       min: 0
       max: 91
       entity_row: true
