@@ -121,7 +121,7 @@ entities:
         }
   - type: custom:config-template-card
     variables:
-      CURRENT: states['sensor.april_cycling_climb'].state
+      CURRENT: parseInt(states['sensor.april_cycling_climb'].state)
       DAYS_REMAINING: Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
     entities:
       - sensor.april_cycling_climb
@@ -129,7 +129,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_cycling_climb
       icon: mdi:bike
-      name: "${'April Cycling Climb ' + (parseFloat(CURRENT) >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 ft (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Cycling Climb ' + (CURRENT >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 ft (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: 20000
       entity_row: true
