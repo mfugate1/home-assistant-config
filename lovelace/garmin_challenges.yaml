@@ -61,7 +61,7 @@ entities:
       type: custom:bar-card
       entity: sensor.step_into_april
       icon: mdi:shoe-print
-      name: "${'Step Into April: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + CURRENT_DISPLAY + ' steps)' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' steps (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'Step Into April: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' steps)' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' steps (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: "${GOAL}"
       entity_row: true
@@ -91,26 +91,30 @@ entities:
   - type: custom:config-template-card
     variables:
       CURRENT: parseInt(states['sensor.april_step_month'].state)
-      CURRENT_DISPLAY: states['sensor.april_step_month'].state.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       DAYS_REMAINING: Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 300000
+      addCommas: |
+        num => {
+          return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        }
     entities:
       - sensor.april_step_month
     row:
       type: custom:bar-card
       entity: sensor.april_step_month
       icon: mdi:shoe-print
-      name: "${'April Step Month: ' + (CURRENT >= 300000 ? 'COMPLETE! (' + CURRENT_DISPLAY + ' steps)' : CURRENT_DISPLAY + ' / 300,000 steps (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Step Month: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' steps)' : addCommas(CURRENT) + ' / addCommas(GOAL) steps (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 300000
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 299999.99
+          to: "${GOAL - 0.01}"
           color: darkred
-        - from: 300000
-          to: 500000
+        - from: "${GOAL}"
+          to: "${GOAL + 400000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
@@ -130,24 +134,29 @@ entities:
     variables:
       CURRENT: parseInt(states['sensor.april_cycling_climb'].state)
       DAYS_REMAINING: Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 20000
+      addCommas: |
+        num => {
+          return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        }
     entities:
       - sensor.april_cycling_climb
     row:
       type: custom:bar-card
       entity: sensor.april_cycling_climb
       icon: mdi:bike
-      name: "${'April Cycling Climb ' + (CURRENT >= 20000 ? 'COMPLETE! (' + CURRENT + ' feet)' : CURRENT + ' / 20,000 ft (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Cycling Climb: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' feet)' : addCommas(CURRENT) + ' / addCommas(GOAL) ft (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 20000
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 19999.99
+          to: "${GOAL - 0.01}"
           color: darkred
-        - from: 20000
-          to: 100000
+        - from: "${GOAL}"
+          to: "${GOAL + 100000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
@@ -167,24 +176,25 @@ entities:
     variables:
       CURRENT: states['sensor.april_rundown'].state
       DAYS_REMAINING: Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 50
     entities:
       - sensor.april_rundown
     row:
       type: custom:bar-card
       entity: sensor.april_rundown
       icon: mdi:run
-      name: "${'April Rundown ' + (parseFloat(CURRENT) >= 50 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 50 mi (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Rundown: ' + (parseFloat(CURRENT) >= GOAL ? 'COMPLETE! (' + parseInt(CURRENT) + ' miles)' : parseInt(CURRENT) + ' / ' + GOAL + ' mi (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 50
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 49.99
+          to: "${GOAL - 0.01}"
           color: darkred
-        - from: 50
-          to: 100000
+        - from: "${GOAL}"
+          to: "${GOAL + 1000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
@@ -204,24 +214,25 @@ entities:
     variables:
       CURRENT: states['sensor.cycling_stage_2'].state
       DAYS_REMAINING: Math.ceil((new Date("2021-06-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 505
     entities:
       - sensor.cycling_stage_2
     row:
       type: custom:bar-card
       entity: sensor.cycling_stage_2
       icon: mdi:bike
-      name: "${'Cycling Stage 2 ' + (parseFloat(CURRENT) >= 505 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 505 mi (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'Cycling Stage 2: ' + (parseFloat(CURRENT) >= GOAL ? 'COMPLETE! (' + parseInt(CURRENT) + ' miles)' : parseInt(CURRENT) + ' / ' + GOAL + ' mi (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 505
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 504.99
+          to: "${GOAL - 0.01}"
           color: darkred
-        - from: 505
-          to: 100000
+        - from: "${GOAL}"
+          to: "${GOAL + 100000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
@@ -241,24 +252,25 @@ entities:
     variables:
       CURRENT: states['sensor.running_stage_2'].state
       DAYS_REMAINING: Math.ceil((new Date("2021-06-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 313.8
     entities:
       - sensor.running_stage_2
     row:
       type: custom:bar-card
       entity: sensor.running_stage_2
       icon: mdi:run
-      name: "${'Running Stage 2 ' + (parseFloat(CURRENT) >= 313.8 ? 'COMPLETE! (' + CURRENT + ' miles)' : CURRENT + ' / 313.8 mi (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'Running Stage 2: ' + (parseFloat(CURRENT) >= GOAL ? 'COMPLETE! (' + parseInt(CURRENT) + ' miles)' : parseInt(CURRENT) + ' / ' + GOAL + ' mi (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 313.8
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 313.79
+          to: "${GOAL - 0.01}"
           color: darkred
-        - from: 313.8
-          to: 100000
+        - from: "${GOAL}"
+          to: "${GOAL + 100000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
@@ -278,24 +290,25 @@ entities:
     variables:
       CURRENT: states['sensor.walking_stage_2'].state
       DAYS_REMAINING: Math.ceil((new Date("2021-06-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 91
     entities:
       - sensor.walking_stage_2
     row:
       type: custom:bar-card
       entity: sensor.walking_stage_2
       icon: mdi:walk
-      name: "${'Walking Stage 2 ' + (parseFloat(CURRENT) >= 91 ? 'COMPLETE! (' + CURRENT + ' mi)' : CURRENT + ' / 91 mi (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'Walking Stage 2: ' + (parseFloat(CURRENT) >= GOAL ? 'COMPLETE! (' + parseInt(CURRENT) + ' mi)' : parseInt(CURRENT) + ' / ' + GOAL + ' mi (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 91
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 90.99
+          to: "${GOAL - 0.01}"
           color: darkred
-        - from: 91
-          to: 100000
+        - from: "${GOAL}"
+          to: "${GOAL + 100000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
