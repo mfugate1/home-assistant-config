@@ -52,7 +52,7 @@ entities:
       CURRENT_DISPLAY: states['sensor.step_into_april'].state.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       DAYS_REMAINING: Math.ceil((new Date("2021-04-14").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
       GOAL: 115000
-      GOAL_DISPLAY: GOAL.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+      GOAL_DISPLAY: 115,000
     entities:
       - sensor.step_into_april
     row:
