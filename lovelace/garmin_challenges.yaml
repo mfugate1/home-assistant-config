@@ -10,26 +10,27 @@ title: Garmin Challenges
 entities:
   - type: custom:config-template-card
     variables:
-      CURRENT: states['sensor.april_namaste'].state
+      CURRENT: parseInt(states['sensor.april_namaste'].state)
       DAYS_REMAINING: Math.ceil((new Date("2021-04-07").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+      GOAL: 60
     entities:
       - sensor.april_namaste
     row:
       type: custom:bar-card
       entity: sensor.april_namaste
       icon: mdi:yoga
-      name: "${'April Namaste ' + (parseFloat(CURRENT) >= 60 ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / 60 min (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Namaste: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / ' + GOAL + ' min (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
-      max: 60
+      max: "${GOAL}"
       entity_row: true
       positions:
         value: 'off'
       severity:
         - from: 0
-          to: 59.99
+          to: "${GOAL - .01}"
           color: darkred
-        - from: 60
-          to: 1000
+        - from: "${GOAL}"
+          to: "${GOAL + 1000}"
           color: darkgreen
       style: |
         bar-card-contentbar {
@@ -47,7 +48,8 @@ entities:
         }
   - type: custom:config-template-card
     variables:
-      CURRENT: states['sensor.step_into_april'].state
+      CURRENT: parseInt(states['sensor.step_into_april'].state)
+      CURRENT_DISPLAY: states['sensor.step_into_april'].state.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       DAYS_REMAINING: Math.ceil((new Date("2021-04-14").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
     entities:
       - sensor.step_into_april
@@ -55,7 +57,7 @@ entities:
       type: custom:bar-card
       entity: sensor.step_into_april
       icon: mdi:shoe-print
-      name: "${'Step Into April ' + (parseInt(CURRENT) >= 115000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 115,000 steps (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'Step Into April: ' + (CURRENT >= 115000 ? 'COMPLETE! (' + CURRENT_DISPLAY + ' steps)' : CURRENT_DISPLAY + ' / 115,000 steps (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: 115000
       entity_row: true
@@ -84,7 +86,8 @@ entities:
         }
   - type: custom:config-template-card
     variables:
-      CURRENT: states['sensor.april_step_month'].state
+      CURRENT: parseInt(states['sensor.april_step_month'].state)
+      CURRENT_DISPLAY: states['sensor.april_step_month'].state.replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
       DAYS_REMAINING: Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
     entities:
       - sensor.april_step_month
@@ -92,7 +95,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_step_month
       icon: mdi:shoe-print
-      name: "${'April Step Month ' + (parseInt(CURRENT) >= 300000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 300,000 steps (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Step Month: ' + (CURRENT >= 300000 ? 'COMPLETE! (' + CURRENT_DISPLAY + ' steps)' : CURRENT_DISPLAY + ' / 300,000 steps (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: 300000
       entity_row: true
