@@ -43,10 +43,12 @@
     - name: steps_today
       query: "SELECT totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
       column: totalSteps
+      value_template: "{{ value | round }}"
       unit_of_measurement: steps
     - name: step_goal_today
       query: "SELECT dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
       column: dailyStepGoal
+      value_template: "{{ value | round }}"
       unit_of_measurement: steps
 
     # challenges
@@ -71,11 +73,13 @@
     - name: step_into_april
       query: "SELECT IFNULL(SUM(totalSteps), 0) as steps FROM garmin_daily_stats WHERE calendarDate >= '2021-04-01' AND calendarDate <= '2021-04-14';"
       column: steps
+      value_template: "{{ value | round }}"
       unit_of_measurement: steps
 
     - name: april_step_month
       query: "SELECT IFNULL(SUM(totalSteps), 0) as steps FROM garmin_daily_stats WHERE calendarDate >= '2021-04-01' AND calendarDate <= '2021-04-30';"
       column: steps
+      value_template: "{{ value | round }}"
       unit_of_measurement: steps
 
     - name: cycling_stage_2
