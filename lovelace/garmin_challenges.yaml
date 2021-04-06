@@ -324,38 +324,3 @@ entities:
         bar-card-backgroundbar {
           border-radius: 10px;
         }
-  - type: custom:config-template-card
-    variables:
-      GOAL: 60
-    entities:
-      - sensor.april_namaste_with_attr
-    row:
-      type: custom:bar-card
-      entity: sensor.april_namaste_with_attr
-      attribute: display
-      icon: mdi:yoga
-      name: April Namaste
-      min: 0
-      max: "${GOAL}"
-      entity_row: true
-      severity:
-        - from: 0
-          to: "${GOAL - 0.01}"
-          color: darkred
-        - from: "${GOAL}"
-          to: "${GOAL + 1000}"
-          color: darkgreen
-      style: |
-        bar-card-contentbar {
-          font-weight: bold;
-          color: gold;
-        }
-        bar-card-name {
-          margin-left: 10px;
-        }
-        bar-card-currentbar {
-          border-radius: 10px;
-        }
-        bar-card-backgroundbar {
-          border-radius: 10px;
-        }
