@@ -103,7 +103,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_step_month
       icon: mdi:shoe-print
-      name: "${'April Step Month: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' steps)' : addCommas(CURRENT) + ' / addCommas(GOAL) steps (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Step Month: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' steps)' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' steps (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: "${GOAL}"
       entity_row: true
@@ -145,7 +145,7 @@ entities:
       type: custom:bar-card
       entity: sensor.april_cycling_climb
       icon: mdi:bike
-      name: "${'April Cycling Climb: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' feet)' : addCommas(CURRENT) + ' / addCommas(GOAL) ft (' + DAYS_REMAINING + ' days remaining)')}"
+      name: "${'April Cycling Climb: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' feet)' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' ft (' + DAYS_REMAINING + ' days remaining)')}"
       min: 0
       max: "${GOAL}"
       entity_row: true
