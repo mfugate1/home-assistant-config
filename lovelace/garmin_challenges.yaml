@@ -46,6 +46,78 @@ entities:
         }
   - type: custom:config-template-card
     variables:
+      CURRENT: states['sensor.step_into_april'].state
+    entities:
+      - sensor.step_into_april
+    row:
+      type: custom:bar-card
+      entity: sensor.step_into_april
+      icon: mdi:shoe-print
+      name: "${'Step Into April ' + (parseInt(CURRENT) >= 115000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 115,000 steps completed')}"
+      min: 0
+      max: 60
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 114999.99
+          color: darkred
+        - from: 115000
+          to: 400000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
+      CURRENT: states['sensor.april_step_month'].state
+    entities:
+      - sensor.april_step_month
+    row:
+      type: custom:bar-card
+      entity: sensor.april_step_month
+      icon: mdi:shoe-print
+      name: "${'April Step Month ' + (parseInt(CURRENT) >= 300000 ? 'COMPLETE! (' + CURRENT + ' steps)' : CURRENT + ' / 300,000 steps completed')}"
+      min: 0
+      max: 60
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: 299999.99
+          color: darkred
+        - from: 300000
+          to: 500000
+          color: darkgreen
+      style: |
+        bar-card-contentbar {
+          font-weight: bold;
+          color: gold;
+        }
+        bar-card-name {
+          margin-left: 10px;
+        }
+        bar-card-currentbar {
+          border-radius: 10px;
+        }
+        bar-card-backgroundbar {
+          border-radius: 10px;
+        }
+  - type: custom:config-template-card
+    variables:
       CURRENT: states['sensor.april_cycling_climb'].state
     entities:
       - sensor.april_cycling_climb

@@ -60,6 +60,16 @@
       value_template: "{{ value | round(2) if value != '0' else value }}"
       unit_of_measurement: miles
 
+    - name: step_into_april
+      query: "SELECT IFNULL(SUM(totalSteps), 0) as steps FROM garmin_daily_stats WHERE calendarDate >= '2021-04-01' AND calendarDate <= '2021-04-14';"
+      column: steps
+      unit_of_measurement: steps
+
+    - name: april_step_month
+      query: "SELECT IFNULL(SUM(totalSteps), 0) as steps FROM garmin_daily_stats WHERE calendarDate >= '2021-04-01' AND calendarDate <= '2021-04-30';"
+      column: steps
+      unit_of_measurement: steps
+
     - name: cycling_stage_2
       query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE activityType in ('cycling', 'indoor_cycling') AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-06-30 23:59:59';"
       column: mileage
