@@ -240,6 +240,7 @@ views:
           - type: custom:apexcharts-card
             graph_span: 14d
             y_axis_precision: 0
+            stacked: true
             all_series_config:
               fill_raw: zero
               group_by:
@@ -247,6 +248,7 @@ views:
                 duration: 1d
               show:
                 legend_value: false
+                datalabels: total
             series:
               - type: column
                 entity: sensor.hvac_heat_on_today
