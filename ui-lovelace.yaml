@@ -245,8 +245,19 @@ views:
               grid:
                 show: false
                 padding:
-                  left: 0
-                  right: 0
+                  left: 10
+                  right: 10
+              xaxis:
+                labels:
+                  show: false
+                axisBorder:
+                  show: false
+                axisTicks:
+                  show: false
+                crosshairs:
+                  show: false
+                tooltip:
+                  enabled: false
             all_series_config:
               fill_raw: zero
               group_by:
