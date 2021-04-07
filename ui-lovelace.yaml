@@ -255,7 +255,7 @@ views:
                 background:
                   enabled: false
                 style:
-                  colors: red
+                  colors: ['#FF2D00', '#FF2D00', '#FF2D00']
             all_series_config:
               fill_raw: zero
               group_by:
