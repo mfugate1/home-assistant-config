@@ -254,6 +254,8 @@ views:
               dataLabels:
                 background:
                   enabled: false
+                style:
+                  colors: red
             all_series_config:
               fill_raw: zero
               group_by:
