@@ -1,5 +1,5 @@
 type: custom:bar-card
-entity: SENSOR
+entity: "${SENSOR}"
 icon: mdi:bike
 name: "${NAME + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' ' + UNITS + ')' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' ' + UNITS + ' (' + DAYS_REMAINING + ' days remaining)')}"
 min: 0
