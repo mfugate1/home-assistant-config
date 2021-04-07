@@ -241,6 +241,12 @@ views:
             graph_span: 14d
             y_axis_precision: 0
             stacked: true
+            apex_config:
+              grid:
+                show: false
+                padding:
+                  left: 0
+                  right: 0
             all_series_config:
               fill_raw: zero
               group_by:
