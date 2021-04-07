@@ -1,0 +1,8 @@
+- alias: 'Sonoff Living Room - Button A - Netflix'
+  trigger:
+    platform: mqtt
+    topic: rtl_433/+/devices/Sonoff-RM433/button
+    payload: A
+  action:
+    service: switch.toggle
+    entity_id: switch.livingroom_netflix
