@@ -1,0 +1,38 @@
+type: custom:config-template-card
+variables:
+  GOAL: states['sensor.step_goal_today'].state
+  STEPS: states['sensor.steps_today'].state
+entities:
+  - sensor.step_goal_today
+  - sensor.steps_today
+row:
+  type: custom:bar-card
+  entity: sensor.steps_today
+  icon: mdi:shoe-print
+  name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
+  min: 0
+  max: "${GOAL}"
+  entity_row: true
+  positions:
+    value: 'off'
+  severity:
+    - from: 0
+      to: "${parseInt(GOAL) - 1}"
+      color: darkred
+    - from: "${GOAL}"
+      to: "${parseInt(GOAL) + 100000}"
+      color: darkgreen
+  style: |
+    bar-card-contentbar {
+      font-weight: bold;
+      color: gold;
+    }
+    bar-card-name {
+      margin-left: 10px;
+    }
+    bar-card-currentbar {
+      border-radius: 10px;
+    }
+    bar-card-backgroundbar {
+      border-radius: 10px;
+    }

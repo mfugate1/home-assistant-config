@@ -1,0 +1,10 @@
+type: entities
+view_layout:
+  grid-area: exercise_progress
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 10px;
+    }
+title: "Exercise Progress"
+entities: !include_dir_list progress_bars/

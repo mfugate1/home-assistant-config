@@ -1,0 +1,42 @@
+type: custom:config-template-card
+variables:
+  CURRENT: parseInt(states['sensor.step_into_april'].state)
+  DAYS_REMAINING: Math.ceil((new Date("2021-04-14").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+  GOAL: 115000
+  addCommas: |
+    num => {
+      return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+    }
+entities:
+  - sensor.step_into_april
+row:
+  type: custom:bar-card
+  entity: sensor.step_into_april
+  icon: mdi:shoe-print
+  name: "${'Step Into April: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' steps)' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' steps (' + DAYS_REMAINING + ' days remaining)')}"
+  min: 0
+  max: "${GOAL}"
+  entity_row: true
+  positions:
+    value: 'off'
+  severity:
+    - from: 0
+      to: "${GOAL - 0.01}"
+      color: darkred
+    - from: "${GOAL}"
+      to: "${GOAL + 400000}"
+      color: darkgreen
+  style: |
+    bar-card-contentbar {
+      font-weight: bold;
+      color: gold;
+    }
+    bar-card-name {
+      margin-left: 10px;
+    }
+    bar-card-currentbar {
+      border-radius: 10px;
+    }
+    bar-card-backgroundbar {
+      border-radius: 10px;
+    }

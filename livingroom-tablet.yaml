@@ -108,8 +108,7 @@ views:
         view_layout:
           grid-area: col3
         cards:
-          - !include lovelace/todays_exercise.yaml
-          - !include lovelace/garmin_challenges.yaml
+          - !include lovelace/exercise.yaml
   - title: horizontal stack
     panel: true
     cards:

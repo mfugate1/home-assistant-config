@@ -1,0 +1,43 @@
+type: conditional
+conditions:
+  - entity: sensor.required_walk_mileage_for_today
+    state_not: '0'
+row:
+  type: custom:config-template-card
+  variables:
+    REQ_MILES: states['sensor.required_walk_mileage_for_today'].state
+    CUR_MILES: states['sensor.walk_mileage_today'].state
+  entities:
+    - sensor.required_walk_mileage_for_today
+    - sensor.walk_mileage_today
+  row:
+    type: custom:bar-card
+    entity: sensor.walk_mileage_today
+    icon: mdi:walk
+    name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
+    min: 0
+    max: "${REQ_MILES}"
+    entity_row: true
+    positions:
+      value: 'off'
+    severity:
+      - from: 0
+        to: "${parseFloat(REQ_MILES) - .01}"
+        color: darkred
+      - from: "${REQ_MILES}"
+        to: "${parseFloat(REQ_MILES) + 1000}"
+        color: darkgreen
+    style: |
+      bar-card-contentbar {
+        font-weight: bold;
+        color: gold;
+      }
+      bar-card-name {
+        margin-left: 10px;
+      }
+      bar-card-currentbar {
+        border-radius: 10px;
+      }
+      bar-card-backgroundbar {
+        border-radius: 10px;
+      }

@@ -1,0 +1,38 @@
+type: custom:config-template-card
+variables:
+  CURRENT: parseInt(states['sensor.april_namaste'].state)
+  DAYS_REMAINING: Math.ceil((new Date("2021-04-07").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+  GOAL: 60
+entities:
+  - sensor.april_namaste
+row:
+  type: custom:bar-card
+  entity: sensor.april_namaste
+  icon: mdi:yoga
+  name: "${'April Namaste: ' + (CURRENT >= GOAL ? 'COMPLETE! (' + CURRENT + ' minutes)' : CURRENT + ' / ' + GOAL + ' min (' + DAYS_REMAINING + ' days remaining)')}"
+  min: 0
+  max: "${GOAL}"
+  entity_row: true
+  positions:
+    value: 'off'
+  severity:
+    - from: 0
+      to: "${GOAL - 0.01}"
+      color: darkred
+    - from: "${GOAL}"
+      to: "${GOAL + 1000}"
+      color: darkgreen
+  style: |
+    bar-card-contentbar {
+      font-weight: bold;
+      color: gold;
+    }
+    bar-card-name {
+      margin-left: 10px;
+    }
+    bar-card-currentbar {
+      border-radius: 10px;
+    }
+    bar-card-backgroundbar {
+      border-radius: 10px;
+    }
