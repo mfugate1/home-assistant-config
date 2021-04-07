@@ -33,18 +33,18 @@
   name: outside_temp
   unit_of_measurement: °F
   device_class: temperature
-  state_topic: "rtl_433/eba938102723/devices/WG-PB12V1/6/temperature_C"
+  state_topic: "rtl_433/+/devices/WG-PB12V1/6/temperature_C"
   value_template: "{{ (value | float * 9 / 5) + 32 | round(1) }}"
 
 - platform: mqtt
   name: upstairsbathroom_temperature
   unit_of_measurement: °F
   device_class: temperature
-  state_topic: "rtl_433/eba938102723/devices/Acurite-Tower/A/12610/temperature_C"
+  state_topic: "rtl_433/+/devices/Acurite-Tower/A/12610/temperature_C"
   value_template: "{{ (value | float * 9 / 5) + 32 | round(1) }}"
 
 - platform: mqtt
   name: upstairsbathroom_humidity
   unit_of_measurement: '%'
   device_class: humidity
-  state_topic: "rtl_433/eba938102723/devices/Acurite-Tower/A/12610/humidity"
+  state_topic: "rtl_433/+/devices/Acurite-Tower/A/12610/humidity"
