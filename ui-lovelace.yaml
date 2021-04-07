@@ -247,17 +247,10 @@ views:
                 padding:
                   left: 10
                   right: 10
-              xaxis:
-                labels:
-                  show: false
-                axisBorder:
-                  show: false
-                axisTicks:
-                  show: false
-                crosshairs:
-                  show: false
-                tooltip:
-                  enabled: false
+              yaxis:
+                show: false
+              legend:
+                position: top
             all_series_config:
               fill_raw: zero
               group_by:
