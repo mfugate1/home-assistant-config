@@ -251,6 +251,9 @@ views:
                 show: false
               legend:
                 position: top
+              dataLabels:
+                background:
+                  enabled: false
             all_series_config:
               fill_raw: zero
               group_by:
