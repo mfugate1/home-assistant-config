@@ -80,12 +80,9 @@
 
 - alias: 'Run Garmin Update in Jenkins'
   trigger:
-    - platform: state
-      entity_id: binary_sensor.watch_connected_to_phone
-      to: 'on'
-    - platform: state
-      entity_id: sensor.sm_g981u1_last_notification
-      to: 'Your activity is ready to view.'
+    platform: state
+    entity_id: sensor.sm_g981u1_last_notification
+    to: 'Your activity is ready to view.'
   action:
     service: shell_command.curl
     data:
