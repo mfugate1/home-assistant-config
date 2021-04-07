@@ -166,12 +166,16 @@ views:
         y_axis_precision: 0
         header:
           title: Daily Mileage
+          show: true
+          standard_format: true
         all_series_config:
           type: column
           fill_raw: zero
           group_by:
             func: max
             duration: 1d
+          show:
+            legend_value: false
         series:
           - entity: sensor.run_mileage_today
             name: Run
