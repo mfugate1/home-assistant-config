@@ -1,0 +1,30 @@
+type: custom:bar-card
+entity: SENSOR
+icon: mdi:bike
+name: "${NAME + (CURRENT >= GOAL ? 'COMPLETE! (' + addCommas(CURRENT) + ' ' + UNITS + ')' : addCommas(CURRENT) + ' / ' + addCommas(GOAL) + ' ' + UNITS + ' (' + DAYS_REMAINING + ' days remaining)')}"
+min: 0
+max: "${GOAL}"
+entity_row: true
+positions:
+  value: 'off'
+severity:
+  - from: 0
+    to: "${GOAL - 0.01}"
+    color: darkred
+  - from: "${GOAL}"
+    to: "${GOAL + 1000000}"
+    color: darkgreen
+style: |
+  bar-card-contentbar {
+    font-weight: bold;
+    color: gold;
+  }
+  bar-card-name {
+    margin-left: 10px;
+  }
+  bar-card-currentbar {
+    border-radius: 10px;
+  }
+  bar-card-backgroundbar {
+    border-radius: 10px;
+  }
