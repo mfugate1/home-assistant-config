@@ -6,13 +6,21 @@ row:
   type: custom:config-template-card
   variables:
     COUNT: states['sensor.lifting_sessions_today'].state
+    getSessionStr: |
+      count => {
+        if (count == 1) {
+          return 'session'
+        } else {
+          return 'sessions'  
+        }
+      }
   entities:
     - sensor.lifting_sessions_today
   row:
     type: custom:bar-card
     entity: sensor.lifting_sessions_today
     icon: mdi:weight-lifter
-    name: "${parseInt(COUNT) >= 1 ? 'DONE! (' + COUNT + ' sessions)' : ''}"
+    name: "${parseInt(COUNT) >= 1 ? 'DONE! (' + COUNT + ' ' + getSessionStr(COUNT) + ')' : ''}"
     min: 0
     max: 1
     entity_row: true
