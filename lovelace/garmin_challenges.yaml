@@ -14,34 +14,44 @@ entities:
         state_not: 'unavailable'
     row:
       type: custom:config-template-card
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_01'].attributes.goal
-        NAME: states['sensor.template_garmin_challenge_01'].attributes.friendly_name
-        STATE: states['sensor.template_garmin_challenge_01'].state
-        getDisplay: |
-          state => {
-            var current_progress = states['sensor.template_garmin_challenge_01'].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-            var goal = states['sensor.template_garmin_challenge_01'].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-            switch(state) {
-              case 'active':
-                return current_progress + ' / ' + goal
-              case 'inactive':
-                return 'Starts on ' + states['sensor.template_garmin_challenge_01'].attributes.start_date
-              case 'complete':
-                return 'DONE! ' + current_progress + ' ' + states['sensor.template_garmin_challenge_01'].attributes.units
-            }
-          }
-        addCommas: |
-          num => {
-            return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-          }
       entities:
         - sensor.template_garmin_challenge_01
-      row:
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_01'].attributes.goal
+        SENSOR_ENTITY: 'sensor.template_garmin_challenge_01'
+        getDisplay: &getDisplay |
+          sensor_entity => {
+            var state = states[sensor_entity].state
+            var current_progress = states[sensor_entity].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            var units = states[sensor_entity].attributes.units
+            var days_remaining = Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+            var description = states[sensor_entity].description
+
+            var display = states[sensor_entity].attributes.friendly_name + ': '
+
+            if (state == 'inactive') {
+              display += 'Starts on ' + states[sensor_entity].attributes.start_date
+            } else if (states[sensor_entity].attributes.type == 'one_time_activity') {
+              if (state == 'active') {
+                display += description
+              } else {
+                display += 'DONE! (' + description + ')'
+              }
+            } else {
+              if (state == 'active') {
+                display += current_progress + ' / ' + goal + ' ' + units
+              } else {
+                display += 'DONE! ' + current_progress + ' ' + units
+              }
+            }
+            return display
+          }
+      row: &row
         type: custom:bar-card
-        entity: sensor.template_garmin_challenge_01
+        entity: "${SENSOR_ENTITY}"
         attribute: current_progress
-        name: "${NAME + ': ' + getDisplay(STATE)}"
+        name: "${getDisplay(STATE, SENSOR_ENTITY)}"
         min: 0
         max: "${GOAL}"
         entity_row: true
@@ -68,3 +78,17 @@ entities:
           bar-card-backgroundbar {
             border-radius: 10px;
           }
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_02
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_02
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_02'].attributes.goal
+        SENSOR_ENTITY: 'sensor.template_garmin_challenge_02'
+        getDisplay: *getDisplay
+      row: *row
