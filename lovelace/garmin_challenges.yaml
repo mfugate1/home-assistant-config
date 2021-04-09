@@ -18,8 +18,8 @@ entities:
         GOAL: states['sensor.template_garmin_challenge_01'].attributes.goal
         NAME: states['sensor.template_garmin_challenge_01'].friendly_name
         getDisplay: |
-          {
-            switch(states['sensor.template_garmin_challenge_01'].state) {
+          state => {
+            switch(state) {
               case 'active':
                 return states['sensor.template_garmin_challenge_01'].attributes.current_progress + ' / ' + states['sensor.template_garmin_challenge_01'].attributes.goal
               case 'inactive':
@@ -33,7 +33,7 @@ entities:
       row:
         type: custom:bar-card
         entity: sensor.template_garmin_challenge_01
-        name: "${NAME + ': ' + getDisplay()}"
+        name: "${NAME + ': ' + getDisplay(STATE)}"
         min: 0
         max: "${GOAL}"
         entity_row: true
