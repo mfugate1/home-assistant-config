@@ -1,0 +1,16 @@
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_01
+  sensor:
+    - name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes:
+        start_date: "{{ trigger.json.start_date }}"
+        end_date: "{{ trigger.json.end_date }}"
+        description: "{{ trigger.json.description }}"
+        image_url: "{{ trigger.json.image_url }}"
+        current_progress: "{{ trigger.json.current_progress }}"
+        goal: "{{ trigger.json.goal }}"
+        units: "{{ trigger.json.units }}"
+        user: "{{ trigger.json.user }}"

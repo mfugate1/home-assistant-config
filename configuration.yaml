@@ -51,4 +51,5 @@ script: !include_dir_named script/
 sensor: !include_dir_merge_list sensor/
 shell_command: !include misc/shell_command.yaml
 switch: !include_dir_merge_list switch/
+template: !include_dir_merge_list template/
 webostv: !include misc/webostv.yaml
