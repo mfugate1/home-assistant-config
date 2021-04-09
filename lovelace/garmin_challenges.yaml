@@ -17,6 +17,7 @@ entities:
       variables:
         GOAL: states['sensor.template_garmin_challenge_01'].attributes.goal
         NAME: states['sensor.template_garmin_challenge_01'].friendly_name
+        STATE: states['sensor.template_garmin_challenge_01'].state
         getDisplay: |
           state => {
             switch(state) {
