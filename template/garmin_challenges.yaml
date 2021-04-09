@@ -1,229 +1,174 @@
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenges
+      webhook_id: garmin_challenge_01
   sensor:
-    - name: "{{ trigger.json.challenge_01.name }}"
-      unique_id: garmin_challenge_01
-      state: "{{ trigger.json.challenge_01.state }}"
-      picture: "{{ trigger.json.challenge_01.image_url }}"
-      icon: "{{ trigger.json.challenge_01.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_01.start_date }}"
-        end_date: "{{ trigger.json.challenge_01.end_date }}"
-        description: "{{ trigger.json.challenge_01.description }}"
-        current_progress: "{{ trigger.json.challenge_01.current_progress }}"
-        goal: "{{ trigger.json.challenge_01.goal }}"
-        units: "{{ trigger.json.challenge_01.units }}"
-        user: "{{ trigger.json.challenge_01.user }}"
-        activity_type: "{{ trigger.json.challenge_01.activity_type }}"
-        type: "{{ trigger.json.challenge_01.type }}"
-    - name: "{{ trigger.json.challenge_02.name }}"
-      unique_id: garmin_challenge_02
-      state: "{{ trigger.json.challenge_02.state }}"
-      picture: "{{ trigger.json.challenge_02.image_url }}"
-      icon: "{{ trigger.json.challenge_02.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_02.start_date }}"
-        end_date: "{{ trigger.json.challenge_02.end_date }}"
-        description: "{{ trigger.json.challenge_02.description }}"
-        current_progress: "{{ trigger.json.challenge_02.current_progress }}"
-        goal: "{{ trigger.json.challenge_02.goal }}"
-        units: "{{ trigger.json.challenge_02.units }}"
-        user: "{{ trigger.json.challenge_02.user }}"
-        activity_type: "{{ trigger.json.challenge_02.activity_type }}"
-        type: "{{ trigger.json.challenge_02.type }}"
-    - name: "{{ trigger.json.challenge_03.name }}"
-      unique_id: garmin_challenge_03
-      state: "{{ trigger.json.challenge_03.state }}"
-      picture: "{{ trigger.json.challenge_03.image_url }}"
-      icon: "{{ trigger.json.challenge_03.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_03.start_date }}"
-        end_date: "{{ trigger.json.challenge_03.end_date }}"
-        description: "{{ trigger.json.challenge_03.description }}"
-        current_progress: "{{ trigger.json.challenge_03.current_progress }}"
-        goal: "{{ trigger.json.challenge_03.goal }}"
-        units: "{{ trigger.json.challenge_03.units }}"
-        user: "{{ trigger.json.challenge_03.user }}"
-        activity_type: "{{ trigger.json.challenge_03.activity_type }}"
-        type: "{{ trigger.json.challenge_03.type }}"
-    - name: "{{ trigger.json.challenge_04.name }}"
-      unique_id: garmin_challenge_04
-      state: "{{ trigger.json.challenge_04.state }}"
-      picture: "{{ trigger.json.challenge_04.image_url }}"
-      icon: "{{ trigger.json.challenge_04.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_04.start_date }}"
-        end_date: "{{ trigger.json.challenge_04.end_date }}"
-        description: "{{ trigger.json.challenge_04.description }}"
-        current_progress: "{{ trigger.json.challenge_04.current_progress }}"
-        goal: "{{ trigger.json.challenge_04.goal }}"
-        units: "{{ trigger.json.challenge_04.units }}"
-        user: "{{ trigger.json.challenge_04.user }}"
-        activity_type: "{{ trigger.json.challenge_04.activity_type }}"
-        type: "{{ trigger.json.challenge_04.type }}"
-    - name: "{{ trigger.json.challenge_05.name }}"
-      unique_id: garmin_challenge_05
-      state: "{{ trigger.json.challenge_05.state }}"
-      picture: "{{ trigger.json.challenge_05.image_url }}"
-      icon: "{{ trigger.json.challenge_05.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_05.start_date }}"
-        end_date: "{{ trigger.json.challenge_05.end_date }}"
-        description: "{{ trigger.json.challenge_05.description }}"
-        current_progress: "{{ trigger.json.challenge_05.current_progress }}"
-        goal: "{{ trigger.json.challenge_05.goal }}"
-        units: "{{ trigger.json.challenge_05.units }}"
-        user: "{{ trigger.json.challenge_05.user }}"
-        activity_type: "{{ trigger.json.challenge_05.activity_type }}"
-        type: "{{ trigger.json.challenge_05.type }}"
-    - name: "{{ trigger.json.challenge_06.name }}"
-      unique_id: garmin_challenge_06
-      state: "{{ trigger.json.challenge_06.state }}"
-      picture: "{{ trigger.json.challenge_06.image_url }}"
-      icon: "{{ trigger.json.challenge_06.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_06.start_date }}"
-        end_date: "{{ trigger.json.challenge_06.end_date }}"
-        description: "{{ trigger.json.challenge_06.description }}"
-        current_progress: "{{ trigger.json.challenge_06.current_progress }}"
-        goal: "{{ trigger.json.challenge_06.goal }}"
-        units: "{{ trigger.json.challenge_06.units }}"
-        user: "{{ trigger.json.challenge_06.user }}"
-        activity_type: "{{ trigger.json.challenge_06.activity_type }}"
-        type: "{{ trigger.json.challenge_06.type }}"
-    - name: "{{ trigger.json.challenge_07.name }}"
-      unique_id: garmin_challenge_07
-      state: "{{ trigger.json.challenge_07.state }}"
-      picture: "{{ trigger.json.challenge_07.image_url }}"
-      icon: "{{ trigger.json.challenge_07.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_07.start_date }}"
-        end_date: "{{ trigger.json.challenge_07.end_date }}"
-        description: "{{ trigger.json.challenge_07.description }}"
-        current_progress: "{{ trigger.json.challenge_07.current_progress }}"
-        goal: "{{ trigger.json.challenge_07.goal }}"
-        units: "{{ trigger.json.challenge_07.units }}"
-        user: "{{ trigger.json.challenge_07.user }}"
-        activity_type: "{{ trigger.json.challenge_07.activity_type }}"
-        type: "{{ trigger.json.challenge_07.type }}"
-    - name: "{{ trigger.json.challenge_08.name }}"
-      unique_id: garmin_challenge_08
-      state: "{{ trigger.json.challenge_08.state }}"
-      picture: "{{ trigger.json.challenge_08.image_url }}"
-      icon: "{{ trigger.json.challenge_08.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_08.start_date }}"
-        end_date: "{{ trigger.json.challenge_08.end_date }}"
-        description: "{{ trigger.json.challenge_08.description }}"
-        current_progress: "{{ trigger.json.challenge_08.current_progress }}"
-        goal: "{{ trigger.json.challenge_08.goal }}"
-        units: "{{ trigger.json.challenge_08.units }}"
-        user: "{{ trigger.json.challenge_08.user }}"
-        activity_type: "{{ trigger.json.challenge_08.activity_type }}"
-        type: "{{ trigger.json.challenge_08.type }}"
-    - name: "{{ trigger.json.challenge_09.name }}"
-      unique_id: garmin_challenge_09
-      state: "{{ trigger.json.challenge_09.state }}"
-      picture: "{{ trigger.json.challenge_09.image_url }}"
-      icon: "{{ trigger.json.challenge_09.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_09.start_date }}"
-        end_date: "{{ trigger.json.challenge_09.end_date }}"
-        description: "{{ trigger.json.challenge_09.description }}"
-        current_progress: "{{ trigger.json.challenge_09.current_progress }}"
-        goal: "{{ trigger.json.challenge_09.goal }}"
-        units: "{{ trigger.json.challenge_09.units }}"
-        user: "{{ trigger.json.challenge_09.user }}"
-        activity_type: "{{ trigger.json.challenge_09.activity_type }}"
-        type: "{{ trigger.json.challenge_09.type }}"
-    - name: "{{ trigger.json.challenge_10.name }}"
-      unique_id: garmin_challenge_10
-      state: "{{ trigger.json.challenge_10.state }}"
-      picture: "{{ trigger.json.challenge_10.image_url }}"
-      icon: "{{ trigger.json.challenge_10.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_10.start_date }}"
-        end_date: "{{ trigger.json.challenge_10.end_date }}"
-        description: "{{ trigger.json.challenge_10.description }}"
-        current_progress: "{{ trigger.json.challenge_10.current_progress }}"
-        goal: "{{ trigger.json.challenge_10.goal }}"
-        units: "{{ trigger.json.challenge_10.units }}"
-        user: "{{ trigger.json.challenge_10.user }}"
-        activity_type: "{{ trigger.json.challenge_10.activity_type }}"
-        type: "{{ trigger.json.challenge_10.type }}"
-    - name: "{{ trigger.json.challenge_11.name }}"
-      unique_id: garmin_challenge_11
-      state: "{{ trigger.json.challenge_11.state }}"
-      picture: "{{ trigger.json.challenge_11.image_url }}"
-      icon: "{{ trigger.json.challenge_11.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_11.start_date }}"
-        end_date: "{{ trigger.json.challenge_11.end_date }}"
-        description: "{{ trigger.json.challenge_11.description }}"
-        current_progress: "{{ trigger.json.challenge_11.current_progress }}"
-        goal: "{{ trigger.json.challenge_11.goal }}"
-        units: "{{ trigger.json.challenge_11.units }}"
-        user: "{{ trigger.json.challenge_11.user }}"
-        activity_type: "{{ trigger.json.challenge_11.activity_type }}"
-        type: "{{ trigger.json.challenge_11.type }}"
-    - name: "{{ trigger.json.challenge_12.name }}"
-      unique_id: garmin_challenge_12
-      state: "{{ trigger.json.challenge_12.state }}"
-      picture: "{{ trigger.json.challenge_12.image_url }}"
-      icon: "{{ trigger.json.challenge_12.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_12.start_date }}"
-        end_date: "{{ trigger.json.challenge_12.end_date }}"
-        description: "{{ trigger.json.challenge_12.description }}"
-        current_progress: "{{ trigger.json.challenge_12.current_progress }}"
-        goal: "{{ trigger.json.challenge_12.goal }}"
-        units: "{{ trigger.json.challenge_12.units }}"
-        user: "{{ trigger.json.challenge_12.user }}"
-        activity_type: "{{ trigger.json.challenge_12.activity_type }}"
-        type: "{{ trigger.json.challenge_12.type }}"
-    - name: "{{ trigger.json.challenge_13.name }}"
-      unique_id: garmin_challenge_13
-      state: "{{ trigger.json.challenge_13.state }}"
-      picture: "{{ trigger.json.challenge_13.image_url }}"
-      icon: "{{ trigger.json.challenge_13.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_13.start_date }}"
-        end_date: "{{ trigger.json.challenge_13.end_date }}"
-        description: "{{ trigger.json.challenge_13.description }}"
-        current_progress: "{{ trigger.json.challenge_13.current_progress }}"
-        goal: "{{ trigger.json.challenge_13.goal }}"
-        units: "{{ trigger.json.challenge_13.units }}"
-        user: "{{ trigger.json.challenge_13.user }}"
-        activity_type: "{{ trigger.json.challenge_13.activity_type }}"
-        type: "{{ trigger.json.challenge_13.type }}"
-    - name: "{{ trigger.json.challenge_14.name }}"
-      unique_id: garmin_challenge_14
-      state: "{{ trigger.json.challenge_14.state }}"
-      picture: "{{ trigger.json.challenge_14.image_url }}"
-      icon: "{{ trigger.json.challenge_14.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_14.start_date }}"
-        end_date: "{{ trigger.json.challenge_14.end_date }}"
-        description: "{{ trigger.json.challenge_14.description }}"
-        current_progress: "{{ trigger.json.challenge_14.current_progress }}"
-        goal: "{{ trigger.json.challenge_14.goal }}"
-        units: "{{ trigger.json.challenge_14.units }}"
-        user: "{{ trigger.json.challenge_14.user }}"
-        activity_type: "{{ trigger.json.challenge_14.activity_type }}"
-        type: "{{ trigger.json.challenge_14.type }}"
-    - name: "{{ trigger.json.challenge_15.name }}"
-      unique_id: garmin_challenge_15
-      state: "{{ trigger.json.challenge_15.state }}"
-      picture: "{{ trigger.json.challenge_15.image_url }}"
-      icon: "{{ trigger.json.challenge_15.icon }}"
-      attributes:
-        start_date: "{{ trigger.json.challenge_15.start_date }}"
-        end_date: "{{ trigger.json.challenge_15.end_date }}"
-        description: "{{ trigger.json.challenge_15.description }}"
-        current_progress: "{{ trigger.json.challenge_15.current_progress }}"
-        goal: "{{ trigger.json.challenge_15.goal }}"
-        units: "{{ trigger.json.challenge_15.units }}"
-        user: "{{ trigger.json.challenge_15.user }}"
-        activity_type: "{{ trigger.json.challenge_15.activity_type }}"
-        type: "{{ trigger.json.challenge_15.type }}"
+    - unique_id: garmin_challenge_01
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: &attr
+        start_date: "{{ trigger.json.start_date }}"
+        end_date: "{{ trigger.json.end_date }}"
+        description: "{{ trigger.json.description }}"
+        current_progress: "{{ trigger.json.current_progress }}"
+        goal: "{{ trigger.json.goal }}"
+        units: "{{ trigger.json.units }}"
+        user: "{{ trigger.json.user }}"
+        activity_type: "{{ trigger.json.activity_type }}"
+        type: "{{ trigger.json.type }}"
+        current_progress_display: "{{ trigger.json.current_progress_display }}"
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_02
+  sensor:
+    - unique_id: garmin_challenge_02
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_03
+  sensor:
+    - unique_id: garmin_challenge_03
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_04
+  sensor:
+    - unique_id: garmin_challenge_04
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_05
+  sensor:
+    - unique_id: garmin_challenge_05
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_06
+  sensor:
+    - unique_id: garmin_challenge_06
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_07
+  sensor:
+    - unique_id: garmin_challenge_07
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_08
+  sensor:
+    - unique_id: garmin_challenge_08
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_09
+  sensor:
+    - unique_id: garmin_challenge_09
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_10
+  sensor:
+    - unique_id: garmin_challenge_10
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_11
+  sensor:
+    - unique_id: garmin_challenge_11
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_12
+  sensor:
+    - unique_id: garmin_challenge_12
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_13
+  sensor:
+    - unique_id: garmin_challenge_13
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_14
+  sensor:
+    - unique_id: garmin_challenge_14
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
+
+- trigger:
+    - platform: webhook
+      webhook_id: garmin_challenge_15
+  sensor:
+    - unique_id: garmin_challenge_15
+      name: "{{ trigger.json.name }}"
+      state: "{{ trigger.json.state }}"
+      picture: "{{ trigger.json.image_url }}"
+      icon: "{{ trigger.json.icon }}"
+      attributes: *attr
