@@ -5,7 +5,7 @@
     - name: "{{ trigger.json.challenge_01.name }}"
       unique_id: garmin_challenge_01
       state: "{{ trigger.json.challenge_01.state }}"
-      icon: "{{ trigger.json.challenge_01.icon }}"
+      picture: "{{ trigger.json.challenge_01.image_url }}"
       attributes:
         start_date: "{{ trigger.json.challenge_01.start_date }}"
         end_date: "{{ trigger.json.challenge_01.end_date }}"
@@ -132,3 +132,29 @@
         goal: "{{ trigger.json.challenge_10.goal }}"
         units: "{{ trigger.json.challenge_10.units }}"
         user: "{{ trigger.json.challenge_10.user }}"
+    - name: "{{ trigger.json.challenge_11.name }}"
+      unique_id: garmin_challenge_11
+      state: "{{ trigger.json.challenge_11.state }}"
+      icon: "{{ trigger.json.challenge_11.icon }}"
+      attributes:
+        start_date: "{{ trigger.json.challenge_11.start_date }}"
+        end_date: "{{ trigger.json.challenge_11.end_date }}"
+        description: "{{ trigger.json.challenge_11.description }}"
+        image_url: "{{ trigger.json.challenge_11.image_url }}"
+        current_progress: "{{ trigger.json.challenge_11.current_progress }}"
+        goal: "{{ trigger.json.challenge_11.goal }}"
+        units: "{{ trigger.json.challenge_11.units }}"
+        user: "{{ trigger.json.challenge_11.user }}"
+    - name: "{{ trigger.json.challenge_12.name }}"
+      unique_id: garmin_challenge_12
+      state: "{{ trigger.json.challenge_12.state }}"
+      icon: "{{ trigger.json.challenge_12.icon }}"
+      attributes:
+        start_date: "{{ trigger.json.challenge_12.start_date }}"
+        end_date: "{{ trigger.json.challenge_12.end_date }}"
+        description: "{{ trigger.json.challenge_12.description }}"
+        image_url: "{{ trigger.json.challenge_12.image_url }}"
+        current_progress: "{{ trigger.json.challenge_12.current_progress }}"
+        goal: "{{ trigger.json.challenge_12.goal }}"
+        units: "{{ trigger.json.challenge_12.units }}"
+        user: "{{ trigger.json.challenge_12.user }}"
