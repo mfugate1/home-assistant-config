@@ -20,8 +20,8 @@ entities:
         STATE: states['sensor.template_garmin_challenge_01'].state
         getDisplay: |
           state => {
-            current_progress = states['sensor.template_garmin_challenge_01'].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-            goal = states['sensor.template_garmin_challenge_01'].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            var current_progress = states['sensor.template_garmin_challenge_01'].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+            var goal = states['sensor.template_garmin_challenge_01'].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
             switch(state) {
               case 'active':
                 return current_progress + ' / ' + goal
