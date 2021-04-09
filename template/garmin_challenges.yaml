@@ -3,6 +3,7 @@
       webhook_id: garmin_challenge_01
   sensor:
     - name: "{{ trigger.json.name }}"
+      unique_id: garmin_challenge_01
       state: "{{ trigger.json.state }}"
       icon: "{{ trigger.json.icon }}"
       attributes:
