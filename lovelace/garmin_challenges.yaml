@@ -18,7 +18,7 @@ entities:
         - sensor.template_garmin_challenge_01
       variables:
         GOAL: states['sensor.template_garmin_challenge_01'].attributes.goal
-        SENSOR_ENTITY: 'sensor.template_garmin_challenge_01'
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_01'''
         getDisplay: &getDisplay |
           sensor_entity => {
             var state = states[sensor_entity].state
@@ -51,7 +51,7 @@ entities:
         type: custom:bar-card
         entity: "${SENSOR_ENTITY}"
         attribute: current_progress
-        name: "${getDisplay(STATE, SENSOR_ENTITY)}"
+        name: "${getDisplay(SENSOR_ENTITY)}"
         min: 0
         max: "${GOAL}"
         entity_row: true
