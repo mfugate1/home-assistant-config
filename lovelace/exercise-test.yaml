@@ -65,12 +65,12 @@ entities:
     variables:
       TYPE: '''bike'''
       getDisplay: *getMileageDisplay
-      entities: *mileageEntities
-      row: *mileageRow
+    entities: *mileageEntities
+    row: *mileageRow
 
   - type: custom:config-template-card
     variables:
       TYPE: '''walk'''
       getDisplay: *getMileageDisplay
-      entities: *mileageEntities
-      row: *mileageRow
+    entities: *mileageEntities
+    row: *mileageRow
