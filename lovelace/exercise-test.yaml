@@ -11,6 +11,16 @@ entities:
   - type: custom:config-template-card
     variables:
       - '''bike'''
+      - &getMileageDisplay |
+        type => {
+          var current_mileage = parseFloat(states['sensor.' + type + '_mileage_today'].state)
+          var required_mileage = parseFloat(states['sensor.required_' + type + '_mileage_for_today'].state)
+          if (current_mileage >= required_mileage) {
+            return 'DONE! (' + current_mileage + ' miles)'
+          } else {
+            return current_mileage + ' / ' + required_mileage + ' miles completed'
+          }
+        }
     entities: &mileage_entities
       - "${'sensor.required_' + vars[0] + '_mileage_for_today'}"
       - "${'sensor.' + vars[0] + '_mileage_today'}"
@@ -23,18 +33,18 @@ entities:
         type: custom:bar-card
         entity: "${'sensor.' + vars[0] + '_mileage_today'}"
         icon: "${'mdi:' + vars[0]}"
-        name: test
+        name: "${vars[1](vars[0]}"
         min: 0
-        max: 20
+        max: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state)}"
         entity_row: true
         positions:
           value: 'off'
         severity:
           - from: 0
-            to: 19.99
+            to: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state) - 0.01}"
             color: darkred
-          - from: 20
-            to: 1000
+          - from: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state)}"
+            to: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state) + 1000 }"
             color: darkgreen
         style: &style |
           bar-card-contentbar {
