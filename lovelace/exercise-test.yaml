@@ -33,7 +33,7 @@ entities:
         type: custom:bar-card
         entity: "${'sensor.' + vars[0] + '_mileage_today'}"
         icon: "${'mdi:' + vars[0]}"
-        name: "${vars[1](vars[0]}"
+        name: "${vars[1](vars[0])}"
         min: 0
         max: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state)}"
         entity_row: true
