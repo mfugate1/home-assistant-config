@@ -8,35 +8,43 @@ card_mod:
     }
 title: Exercise Progress
 entities:
-  - type: conditional
-    conditions:
-      - entity: sensor.required_run_mileage_for_today
-        state_not: '0'
-    row:
-      type: custom:config-template-card
-      variables:
-        REQ_MILES: states['sensor.required_run_mileage_for_today'].state
-        CUR_MILES: states['sensor.run_mileage_today'].state
-        SENSOR_ENTITY: '''sensor.run_mileage_today'''
-      entities:
-        - sensor.required_run_mileage_for_today
-        - sensor.run_mileage_today
-      row: &mileageRow
+  - type: custom:config-template-card
+    variables:
+      TYPE: '''run'''
+      getDisplay: &getMileageDisplay |
+        type => {
+          var current_mileage = parseFloat(states['sensor.' + type + '_mileage_today'].state)
+          var required_mileage = parseFloat(states['sensor.required_' + type + '_mileage_for_today'].state)
+          if (current_mileage >= required_mileage) {
+            return 'DONE! (' + current_mileage + ' miles)'
+          } else {
+            return current_mileage + ' / ' + required_mileage + ' miles completed'
+          }
+        }
+    entities: &mileageEntities
+      - "${'sensor.required_' + TYPE + '_mileage_for_today'}"
+      - "${'sensor.' + TYPE + '_mileage_today'}"
+    row: &mileageRow
+      type: conditional
+      conditions:
+        - entity: "${'sensor.required_' + TYPE + '_mileage_for_today'}"
+          state_not: '0'
+      row:
         type: custom:bar-card
-        entity: "${SENSOR_ENTITY}"
-        icon: mdi:run
-        name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
+        entity: "${'sensor.' + TYPE + '_mileage_today'}"
+        icon: "${'mdi:' + TYPE}"
+        name: "${getDisplay(TYPE)}"
         min: 0
-        max: "${REQ_MILES}"
+        max: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
         entity_row: true
         positions:
           value: 'off'
         severity:
           - from: 0
-            to: "${parseFloat(REQ_MILES) - .01}"
+            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.01}"
             color: darkred
-          - from: "${REQ_MILES}"
-            to: "${parseFloat(REQ_MILES) + 1000}"
+          - from: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
+            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}"
             color: darkgreen
         style: &style |
           bar-card-contentbar {
@@ -53,35 +61,19 @@ entities:
             border-radius: 10px;
           }
 
-  - type: conditional
-    conditions:
-      - entity: sensor.required_bike_mileage_for_today
-        state_not: '0'
-    row:
-      type: custom:config-template-card
-      variables:
-        REQ_MILES: states['sensor.required_bike_mileage_for_today'].state
-        CUR_MILES: states['sensor.bike_mileage_today'].state
-        SENSOR_ENTITY: '''sensor.bike_mileage_today'''
-      entities:
-        - sensor.required_bike_mileage_for_today
-        - sensor.bike_mileage_today
-      row: *mileageRow
+  - type: custom:config-template-card
+    variables:
+      TYPE: '''bike'''
+      getDisplay: *getMileageDisplay
+    entities: *mileageEntities
+    row: *mileageRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.required_walk_mileage_for_today
-        state_not: '0'
-    row:
-      type: custom:config-template-card
-      variables:
-        REQ_MILES: states['sensor.required_walk_mileage_for_today'].state
-        CUR_MILES: states['sensor.walk_mileage_today'].state
-        SENSOR_ENTITY: '''sensor.walk_mileage_today'''
-      entities:
-        - sensor.required_walk_mileage_for_today
-        - sensor.walk_mileage_today
-      row: *mileageRow
+  - type: custom:config-template-card
+    variables:
+      TYPE: '''walk'''
+      getDisplay: *getMileageDisplay
+    entities: *mileageEntities
+    row: *mileageRow
 
   - type: conditional
     conditions:
@@ -131,7 +123,7 @@ entities:
       type: custom:bar-card
       entity: sensor.steps_today
       icon: mdi:shoe-print
-      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
+      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'DONE! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
       min: 0
       max: "${GOAL}"
       entity_row: true
@@ -148,19 +140,11 @@ entities:
 
   - type: divider
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_01
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_01
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_01'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_01'''
-        getDisplay: &getDisplay |
-          sensor_entity => {
+  - type: custom:config-template-card
+    variables:
+      NUM: '''01'''
+      getDisplay: &getChallengeDisplay |
+        sensor_entity => {
             var state = states[sensor_entity].state
             var description = states[sensor_entity].attributes.description
             var display = states[sensor_entity].attributes.friendly_name + ': '
@@ -187,217 +171,126 @@ entities:
             }
             return display
           }
-      row: &challengeRow
+    entities: &challengeEntities
+      - "${'sensor.template_garmin_challenge_' + NUM}"
+    row: &challengeRow
+      type: conditional
+      conditions:
+        - entity: "${'sensor.template_garmin_challenge_' + NUM}"
+          state_not: 'unknown'
+      row:
         type: custom:bar-card
-        entity: "${SENSOR_ENTITY}"
+        entity: "${'sensor.template_garmin_challenge_' + NUM}"
         attribute: current_progress
-        name: "${getDisplay(SENSOR_ENTITY)}"
+        name: "${getDisplay('sensor.template_garmin_challenge_' + NUM)}"
         min: 0
-        max: "${GOAL}"
+        max: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
         entity_row: true
         positions:
           value: 'off'
         severity:
           - from: 0
-            to: "${GOAL - 0.01}"
+            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal - 0.01}"
             color: darkred
-          - from: "${GOAL}"
-            to: "${GOAL + 100000}"
+          - from: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
+            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal + 100000}"
             color: darkgreen
         style: *style
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_02
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_02
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_02'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_02'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''02'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_03
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_03
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_03'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_03'''
-        getDisplay: *getDisplay
-      row: *challengeRow
-  
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_04
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_04
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_04'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_04'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''03'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_05
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_05
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_05'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_05'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''04'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_06
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_06
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_06'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_06'''
-        getDisplay: *getDisplay
-      row: *challengeRow
-  
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_07
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_07
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_07'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_07'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''05'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_08
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_08
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_08'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_08'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''06'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_09
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_09
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_09'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_09'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''07'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_10
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_10
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_10'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_10'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''08'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_11
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_11
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_11'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_11'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''09'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_12
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_12
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_12'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_12'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''10'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_13
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_13
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_13'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_13'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''11'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_14
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_14
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_14'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_14'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''12'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
 
-  - type: conditional
-    conditions:
-      - entity: sensor.template_garmin_challenge_15
-        state_not: 'unknown'
-    row:
-      type: custom:config-template-card
-      entities:
-        - sensor.template_garmin_challenge_15
-      variables:
-        GOAL: states['sensor.template_garmin_challenge_15'].attributes.goal
-        SENSOR_ENTITY: '''sensor.template_garmin_challenge_15'''
-        getDisplay: *getDisplay
-      row: *challengeRow
+  - type: custom:config-template-card
+    variables:
+      NUM: '''13'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: custom:config-template-card
+    variables:
+      NUM: '''14'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: custom:config-template-card
+    variables:
+      NUM: '''15'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
