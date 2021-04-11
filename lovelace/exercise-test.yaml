@@ -10,9 +10,8 @@ title: Exercise Progress
 entities:
   - type: custom:config-template-card
     variables:
-      - '''bike'''
-      - "'sensor.' + vars[0] + '_mileage_today'"
-      - &getMileageDisplay |
+      TYPE: '''bike'''
+      getDisplay: &getMileageDisplay |
         type => {
           var current_mileage = parseFloat(states['sensor.' + type + '_mileage_today'].state)
           var required_mileage = parseFloat(states['sensor.required_' + type + '_mileage_for_today'].state)
@@ -23,29 +22,29 @@ entities:
           }
         }
     entities: &mileage_entities
-      - "${'sensor.required_' + vars[0] + '_mileage_for_today'}"
-      - "${vars[1]}"
+      - "${'sensor.required_' + TYPE + '_mileage_for_today'}"
+      - "${'sensor.' + TYPE + '_mileage_today'}"
     row: &mileage_row
       type: conditional
       conditions:
-        - entity: "${'sensor.required_' + vars[0] + '_mileage_for_today'}"
+        - entity: "${'sensor.required_' + TYPE + '_mileage_for_today'}"
           state_not: '0'
       row:
         type: custom:bar-card
-        entity: "${'sensor.' + vars[0] + '_mileage_today'}"
-        icon: "${'mdi:' + vars[0]}"
-        name: "${vars[2](vars[0])}"
+        entity: "${'sensor.' + TYPE + '_mileage_today'}"
+        icon: "${'mdi:' + TYPE}"
+        name: "${getDisplay(TYPE)}"
         min: 0
-        max: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state)}"
+        max: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
         entity_row: true
         positions:
           value: 'off'
         severity:
           - from: 0
-            to: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state) - 0.01}"
+            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.01}"
             color: darkred
-          - from: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state)}"
-            to: "${parseFloat(states['sensor.required_' + vars[0] + '_mileage_for_today'].state) + 1000 }"
+          - from: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
+            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}"
             color: darkgreen
         style: &style |
           bar-card-contentbar {
