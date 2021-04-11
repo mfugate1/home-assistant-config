@@ -26,7 +26,7 @@ entities:
             var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
             var units = states[sensor_entity].attributes.units
             var days_remaining = Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
-            var description = states[sensor_entity].description
+            var description = states[sensor_entity].attributes.description
 
             var display = states[sensor_entity].attributes.friendly_name + ': '
 
