@@ -1,0 +1,17 @@
+- platform: template
+  sensors:
+    bike_goal_met_today:
+      value_template: "{{ (states('sensor.bike_mileage_today') | float) >= (states('sensor.required_bike_mileage_for_today') | float) }}"
+    lifting_goal_met_today:
+      value_template: >-
+        {% if is_state('calendar.next_lifting', 'on') %}
+          {{ states('sensor.lifting_sessions_today')|int >= 1}}
+        {% else %}
+          on
+        {% endif %}
+    run_goal_met_today: 
+      value_template: "{{ (states('sensor.run_mileage_today') | float) >= (states('sensor.required_run_mileage_for_today') | float) }}"
+    steps_goal_met_today: 
+      value_template: "{{ (states('sensor.steps_today') | int) >= (states('sensor.step_goal_today') | int) }}"
+    walk_goal_met_today:
+      value_template: "{{ (states('sensor.walk_mileage_today') | float) >= (states('sensor.required_walk_mileage_for_today') | float) }}"
