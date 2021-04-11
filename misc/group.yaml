@@ -22,6 +22,7 @@ echos:
     - media_player.livingroom_echo
     - media_player.office_echo_dot
 exercise_goals:
+  all: true
   entities:
     - binary_sensor.bike_goal_met_today
     - binary_sensor.lifting_goal_met_today
