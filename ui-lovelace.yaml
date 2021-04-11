@@ -159,7 +159,7 @@ views:
                 toggle: true
   - icon: mdi:weight-lifter
     cards:
-      - !include lovelace/garmin_challenges.yaml
+      - !include lovelace/exercise.yaml
       - type: custom:apexcharts-card
         graph_span: 14d
         y_axis_precision: 0
