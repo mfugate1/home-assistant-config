@@ -17,12 +17,13 @@ entities:
       variables:
         REQ_MILES: states['sensor.required_run_mileage_for_today'].state
         CUR_MILES: states['sensor.run_mileage_today'].state
+        SENSOR_ENTITY: '''sensor.run_mileage_today'''
       entities:
         - sensor.required_run_mileage_for_today
         - sensor.run_mileage_today
       row: &mileageRow
         type: custom:bar-card
-        entity: sensor.run_mileage_today
+        entity: "${SENSOR_ENTITY}"
         icon: mdi:run
         name: "${parseFloat(CUR_MILES) >= parseFloat(REQ_MILES) ? 'DONE! (' + CUR_MILES + ' miles)' : CUR_MILES + ' / ' + REQ_MILES + ' miles completed'}"
         min: 0
@@ -61,6 +62,7 @@ entities:
       variables:
         REQ_MILES: states['sensor.required_bike_mileage_for_today'].state
         CUR_MILES: states['sensor.bike_mileage_today'].state
+        SENSOR_ENTITY: '''sensor.bike_mileage_today'''
       entities:
         - sensor.required_bike_mileage_for_today
         - sensor.bike_mileage_today
@@ -75,6 +77,7 @@ entities:
       variables:
         REQ_MILES: states['sensor.required_walk_mileage_for_today'].state
         CUR_MILES: states['sensor.walk_mileage_today'].state
+        SENSOR_ENTITY: '''sensor.walk_mileage_today'''
       entities:
         - sensor.required_walk_mileage_for_today
         - sensor.walk_mileage_today
