@@ -92,3 +92,185 @@ entities:
         SENSOR_ENTITY: '''sensor.template_garmin_challenge_02'''
         getDisplay: *getDisplay
       row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_03
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_03
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_03'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_03'''
+        getDisplay: *getDisplay
+      row: *row
+  
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_04
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_04
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_04'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_04'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_05
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_05
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_05'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_05'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_06
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_06
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_06'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_06'''
+        getDisplay: *getDisplay
+      row: *row
+  
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_07
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_07
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_07'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_07'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_08
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_08
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_08'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_08'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_09
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_09
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_09'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_09'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_10
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_10
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_10'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_10'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_11
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_11
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_11'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_11'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_12
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_12
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_12'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_12'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_13
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_13
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_13'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_13'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_14
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_14
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_14'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_14'''
+        getDisplay: *getDisplay
+      row: *row
+
+  - type: conditional
+    conditions:
+      - entity: sensor.template_garmin_challenge_15
+        state_not: 'unavailable'
+    row:
+      type: custom:config-template-card
+      entities:
+        - sensor.template_garmin_challenge_15
+      variables:
+        GOAL: states['sensor.template_garmin_challenge_15'].attributes.goal
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_15'''
+        getDisplay: *getDisplay
+      row: *row
