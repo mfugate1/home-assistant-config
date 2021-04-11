@@ -89,6 +89,6 @@ entities:
         - sensor.template_garmin_challenge_02
       variables:
         GOAL: states['sensor.template_garmin_challenge_02'].attributes.goal
-        SENSOR_ENTITY: 'sensor.template_garmin_challenge_02'
+        SENSOR_ENTITY: '''sensor.template_garmin_challenge_02'''
         getDisplay: *getDisplay
       row: *row
