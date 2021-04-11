@@ -140,7 +140,7 @@ entities:
 
   - type: divider
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''01'''
       getDisplay: &getChallengeDisplay |
@@ -197,98 +197,98 @@ entities:
             color: darkgreen
         style: *style
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''02'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''03'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''04'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''05'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''06'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''07'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''08'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''09'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''10'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''11'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''12'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''13'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''14'''
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
-  - type: config-template-card
+  - type: custom:config-template-card
     variables:
       NUM: '''15'''
       getDisplay: *getChallengeDisplay
