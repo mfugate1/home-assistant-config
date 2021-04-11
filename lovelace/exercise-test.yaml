@@ -123,7 +123,7 @@ entities:
       type: custom:bar-card
       entity: sensor.steps_today
       icon: mdi:shoe-print
-      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
+      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'DONE! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
       min: 0
       max: "${GOAL}"
       entity_row: true
@@ -139,3 +139,158 @@ entities:
       style: *style
 
   - type: divider
+
+  - type: config-template-card
+    variables:
+      NUM: '''01'''
+      getDisplay: &getChallengeDisplay |
+        sensor_entity => {
+            var state = states[sensor_entity].state
+            var description = states[sensor_entity].attributes.description
+            var display = states[sensor_entity].attributes.friendly_name + ': '
+
+            if (state == 'inactive') {
+              var days_until = Math.ceil((new Date(states[sensor_entity].attributes.start_date).getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+              display += 'Starts in ' + days_until + ' days'
+            } else if (states[sensor_entity].attributes.type == 'one_time_activity') {
+              if (state == 'active') {
+                display += description
+              } else {
+                display += 'DONE! (' + description + ')'
+              }
+            } else {
+              var units = states[sensor_entity].attributes.units
+              var current_progress = states[sensor_entity].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+              if (state == 'active') {
+                var days_remaining = Math.ceil((new Date(states[sensor_entity].attributes.end_date).getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+                var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                display += current_progress + ' / ' + goal + ' ' + units + ' (' + days_remaining + ' days remaining)'
+              } else {
+                display += 'DONE! ' + current_progress + ' ' + units
+              }
+            }
+            return display
+          }
+    entities: &challengeEntities
+      - "${'sensor.template_garmin_challenge_' + NUM}"
+    row: &challengeRow
+      type: conditional
+      conditions:
+        - entity: "${'sensor.template_garmin_challenge_' + NUM}"
+          state_not: 'unknown'
+      row:
+        type: custom:bar-card
+        entity: "${'sensor.template_garmin_challenge_' + NUM}"
+        attribute: current_progress
+        name: "${getDisplay('sensor.template_garmin_challenge_' + NUM)}"
+        min: 0
+        max: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
+        entity_row: true
+        positions:
+          value: 'off'
+        severity:
+          - from: 0
+            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal - 0.01}"
+            color: darkred
+          - from: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
+            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal + 100000}"
+            color: darkgreen
+        style: *style
+
+  - type: config-template-card
+    variables:
+      NUM: '''02'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''03'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''04'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''05'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''06'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''07'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''08'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''09'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''10'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''11'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''12'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''13'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''14'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
+
+  - type: config-template-card
+    variables:
+      NUM: '''15'''
+      getDisplay: *getChallengeDisplay
+    entities: *challengeEntities
+    row: *challengeRow
