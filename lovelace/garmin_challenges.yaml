@@ -85,7 +85,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_01
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -143,7 +143,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_02
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -157,7 +157,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_03
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -171,7 +171,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_04
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -185,7 +185,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_05
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -199,7 +199,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_06
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -213,7 +213,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_07
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -227,7 +227,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_08
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -241,7 +241,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_09
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -255,7 +255,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_10
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -269,7 +269,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_11
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -283,7 +283,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_12
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -297,7 +297,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_13
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -311,7 +311,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_14
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
@@ -325,7 +325,7 @@ entities:
   - type: conditional
     conditions:
       - entity: sensor.template_garmin_challenge_15
-        state_not: 'unavailable'
+        state_not: 'unknown'
     row:
       type: custom:config-template-card
       entities:
