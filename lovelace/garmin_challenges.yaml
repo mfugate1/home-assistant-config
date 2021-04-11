@@ -60,7 +60,7 @@ entities:
       type: custom:config-template-card
       variables:
         REQ_MILES: states['sensor.required_bike_mileage_for_today'].state
-        CUR_MILES: states['sensor.run_bike_today'].state
+        CUR_MILES: states['sensor.bike_mileage_today'].state
       entities:
         - sensor.required_bike_mileage_for_today
         - sensor.bike_mileage_today
@@ -74,7 +74,7 @@ entities:
       type: custom:config-template-card
       variables:
         REQ_MILES: states['sensor.required_walk_mileage_for_today'].state
-        CUR_MILES: states['sensor.run_walk_today'].state
+        CUR_MILES: states['sensor.walk_mileage_today'].state
       entities:
         - sensor.required_walk_mileage_for_today
         - sensor.walk_mileage_today
