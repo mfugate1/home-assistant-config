@@ -1,0 +1,52 @@
+type: entities
+view_layout:
+  grid-area: exercise
+card_mod:
+  style: |
+    ha-card {
+      border-radius: 10px;
+    }
+title: Exercise Progress
+entities:
+  - type: custom:config-template-card
+    variables:
+      - '''bike'''
+    entities: &mileage_entities
+      - "${'sensor.required_' + vars[0] + '_mileage_for_today'}"
+      - "${'sensor.' + vars[0] + '_mileage_today'}"
+    row: &mileage_row
+      type: conditional
+      conditions:
+        - entity: "${'sensor.required_' + vars[0] + '_mileage_for_today'}"
+          state_not: '0'
+      row:
+        type: custom:bar-card
+        entity: "${'sensor.' + vars[0] + '_mileage_today'}"
+        icon: "${'mdi:' + vars[0]}"
+        name: test
+        min: 0
+        max: 20
+        entity_row: true
+        positions:
+          value: 'off'
+        severity:
+          - from: 0
+            to: 19.99
+            color: darkred
+          - from: 20
+            to: 1000
+            color: darkgreen
+        style: &style |
+          bar-card-contentbar {
+            font-weight: bold;
+            color: gold;
+          }
+          bar-card-name {
+            margin-left: 10px;
+          }
+          bar-card-currentbar {
+            border-radius: 10px;
+          }
+          bar-card-backgroundbar {
+            border-radius: 10px;
+          }
