@@ -83,6 +83,69 @@ entities:
         - sensor.walk_mileage_today
       row: *mileageRow
 
+  - type: conditional
+    conditions:
+      - entity: calendar.next_lifting
+        state: 'on'
+    row:
+      type: custom:config-template-card
+      variables:
+        COUNT: states['sensor.lifting_sessions_today'].state
+        getSessionStr: |
+          count => {
+            if (count == 1) {
+              return 'session'
+            } else {
+              return 'sessions'  
+            }
+          }
+      entities:
+        - sensor.lifting_sessions_today
+      row:
+        type: custom:bar-card
+        entity: sensor.lifting_sessions_today
+        icon: mdi:weight-lifter
+        name: "${parseInt(COUNT) >= 1 ? 'DONE! (' + COUNT + ' ' + getSessionStr(COUNT) + ')' : ''}"
+        min: 0
+        max: 1
+        entity_row: true
+        positions:
+          value: 'off'
+        severity:
+          - from: 0
+            to: 0.99
+            color: darkred
+          - from: 1
+            to: 100
+            color: darkgreen
+        style: *style
+
+  - type: custom:config-template-card
+    variables:
+      GOAL: states['sensor.step_goal_today'].state
+      STEPS: states['sensor.steps_today'].state
+    entities:
+      - sensor.step_goal_today
+      - sensor.steps_today
+    row:
+      type: custom:bar-card
+      entity: sensor.steps_today
+      icon: mdi:shoe-print
+      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'GOAL MET! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
+      min: 0
+      max: "${GOAL}"
+      entity_row: true
+      positions:
+        value: 'off'
+      severity:
+        - from: 0
+          to: "${parseInt(GOAL) - 1}"
+          color: darkred
+        - from: "${GOAL}"
+          to: "${parseInt(GOAL) + 100000}"
+          color: darkgreen
+      style: *style
+
   - type: divider
 
   - type: conditional
