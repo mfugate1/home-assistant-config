@@ -10,7 +10,7 @@ title: Exercise Progress
 entities:
   - type: custom:config-template-card
     variables:
-      TYPE: '''bike'''
+      TYPE: '''run'''
       getDisplay: &getMileageDisplay |
         type => {
           var current_mileage = parseFloat(states['sensor.' + type + '_mileage_today'].state)
@@ -21,10 +21,10 @@ entities:
             return current_mileage + ' / ' + required_mileage + ' miles completed'
           }
         }
-    entities: &mileage_entities
+    entities: &mileageEntities
       - "${'sensor.required_' + TYPE + '_mileage_for_today'}"
       - "${'sensor.' + TYPE + '_mileage_today'}"
-    row: &mileage_row
+    row: &mileageRow
       type: conditional
       conditions:
         - entity: "${'sensor.required_' + TYPE + '_mileage_for_today'}"
@@ -60,3 +60,17 @@ entities:
           bar-card-backgroundbar {
             border-radius: 10px;
           }
+
+  - type: custom:config-template-card
+    variables:
+      TYPE: '''bike'''
+      getDisplay: *getMileageDisplay
+      entities: *mileageEntities
+      row: *mileageRow
+
+  - type: custom:config-template-card
+    variables:
+      TYPE: '''walk'''
+      getDisplay: *getMileageDisplay
+      entities: *mileageEntities
+      row: *mileageRow
