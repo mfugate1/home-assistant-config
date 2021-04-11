@@ -22,16 +22,12 @@ entities:
         getDisplay: &getDisplay |
           sensor_entity => {
             var state = states[sensor_entity].state
-            var current_progress = states[sensor_entity].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-            var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-            var units = states[sensor_entity].attributes.units
-            var days_remaining = Math.ceil((new Date("2021-04-30").getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
             var description = states[sensor_entity].attributes.description
-
             var display = states[sensor_entity].attributes.friendly_name + ': '
 
             if (state == 'inactive') {
-              display += 'Starts on ' + states[sensor_entity].attributes.start_date
+              var days_until = Math.ceil((new Date().getTime() - new Date(states[sensor_entity].attributes.start_date).getTime()) / (1000*60*60*24)) + 1
+              display += 'Starts in ' + days_until + ' days'
             } else if (states[sensor_entity].attributes.type == 'one_time_activity') {
               if (state == 'active') {
                 display += description
@@ -39,8 +35,12 @@ entities:
                 display += 'DONE! (' + description + ')'
               }
             } else {
+              var units = states[sensor_entity].attributes.units
+              var current_progress = states[sensor_entity].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
               if (state == 'active') {
-                display += current_progress + ' / ' + goal + ' ' + units
+                var days_remaining = Math.ceil((new Date(states[sensor_entity].attributes.end_date).getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+                var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+                display += current_progress + ' / ' + goal + ' ' + units + ' (' + days_remaining + ' days remaining)'
               } else {
                 display += 'DONE! ' + current_progress + ' ' + units
               }
