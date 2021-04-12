@@ -1,13 +1,13 @@
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_01
-  sensor:
+  sensor: &sensor
     - unique_id: garmin_challenge_01
       name: "{{ trigger.json.name }}"
       state: "{{ trigger.json.state }}"
       picture: "{{ trigger.json.image_url }}"
       icon: "{{ trigger.json.icon }}"
-      attributes: &attr
+      attributes: 
         start_date: "{{ trigger.json.start_date }}"
         end_date: "{{ trigger.json.end_date }}"
         description: "{{ trigger.json.description }}"
@@ -23,153 +23,97 @@
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_02
-  sensor:
-    - unique_id: garmin_challenge_02
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+  sensor: 
+    - <<: *sensor
+      unique_id: garmin_challenge_02
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_03
   sensor:
-    - unique_id: garmin_challenge_03
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_03
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_04
   sensor:
-    - unique_id: garmin_challenge_04
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_04
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_05
   sensor:
-    - unique_id: garmin_challenge_05
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_05
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_06
   sensor:
-    - unique_id: garmin_challenge_06
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_06
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_07
   sensor:
-    - unique_id: garmin_challenge_07
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_07
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_08
   sensor:
-    - unique_id: garmin_challenge_08
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_08
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_09
   sensor:
-    - unique_id: garmin_challenge_09
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_09
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_10
   sensor:
-    - unique_id: garmin_challenge_10
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_10
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_11
   sensor:
-    - unique_id: garmin_challenge_11
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_11
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_12
   sensor:
-    - unique_id: garmin_challenge_12
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_12
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_13
   sensor:
-    - unique_id: garmin_challenge_13
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_13
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_14
   sensor:
-    - unique_id: garmin_challenge_14
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_14
 
 - trigger:
     - platform: webhook
       webhook_id: garmin_challenge_15
   sensor:
-    - unique_id: garmin_challenge_15
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
-      attributes: *attr
+    - <<: *sensor
+      unique_id: garmin_challenge_15
