@@ -97,7 +97,7 @@ entities:
         type: custom:bar-card
         entity: sensor.lifting_sessions_today
         icon: mdi:weight-lifter
-        name: "${parseInt(COUNT) >= 1 ? 'DONE! (' + COUNT + ' ' + getSessionStr(COUNT) + ')' : ''}"
+        name: "${parseInt(COUNT) >= 1 ? 'DONE! (' + COUNT + ' ' + getSessionStr(COUNT) + ')' : 'Weight Lifting Session'}"
         min: 0
         max: 1
         entity_row: true
