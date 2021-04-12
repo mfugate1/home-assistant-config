@@ -18,6 +18,7 @@
         activity_type: "{{ trigger.json.activity_type }}"
         type: "{{ trigger.json.type }}"
         current_progress_display: "{{ trigger.json.current_progress_display }}"
+        current_progress_raw: "{{ trigger.json.current_progress_raw }}"
         url: "{{ trigger.json.url }}"
 
 - trigger:
