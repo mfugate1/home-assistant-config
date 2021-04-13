@@ -116,6 +116,10 @@ entities:
     variables:
       GOAL: states['sensor.step_goal_today'].state
       STEPS: states['sensor.steps_today'].state
+      addCommas: |
+        num => {
+          return num.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
+        }
     entities:
       - sensor.step_goal_today
       - sensor.steps_today
@@ -123,7 +127,7 @@ entities:
       type: custom:bar-card
       entity: sensor.steps_today
       icon: mdi:shoe-print
-      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'DONE! (' + STEPS + ' steps)' : STEPS + ' / ' + GOAL + ' steps today'}"
+      name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'DONE! (' + addCommas(STEPS) + ' steps)' : addCommas(STEPS) + ' / ' + addCommas(GOAL) + ' steps today'}"
       min: 0
       max: "${GOAL}"
       entity_row: true
