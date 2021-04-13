@@ -146,7 +146,7 @@ entities:
       getDisplay: &getChallengeDisplay |
         sensor_entity => {
             var state = states[sensor_entity].state
-            var description = states[sensor_entity].attributes.description.replaceAll('kilometers', 'km').replaceAll('mile', 'mi')
+            var description = states[sensor_entity].attributes.description.replace('kilometers', 'km').replace('mile', 'mi')
             var display = states[sensor_entity].attributes.friendly_name + ': '
 
             if (state == 'inactive') {
