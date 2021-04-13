@@ -12,12 +12,14 @@
   command: "curl https://hub.docker.com/v2/repositories/grafana/grafana/tags/{{ states('sensor.grafana_latest_version') }}"
   value_template: "{{ value_json.tag_status }}"
   payload_on: 'active'
+  payload_off: ''
 
 - platform: command_line
   name: latest_unifi_image_available_on_docker_hub
   command: "curl https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}"
   value_template: "{{ value_json.tag_status }}"
   payload_on: 'active'
+  payload_off: ''
 
 - platform: command_line
   name: latest_zwavejs2mqtt_image_available_on_docker_hub
