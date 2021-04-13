@@ -24,3 +24,4 @@
   command: "curl https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}"
   value_template: "{{ value_json.tag_status }}"
   payload_on: 'active'
+  payload_off: ''
