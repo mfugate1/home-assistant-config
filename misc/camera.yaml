@@ -1,5 +1,0 @@
-- platform: generic
-  name: grafana_hvac_usage_graph
-  still_image_url: !secret grafana_hvac_usage_graph_url
-  username: !secret grafana_user
-  password: !secret grafana_password
