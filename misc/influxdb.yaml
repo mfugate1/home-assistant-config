@@ -1,5 +1,0 @@
-include:
-  entities:
-    - sensor.hvac_cool_on_today
-    - sensor.hvac_fan_only_on_today
-    - sensor.hvac_heat_on_today

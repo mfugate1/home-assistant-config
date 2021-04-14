@@ -36,7 +36,6 @@ camera: !include misc/camera.yaml
 cover: !include misc/garage_door_cover.yaml
 device_tracker: !include misc/device_tracker.yaml
 group: !include misc/group.yaml
-influxdb: !include misc/influxdb.yaml
 input_boolean: !include input/input_boolean.yaml
 input_datetime: !include input/input_datetime.yaml
 input_number: !include input/input_number.yaml
