@@ -1,18 +1,9 @@
 - platform: template
   sensors:
-    grafana_update_available:
-      value_template: "{{ states('sensor.grafana_latest_version') != state_attr('sensor.docker_grafana', 'image').split(':')[1] and is_state('binary_sensor.latest_grafana_image_available_on_docker_hub', 'on') }}"
     unifi_update_available:
       value_template: "{{ states('sensor.unifi_latest_version') != state_attr('sensor.docker_unifi', 'image').split(':')[1] and is_state('binary_sensor.latest_unifi_image_available_on_docker_hub', 'on') }}"
     zwavejs2mqtt_update_available:
       value_template: "{{ states('sensor.zwavejs2mqtt_latest_version') != state_attr('sensor.office_raspi4_zwavejs', 'image').split(':')[1] and is_state('binary_sensor.latest_zwavejs2mqtt_image_available_on_docker_hub', 'on') }}"
-
-- platform: command_line
-  name: latest_grafana_image_available_on_docker_hub
-  command: "curl https://hub.docker.com/v2/repositories/grafana/grafana/tags/{{ states('sensor.grafana_latest_version') }}"
-  value_template: "{{ value_json.tag_status }}"
-  payload_on: 'active'
-  payload_off: ''
 
 - platform: command_line
   name: latest_unifi_image_available_on_docker_hub

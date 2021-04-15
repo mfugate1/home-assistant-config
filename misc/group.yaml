@@ -84,7 +84,6 @@ patio:
 update_available:
   icon: mdi:update
   entities:
-    - binary_sensor.grafana_update_available
     - binary_sensor.updater
     - binary_sensor.unifi_update_available
     - binary_sensor.zwavejs2mqtt_update_available
