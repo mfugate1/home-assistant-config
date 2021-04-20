@@ -12,10 +12,11 @@ entities:
     canary_style:
       margin: '-20px -20px -20px -20px'
     no_card: true
-    show_header: false
+    header: false
     decimals: 0
     step_size: 1
-    step_layout: row
+    layout:
+      step: row
     control: false
     hide:
       temperature: true
