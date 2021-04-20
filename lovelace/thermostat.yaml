@@ -15,8 +15,6 @@ entities:
     header: false
     decimals: 0
     step_size: 1
-    step_layout: row
-    show_header: false
     layout:
       step: row
     control: false
