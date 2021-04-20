@@ -53,7 +53,7 @@ entities:
           border-radius: 20px
     buttons:
       - entity: switch.next_fan_mode
-        icon: true
+        icon: mdi:fan
         name: false
       - entity: switch.fan_auto
       - entity: switch.fan_on
