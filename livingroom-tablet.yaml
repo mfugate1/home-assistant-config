@@ -83,7 +83,7 @@ views:
         view_layout:
           grid-area: btn7
       - type: custom:button-card
-        entity: switch.livingroom_ps4
+        entity: switch.livingroom_music
         template: left_col_buttons
         view_layout:
           grid-area: btn8
