@@ -23,7 +23,7 @@
   name: latest_zwavejs2mqtt_image_available_on_docker_hub_2
   resource: "https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}"
   value_template: >-
-    {% if 'tag_status' in value_json %}
+    {% if value_json.tag_status == 'active' %}
       on
     {% else %}
       off
