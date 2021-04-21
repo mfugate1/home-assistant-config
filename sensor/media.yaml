@@ -1,0 +1,10 @@
+- platform: template
+  sensors:
+    spotify_lms_source:
+      value_template: >-
+        {% for source in state_attr('media_player.spotify_stukabombr1', 'source_list') %}
+          {% if 'squeezelite' in source %}
+            {{ source }}
+          {% endif %}
+        {% endfor %}
+      availability_template: "{{ not is_state('media_player.spotify_stukabombr1', 'unavailable') }}"

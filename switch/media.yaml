@@ -36,7 +36,7 @@
           target:
             entity_id: media_player.spotify_stukabombr1
           data:
-            source: 'livingroom_squeezelite, garage & basement_squeezelite'
+            source: "{{ states('sensor.spotify_lms_source') }}"
         - service: media_player.turn_off
           entity_id: media_player.livingroom_tv
       turn_off:
