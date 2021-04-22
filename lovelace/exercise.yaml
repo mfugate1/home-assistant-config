@@ -161,7 +161,7 @@ entities:
             var display = states[sensor_entity].attributes.friendly_name + ': '
 
             if (state == 'inactive') {
-              var days_until = Math.ceil((new Date(states[sensor_entity].attributes.start_date).getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+              var days_until = Math.ceil((new Date(states[sensor_entity].attributes.start_date).getTime() - new Date().getTime()) / (1000*60*60*24))
               display += description + ' (in ' + days_until + ' days)'
             } else if (states[sensor_entity].attributes.type == 'one_time_activity') {
               if (state == 'active') {
@@ -173,7 +173,7 @@ entities:
               var units = states[sensor_entity].attributes.units
               var current_progress = states[sensor_entity].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
               if (state == 'active') {
-                var days_remaining = Math.ceil((new Date(states[sensor_entity].attributes.end_date).getTime() - new Date().getTime()) / (1000*60*60*24)) + 1
+                var days_remaining = Math.ceil((new Date(states[sensor_entity].attributes.end_date).getTime() - new Date().getTime()) / (1000*60*60*24))
                 var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
                 display += current_progress + ' / ' + goal + ' ' + units + ' (' + days_remaining + ' days remaining)'
               } else {
