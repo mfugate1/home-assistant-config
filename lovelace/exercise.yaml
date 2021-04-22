@@ -162,7 +162,8 @@ entities:
 
             if (state == 'inactive') {
               var days_until = Math.ceil((new Date(states[sensor_entity].attributes.start_date).getTime() - new Date().getTime()) / (1000*60*60*24))
-              display += description + ' (in ' + days_until + ' days)'
+              var day_label = days_until > 1 ? ' days' : ' day'
+              display += description + ' (in ' + days_until + day_label + ')'
             } else if (states[sensor_entity].attributes.type == 'one_time_activity') {
               if (state == 'active') {
                 display += description
@@ -174,8 +175,9 @@ entities:
               var current_progress = states[sensor_entity].attributes.current_progress.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
               if (state == 'active') {
                 var days_remaining = Math.ceil((new Date(states[sensor_entity].attributes.end_date).getTime() - new Date().getTime()) / (1000*60*60*24))
+                var day_label = days_remaining > 1 ? ' days' : ' day'
                 var goal = states[sensor_entity].attributes.goal.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",")
-                display += current_progress + ' / ' + goal + ' ' + units + ' (' + days_remaining + ' days remaining)'
+                display += current_progress + ' / ' + goal + ' ' + units + ' (' + days_remaining + day_label + ' remaining)'
               } else {
                 display += 'DONE! ' + current_progress + ' ' + units
               }
