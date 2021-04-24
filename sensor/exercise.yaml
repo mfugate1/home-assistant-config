@@ -2,29 +2,25 @@
   sensors:
     required_run_mileage_for_today:
       value_template: >-
-        {% if state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+        {% if state_attr('calendar.next_run', 'start_time') and state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
           {{ state_attr('calendar.next_run', 'message').split()[0] }}
         {% else %}
           0
         {% endif %}
     required_bike_mileage_for_today:
       value_template: >-
-        {% if state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+        {% if state_attr('calendar.next_bike', 'start_time') and state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
           {{ state_attr('calendar.next_bike', 'message').split()[0] }}
         {% else %}
           0
         {% endif %}
     required_walk_mileage_for_today:
       value_template: >-
-        {% if state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+        {% if state_attr('calendar.next_walk', 'start_time') and state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
           {{ state_attr('calendar.next_walk', 'message').split()[0] }}
         {% else %}
           0
         {% endif %}
-    april_namaste_with_attr:
-      value_template: "{{ states('sensor.april_namaste') }}"
-      attribute_templates:
-        display: "{{ states('sensor.april_namaste')|int }} / 60 min ({{ strptime('2021-04-07', '%Y-%m-%d').timetuple().tm_yday - now().timetuple().tm_yday + 1 }} days remaining)"
 
 - platform: sql
   db_url: !secret fitnessdb_url
@@ -57,52 +53,3 @@
       column: dailyStepGoal
       value_template: "{{ value | round }}"
       unit_of_measurement: steps
-
-    # challenges
-    - name: april_namaste
-      query: "SELECT IFNULL(SUM(duration_seconds), 0) / 60 as total_time FROM garmin_activities WHERE activityType = 'yoga' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-04-07 23:59:59';"
-      column: total_time
-      value_template: "{{ value | round(2) if value != '0' else value }}"
-      unit_of_measurement: minutes
-
-    - name: april_cycling_climb
-      query: "SELECT IFNULL(SUM(elevationGain_meters), 0) * 3.28084 as elevation_gain FROM garmin_activities WHERE activityType = 'cycling' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-04-30 23:59:59';"
-      column: elevation_gain
-      value_template: "{{ value | round(2) if value != '0' else value }}"
-      unit_of_measurement: feet
-
-    - name: april_rundown
-      query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE activityType = 'running' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-04-30 23:59:59';"
-      column: mileage
-      value_template: "{{ value | round(2) if value != '0' else value }}"
-      unit_of_measurement: miles
-
-    - name: step_into_april
-      query: "SELECT IFNULL(SUM(totalSteps), 0) as steps FROM garmin_daily_stats WHERE calendarDate >= '2021-04-01' AND calendarDate <= '2021-04-14';"
-      column: steps
-      value_template: "{{ value | round }}"
-      unit_of_measurement: steps
-
-    - name: april_step_month
-      query: "SELECT IFNULL(SUM(totalSteps), 0) as steps FROM garmin_daily_stats WHERE calendarDate >= '2021-04-01' AND calendarDate <= '2021-04-30';"
-      column: steps
-      value_template: "{{ value | round }}"
-      unit_of_measurement: steps
-
-    - name: cycling_stage_2
-      query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE activityType in ('cycling', 'indoor_cycling') AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-06-30 23:59:59';"
-      column: mileage
-      value_template: "{{ value | round(2) if value != '0' else value }}"
-      unit_of_measurement: miles
-
-    - name: running_stage_2
-      query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE activityType = 'running' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-06-30 23:59:59';"
-      column: mileage
-      value_template: "{{ value | round(2) if value != '0' else value }}"
-      unit_of_measurement: miles
-
-    - name: walking_stage_2
-      query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE activityType = 'walking' AND startTimeLocal >= '2021-04-01 00:00:00' AND startTimeLocal <= '2021-06-30 23:59:59';"
-      column: mileage
-      value_template: "{{ value | round(2) if value != '0' else value }}"
-      unit_of_measurement: miles
