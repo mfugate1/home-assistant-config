@@ -1,5 +1,0 @@
-- platform: mqtt
-  state_topic: rtl_433/+/devices/Generic-Remote/15425/cmd
-  name: Sliding Side Door
-  payload_on: 166
-  off_delay: 10
