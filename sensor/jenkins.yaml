@@ -9,3 +9,7 @@
   authentication: basic
   username: !secret jenkins_user
   password: !secret jenkins_pass
+  json_attributes:
+    - building
+    - result
+    - timestamp
