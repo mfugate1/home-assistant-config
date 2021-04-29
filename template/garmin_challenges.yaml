@@ -1,6 +1,6 @@
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_01
+      webhook_id: !secret garmin_challenge_01
   sensor: &sensor
     - unique_id: garmin_challenge_01
       name: "{{ trigger.json.name }}"
@@ -23,98 +23,98 @@
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_02
+      webhook_id: !secret garmin_challenge_02
   sensor: 
     - <<: *sensor
       unique_id: garmin_challenge_02
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_03
+      webhook_id: !secret garmin_challenge_03
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_03
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_04
+      webhook_id: !secret garmin_challenge_04
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_04
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_05
+      webhook_id: !secret garmin_challenge_05
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_05
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_06
+      webhook_id: !secret garmin_challenge_06
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_06
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_07
+      webhook_id: !secret garmin_challenge_07
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_07
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_08
+      webhook_id: !secret garmin_challenge_08
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_08
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_09
+      webhook_id: !secret garmin_challenge_09
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_09
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_10
+      webhook_id: !secret garmin_challenge_10
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_10
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_11
+      webhook_id: !secret garmin_challenge_11
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_11
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_12
+      webhook_id: !secret garmin_challenge_12
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_12
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_13
+      webhook_id: !secret garmin_challenge_13
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_13
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_14
+      webhook_id: !secret garmin_challenge_14
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_14
 
 - trigger:
     - platform: webhook
-      webhook_id: garmin_challenge_15
+      webhook_id: !secret garmin_challenge_15
   sensor:
     - <<: *sensor
       unique_id: garmin_challenge_15
