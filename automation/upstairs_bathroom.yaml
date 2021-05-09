@@ -3,6 +3,10 @@
     platform: state
     entity_id: binary_sensor.upstairsbathroom_motion
     to: 'on'
+  condition:
+    condition: state
+    entity_id: light.upstairsbathroom
+    state: 'off'
   action:
     service: light.turn_on
     entity_id: light.upstairsbathroom
