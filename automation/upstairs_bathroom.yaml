@@ -55,6 +55,9 @@
         for: "00:{{ ':'.join(states('input_datetime.upstairsbathroom_door_opened_motion_off_for').split(':')[0:2]) }}"
       timeout: "00:{{ ':'.join(states('input_datetime.upstairsbathroom_door_opened_motion_off_timeout').split(':')[0:2]) }}"
       continue_on_timeout: false
+    - condition: state
+      entity_id: binary_sensor.upstairsbathroom_door
+      state: 'on'
     - service: homeassistant.turn_off
       entity_id: 
         - light.upstairsbathroom
