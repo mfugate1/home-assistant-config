@@ -72,6 +72,8 @@ views:
         template: warning_flash
         view_layout:
           grid-area: btn5
+        tap_action:
+          action: more-info
       - type: custom:button-card
         entity: switch.livingroom_netflix
         template: left_col_buttons
