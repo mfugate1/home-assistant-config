@@ -4,3 +4,10 @@
   device_class: door
   payload_off: 14
   payload_on: 10
+
+- platform: mqtt
+  name: hot_tub_cover
+  state_topic: rtl_433/+/devices/Generic-Remote/668/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
