@@ -22,7 +22,7 @@ entities:
         type => {
           var current_mileage = parseFloat(states['sensor.' + type + '_mileage_today'].state)
           var required_mileage = parseFloat(states['sensor.required_' + type + '_mileage_for_today'].state)
-          if (current_mileage >= required_mileage) {
+          if (current_mileage >= required_mileage - 0.1) {
             return 'DONE! (' + current_mileage + ' miles)'
           } else {
             return current_mileage + ' / ' + required_mileage + ' miles completed'
