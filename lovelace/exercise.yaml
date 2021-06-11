@@ -48,9 +48,9 @@ entities:
           value: 'off'
         severity:
           - from: 0
-            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.01}"
+            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.11}"
             color: darkred
-          - from: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
+          - from: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.1}"
             to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}"
             color: darkgreen
         style: &style |
