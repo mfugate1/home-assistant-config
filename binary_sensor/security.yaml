@@ -28,7 +28,7 @@
 
 - platform: mqtt
   name: laundryroom_door
-  state_topic: rtl_433/+/devices/Generic-Remote/5948/cmd
+  state_topic: rtl_433/+/devices/Generic-Remote/26300/cmd
   device_class: door
   payload_off: 14
   payload_on: 10
