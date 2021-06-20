@@ -25,3 +25,10 @@
   device_class: door
   payload_off: 14
   payload_on: 10
+
+- platform: mqtt
+  name: laundryroom_door
+  state_topic: rtl_433/+/devices/Generic-Remote/5948/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
