@@ -1,0 +1,48 @@
+- alias: 'Set inovelli light switch led effect'
+  trigger:
+    platform: state
+    entity_id: 
+      - group.exterior_doors_and_windows
+      - binary_sensor.garage_door
+  action:
+    service: zwave_js.bulk_set_partial_config_parameters
+    target:
+      entity_id:
+        - light.basement
+        - light.diningroom
+        - light.gameroom_overhead
+        - light.laundryroom
+        - light.livingroom_wall_switch_1
+        - light.livingroom_wall_switch_2
+        - light.patio
+    data:
+      parameter: 16
+      value: 
+        # Color: 0 (red) for garage door open, 42 (yellow) for anything else
+        255: >-
+          {% if is_state('binary_sensor.garage_door', 'on') %}
+            0
+          {% else %}
+            42
+          {% endif %}
+
+        # Brightness
+        65280: >-
+          {% if is_state('group.exterior_doors_and_windows', 'on') %}
+            10
+          {% else %}
+            0
+          {% endif %}
+
+        # Duration (forever)
+        16711680: 255
+
+        # Effect type: 2 (chase) for garage door open, 1 (Solid) for anything else open, 0 for off
+        2130706432: >-
+          {% if is_state('binary_sensor.garage_door', 'on') %}
+            2
+          {% elif is_state('group.exterior_doors_and_windows', 'on') %}
+            1
+          {% else %}
+            0
+          {% endif %}

@@ -30,6 +30,12 @@ exercise_goals:
     - binary_sensor.run_goal_met_today
     - binary_sensor.steps_goal_met_today
     - binary_sensor.walk_goal_met_today
+exterior_doors_and_windows:
+  entities:
+    - binary_sensor.front_door
+    - binary_sensor.garage_door
+    - binary_sensor.kitchen_window
+    - binary_sensor.sliding_side_door
 everything:
   entities:
     - group.basement
