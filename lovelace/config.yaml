@@ -35,5 +35,5 @@ resources:
 dashboards:
   livingroom-tablet:
     mode: yaml
-    filename: dashboards/livingroom-tablet.yaml
+    filename: lovelace/dashboards/livingroom-tablet.yaml
     title: Tablet
