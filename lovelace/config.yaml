@@ -35,5 +35,5 @@ resources:
 dashboards:
   livingroom-tablet:
     mode: yaml
-    filename: livingroom-tablet.yaml
+    filename: dashboards/livingroom-tablet.yaml
     title: Tablet

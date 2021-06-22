@@ -103,11 +103,11 @@ views:
         view_layout:
           grid-area: col2
         cards:
-          - !include lovelace/thermostat.yaml
+          - !include ../cards/thermostat.yaml
           - type: weather-forecast
             entity: weather.home
       - type: vertical-stack
         view_layout:
           grid-area: col3
         cards:
-          - !include lovelace/exercise.yaml
+          - !include ../cards/exercise.yaml
