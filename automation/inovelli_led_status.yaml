@@ -4,6 +4,7 @@
     entity_id: 
       - group.exterior_doors_and_windows
       - binary_sensor.garage_door
+      - binary_sensor.mousetrap_triggered
   action:
     service: zwave_js.bulk_set_partial_config_parameters
     target:
@@ -22,6 +23,8 @@
         255: >-
           {% if is_state('binary_sensor.garage_door', 'on') %}
             0
+          {% elif is_state('binary_sensor.mousetrap_triggered', 'on') %}
+            212
           {% else %}
             42
           {% endif %}
@@ -41,6 +44,8 @@
         2130706432: >-
           {% if is_state('binary_sensor.garage_door', 'on') %}
             2
+          {% elif is_state('binary_sensor.mousetrap_triggered', 'on') %}
+            4
           {% elif is_state('group.exterior_doors_and_windows', 'on') %}
             1
           {% else %}
