@@ -35,10 +35,12 @@ climate_heat_home_temp:
   min: 50
   max: 80
 dehumidifier_off_threshold:
+  name: Dehumidifier Off Threshold
   min: 0
   max: 100
   mode: box
 dehumidifier_on_threshold:
+  name: Dehumidifier On Threshold
   min: 0
   max: 100
   mode: box

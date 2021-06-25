@@ -329,6 +329,15 @@ views:
             name: Door Open (mm:ss)
           - entity: input_datetime.upstairsbathroom_light_off_door_closed_for
             name: Door Closed (mm:ss)
+      - type: entities
+        title: Dehumidifier
+        entities:
+          - entity: sensor.basement_humidity
+          - entity: switch.dehumidifier
+          - entity: input_number.dehumidifier_off_threshold
+          - entity: input_number.dehumidifier_on_threshold
+          - entity: automation.turn_on_dehumidifier_if_above_threshold
+          - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
   - icon: mdi:cctv
     panel: true
     cards:
