@@ -5,8 +5,8 @@
     to: 'not_home'
   condition:
     condition: state
-    entity_id: cover.garage_door
-    state: 'open'
+    entity_id: binary_sensor.garage_door
+    state: 'on'
   action:
     - service: notify.mobile_app_sm_g981u1
       data: 
@@ -23,8 +23,8 @@
     to: 'home'
   condition:
     condition: state
-    entity_id: input_boolean.garage_door_arrival_open_enabled
-    state: 'on'
+    entity_id: binary_sensor.garage_door
+    state: 'off'
   action:
     - service: notify.mobile_app_sm_g981u1
       data:
@@ -43,25 +43,6 @@
         message: clear_notification
         data:
           tag: garage
-        
-- alias: 'Disable arrival opening when garage door opens'
-  trigger:
-    platform: state
-    entity_id: cover.garage_door
-    to: 'open'
-  action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.garage_door_arrival_open_enabled
-    
-- alias: 'Enable arrival opening garage door'
-  trigger:
-    platform: state
-    entity_id: input_boolean.garage_door_arrival_open_enabled
-    to: 'off'
-    for: '00:05:00'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.garage_door_arrival_open_enabled
 
 - alias: 'Garage door relay shut off'
   trigger:
