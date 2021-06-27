@@ -31,7 +31,7 @@
 
         # Brightness
         65280: >-
-          {% if is_state('group.exterior_doors_and_windows', 'on') %}
+          {% if is_state('group.exterior_doors_and_windows', 'on') or is_state('binary_sensor.mousetrap_triggered', 'on') %}
             10
           {% else %}
             0
