@@ -3,7 +3,6 @@
     platform: state
     entity_id: 
       - group.exterior_doors_and_windows
-      - binary_sensor.garage_door
       - binary_sensor.mousetrap_triggered
   action:
     service: zwave_js.bulk_set_partial_config_parameters
