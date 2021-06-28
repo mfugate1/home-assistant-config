@@ -39,3 +39,45 @@
   device_class: motion
   payload_on: 1
   off_delay: 15
+
+- platform: mqtt
+  name: office_window
+  state_topic: rtl_433/+/devices/Generic-Remote/29544/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
+
+- platform: mqtt
+  name: bedroom_window_back
+  state_topic: rtl_433/+/devices/Generic-Remote/2156/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
+
+- platform: mqtt
+  name: bedroom_window_side
+  state_topic: rtl_433/+/devices/Generic-Remote/40894/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
+
+- platform: mqtt
+  name: gameroom_window_side
+  state_topic: rtl_433/+/devices/Generic-Remote/2640/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
+
+- platform: mqtt
+  name: front_bay_window_left
+  state_topic: rtl_433/+/devices/Generic-Remote/33852/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
+
+- platform: mqtt
+  name: front_bay_window_left
+  state_topic: rtl_433/+/devices/Generic-Remote/18450/cmd
+  device_class: door
+  payload_off: 14
+  payload_on: 10
