@@ -345,21 +345,40 @@ views:
         entity: camera.driveway
   - icon: mdi:home-alert
     cards:
-      - type: vertical-stack
-        cards:
-          - type: custom:button-card
-            entity: switch.entry_light
-          - type: custom:button-card
-            entity: light.livingroom_lamp
-          - type: custom:button-card
-            entity: light.diningroom
-          - type: custom:button-card
-            entity: cover.garage_door
-          - type: custom:button-card
-            entity: group.update_available
-            template: alerter
-            variables:
-              color: blue
+      - type: entities
+        title: Doors
+        entities:
+          - entity: binary_sensor.basement_door
+          - entity: binary_sensor.bedroom_door
+            name: Bedroom Door
+          - entity: binary_sensor.front_door
+          - entity: binary_sensor.garage_door
+          - entity: binary_sensor.garage_inner_door
+          - entity: binary_sensor.garage_outer_door
+          - entity: binary_sensor.laundryroom_door
+            name: Laundry Room Door
+          - entity: binary_sensor.patio_door
+            name: Patio Door
+          - entity: binary_sensor.sliding_side_door
+            name: Sliding Side Door
+          - entity: binary_sensor.upstairsbathroom_door
+      - type: entities
+        title: Windows
+        entities:
+          - entity: binary_sensor.bedroom_window_back
+            name: Bedroom Window (Back)
+          - entity: binary_sensor.bedroom_window_side
+            name: Bedroom Window (Side)
+          - entity: binary_sensor.front_bay_window_left
+            name: Front Bay Window (Left)
+          - entity: binary_sensor.front_bay_window_right
+            name: Front Bay Window (Right)
+          - entity: binary_sensor.gameroom_window_side
+            name: Game Room Window (Side)
+          - entity: binary_sensor.kitchen_window
+            name: Kitchen Window
+          - entity: binary_sensor.office_window
+            name: Office Window
 
 
       
