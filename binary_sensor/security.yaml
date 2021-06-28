@@ -76,7 +76,7 @@
   payload_on: 10
 
 - platform: mqtt
-  name: front_bay_window_left
+  name: front_bay_window_right
   state_topic: rtl_433/+/devices/Generic-Remote/18450/cmd
   device_class: door
   payload_off: 14

@@ -32,9 +32,15 @@ exercise_goals:
     - binary_sensor.walk_goal_met_today
 exterior_doors_and_windows:
   entities:
+    - binary_sensor.bedroom_window_back
+    - binary_sensor.bedroom_window_side
+    - binary_sensor.front_bay_window_left
+    - binary_sensor.front_bay_window_right
     - binary_sensor.front_door
+    - binary_sensor.gameroom_window_side
     - binary_sensor.garage_door
     - binary_sensor.kitchen_window
+    - binary_sensor.office_window
     - binary_sensor.sliding_side_door
 everything:
   entities:
