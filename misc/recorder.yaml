@@ -2,6 +2,7 @@ db_url: !secret mariadb_url
 purge_keep_days: 30
 include:
   domains:
+    - binary_sensor
     - climate
     - cover
     - input_boolean
@@ -10,26 +11,6 @@ include:
     - person
     - switch
   entities:
-    - binary_sensor.basement_door
-    - binary_sensor.basement_motion
-    - binary_sensor.bed_occupied
-    - binary_sensor.bedroom_motion
-    - binary_sensor.dining_room_motion
-    - binary_sensor.freenas_server
-    - binary_sensor.front_door
-    - binary_sensor.garage_door
-    - binary_sensor.garage_inner_door
-    - binary_sensor.garage_outer_door
-    - binary_sensor.hvac_cool_on
-    - binary_sensor.hvac_heat_on
-    - binary_sensor.hvac_only_fan_on
-    - binary_sensor.kitchen_window
-    - binary_sensor.mouse_trap
-    - binary_sensor.office_motion
-    - binary_sensor.office_pc
-    - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
-    - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-    - binary_sensor.upstairsbathroom_motion
     - device_tracker.sm_g950u1
     - media_player.basement_squeezelite
     - media_player.basement_tv
@@ -43,29 +24,40 @@ include:
     - media_player.livingroom_squeezelite
     - media_player.playstation_4_basement
     - media_player.playstation_4_office
-    - sensor.active_kilocalories
-    - sensor.active_time
+    - sensor.alexa_last_called_device
+    - sensor.alexa_last_called_room
     - sensor.basement_door_sensor_battery_level
     - sensor.basement_humidity
-    - sensor.basement_sensor_luminance
-    - sensor.basement_sensor_temperature
+    - sensor.basement_temperature
+    - sensor.bedroom_remote_battery_level
     - sensor.bike_mileage_today
+    - sensor.dcp_l2540dw_black_toner_remaining
+    - sensor.dcp_l2540dw_drum_remaining_life
+    - sensor.dcp_l2540dw_page_counter
+    - sensor.dcp_l2540dw_status
+    - sensor.dcp_l2540dw_uptime
+    - sensor.diningroom_humidity
+    - sensor.diningroom_temperature
     - sensor.disk_use_percent
     - sensor.front_door_sensor_battery_level
     - sensor.garage_door_tilt_sensor_battery_level
     - sensor.garage_inner_door_sensor_battery_level
+    - sensor.garage_outer_door_sensor_battery_level
     - sensor.hvac_cool_on_today
     - sensor.hvac_current_temperature
     - sensor.hvac_fan_only_on_today
     - sensor.hvac_heat_on_today
     - sensor.hvac_target_temperature
-    - sensor.kitchen_window_alarm
     - sensor.kitchen_window_sensor_battery_level
+    - sensor.lifting_sessions_today
+    - sensor.livingroom_smoke_detector_alarm_level
+    - sensor.livingroom_smoke_detector_alarm_type
+    - sensor.livingroom_smoke_detector_battery_level
     - sensor.memory_free
     - sensor.memory_use
     - sensor.memory_use_percent
     - sensor.mike_sleep_time
-    - sensor.mouse_trap_battery_level
+    - sensor.mousetrap_battery_level
     - sensor.outside_temp
     - sensor.required_bike_mileage_for_today
     - sensor.required_run_mileage_for_today
@@ -74,9 +66,18 @@ include:
     - sensor.sleepnumber_master_bed_guest_sleepnumber
     - sensor.sleepnumber_master_bed_mike_sleepnumber
     - sensor.sliding_side_door_sensor_battery_level
-    - sensor.sm_g950u1_battery_level
+    - sensor.sm_g981u1_battery_level
+    - sensor.sm_g981u1_battery_state
+    - sensor.sm_g981u1_phone_state
+    - sensor.steps_today
     - sensor.tablet
     - sensor.tablet_battery
+    - sensor.target_temp_cooling
+    - sensor.target_temp_heating
+    - sensor.upstairsbathroom_door_sensor_battery_level
     - sensor.upstairsbathroom_humidity
+    - sensor.upstairsbathroom_humidity_2
+    - sensor.upstairsbathroom_sensor_battery_level
     - sensor.upstairsbathroom_temperature
+    - sensor.upstairsbathroom_temperature_2
     - sensor.walk_mileage_today
