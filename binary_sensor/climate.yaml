@@ -6,12 +6,3 @@
       value_template: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'heating') }}"
     hvac_only_fan_on:
       value_template: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'idle') and is_state_attr('climate.thermostat', 'fan_action', 'Running') }}"
-
-- platform: trend
-  sensors:
-    basement_humidity_ascending:
-      entity_id: sensor.basement_humidity
-      friendly_name: Basement Humidity Ascending
-      sample_duration: 3600
-      max_samples: 100
-    

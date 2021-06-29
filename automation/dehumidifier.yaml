@@ -58,23 +58,47 @@
     entity_id: switch.dehumidifier
 
 - alias: 'Notification to empty dehumidifier'
+  mode: restart
   trigger:
     - platform: state
-      entity_id: sensor.basement_humidity
-    - platform: state
-      entity_id: binary_sensor.basement_humidity_ascending
-      to: 'on'
+      entity_id: sensor.dehumidifier_power
   condition:
     - condition: state
-      entity_id: 
-        - switch.dehumidifier
-        - binary_sensor.basement_humidity_ascending
+      entity_id: switch.dehumidifier
       state: 'on'
-      for: 
-        hours: 1
+    - condition: numeric_state
+      entity_id: sensor.dehumidifier_power
+      below: 0.5
   action:
     service: notify.mobile_app_sm_g981u1
     data: 
       message: "Empty the basement dehumidifier"
+      data:
+        sticky: 'true'
+        tag: dehumidifier
+
+- alias: 'Clear notification to empty dehumidifier'
+  mode: restart
+  trigger:
+    - platform: state
+      entity_id: sensor.dehumidifier_power
+  condition:
+    - condition: or
+      conditions:
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: switch.dehumidifier
+              state: 'on'
+            - condition: numeric_state
+              entity_id: sensor.dehumidifier_power
+              above: 0.5
+        - condition: state
+          entity_id: switch.dehumidifier
+          state: 'off'
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: clear_notification
       data:
         tag: dehumidifier
