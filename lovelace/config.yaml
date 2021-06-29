@@ -32,6 +32,8 @@ resources:
     type: module
   - url: /hacsfiles/apexcharts-card/apexcharts-card.js
     type: module
+  - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml

@@ -253,6 +253,20 @@ views:
                     type: custom:numberbox-card
                   - entity: input_number.climate_cool_home_temp
                     type: custom:numberbox-card
+          - type: custom:mini-graph-card
+            aggregate_func: max
+            hours_to_show: 168
+            group_by: date
+            show:
+              state: false
+              graph: bar
+            entities:
+              - entity: sensor.hvac_heat_on_today
+                color: red
+              - entity: sensor.hvac_cool_on_today
+                color: blue
+              - entity: sensor.hvac_fan_only_on_today
+                color: yellow
           - type: custom:apexcharts-card
             graph_span: 14d
             y_axis_precision: 0
