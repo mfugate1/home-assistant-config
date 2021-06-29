@@ -332,12 +332,13 @@ views:
       - type: entities
         title: Dehumidifier
         entities:
-          - entity: sensor.basement_humidity
-          - entity: switch.dehumidifier
-          - entity: input_number.dehumidifier_off_threshold
-          - entity: input_number.dehumidifier_on_threshold
-          - entity: automation.turn_on_dehumidifier_if_above_threshold
-          - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
+          - sensor.basement_humidity
+          - switch.dehumidifier
+          - sensor.dehumidifier_power
+          - input_number.dehumidifier_off_threshold
+          - input_number.dehumidifier_on_threshold
+          - automation.turn_on_dehumidifier_if_above_threshold
+          - automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
   - icon: mdi:cctv
     panel: true
     cards:
