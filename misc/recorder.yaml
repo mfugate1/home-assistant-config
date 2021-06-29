@@ -36,6 +36,7 @@ include:
     - sensor.dcp_l2540dw_page_counter
     - sensor.dcp_l2540dw_status
     - sensor.dcp_l2540dw_uptime
+    - sensor.dehumidifier_power
     - sensor.diningroom_humidity
     - sensor.diningroom_temperature
     - sensor.disk_use_percent
