@@ -25,3 +25,24 @@
   action:
     service: light.turn_off
     entity_id: light.laundryroom
+
+- alias: 'Laundry room light off after 15 minutes if door is closed'
+  trigger:
+    - platform: state
+      entity_id: light.laundryroom
+      to: 'on'
+      for: '00:15:00'
+    - platform: state
+      entity_id: binary_sensor.laundryroom_motion
+      to: 'off'
+  condition:
+    - condition: state
+      entity_id: light.laundryroom
+      state: 'on'
+      for: '00:15:00'
+    - condition: state
+      entity_id: binary_sensor.laundryroom_motion
+      state: 'off'
+  action:
+    service: light.turn_off
+    entity_id: light.laundryroom
