@@ -33,9 +33,12 @@
           tag: garage
     - service: cover.open_cover
       entity_id: cover.garage_door
-    - wait_template: "{{ is_state('binary_sensor.garage_inner_door', 'on') }}"
-      timeout: 00:10:00
-      continue_on_timeout: 'false'
+    - wait_for_trigger:
+        - platform: state
+          entity_id: binary_sensor.garage_inner_door
+          to: 'on'
+      timeout: 
+        minutes: 10
     - service: cover.close_cover
       entity_id: cover.garage_door
     - service: notify.mobile_app_sm_g981u1
