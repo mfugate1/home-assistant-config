@@ -27,9 +27,9 @@ sequence:
     data:
       source: >-
         {% if media_type == 'steam' %}
-          HDMI_IN_1
-        {% elif media_type == 'roku' %}
           HDMI_IN_2
-        {% else %}
+        {% elif media_type == 'roku' %}
           HDMI_IN_3
+        {% else %}
+          HDMI_IN_4
         {% endif %}
