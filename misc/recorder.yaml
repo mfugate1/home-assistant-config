@@ -29,6 +29,7 @@ include:
     - sensor.basement_door_sensor_battery_level
     - sensor.basement_humidity
     - sensor.basement_temperature
+    - sensor.bedroom_phone_charger_power
     - sensor.bedroom_remote_battery_level
     - sensor.bike_mileage_today
     - sensor.dcp_l2540dw_black_toner_remaining
