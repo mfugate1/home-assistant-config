@@ -1,41 +1,21 @@
 - alias: 'Turn off HVAC if any doors or windows are open'
+  id: turn_off_hvac_if_any_doors_or_windows_are_open
   trigger:
     platform: state
-    entity_id:
-      - sensor.front_door
-      - sensor.kitchen_window
-      - sensor.sliding_side_door
-    to: 'open'
+    entity_id: group.exterior_doors_and_windows
+    to: 'on'
     for:
-      minutes: 2
+      minutes: 5
   action:
-    service: climate.set_operation_mode
-    data:
-      entity_id: climate.main
-      operation_mode: 'off'
+    service: climate.turn_off
+    entity_id: climate.thermostat
 
 - alias: 'Turn on HVAC when all doors and windows are closed'
+  id: turn_on_hvac_when_all_doors_and_windows_are_closed
   trigger:
     platform: state
-    entity_id:
-      - sensor.front_door
-      - sensor.kitchen_window
-      - sensor.sliding_side_door
-    to: 'closed'
-  condition:
-    condition: and
-    conditions:
-      - condition: state
-        entity_id: sensor.front_door
-        state: 'closed'
-      - condition: state
-        entity_id: sensor.kitchen_window
-        state: 'closed'
-      - condition: state
-        entity_id: sensor.sliding_side_door
-        state: 'closed'
+    entity_id: group.exterior_doors_and_windows
+    to: 'off'
   action:
-    service: climate.set_operation_mode
-    data:
-      entity_id: climate.main
-      operation_mode: 'auto'
+    service: climate.turn_on
+    entity_id: climate.thermostat
