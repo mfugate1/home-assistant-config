@@ -62,6 +62,7 @@
   trigger:
     - platform: state
       entity_id: sensor.dehumidifier_power
+      for: '00:01:00'
   action:
     - choose:
         conditions:
