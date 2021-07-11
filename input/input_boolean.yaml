@@ -3,6 +3,7 @@ phone_text_notification:
 run_vacuum:
   name: Run Vacuum
 sleep_mode:
+take_medication:
 workout_mode:
   name: Workout Mode
   icon: mdi:weight-lifter

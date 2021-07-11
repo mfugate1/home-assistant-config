@@ -317,6 +317,13 @@ views:
           - input_number.dehumidifier_on_threshold
           - automation.turn_on_dehumidifier_if_above_threshold
           - automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
+      - type: custom:auto-entities
+        card:
+          type: entities
+          title: Notification Settings
+        filter:
+          include:
+            domain: input_text
   - icon: mdi:cctv
     panel: true
     cards:

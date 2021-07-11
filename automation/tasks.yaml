@@ -1,0 +1,26 @@
+- alias: 'Reset medication task'
+  id: reset_medication_task
+  trigger:
+    platform: time
+    at: '05:00:00'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.take_medication
+
+- alias: 'Task notification'
+  id: task_notification
+  trigger:
+    platform: state
+    entity_id: 
+      - input_boolean.take_medication
+    to: 'on'
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: "{{ states(trigger.replace('input_boolean', 'input_text')) }}"
+      data:
+        sticky: 'true'
+        tag: "{{ trigger.entity_id }}"
+        actions:
+          - action: "{{ trigger.entity_id }}"
+            title: Mark as Complete
