@@ -24,3 +24,15 @@
         actions:
           - action: "{{ trigger.entity_id }}"
             title: Mark as Complete
+
+- alias: 'Clear task notification'
+  id: clear_task_notification
+  trigger:
+    platform: event
+    event_type: mobile_app_notification_action
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: clear_notification
+      data:
+        tag: "{{ trigger.event.data.action }}"
