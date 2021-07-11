@@ -17,7 +17,7 @@
     service: notify.mobile_app_sm_g981u1
     data:
       message: >-
-        {% if trigger.to_state == 'on' %}
+        {% if trigger.to_state.state == 'on' %}
           {{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}
         {% else %}
           clear_notification
