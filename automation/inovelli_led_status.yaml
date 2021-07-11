@@ -31,6 +31,8 @@
             212
           {% elif is_state('group.led_yellow', 'on') %}
             42
+          {% elif is_state('group.led_green', 'on') %}
+            85
           {% else %}
             170
           {% endif %}

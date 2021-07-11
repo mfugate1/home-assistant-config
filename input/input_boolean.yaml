@@ -3,8 +3,15 @@ phone_text_notification:
 run_vacuum:
   name: Run Vacuum
 sleep_mode:
-take_medication:
 workout_mode:
   name: Workout Mode
   icon: mdi:weight-lifter
 workout_mode_available:
+
+# Tasks
+add_salt_to_hot_tub:
+add_spa_complete_to_hot_tub:
+clean_hot_tub_filter:
+replace_furnace_filter:
+replace_sediment_filter:
+take_medication:

@@ -1,17 +1,13 @@
-- alias: 'Reset medication task'
-  id: reset_medication_task
-  trigger:
-    platform: time
-    at: '05:00:00'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.take_medication
-
 - alias: 'Task notification'
   id: task_notification
   trigger:
     platform: state
     entity_id: 
+      - input_boolean.add_salt_to_hot_tub
+      - input_boolean.add_spa_complete_to_hot_tub
+      - input_boolean.clean_hot_tub_filter
+      - input_boolean.replace_furnace_filter
+      - input_boolean.replace_sediment_filter
       - input_boolean.take_medication
   action:
     service: notify.mobile_app_sm_g981u1
@@ -38,3 +34,27 @@
     service: input_boolean.turn_off
     target:
       entity_id: "{{ trigger.event.data.action }}"
+
+- alias: 'Reset medication task'
+  id: reset_medication_task
+  trigger:
+    platform: time
+    at: '05:00:00'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.take_medication
+
+- alias: 'Reset weekly hot tub tasks'
+  id: reset_weekly_hot_tub_tasks
+  trigger:
+    platform: time
+    at: '08:00:00'
+  condition:
+    condition: time
+    weekday:
+      - sat
+  action:
+    service: input_boolean.turn_on
+    entity_id:
+      - input_boolean.add_salt_to_hot_tub
+      - input_boolean.add_spa_complete_to_hot_tub

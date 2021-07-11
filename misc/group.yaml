@@ -108,6 +108,10 @@ led_yellow:
   entities:
     - group.exterior_doors_and_windows
 
+led_green:
+  entities:
+    - input_boolean.phone_text_notification
+
 led_chase:
   entities:
     - binary_sensor.garage_door
@@ -116,7 +120,8 @@ led_blink:
   entities:
     - binary_sensor.mousetrap_triggered
     - input_boolean.take_medication
-
+    
 led_solid:
   entities:
     - group.exterior_doors_and_windows
+    - input_boolean.phone_text_notification
