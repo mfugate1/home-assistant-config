@@ -61,14 +61,20 @@
   mode: restart
   trigger:
     - platform: state
-      entity_id: sensor.dehumidifier_power
-      for: '00:01:00'
+      entity_id: 
+        - sensor.dehumidifier_power
+        - switch.dehumidifier
+    - platform: state
+      entity_id: switch.dehumidifier
+      to: 'on'
+      for: '00:02:00'
   action:
     - choose:
         conditions:
           - condition: state
             entity_id: switch.dehumidifier
             state: 'on'
+            for: '00:02:00'
           - condition: numeric_state
             entity_id: sensor.dehumidifier_power
             below: 0.5
