@@ -17,7 +17,7 @@
   action:
     service: notify.mobile_app_sm_g981u1
     data:
-      message: "{{ states(trigger.replace('input_boolean', 'input_text')) }}"
+      message: "{{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}"
       data:
         sticky: 'true'
         tag: "{{ trigger.entity_id }}"
