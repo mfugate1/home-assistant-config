@@ -3,8 +3,12 @@
   trigger:
     platform: state
     entity_id: 
-      - group.exterior_doors_and_windows
-      - binary_sensor.mousetrap_triggered
+      - group.led_red
+      - group.led_yellow
+      - group.led_purple
+      - group.led_chase
+      - group.led_blink
+      - group.led_solid
   action:
     service: zwave_js.bulk_set_partial_config_parameters
     target:
@@ -19,34 +23,31 @@
     data:
       parameter: 16
       value: 
-        # Color: 0 (red) for garage door open, 42 (yellow) for anything else
+        # Color:
         255: >-
-          {% if is_state('binary_sensor.garage_door', 'on') %}
+          {% if is_state('group.led_red', 'on') %}
             0
-          {% elif is_state('binary_sensor.mousetrap_triggered', 'on') %}
+          {% elif is_state('group.led_purple', 'on') %}
             212
-          {% else %}
+          {% elif is_state('group.led_yellow', 'on') %}
             42
+          {% else %}
+            170
           {% endif %}
 
         # Brightness
-        65280: >-
-          {% if is_state('group.exterior_doors_and_windows', 'on') or is_state('binary_sensor.mousetrap_triggered', 'on') %}
-            10
-          {% else %}
-            0
-          {% endif %}
+        65280: 10
 
         # Duration (forever)
         16711680: 255
 
-        # Effect type: 2 (chase) for garage door open, 1 (Solid) for anything else open, 0 for off
+        # Effect type
         2130706432: >-
-          {% if is_state('binary_sensor.garage_door', 'on') %}
+          {% if is_state('group.led_chase', 'on') %}
             2
-          {% elif is_state('binary_sensor.mousetrap_triggered', 'on') %}
+          {% elif is_state('group.led_blink', 'on') %}
             4
-          {% elif is_state('group.exterior_doors_and_windows', 'on') %}
+          {% elif is_state('group.led_solid', 'on') %}
             1
           {% else %}
             0

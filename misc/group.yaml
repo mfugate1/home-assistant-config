@@ -100,13 +100,13 @@ led_red:
     - binary_sensor.garage_door
     - input_boolean.take_medication
 
-led_yellow:
-  entities:
-    - group.exterior_doors_and_windows
-
 led_purple:
   entities:
     - binary_sensor.mousetrap_triggered
+
+led_yellow:
+  entities:
+    - group.exterior_doors_and_windows
 
 led_chase:
   entities:
