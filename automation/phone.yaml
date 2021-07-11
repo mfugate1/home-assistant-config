@@ -1,13 +1,10 @@
 - alias: 'Notification for text message'
+  id: notification_for_text_message
   trigger:
     platform: state
     entity_id: sensor.sm_g981u1_last_notification
   condition: "{{ trigger.to_state.attributes.package == 'com.google.android.apps.messaging' }}"
   action:
-    - service: python_script.inovelli_led
-      data:
-        color: green
-        level: 10
-        effect: pulse
-        duration: 20
+    service: input_boolean.turn_on
+    entity_id: input_boolean.phone_text_notification
     

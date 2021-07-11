@@ -1,4 +1,5 @@
 - alias: 'Notify phone when new hass version is available'
+  id: notify_phone_when_new_hass_version_is_available
   trigger:
     - platform: state
       entity_id: binary_sensor.updater
@@ -18,6 +19,7 @@
         tag: hass_update
 
 - alias: 'Clear hass update notification on phone'
+  id: clear_hass_update_notification_on_phone
   trigger:
     - platform: state
       entity_id: binary_sensor.updater

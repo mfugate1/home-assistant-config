@@ -1,4 +1,5 @@
 - alias: 'Upstairs bathroom lights on'
+  id: upstairs_bathroom_lights_on
   trigger:
     platform: state
     entity_id: binary_sensor.upstairsbathroom_motion
@@ -15,6 +16,7 @@
       transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
 
 - alias: 'Upstairs bathroom vent control'
+  id: upstairs_bathroom_vent_control
   trigger:
     platform: state
     entity_id: binary_sensor.upstairsbathroom_door
@@ -28,6 +30,7 @@
     entity_id: switch.upstairsbathroom_vent
 
 - alias: 'Set upstairs bathroom light brightness'
+  id: set_upstairs_bathroom_light_brightness
   trigger:
     platform: state
     entity_id:
@@ -47,6 +50,7 @@
         {% endif %}
 
 - alias: 'Upstairs bathroom lights off if door opens'
+  id: upstairs_bathroom_lights_off_if_door_opens
   trigger:
     platform: state
     entity_id: binary_sensor.upstairsbathroom_door
@@ -68,6 +72,7 @@
         - switch.upstairsbathroom_vent
         
 - alias: 'Upstairs bathroom light off'
+  id: upstairs_bathroom_light_off
   trigger:
     platform: state
     entity_id: binary_sensor.upstairsbathroom_motion

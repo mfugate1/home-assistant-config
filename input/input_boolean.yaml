@@ -1,16 +1,8 @@
-living_room_media:
-mike_home:
 music_database_updater:
-occupancy_basement:
-occupancy_bedroom:
-occupancy_dining_room:
-occupancy_office:
-occupancy_upstairs_bathroom:
+phone_text_notification:
 run_vacuum:
   name: Run Vacuum
 sleep_mode:
-single_occupancy_mode:
-  name: Single Occupancy Mode
 workout_mode:
   name: Workout Mode
   icon: mdi:weight-lifter

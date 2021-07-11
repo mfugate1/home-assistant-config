@@ -1,4 +1,5 @@
 - alias: 'Sonoff Living Room - Button A'
+  id: sonoff_living_room_button_a
   trigger:
     platform: mqtt
     topic: rtl_433/+/devices/Sonoff-RM433/button
@@ -8,6 +9,7 @@
     entity_id: switch.livingroom_netflix
 
 - alias: 'Sonoff Living Room - Button B'
+  id: sonoff_living_room_button_b
   trigger:
     platform: mqtt
     topic: rtl_433/+/devices/Sonoff-RM433/button

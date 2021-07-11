@@ -1,4 +1,5 @@
 - alias: 'Tablet charging off'
+  id: tablet_charging_off
   trigger:
     - platform: numeric_state
       entity_id: sensor.tablet_battery
@@ -14,6 +15,7 @@
     entity_id: switch.tablet_power
     
 - alias: 'Tablet charging on'
+  id: tablet_charging_on
   trigger:
     - platform: numeric_state
       entity_id: sensor.tablet_battery

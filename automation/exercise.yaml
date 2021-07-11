@@ -1,4 +1,5 @@
 - alias: 'Workout mode on'
+  id: workout_mode_on
   trigger:
     platform: state
     entity_id: input_boolean.workout_mode
@@ -41,6 +42,7 @@
         temperature: "{{ states('input_number.climate_heat_away_temp') }}"
         
 - alias: 'Workout mode off delayed'
+  id: workout_mode_off_delayed
   trigger:
     platform: webhook
     webhook_id: !secret workout_mode_off_webhook
@@ -58,6 +60,7 @@
         entity_id: input_boolean.workout_mode
 
 - alias: 'Workout mode off'
+  id: workout_mode_off
   trigger:
     platform: state
     entity_id: input_boolean.workout_mode
@@ -79,6 +82,7 @@
         temperature: "{{ states('input_number.climate_heat_home_temp') }}"
 
 - alias: 'Run Garmin Update in Jenkins'
+  id: run_garmin_update_in_jenkins
   trigger:
     - platform: state
       entity_id: sensor.sm_g981u1_last_notification

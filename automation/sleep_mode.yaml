@@ -1,4 +1,5 @@
 - alias: 'Turn on sleep mode'
+  id: turn_on_sleep_mode
   trigger:
     - platform: state
       entity_id: binary_sensor.bed_occupied
@@ -16,6 +17,7 @@
     entity_id: input_boolean.sleep_mode
 
 - alias: 'Turn off sleep mode'
+  id: turn_off_sleep_mode
   trigger:
     - platform: state
       entity_id: binary_sensor.bed_occupied

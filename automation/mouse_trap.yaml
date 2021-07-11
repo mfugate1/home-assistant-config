@@ -1,4 +1,5 @@
 - alias: 'Mouse trap triggered notification'
+  id: mouse_trap_triggered_notification
   trigger:
     platform: state
     entity_id: binary_sensor.mousetrap_triggered
@@ -12,6 +13,7 @@
         tag: mouse_trap
 
 - alias: 'Mouse trap triggered clear notification'
+  id: mouse_trap_triggered_clear_notification
   trigger:
     platform: state
     entity_id: binary_sensor.mousetrap_triggered

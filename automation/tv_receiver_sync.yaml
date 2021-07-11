@@ -1,4 +1,5 @@
 - alias: 'Turn on living room receiver when tv turns on'
+  id: turn_on_living_room_receiver_when_tv_turns_on
   trigger:
     platform: state
     entity_id: media_player.livingroom_tv
@@ -13,6 +14,7 @@
         source: tv/cd
         
 - alias: 'Turn off living room receiver when tv turns off'
+  id: turn_off_living_room_receiver_when_tv_turns_off
   trigger:
     platform: state
     entity_id: media_player.livingroom_tv
@@ -25,6 +27,7 @@
     entity_id: media_player.livingroom_receiver
 
 - alias: 'Sync basement stereo to tv'
+  id: sync_basement_stereo_to_tv
   trigger:
     platform: state
     entity_id: media_player.basement_tv

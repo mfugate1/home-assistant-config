@@ -1,4 +1,5 @@
 - alias: 'Set inovelli light switch led effect'
+  id: set_inovelli_light_switch_led_effect
   trigger:
     platform: state
     entity_id: 

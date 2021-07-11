@@ -1,4 +1,5 @@
 - alias: 'Game room config button x1 - toggle tv and receiver'
+  id: game_room_config_button_x1_toggle_tv_and_receiver
   trigger:
     platform: event
     event_type: zwave_js_value_notification

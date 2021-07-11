@@ -1,4 +1,5 @@
 - alias: 'Turn on dehumidifier if above threshold'
+  id: turn_on_dehumidifier if above threshold
   trigger:
     - platform: state
       entity_id: sensor.basement_humidity
@@ -25,6 +26,7 @@
     entity_id: switch.dehumidifier
 
 - alias: 'Turn off dehumidifier if below threshold or basement occupied'
+  id: turn_off_dehumidifier_if_below_threshold_or_basement_occupied
   trigger:
     - platform: state
       entity_id: sensor.basement_humidity
@@ -58,6 +60,7 @@
     entity_id: switch.dehumidifier
 
 - alias: 'Notification to empty dehumidifier'
+  id: notification_to_empty_dehumidifier
   mode: restart
   trigger:
     - platform: state

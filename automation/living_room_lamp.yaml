@@ -1,4 +1,5 @@
 - alias: 'Set living room lamp color from input select'
+  id: set_living_room_lamp_color_from_input_select
   trigger:
     platform: state
     entity_id: input_select.living_room_lamp_color

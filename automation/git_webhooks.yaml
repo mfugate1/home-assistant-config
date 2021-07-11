@@ -1,4 +1,5 @@
 - alias: 'Appdaemon Git Pull'
+  id: appdaemon_git_pull
   trigger:
     platform: webhook
     webhook_id: !secret appdaemon_git_pull_webhook
@@ -6,6 +7,7 @@
     event: APPDAEMON_GIT_PULL
     
 - alias: 'Appdaemon Sleepyq Update'
+  id: appdaemon_sleepyq_update
   trigger:
     platform: webhook
     webhook_id: !secret appdaemon_sleepyq_update_webhook
@@ -13,6 +15,7 @@
     event: APPDAEMON_UPDATE_SLEEPYQ
     
 - alias: 'HASS Config Update'
+  id: hass_config_update
   trigger:
     platform: webhook
     webhook_id: !secret hass_repo_update_webhook
