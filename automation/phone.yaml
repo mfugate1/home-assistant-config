@@ -2,9 +2,13 @@
   id: notification_for_text_message
   trigger:
     platform: state
-    entity_id: sensor.sm_g981u1_last_notification
-  condition: "{{ trigger.to_state.attributes.package == 'com.google.android.apps.messaging' }}"
+    entity_id: sensor.sm_g981u1_active_notification_count
   action:
-    service: input_boolean.turn_on
+    service: >-
+      {% if state_attr('sensor.sm_g981u1_active_notification_count', 'com.google.android.apps.messaging_0_post_time') == None %}
+        input_boolean.turn_off
+      {% else %}
+        input_boolean.turn_on
+      {% endif %}
     entity_id: input_boolean.phone_text_notification
     
