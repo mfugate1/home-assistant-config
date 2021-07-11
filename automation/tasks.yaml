@@ -13,11 +13,15 @@
     platform: state
     entity_id: 
       - input_boolean.take_medication
-    to: 'on'
   action:
     service: notify.mobile_app_sm_g981u1
     data:
-      message: "{{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}"
+      message: >-
+        {% if trigger.to_state == 'on' %}
+          {{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}
+        {% else %}
+          clear_notification
+        {% endif %}
       data:
         sticky: 'true'
         tag: "{{ trigger.entity_id }}"
@@ -25,17 +29,12 @@
           - action: "{{ trigger.entity_id }}"
             title: Mark as Complete
 
-- alias: 'Clear task notification'
-  id: clear_task_notification
+- alias: 'Mark task as complete'
+  id: mark_task_as_complete
   trigger:
     platform: event
     event_type: mobile_app_notification_action
   action:
-    - service: notify.mobile_app_sm_g981u1
-      data:
-        message: clear_notification
-        data:
-          tag: "{{ trigger.event.data.action }}"
-    - service: input_boolean.turn_off
-      target:
-        entity_id: "{{ trigger.event.data.action }}"
+    service: input_boolean.turn_off
+    target:
+      entity_id: "{{ trigger.event.data.action }}"
