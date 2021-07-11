@@ -103,6 +103,8 @@ led_red:
 led_purple:
   entities:
     - binary_sensor.mousetrap_triggered
+    - input_boolean.add_salt_to_hot_tub
+    - input_boolean.add_spa_complete_to_hot_tub
 
 led_yellow:
   entities:
@@ -120,6 +122,8 @@ led_blink:
   entities:
     - binary_sensor.mousetrap_triggered
     - input_boolean.take_medication
+    - input_boolean.add_salt_to_hot_tub
+    - input_boolean.add_spa_complete_to_hot_tub
     
 led_solid:
   entities:
