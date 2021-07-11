@@ -31,8 +31,10 @@
     platform: event
     event_type: mobile_app_notification_action
   action:
-    service: notify.mobile_app_sm_g981u1
-    data:
-      message: clear_notification
+    - service: notify.mobile_app_sm_g981u1
       data:
-        tag: "{{ trigger.event.data.action }}"
+        message: clear_notification
+        data:
+          tag: "{{ trigger.event.data.action }}"
+    - service: input_boolean.turn_off
+      entity_id: "{{ trigger.event.data.action }}"
