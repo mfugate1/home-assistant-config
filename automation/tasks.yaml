@@ -37,4 +37,5 @@
         data:
           tag: "{{ trigger.event.data.action }}"
     - service: input_boolean.turn_off
-      entity_id: "{{ trigger.event.data.action }}"
+      target:
+        entity_id: "{{ trigger.event.data.action }}"
