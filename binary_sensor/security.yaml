@@ -48,6 +48,13 @@
   payload_on: 10
 
 - platform: mqtt
+  name: office_motion_1
+  state_topic: rtl_433/+/devices/Kerui-Security/359233/motion
+  device_class: motion
+  payload_on: 1
+  off_delay: 15
+
+- platform: mqtt
   name: bedroom_window_back
   state_topic: rtl_433/+/devices/Generic-Remote/2156/cmd
   device_class: door
