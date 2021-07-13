@@ -5,6 +5,7 @@
     entity_id: 
       - input_boolean.add_salt_to_hot_tub
       - input_boolean.add_spa_complete_to_hot_tub
+      - input_boolean.empty_dehumidifier
       - input_boolean.clean_hot_tub_filter
       - input_boolean.replace_furnace_filter
       - input_boolean.replace_sediment_filter
@@ -39,7 +40,7 @@
   id: reset_medication_task
   trigger:
     platform: time
-    at: '05:00:00'
+    at: '07:00:00'
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.take_medication
