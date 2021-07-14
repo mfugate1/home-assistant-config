@@ -73,17 +73,24 @@
       for: '00:02:00'
   action:
     - choose:
-        conditions:
-          - condition: state
-            entity_id: switch.dehumidifier
-            state: 'on'
-            for: '00:02:00'
-          - condition: numeric_state
-            entity_id: sensor.dehumidifier_power
-            below: 0.5
-        sequence:
-          - service: input_boolean.turn_on
-            entity_id: input_boolean.empty_dehumidifier
-      default:
-        - service: input_boolean.turn_off
-          entity_id: input_boolean.empty_dehumidifier
+        - conditions:
+            - condition: state
+              entity_id: switch.dehumidifier
+              state: 'on'
+              for: '00:02:00'
+            - condition: numeric_state
+              entity_id: sensor.dehumidifier_power
+              below: 0.5
+          sequence:
+            - service: input_boolean.turn_on
+              entity_id: input_boolean.empty_dehumidifier
+        - conditions:
+            - condition: state
+              entity_id: switch.dehumidifier
+              state: 'on'
+            - condition: numeric_state
+              entity_id: sensor.dehumidifier_power
+              above: 20
+          sequence:
+            - service: input_boolean.turn_off
+              entity_id: input_boolean.empty_dehumidifier
