@@ -48,9 +48,28 @@
           {% if is_state('group.led_chase', 'on') %}
             2
           {% elif is_state('group.led_blink', 'on') %}
-            4
+            3
           {% elif is_state('group.led_solid', 'on') %}
             1
           {% else %}
             0
           {% endif %}
+
+- alias: 'Choose random color for switches'
+  trigger:
+    platform: time_pattern
+    minutes: 5
+  action:
+    service: zwave_js.set_config_parameter
+    target:
+      entity_id:
+        - light.basement
+        - light.diningroom
+        - light.gameroom_overhead
+        - light.laundryroom
+        - light.livingroom_wall_switch_1
+        - light.livingroom_wall_switch_2
+        - light.patio
+    data:
+      parameter: 13
+      value: "{{ [21, 85, 127, 170, 234] | random }}"
