@@ -45,8 +45,8 @@
     service: input_boolean.turn_on
     entity_id: input_boolean.take_medication
 
-- alias: 'Reset weekly hot tub tasks'
-  id: reset_weekly_hot_tub_tasks
+- alias: 'Reset add salt to hot tub task'
+  id: reset_add_salt_to_hot_tub_task
   trigger:
     platform: time
     at: '08:00:00'
@@ -56,6 +56,17 @@
       - sat
   action:
     service: input_boolean.turn_on
-    entity_id:
-      - input_boolean.add_salt_to_hot_tub
-      - input_boolean.add_spa_complete_to_hot_tub
+    entity_id: input_boolean.add_salt_to_hot_tub
+
+- alias: 'Reset add spa complete to hot tub task'
+  id: reset_add_spa_complete_to_hot_tub_task
+  trigger:
+    platform: time
+    at: '09:00:00'
+  condition:
+    condition: time
+    weekday:
+      - sat
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.add_spa_complete_to_hot_tub
