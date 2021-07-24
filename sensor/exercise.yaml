@@ -44,12 +44,12 @@
       query: "SELECT COUNT(*) as cnt FROM garmin_activities WHERE activityType = 'strength_training' AND DATE(startTimeLocal) = CURDATE() LIMIT 1;"
       column: cnt
     - name: steps_today
-      query: "SELECT totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
+      query: "SELECT IFNULL(totalSteps, 0) FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
       column: totalSteps
       value_template: "{{ value | round }}"
       unit_of_measurement: steps
     - name: step_goal_today
-      query: "SELECT dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
+      query: "SELECT IFNULL(dailyStepGoal, 10000) FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
       column: dailyStepGoal
       value_template: "{{ value | round }}"
       unit_of_measurement: steps
