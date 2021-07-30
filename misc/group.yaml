@@ -106,6 +106,7 @@ led_purple:
     - input_boolean.add_salt_to_hot_tub
     - input_boolean.add_spa_complete_to_hot_tub
     - input_boolean.empty_dehumidifier
+    - input_boolean.replace_sediment_filter
 
 led_yellow:
   entities:
@@ -126,6 +127,7 @@ led_blink:
     - input_boolean.empty_dehumidifier
     - input_boolean.add_salt_to_hot_tub
     - input_boolean.add_spa_complete_to_hot_tub
+    - input_boolean.replace_sediment_filter
     
 led_solid:
   entities:
