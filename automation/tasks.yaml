@@ -10,6 +10,7 @@
       - input_boolean.replace_furnace_filter
       - input_boolean.replace_sediment_filter
       - input_boolean.take_medication
+      - input_boolean.take_out_garbage_bins
   action:
     service: notify.mobile_app_sm_g981u1
     data:
@@ -76,7 +77,20 @@
   trigger:
     platform: time
     at: '08:05:00'
-  condition: "{{ as_timestamp(now()) | timestamp_custom('%d') == '1' }}"
+  condition: "{{ as_timestamp(now()) | timestamp_custom('%d') == '01' }}"
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.replace_sediment_filter
+
+- alias: 'Reset garbage bin task'
+  id: reset_garbage_bin_task
+  trigger:
+    platform: time
+    at: '17:00:00'
+  condition:
+    condition: time
+    weekday:
+      - sun
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.take_out_garbage_bins
