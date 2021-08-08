@@ -31,6 +31,10 @@
   trigger:
     platform: state
     entity_id: media_player.basement_tv
+  condition:
+    condition: state
+    entity_id: input_boolean.workout_mode
+    state: 'off'
   action:
     service: switch.turn_{{ trigger.to_state.state }}
     entity_id: switch.basement_stereo
