@@ -30,10 +30,10 @@
             0
           {% elif is_state('group.led_purple', 'on') %}
             212
-          {% elif is_state('group.led_yellow', 'on') %}
-            42
           {% elif is_state('group.led_green', 'on') %}
             85
+          {% elif is_state('group.led_yellow', 'on') %}
+            42
           {% else %}
             170
           {% endif %}
@@ -73,4 +73,4 @@
         - light.patio
     data:
       parameter: 13
-      value: "{{ [21, 85, 127, 170, 234] | random }}"
+      value: "{{ [21, 127, 170, 234] | random }}"
