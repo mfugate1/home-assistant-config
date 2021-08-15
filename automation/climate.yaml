@@ -2,7 +2,7 @@
   id: turn_off_hvac_if_any_doors_or_windows_are_open
   trigger:
     platform: state
-    entity_id: group.exterior_doors_and_windows
+    entity_id: group.hvac_off
     to: 'on'
     for:
       minutes: 5
@@ -14,7 +14,7 @@
   id: turn_on_hvac_when_all_doors_and_windows_are_closed
   trigger:
     platform: state
-    entity_id: group.exterior_doors_and_windows
+    entity_id: group.hvac_off
     to: 'off'
   action:
     service: climate.turn_on
