@@ -39,7 +39,12 @@
           {% endif %}
 
         # Brightness
-        65280: 10
+        65280: >-
+          {% if is_state('group.led_red', 'on') %}
+            10
+          {% else %}
+            6
+          {% endif %}
 
         # Duration (forever)
         16711680: 255
