@@ -80,18 +80,18 @@
   state_topic: rtl_433/+/devices/Kerui-Security/158337/motion
   device_class: motion
   payload_on: 1
-  off_delay: 90
+  off_delay: 5
 
 - platform: mqtt
   name: laundryroom_motion
   state_topic: rtl_433/+/devices/Kerui-Security/635232/motion
   device_class: motion
   payload_on: 1
-  off_delay: 15
+  off_delay: 5
 
 - platform: mqtt
   name: patio_motion_1
   state_topic: rtl_433/+/devices/Kerui-Security/359233/motion
   device_class: motion
   payload_on: 1
-  off_delay: 90
+  off_delay: 5
