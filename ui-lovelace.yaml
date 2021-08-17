@@ -358,6 +358,15 @@ views:
             name: Kitchen Window
           - entity: binary_sensor.office_window
             name: Office Window
+      - type: entities
+        title: Motion
+        entities:
+          - entity: binary_sensor.diningroom_motion_1
+            name: Dining Room Motion (Above Fridge)
+          - entity: binary_sensor.laundryroom_motion
+            name: Laundry Room Motion
+          - entity: binary_sensor.patio_motion_1
+            name: Patio Motion (Above Sliding Door)
 
 
       
