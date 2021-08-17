@@ -34,25 +34,11 @@
   payload_on: 10
 
 - platform: mqtt
-  name: laundryroom_motion
-  state_topic: rtl_433/+/devices/Kerui-Security/635232/motion
-  device_class: motion
-  payload_on: 1
-  off_delay: 15
-
-- platform: mqtt
   name: office_window
   state_topic: rtl_433/+/devices/Generic-Remote/29544/cmd
   device_class: door
   payload_off: 14
   payload_on: 10
-
-- platform: mqtt
-  name: patio_motion_1
-  state_topic: rtl_433/+/devices/Kerui-Security/359233/motion
-  device_class: motion
-  payload_on: 1
-  off_delay: 90
 
 - platform: mqtt
   name: bedroom_window_back
@@ -88,3 +74,24 @@
   device_class: door
   payload_off: 14
   payload_on: 10
+
+- platform: mqtt
+  name: diningroom_motion_1
+  state_topic: rtl_433/+/devices/Kerui-Security/158337/motion
+  device_class: motion
+  payload_on: 1
+  off_delay: 90
+
+- platform: mqtt
+  name: laundryroom_motion
+  state_topic: rtl_433/+/devices/Kerui-Security/635232/motion
+  device_class: motion
+  payload_on: 1
+  off_delay: 15
+
+- platform: mqtt
+  name: patio_motion_1
+  state_topic: rtl_433/+/devices/Kerui-Security/359233/motion
+  device_class: motion
+  payload_on: 1
+  off_delay: 90
