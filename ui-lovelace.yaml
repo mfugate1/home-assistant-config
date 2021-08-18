@@ -361,12 +361,15 @@ views:
       - type: entities
         title: Motion
         entities:
+          - binary_sensor.basement_motion
           - entity: binary_sensor.diningroom_motion_1
             name: Dining Room Motion (Above Fridge)
           - entity: binary_sensor.laundryroom_motion
             name: Laundry Room Motion
           - entity: binary_sensor.patio_motion_1
             name: Patio Motion (Above Sliding Door)
+          - entity: binary_sensor.upstairsbathroom_motion_2
+            name: Upstairs Bathroom Motion (Above Shower)
 
 
       
