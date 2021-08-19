@@ -36,7 +36,7 @@
   id: enable_bedtime_routine
   trigger:
     platform: state
-    entity_id: switch.watch_charging_in_bedroom
+    entity_id: input_boolean.sleep_mode
     to: 'off'
     for: '01:00:00'
   action:
