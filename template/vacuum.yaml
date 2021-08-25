@@ -1,0 +1,14 @@
+- sensor:
+    - name: vacuum_next_room_to_clean
+      state: >-
+        {% set clean_this = namespace(entity='none',last_cleaned='') %}
+        {% for state in states.input_datetime %}
+          {% if 'vacuum' in state.entity_id %}
+            {% set state_date = strptime(state.state, '%Y-%m-%d %H-%M-%S') %}
+            {% if clean_this.entity == 'none' or (is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', 'disable'), 'off') and state_date < clean_this.last_cleaned) %}
+              {% set clean_this.entity = state.entity_id %}
+              {% set clean_this.last_cleaned = state_date %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {{ clean_this.entity }}
