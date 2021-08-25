@@ -368,8 +368,9 @@ views:
             name: Laundry Room Motion
           - entity: binary_sensor.patio_motion_1
             name: Patio Motion (Above Sliding Door)
-          - entity: binary_sensor.upstairsbathroom_motion_2
-            name: Upstairs Bathroom Motion (Above Shower)
+          - binary_sensor.upstairsbathroom_motion
+          - binary_sensor.upstairsbathroom_motion_2
+          - binary_sensor.upstairsbathroom_motion_3
 
 
       
