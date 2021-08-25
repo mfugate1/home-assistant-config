@@ -278,6 +278,8 @@ views:
             entities:
               - entity: binary_sensor.upstairsbathroom_motion
                 show_name: false
+              - entity: input_boolean.upstairsbathroom_occupancy
+                show_name: false
               - entity: binary_sensor.upstairsbathroom_door
                 show_name: false
               - entity: light.upstairsbathroom

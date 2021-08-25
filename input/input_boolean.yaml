@@ -21,3 +21,4 @@ take_out_garbage_bins:
 
 # Occupancy
 upstairsbathroom_occupancy:
+  icon: mdi:home
