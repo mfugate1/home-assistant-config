@@ -296,13 +296,13 @@ views:
           - entity: input_number.upstairsbathroom_light_night_brightness
             name: Nighttime Brightness
           - type: divider
-          - entity: upstairsbathroom_occupancy_timeout_min
+          - entity: input_number.upstairsbathroom_occupancy_timeout_min
             name: Occupancy Timeout (min)
             type: custom:numberbox-card
-          - entity: upstairsbathroom_occupancy_timeout_sec
+          - entity: input_number.upstairsbathroom_occupancy_timeout_sec
             name: Occupancy Timeout (sec)
             type: custom:numberbox-card
-          - entity: upstairsbathroom_no_motion_timeout_min
+          - entity: input_number.upstairsbathroom_no_motion_timeout_min
             name: No Motion Timeout (min)
             type: custom:numberbox-card
             
