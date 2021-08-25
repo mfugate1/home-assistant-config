@@ -50,6 +50,8 @@ inovelli_light_level:
 inovelli_light_duration:
   min: 0
   max: 120
+
+# Upstairs bathroom automation config
 upstairsbathroom_light_brightness:
   min: 1
   max: 255
@@ -65,3 +67,14 @@ upstairsbathroom_light_night_brightness:
 upstairsbathroom_light_transition:
   min: 1
   max: 10
+upstairsbathroom_occupancy_timeout_min:
+  min: 0
+  max: 10
+  mode: box
+upstairsbathroom_occupancy_timeout_sec:
+  min: 0
+  max: 59
+  mode: box
+upstairsbathroom_no_motion_timeout_min:
+  min: 1
+  max: 30

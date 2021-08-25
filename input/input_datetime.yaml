@@ -4,11 +4,3 @@ turn_on_sleep_mode_after:
   has_time: true
 turn_off_sleep_mode_if_bed_unoccupied_for:
   has_time: true
-upstairsbathroom_door_opened_motion_off_for:
-  has_time: true
-upstairsbathroom_door_opened_motion_off_timeout:
-  has_time: true
-upstairsbathroom_light_off_door_closed_for:
-  has_time: true
-upstairsbathroom_light_off_door_open_for:
-  has_time: true

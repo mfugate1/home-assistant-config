@@ -17,3 +17,7 @@ replace_furnace_filter:
 replace_sediment_filter:
 take_medication:
 take_out_garbage_bins:
+
+
+# Occupancy
+upstairsbathroom_occupancy:
