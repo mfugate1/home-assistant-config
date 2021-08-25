@@ -7,10 +7,26 @@ turn_off_sleep_mode_if_bed_unoccupied_for:
 
 # Vacuum: room last cleaned times
 vacuum_gameroom_16_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_hallway_17_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_bedroom_18_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_livingroom_19_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_kitchen_20_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_diningroom_21_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_office_22_last_cleaned:
+  has_date: true
+  has_time: true
 vacuum_upstairsbathroom_23_last_cleaned:
+  has_date: true
+  has_time: true
