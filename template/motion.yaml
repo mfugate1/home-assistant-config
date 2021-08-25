@@ -1,6 +1,6 @@
 - binary_sensor:
     - name: upstairsbathroom_motion
-      state: "{{ is_state('binary_sensor.upstairsbathroom_motion_1', 'on') or is_state('binary_sensor.upstairsbathroom_motion_2', 'on') or is_state('binary_sensor.upstairsbathroom_motion_3', 'on')"
+      state: "{{ is_state('binary_sensor.upstairsbathroom_motion_1', 'on') or is_state('binary_sensor.upstairsbathroom_motion_2', 'on') or is_state('binary_sensor.upstairsbathroom_motion_3', 'on') }}"
       device_class: motion
       delay_off: 
         seconds: 5
