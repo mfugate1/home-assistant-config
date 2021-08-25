@@ -22,3 +22,14 @@ take_out_garbage_bins:
 # Occupancy
 upstairsbathroom_occupancy:
   icon: mdi:home
+
+
+# Disable vacuuming for rooms
+vacuum_gameroom_16_disable:
+vacuum_hallway_17_disable:
+vacuum_bedroom_18_disable:
+vacuum_livingroom_19_disable:
+vacuum_kitchen_20_disable:
+vacuum_diningroom_21_disable:
+vacuum_office_22_disable:
+vacuum_upstairsbathroom_23_disable:
