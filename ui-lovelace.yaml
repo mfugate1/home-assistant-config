@@ -295,18 +295,17 @@ views:
             name: Daytime Brightness
           - entity: input_number.upstairsbathroom_light_night_brightness
             name: Nighttime Brightness
-          - type: section
-            label: Door opens, turn off light if...
-          - entity: input_datetime.upstairsbathroom_door_opened_motion_off_for
-            name: Motion Off For (mm:ss)
-          - entity: input_datetime.upstairsbathroom_door_opened_motion_off_timeout
-            name: Motion Off Timeout (mm:ss)
-          - type: section
-            label: Light off after no motion for...
-          - entity: input_datetime.upstairsbathroom_light_off_door_open_for
-            name: Door Open (mm:ss)
-          - entity: input_datetime.upstairsbathroom_light_off_door_closed_for
-            name: Door Closed (mm:ss)
+          - type: divider
+          - entity: upstairsbathroom_occupancy_timeout_min
+            name: Occupancy Timeout (min)
+            type: custom:numberbox-card
+          - entity: upstairsbathroom_occupancy_timeout_sec
+            name: Occupancy Timeout (sec)
+            type: custom:numberbox-card
+          - entity: upstairsbathroom_no_motion_timeout_min
+            name: No Motion Timeout (min)
+            type: custom:numberbox-card
+            
       - type: entities
         title: Dehumidifier
         entities:
