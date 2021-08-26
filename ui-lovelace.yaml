@@ -342,6 +342,8 @@ views:
                     type: custom:numberbox-card
           - name: Basement Humidity
             type: custom:mini-graph-card
+            line_color: blue
+            upper_bound: 70
             entities:
               - sensor.basement_humidity
         
