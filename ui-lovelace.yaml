@@ -309,6 +309,7 @@ views:
             type: custom:numberbox-card
       - type: entities
         title: Dehumidifier
+        show_header_toggle: false
         entities:
           - sensor.basement_humidity
           - switch.dehumidifier
@@ -319,6 +320,7 @@ views:
           - automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
       - type: entities
         title: Vacuum
+        show_header_toggle: false
         entities:
           - entity: sensor.vacuum_next_room_to_clean
             name: Next Room to Vacuum
