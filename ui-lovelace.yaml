@@ -203,6 +203,7 @@ views:
     cards:
       - type: entities
         title: Sleep Mode
+        show_header_toggle: false
         entities:
           - entity: input_boolean.sleep_mode
             name: Sleep Mode
@@ -343,7 +344,6 @@ views:
           - type: custom:multiple-entity-row
             name: Hallway
             entity: input_boolean.vacuum_hallway_17_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_hallway_17_last_cleaned
@@ -351,7 +351,6 @@ views:
           - type: custom:multiple-entity-row
             name: Bedroom
             entity: input_boolean.vacuum_bedroom_18_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_bedroom_18_last_cleaned
@@ -359,7 +358,6 @@ views:
           - type: custom:multiple-entity-row
             name: Living Room
             entity: input_boolean.vacuum_livingroom_19_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_livingroom_19_last_cleaned
@@ -367,7 +365,6 @@ views:
           - type: custom:multiple-entity-row
             name: Kitchen
             entity: input_boolean.vacuum_kitchen_20_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_kitchen_20_last_cleaned
@@ -375,7 +372,6 @@ views:
           - type: custom:multiple-entity-row
             name: Dining Room
             entity: input_boolean.vacuum_diningroom_21_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_diningroom_21_last_cleaned
@@ -383,7 +379,6 @@ views:
           - type: custom:multiple-entity-row
             name: Office
             entity: input_boolean.vacuum_office_22_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_office_22_last_cleaned
@@ -391,7 +386,6 @@ views:
           - type: custom:multiple-entity-row
             name: Upstairs Bathroom
             entity: input_boolean.vacuum_upstairsbathroom_23_disable
-            state_header: disable
             toggle: true
             entities:
               - entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
