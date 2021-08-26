@@ -314,6 +314,7 @@ views:
         cards:
           - type: entities
             entities:
+              - type: divider
               - type: custom:multiple-entity-row
                 name: Status
                 entity: switch.dehumidifier
@@ -339,6 +340,10 @@ views:
                 entities:
                   - entity: input_number.dehumidifier_on_threshold
                     type: custom:numberbox-card
+          - name: Basement Humidity
+            type: custom:mini-graph-card
+            entities:
+              - sensor.basement_humidity
         
       - title: Vacuum
         type: entities
