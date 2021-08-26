@@ -343,6 +343,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_gameroom_16_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_gameroom_16_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -352,6 +353,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_hallway_17_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_hallway_17_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -361,6 +363,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_bedroom_18_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_bedroom_18_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -370,6 +373,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_livingroom_19_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_livingroom_19_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -379,6 +383,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_kitchen_20_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_kitchen_20_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -388,6 +393,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_diningroom_21_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_diningroom_21_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -397,6 +403,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_office_22_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_office_22_last_cleaned
                 name: false
           - type: custom:multiple-entity-row
@@ -406,6 +413,7 @@ views:
             entities:
               - entity: binary_sensor.vacuum_upstairsbathroom_23_cleaned_today
                 name: false
+                icon: true
               - entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
                 name: false
   - icon: mdi:cctv
