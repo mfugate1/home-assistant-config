@@ -1,0 +1,31 @@
+- alias: 'Vacuum: Run When No One is Home'
+  id: vacuum_run_when_no_one_is_home
+  max_exceeded: silent
+  trigger:
+    platform: state
+    entity_id: person.mike
+    to: not_home
+    for:
+      minutes: "{{ states('input_number.run_vacuum_after_away_min')}}"
+  action:
+    - alias: 'Check that the vacuum is not already running'
+      condition: state
+      entity_id: vacuum.roborock_s6_pure
+      state: docked
+
+- alias: 'Vacuum: Disable/Enable All Rooms'
+  id: vacuum_disable_enable_all_rooms
+  trigger:
+    platform: state
+    entity_id: input_boolean.vacuum_disable_all_rooms
+  action:
+    service: "input_boolean.turn_{{ trigger.state.to_state }}"
+    target:
+      entity_id: >-
+        {% set entities = namespace(ids=[]) %}
+        {% for state in states.input_boolean %}
+          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_disable') %}
+            {% set entities.ids = entities.ids + [state.entity_id] %}
+          {% endif %}
+        {% endfor %}
+        {{ entities.ids }}

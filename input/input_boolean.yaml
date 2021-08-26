@@ -25,6 +25,7 @@ upstairsbathroom_occupancy:
 
 
 # Disable vacuuming for rooms
+vacuum_disable_all_rooms:
 vacuum_gameroom_16_disable:
 vacuum_hallway_17_disable:
 vacuum_bedroom_18_disable:

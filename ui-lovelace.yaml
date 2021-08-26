@@ -322,6 +322,11 @@ views:
         entities:
           - entity: sensor.vacuum_next_room_to_clean
             name: Next Room to Vacuum
+          - entity: input_number.run_vacuum_after_away_min
+            name: Run Vacuum After Away For... (Minutes)
+          - entity: input_boolean.vacuum_disable_all_rooms
+            name: Disable All Rooms
+          - type: divider
           - type: custom:multiple-entity-row
             name: Game Room
             entity: input_boolean.vacuum_gameroom_16_disable
