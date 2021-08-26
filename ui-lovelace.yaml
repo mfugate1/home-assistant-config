@@ -340,6 +340,7 @@ views:
             name: Game Room
             entity: input_boolean.vacuum_gameroom_16_enable
             toggle: true
+            icon: false
             entities:
               - entity: binary_sensor.vacuum_gameroom_16_cleaned_today
                 name: false
