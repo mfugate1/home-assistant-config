@@ -13,18 +13,18 @@
       entity_id: vacuum.roborock_s6_pure
       state: docked
 
-- alias: 'Vacuum: Disable/Enable All Rooms'
-  id: vacuum_disable_enable_all_rooms
+- alias: 'Vacuum: Enable/Disable All Rooms'
+  id: vacuum_enable_disable_all_rooms
   trigger:
     platform: state
-    entity_id: input_boolean.vacuum_disable_all_rooms
+    entity_id: input_boolean.vacuum_enable_all_rooms
   action:
     service: "input_boolean.turn_{{ trigger.to_state.state }}"
     target:
       entity_id: >-
         {% set entities = namespace(ids=[]) %}
         {% for state in states.input_boolean %}
-          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_disable') %}
+          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_enable') %}
             {% set entities.ids = entities.ids + [state.entity_id] %}
           {% endif %}
         {% endfor %}

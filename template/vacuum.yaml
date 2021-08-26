@@ -3,9 +3,9 @@
       state: >-
         {% set clean_this = namespace(entity='none',last_cleaned='') %}
         {% for state in states.input_datetime %}
-          {% if 'vacuum' in state.entity_id and state.entity_id.endswith('_disable') %}
+          {% if 'vacuum' in state.entity_id %}
             {% set state_date = strptime(state.state, '%Y-%m-%d %H-%M-%S') %}
-            {% if is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', 'disable'), 'off') and (clean_this.entity == 'none' or state_date < clean_this.last_cleaned) %}
+            {% if is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', 'enable'), 'on') and (clean_this.entity == 'none' or state_date < clean_this.last_cleaned) %}
               {% set clean_this.entity = state.entity_id %}
               {% set clean_this.last_cleaned = state_date %}
             {% endif %}

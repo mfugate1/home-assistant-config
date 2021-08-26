@@ -25,12 +25,12 @@ upstairsbathroom_occupancy:
 
 
 # Disable vacuuming for rooms
-vacuum_disable_all_rooms:
-vacuum_gameroom_16_disable:
-vacuum_hallway_17_disable:
-vacuum_bedroom_18_disable:
-vacuum_livingroom_19_disable:
-vacuum_kitchen_20_disable:
-vacuum_diningroom_21_disable:
-vacuum_office_22_disable:
-vacuum_upstairsbathroom_23_disable:
+vacuum_enable_all_rooms:
+vacuum_gameroom_16_enable:
+vacuum_hallway_17_enable:
+vacuum_bedroom_18_enable:
+vacuum_livingroom_19_enable:
+vacuum_kitchen_20_enable:
+vacuum_diningroom_21_enable:
+vacuum_office_22_enable:
+vacuum_upstairsbathroom_23_enable:
