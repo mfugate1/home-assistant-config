@@ -52,7 +52,11 @@ inovelli_light_duration:
   max: 120
 
 vacuum_rooms_cleaned_since_being_emptied:
+  min: 0
+  max: 10
 run_vacuum_after_away_min:
+  min: 1
+  max: 30
 
 # Upstairs bathroom automation config
 upstairsbathroom_light_brightness:
