@@ -35,15 +35,13 @@ climate_heat_home_temp:
   min: 50
   max: 80
 dehumidifier_off_threshold:
-  name: Dehumidifier Off Threshold
+  name: Off Threshold
   min: 0
   max: 100
-  mode: box
 dehumidifier_on_threshold:
-  name: Dehumidifier On Threshold
+  name: On Threshold
   min: 0
   max: 100
-  mode: box
 inovelli_light_level:
   min: 0
   max: 10
@@ -51,18 +49,21 @@ inovelli_light_duration:
   min: 0
   max: 120
 
+#### VACUUM CONFIG ####
+
 vacuum_rooms_cleaned_since_being_emptied:
   min: 0
   max: 30
-  mode: box
 vacuum_max_rooms_cleaned_before_emptying:
   min: 1
   max: 30
-  mode: box
+
 run_vacuum_after_away_min:
   min: 1
   max: 30
-  mode: box
+run_vacuum_after_asleep_min:
+  min: 15
+  max: 120
 
 # Upstairs bathroom automation config
 upstairsbathroom_light_brightness:
@@ -83,11 +84,9 @@ upstairsbathroom_light_transition:
 upstairsbathroom_occupancy_timeout_min:
   min: 0
   max: 10
-  mode: box
 upstairsbathroom_occupancy_timeout_sec:
   min: 0
   max: 59
-  mode: box
 upstairsbathroom_no_motion_timeout_min:
   min: 1
   max: 30
