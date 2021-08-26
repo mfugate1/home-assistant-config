@@ -8,12 +8,20 @@
       for:
         minutes: "{{ states('input_number.run_vacuum_after_away_min')}}"
     - platform: state
+      entity_id: input_boolean.workout_mode
+      to: 'on'
+    - platform: state
       entity_id: vacuum.roborock_s6_pure
       to: docked
   condition:
-    condition: state
-    entity_id: person.mike
-    state: not_home
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: person.mike
+        state: not_home
+      - condition: state
+        entity_id: input_boolean.workout_mode
+        state: 'on'
   action:
     - alias: 'Check that the vacuum is not already running'
       condition: state
@@ -35,6 +43,9 @@
         entity_id: vacuum.roborock_s6_pure
       data:
         segments: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
+    - alias: 'Increment rooms cleaned counter'
+      service: input_number.increment
+      entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
 
 - alias: 'Vacuum: Enable/Disable All Rooms'
   id: vacuum_enable_disable_all_rooms
