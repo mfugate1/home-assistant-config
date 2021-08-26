@@ -11,4 +11,4 @@
             {% endif %}
           {% endif %}
         {% endfor %}
-        {{ clean_this.entity.replace('input_datetime_vacuum_', '').replace('_last_cleaned', '') }}
+        {{ clean_this.entity.replace('input_datetime.vacuum_', '').replace('_last_cleaned', '') }}
