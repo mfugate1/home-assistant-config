@@ -57,6 +57,7 @@ vacuum_rooms_cleaned_since_being_emptied:
 run_vacuum_after_away_min:
   min: 1
   max: 30
+  mode: box
 
 # Upstairs bathroom automation config
 upstairsbathroom_light_brightness:
