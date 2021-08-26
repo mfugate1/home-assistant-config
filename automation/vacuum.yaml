@@ -43,9 +43,26 @@
         entity_id: vacuum.roborock_s6_pure
       data:
         segments: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
+    - alias: 'Set last room cleaned input text'
+      service: input_text.set_value
+      target:
+        entity_id: input_text.vacuum_last_room_cleaned
+      data:
+        value: "{{ states('sensor.vacuum_next_room_to_clean') }}"
     - alias: 'Increment rooms cleaned counter'
       service: input_number.increment
-      entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+      target:
+        entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+    - alias: 'Set last cleaned datetime'
+      service: input_datetime.set_datetime
+      target:
+        entity_id: "input_datetime.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_last_cleaned"
+      data:
+        timestamp: "{{ now().timestamp() }}"
+    - alias: 'Turn on cleaned today input boolean'
+      service: input_boolean.turn_on
+      target:
+        entity_id: "input_boolean.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_cleaned_today"
 
 - alias: 'Vacuum: Enable/Disable All Rooms'
   id: vacuum_enable_disable_all_rooms
@@ -59,6 +76,23 @@
         {% set entities = namespace(ids=[]) %}
         {% for state in states.input_boolean %}
           {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_enable') %}
+            {% set entities.ids = entities.ids + [state.entity_id] %}
+          {% endif %}
+        {% endfor %}
+        {{ entities.ids }}
+
+- alias: 'Vacuum: Reset room cleaned today input booleans'
+  id: vacuum_reset_room_cleaned_today_input_booleans
+  trigger:
+    platform: time
+    at: input_datetime.vacuum_room_cleaned_today_reset_time
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: >-
+        {% set entities = namespace(ids=[]) %}
+        {% for state in states.input_boolean %}
+          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_cleaned_today') %}
             {% set entities.ids = entities.ids + [state.entity_id] %}
           {% endif %}
         {% endfor %}

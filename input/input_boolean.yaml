@@ -24,8 +24,9 @@ upstairsbathroom_occupancy:
   icon: mdi:home
 
 
-# Disable vacuuming for rooms
+# Vacuum
 vacuum_enable_all_rooms:
+
 vacuum_gameroom_16_enable:
 vacuum_hallway_17_enable:
 vacuum_bedroom_18_enable:
@@ -34,3 +35,12 @@ vacuum_kitchen_20_enable:
 vacuum_diningroom_21_enable:
 vacuum_office_22_enable:
 vacuum_upstairsbathroom_23_enable:
+
+vacuum_gameroom_16_cleaned_today:
+vacuum_hallway_17_cleaned_today:
+vacuum_bedroom_18_cleaned_today:
+vacuum_livingroom_19_cleaned_today:
+vacuum_kitchen_20_cleaned_today:
+vacuum_diningroom_21_cleaned_today:
+vacuum_office_22_cleaned_today:
+vacuum_upstairsbathroom_23_cleaned_today:
