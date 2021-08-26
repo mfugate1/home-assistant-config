@@ -14,3 +14,29 @@
           {% endif %}
         {% endfor %}
         {{ clean_this.entity.replace('input_datetime.vacuum_', '').replace('_last_cleaned', '') }}
+- binary_sensor:
+    - name: vacuum_gameroom_16_cleaned_today
+      state: "{{ state('input_boolean.vacuum_gameroom_16_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_gameroom_16_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_hallway_17_cleaned_today
+      state: "{{ state('input_boolean.vacuum_hallway_17_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_hallway_17_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_bedroom_18_cleaned_today
+      state: "{{ state('input_boolean.vacuum_bedroom_18_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_bedroom_18_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_livingroom_19_cleaned_today
+      state: "{{ state('input_boolean.vacuum_livingroom_19_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_livingroom_19_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_kitchen_20_cleaned_today
+      state: "{{ state('input_boolean.vacuum_kitchen_20_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_kitchen_20_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_diningroom_21_cleaned_today
+      state: "{{ state('input_boolean.vacuum_diningroom_21_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_diningroom_21_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_office_22_cleaned_today
+      state: "{{ state('input_boolean.vacuum_office_22_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_office_22_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+    - name: vacuum_upstairsbathroom_23_cleaned_today
+      state: "{{ state('input_boolean.vacuum_upstairsbathroom_23_cleaned_today') }}"
+      icon: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_upstairsbathroom_23_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+      
