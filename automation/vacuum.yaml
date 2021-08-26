@@ -2,16 +2,37 @@
   id: vacuum_run_when_no_one_is_home
   max_exceeded: silent
   trigger:
-    platform: state
+    - platform: state
+      entity_id: person.mike
+      to: not_home
+      for:
+        minutes: "{{ states('input_number.run_vacuum_after_away_min')}}"
+    - platform: state
+      entity_id: vacuum.roborock_s6_pure
+      to: docked
+  condition:
+    condition: state
     entity_id: person.mike
-    to: not_home
-    for:
-      minutes: "{{ states('input_number.run_vacuum_after_away_min')}}"
+    state: not_home
   action:
     - alias: 'Check that the vacuum is not already running'
       condition: state
       entity_id: vacuum.roborock_s6_pure
       state: docked
+    - alias: 'Check that max room cleans before emptying has not been exceeded'
+      condition: "{{ (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) < (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
+    - alias: 'Check that next room is not set to none'
+      condition: not
+      conditions:
+        - condition: state
+          entity_id: sensor.vacuum_next_room_to_clean
+          state: none
+    - alias: 'Start vacuum'
+      service: xiaomi_miio.vacuum_clean_segment
+      target:
+        entity_id: vacuum.roborock_s6_pure
+      data:
+        segments: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
 
 - alias: 'Vacuum: Enable/Disable All Rooms'
   id: vacuum_enable_disable_all_rooms

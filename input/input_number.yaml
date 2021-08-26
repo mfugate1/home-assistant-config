@@ -53,7 +53,11 @@ inovelli_light_duration:
 
 vacuum_rooms_cleaned_since_being_emptied:
   min: 0
-  max: 10
+  max: 30
+  mode: box
+vacuum_max_rooms_cleaned_before_emptying:
+  min: 1
+  max: 30
   mode: box
 run_vacuum_after_away_min:
   min: 1
