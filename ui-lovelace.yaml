@@ -307,7 +307,6 @@ views:
           - entity: input_number.upstairsbathroom_no_motion_timeout_min
             name: No Motion Timeout (min)
             type: custom:numberbox-card
-            
       - type: entities
         title: Dehumidifier
         entities:
@@ -318,6 +317,67 @@ views:
           - input_number.dehumidifier_on_threshold
           - automation.turn_on_dehumidifier_if_above_threshold
           - automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
+      - type: entities
+        title: Vacuum
+        entities:
+          - entity: sensor.vacuum_next_room_to_clean
+            name: Next Room to Vacuum
+          - type: custom:multiple-entity-row
+            name: Game Room
+            entity: input_boolean.vacuum_gameroom_16_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_gameroom_16_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Hallway
+            entity: input_boolean.vacuum_hallway_17_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_hallway_17_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Bedroom
+            entity: input_boolean.vacuum_bedroom_18_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_bedroom_18_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Living Room
+            entity: input_boolean.vacuum_livingroom_19_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_livingroom_19_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Kitchen
+            entity: input_boolean.vacuum_kitchen_20_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_kitchen_20_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Dining Room
+            entity: input_boolean.vacuum_diningroom_21_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_diningroom_21_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Office
+            entity: input_boolean.vacuum_office_22_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_office_22_last_cleaned
+                name: false
+          - type: custom:multiple-entity-row
+            name: Upstairs Bathroom
+            entity: input_boolean.vacuum_upstairsbathroom_23_disable
+            state_header: disable
+            entities:
+              - entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
+                name: false
   - icon: mdi:cctv
     panel: true
     cards:
