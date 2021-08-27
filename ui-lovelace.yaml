@@ -327,19 +327,21 @@ views:
                     name: false
               - type: divider
               - entity: automation.turn_on_dehumidifier_if_above_threshold
-                name: "[Automation] Turn on Dehumidifier"
+                name: "[Automation] Turn on"
               - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
-                name: "[Automation] Turn off Dehumidifier"
+                name: "[Automation] Turn off"
               - type: divider
           - type: horizontal-stack
             cards:
               - type: entities
                 entities:
                   - entity: input_number.dehumidifier_off_threshold
+                    name: 'Off'
                     type: custom:numberbox-card
               - type: entities
                 entities:
                   - entity: input_number.dehumidifier_on_threshold
+                    name: 'On'
                     type: custom:numberbox-card
           - name: Basement Humidity
             type: custom:mini-graph-card
