@@ -18,3 +18,5 @@
       attributes:
         next_room: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[0] }}"
         next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
+    - name: vacuum_next_room_label
+      state: "Start/Stop"
