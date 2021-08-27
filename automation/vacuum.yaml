@@ -53,34 +53,6 @@
         - condition: state
           entity_id: sensor.vacuum_next_room_to_clean
           state: none
-
-    # Avoid setting fan speed if it's already at the correct speed because every time vacuum.set_fan_speed is called, it makes a loud DING
-    - alias: 'Change the fan speed based on sleep mode'
-      choose:
-        - alias: 'If sleep mode on and fan speed not set to night speed, set it to night speed'
-          conditions:
-            - condition: state
-              entity_id: input_boolean.sleep_mode
-              state: 'on'
-            - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_night') }}"
-          sequence:
-            - service: vacuum.set_fan_speed
-              target:
-                entity_id: vacuum.roborock_s6_pure
-              data:
-                fan_speed: "{{ states('input_select.vacuum_fan_speed_night') }}"
-        - alias: 'If sleep mode off and fan speed not set to day speed, set it to day speed'
-          conditions:
-            - condition: state
-              entity_id: input_boolean.sleep_mode
-              state: 'off'
-            - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_day') }}"
-          sequence:
-            - service: vacuum.set_fan_speed
-              target:
-                entity_id: vacuum.roborock_s6_pure
-              data:
-                fan_speed: "{{ states('input_select.vacuum_fan_speed_day') }}"
     - alias: 'Start vacuum'
       service: xiaomi_miio.vacuum_clean_segment
       target:
@@ -167,3 +139,38 @@
       entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
     data:
       value: 0
+
+- alias: 'Vacuum: Set fan speed'
+  id: vacuum_set_fan_speed
+  trigger:
+    - platform: state
+      entity_id: 
+        - input_boolean.sleep_mode
+        - input_select.vacuum_fan_speed_day
+        - input_select.vacuum_fan_speed_night
+  condition:
+    condition: or
+    conditions:
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_boolean.sleep_mode
+            state: 'off'
+          - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_day') }}"
+      - condition: and
+        conditions:
+          - condition: state
+            entity_id: input_boolean.sleep_mode
+            state: 'on'
+          - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_night') }}"
+  action:
+    service: vacuum.set_fan_speed
+    target:
+      entity_id: vacuum.roborock_s6_pure
+    data:
+      fan_speed: >-
+        {% if is_state('input_boolean.sleep_mode', 'on') %}
+          {{ states('input_select.vacuum_fan_speed_night') }}
+        {% else %}
+          {{ states('input_select.vacuum_fan_speed_day') }}
+        {% endif %}
