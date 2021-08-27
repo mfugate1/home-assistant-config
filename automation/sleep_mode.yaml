@@ -1,5 +1,5 @@
-- alias: 'Turn on sleep mode'
-  id: turn_on_sleep_mode
+- alias: 'Sleep mode: turn on'
+  id: sleep_mode_turn_on
   trigger:
     - platform: state
       entity_id: binary_sensor.bed_occupied
@@ -14,10 +14,11 @@
       after: input_datetime.turn_on_sleep_mode_after
   action:
     service: input_boolean.turn_on
-    entity_id: input_boolean.sleep_mode
+    target:
+      entity_id: input_boolean.sleep_mode
 
-- alias: 'Turn off sleep mode'
-  id: turn_off_sleep_mode
+- alias: 'Sleep mode: turn off'
+  id: sleep_mode_turn_off
   trigger:
     - platform: state
       entity_id: binary_sensor.bed_occupied
@@ -33,4 +34,18 @@
       after: input_datetime.keep_sleep_mode_on_until
   action:
     service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.sleep_mode
+
+- alias: 'Sleep mode: Set last start time'
+  id: sleep_mode_set_last_start_time
+  trigger:
+    platform: state
     entity_id: input_boolean.sleep_mode
+    to: 'on'
+  action:
+    service: input_datetime.set_datetime
+    target:
+      entity_id: input_datetime.sleep_mode_last_start_time
+    data:
+      timestamp: "{{ now().timestamp() }}"

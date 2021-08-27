@@ -208,8 +208,9 @@ views:
           - entity: input_boolean.sleep_mode
             name: Sleep Mode
           - type: divider
-          - automation.turn_off_sleep_mode
-          - automation.turn_on_sleep_mode
+          - automation.sleep_mode_turn_off
+          - automation.sleep_mode_turn_on
+          - automation.sleep_mode_set_last_start_time
           - type: divider
           - entity: input_datetime.keep_sleep_mode_on_until
             name: Keep On Until (Wakeup Time) (hh:mm)
