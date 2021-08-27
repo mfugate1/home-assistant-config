@@ -360,113 +360,122 @@ views:
               - sensor.basement_humidity
         
       - title: Vacuum
-        type: entities
-        show_header_toggle: false
-        entities:
-          - entity: sensor.vacuum_next_room_to_clean
-            name: Next Room to Vacuum
-          - entity: input_number.vacuum_rooms_cleaned_since_being_emptied
-            name: Rooms Cleaned Since Being Emptied
-          - entity: input_number.vacuum_max_rooms_cleaned_before_emptying
-            type: custom:numberbox-card
-            name: Max Rooms Cleaned Before Emptying
-          - entity: input_number.run_vacuum_after_away_min
-            type: custom:numberbox-card
-            name: Run Vacuum After Away For (Min)
-          - entity: input_number.run_vacuum_after_asleep_min
-            type: custom:numberbox-card
-            name: Run Vacuum After Asleep For (Min)
-          - entity: input_select.vacuum_fan_speed_day
-            name: Fan Speed (Day)
-          - entity: input_select.vacuum_fan_speed_night
-            name: Fan Speed (Night)
-          - entity: input_datetime.vacuum_night_cleaning_end_time
-            name: Night Cleaning End Time
-          - entity: input_datetime.vacuum_room_cleaned_today_reset_time
-            name: Cleaned Today Reset Time
-          - entity: input_boolean.vacuum_enable_all_rooms
-            name: All Rooms
-          - type: divider
-          - type: custom:multiple-entity-row
-            name: Game Room
-            entity: input_boolean.vacuum_gameroom_16_enable
-            toggle: true
+        type: custom:stack-in-card
+        cards:
+          - type: entities
             entities:
-              - entity: binary_sensor.vacuum_gameroom_16_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_gameroom_16_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Hallway
-            entity: input_boolean.vacuum_hallway_17_enable
-            toggle: true
+              - entity: sensor.vacuum_next_room_to_clean
+                name: Next Room to Vacuum
+              - entity: input_number.vacuum_rooms_cleaned_since_being_emptied
+                name: Rooms Cleaned Since Being Emptied
+              - entity: input_number.vacuum_max_rooms_cleaned_before_emptying
+                type: custom:numberbox-card
+                name: Max Rooms Cleaned Before Emptying
+              - entity: input_number.run_vacuum_after_away_min
+                type: custom:numberbox-card
+                name: Run Vacuum After Away For (Min)
+              - entity: input_number.run_vacuum_after_asleep_min
+                type: custom:numberbox-card
+                name: Run Vacuum After Asleep For (Min)
+          - type: horizontal-stack
+            cards:
+              - type: entities
+                entities:
+                  - entity: input_select.vacuum_fan_speed_day
+                    name: Fan Speed (Day)
+              - type: entities
+                entities:
+                  - entity: input_select.vacuum_fan_speed_night
+                    name: Fan Speed (Night)
+          - type: entities
             entities:
-              - entity: binary_sensor.vacuum_hallway_17_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_hallway_17_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Bedroom
-            entity: input_boolean.vacuum_bedroom_18_enable
-            toggle: true
-            entities:
-              - entity: binary_sensor.vacuum_bedroom_18_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_bedroom_18_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Living Room
-            entity: input_boolean.vacuum_livingroom_19_enable
-            toggle: true
-            entities:
-              - entity: binary_sensor.vacuum_livingroom_19_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_livingroom_19_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Kitchen
-            entity: input_boolean.vacuum_kitchen_20_enable
-            toggle: true
-            entities:
-              - entity: binary_sensor.vacuum_kitchen_20_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_kitchen_20_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Dining Room
-            entity: input_boolean.vacuum_diningroom_21_enable
-            toggle: true
-            entities:
-              - entity: binary_sensor.vacuum_diningroom_21_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_diningroom_21_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Office
-            entity: input_boolean.vacuum_office_22_enable
-            toggle: true
-            entities:
-              - entity: binary_sensor.vacuum_office_22_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_office_22_last_cleaned
-                name: false
-          - type: custom:multiple-entity-row
-            name: Upstairs Bathroom
-            entity: input_boolean.vacuum_upstairsbathroom_23_enable
-            toggle: true
-            entities:
-              - entity: binary_sensor.vacuum_upstairsbathroom_23_cleaned_today
-                name: false
-                icon: true
-              - entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
-                name: false
+              - entity: input_datetime.vacuum_night_cleaning_end_time
+                name: Night Cleaning End Time
+              - entity: input_datetime.vacuum_room_cleaned_today_reset_time
+                name: Cleaned Today Reset Time
+              - entity: input_boolean.vacuum_enable_all_rooms
+                name: All Rooms
+              - type: divider
+              - type: custom:multiple-entity-row
+                name: Game Room
+                entity: input_boolean.vacuum_gameroom_16_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_gameroom_16_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_gameroom_16_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Hallway
+                entity: input_boolean.vacuum_hallway_17_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_hallway_17_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_hallway_17_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Bedroom
+                entity: input_boolean.vacuum_bedroom_18_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_bedroom_18_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_bedroom_18_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Living Room
+                entity: input_boolean.vacuum_livingroom_19_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_livingroom_19_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_livingroom_19_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Kitchen
+                entity: input_boolean.vacuum_kitchen_20_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_kitchen_20_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_kitchen_20_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Dining Room
+                entity: input_boolean.vacuum_diningroom_21_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_diningroom_21_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_diningroom_21_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Office
+                entity: input_boolean.vacuum_office_22_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_office_22_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_office_22_last_cleaned
+                    name: false
+              - type: custom:multiple-entity-row
+                name: Upstairs Bathroom
+                entity: input_boolean.vacuum_upstairsbathroom_23_enable
+                toggle: true
+                entities:
+                  - entity: binary_sensor.vacuum_upstairsbathroom_23_cleaned_today
+                    name: false
+                    icon: true
+                  - entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
+                    name: false
   - icon: mdi:cctv
     panel: true
     cards:
