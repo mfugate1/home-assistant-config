@@ -84,14 +84,17 @@
   id: vacuum_enable_disable_all_rooms
   trigger:
     platform: state
-    entity_id: input_boolean.vacuum_enable_all_rooms
+    entity_id: 
+      - input_boolean.vacuum_enable_all_rooms_day
+      - input_boolean.vacuum_enable_all_rooms_night
   action:
     service: "input_boolean.turn_{{ trigger.to_state.state }}"
     target:
       entity_id: >-
         {% set entities = namespace(ids=[]) %}
+        {% set time = trigger.entity_id.split('_')[-1] %}
         {% for state in states.input_boolean %}
-          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_enable') %}
+          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_enable_' + time) %}
             {% set entities.ids = entities.ids + [state.entity_id] %}
           {% endif %}
         {% endfor %}

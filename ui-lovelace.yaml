@@ -402,84 +402,92 @@ views:
               - type: divider
               - type: custom:multiple-entity-row
                 name: Game Room
-                entity: input_boolean.vacuum_gameroom_16_enable
+                entity: switch.vacuum_gameroom_16_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_gameroom_16_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_gameroom_16_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_gameroom_16_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Hallway
-                entity: input_boolean.vacuum_hallway_17_enable
+                entity: switch.vacuum_hallway_17_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_hallway_17_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_hallway_17_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_hallway_17_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Bedroom
-                entity: input_boolean.vacuum_bedroom_18_enable
+                entity: switch.vacuum_bedroom_18_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_bedroom_18_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_bedroom_18_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_bedroom_18_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Living Room
-                entity: input_boolean.vacuum_livingroom_19_enable
+                entity: switch.vacuum_livingroom_19_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_livingroom_19_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_livingroom_19_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_livingroom_19_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Kitchen
-                entity: input_boolean.vacuum_kitchen_20_enable
+                entity: switch.vacuum_kitchen_20_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_kitchen_20_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_kitchen_20_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_kitchen_20_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Dining Room
-                entity: input_boolean.vacuum_diningroom_21_enable
+                entity: switch.vacuum_diningroom_21_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_diningroom_21_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_diningroom_21_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_diningroom_21_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Office
-                entity: input_boolean.vacuum_office_22_enable
+                entity: switch.vacuum_office_22_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_office_22_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_office_22_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_office_22_day_enable
+                    name: Day
               - type: custom:multiple-entity-row
                 name: Upstairs Bathroom
-                entity: input_boolean.vacuum_upstairsbathroom_23_enable
+                entity: switch.vacuum_upstairsbathroom_23_night_enable
+                state_header: Night
                 toggle: true
                 entities:
-                  - entity: binary_sensor.vacuum_upstairsbathroom_23_cleaned_today
-                    name: false
-                    icon: true
                   - entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
                     name: false
+                    format: relative
+                  - entity: input_boolean.vacuum_upstairsbathroom_23_day_enable
+                    name: Day
   - icon: mdi:cctv
     panel: true
     cards:
