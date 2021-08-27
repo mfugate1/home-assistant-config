@@ -316,8 +316,8 @@ views:
           - type: entities
             entities:
               - type: divider
-              - type: custom:multiple-entity-row
-                name: Status
+              - name: Status
+                type: custom:multiple-entity-row
                 entity: switch.dehumidifier
                 toggle: true
                 entities:
@@ -326,10 +326,15 @@ views:
                   - entity: sensor.basement_humidity
                     name: false
               - type: divider
-              - entity: automation.turn_on_dehumidifier_if_above_threshold
-                name: "[Automation] Turn on"
-              - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
-                name: "[Automation] Turn off"
+              - name: Automations
+                type: custom:multiple-entity-row
+                entity: automation.turn_on_dehumidifier_if_above_threshold
+                toggle: true
+                state_header: 'On'
+                entities:
+                  - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
+                    name: 'Off'
+                    toggle: true
               - type: divider
           - type: horizontal-stack
             cards:
@@ -349,6 +354,7 @@ views:
             lower_bound: 35
             upper_bound: 55
             hours_to_show: 48
+            smoothing: false
             entities:
               - sensor.basement_humidity
         
