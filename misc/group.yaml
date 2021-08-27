@@ -145,3 +145,26 @@ led_solid:
     - group.exterior_doors_and_windows
     - input_boolean.phone_text_notification
     
+
+# Vacuum enable/disable groups
+vacuum_enable_all_rooms_day:
+  entities:
+    - input_boolean.vacuum_gameroom_16_day_enable
+    - input_boolean.vacuum_hallway_17_day_enable
+    - input_boolean.vacuum_bedroom_18_day_enable
+    - input_boolean.vacuum_livingroom_19_day_enable
+    - input_boolean.vacuum_kitchen_20_day_enable
+    - input_boolean.vacuum_diningroom_21_day_enable
+    - input_boolean.vacuum_office_22_day_enable
+    - input_boolean.vacuum_upstairsbathroom_23_day_enable
+
+vacuum_enable_all_rooms_night:
+  entities:
+    - input_boolean.vacuum_gameroom_16_night_enable
+    - input_boolean.vacuum_hallway_17_night_enable
+    - input_boolean.vacuum_bedroom_18_night_enable
+    - input_boolean.vacuum_livingroom_19_night_enable
+    - input_boolean.vacuum_kitchen_20_night_enable
+    - input_boolean.vacuum_diningroom_21_night_enable
+    - input_boolean.vacuum_office_22_night_enable
+    - input_boolean.vacuum_upstairsbathroom_23_night_enable

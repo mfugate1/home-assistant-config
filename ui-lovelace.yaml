@@ -399,11 +399,11 @@ views:
                 name: Cleaned Today Reset Time
               - name: All Rooms
                 type: custom:multiple-entity-row
-                entity: input_boolean.vacuum_enable_all_rooms_night
+                entity: group.vacuum_enable_all_rooms_night
                 state_header: Night
                 toggle: true
                 entities:
-                  - entity: input_boolean.vacuum_enable_all_rooms_day
+                  - entity: group.vacuum_enable_all_rooms_day
                     name: Day
                     toggle: true
               - type: divider
