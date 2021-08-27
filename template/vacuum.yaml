@@ -15,3 +15,6 @@
           {% endif %}
         {% endfor %}
         {{ clean_this.entity.replace('input_datetime.vacuum_', '').replace('_last_cleaned', '') }}     
+      attributes:
+        next_room: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[0] }}"
+        next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
