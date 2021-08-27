@@ -371,7 +371,7 @@ views:
                 entity: switch.vacuum_run
                 state_header: 'Start/Stop'
                 toggle: true
-                entities:
+                secondary_info:
                   - entity: sensor.vacuum_next_room_to_clean
                     name: false
               - entity: input_number.vacuum_rooms_cleaned_since_being_emptied
