@@ -1,5 +1,5 @@
-- alias: 'Vacuum: Run When No One is Home'
-  id: vacuum_run_when_no_one_is_home
+- alias: 'Vacuum: Run'
+  id: vacuum_run
   max_exceeded: silent
   trigger:
     - platform: state
