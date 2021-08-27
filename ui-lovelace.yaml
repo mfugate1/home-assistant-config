@@ -355,6 +355,7 @@ views:
             upper_bound: 55
             hours_to_show: 48
             smoothing: false
+            points_per_hour: 2
             entities:
               - sensor.basement_humidity
         
