@@ -6,10 +6,15 @@ turn_on_sleep_mode_after:
   has_time: true
 turn_off_sleep_mode_if_bed_unoccupied_for:
   has_time: true
+sleep_mode_last_start_time:
+  has_time: true
 
 ####### VACUUM #######
 
 vacuum_room_cleaned_today_reset_time:
+  has_time: true
+
+vacuum_night_cleaning_end_time:
   has_time: true
 
 vacuum_gameroom_16_last_cleaned:

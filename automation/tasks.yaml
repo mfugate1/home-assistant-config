@@ -6,6 +6,7 @@
       - input_boolean.add_salt_to_hot_tub
       - input_boolean.add_spa_complete_to_hot_tub
       - input_boolean.empty_dehumidifier
+      - input_boolean.empty_vacuum
       - input_boolean.clean_hot_tub_filter
       - input_boolean.replace_furnace_filter
       - input_boolean.replace_sediment_filter
