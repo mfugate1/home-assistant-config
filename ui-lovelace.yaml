@@ -378,6 +378,8 @@ views:
                 type: custom:numberbox-card
                 name: Run Vacuum After Asleep For (Min)
           - type: horizontal-stack
+            canary_style:
+              margin: '-20px 0px'
             cards:
               - type: entities
                 entities:
