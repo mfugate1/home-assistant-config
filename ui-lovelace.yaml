@@ -411,6 +411,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_gameroom_16_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Hallway
                 entity: switch.vacuum_hallway_17_night_enable
@@ -422,6 +423,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_hallway_17_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Bedroom
                 entity: switch.vacuum_bedroom_18_night_enable
@@ -433,6 +435,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_bedroom_18_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Living Room
                 entity: switch.vacuum_livingroom_19_night_enable
@@ -444,6 +447,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_livingroom_19_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Kitchen
                 entity: switch.vacuum_kitchen_20_night_enable
@@ -455,6 +459,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_kitchen_20_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Dining Room
                 entity: switch.vacuum_diningroom_21_night_enable
@@ -466,6 +471,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_diningroom_21_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Office
                 entity: switch.vacuum_office_22_night_enable
@@ -477,6 +483,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_office_22_day_enable
                     name: Day
+                    toggle: true
               - type: custom:multiple-entity-row
                 name: Upstairs Bathroom
                 entity: switch.vacuum_upstairsbathroom_23_night_enable
@@ -488,6 +495,7 @@ views:
                     format: relative
                   - entity: input_boolean.vacuum_upstairsbathroom_23_day_enable
                     name: Day
+                    toggle: true
   - icon: mdi:cctv
     panel: true
     cards:
