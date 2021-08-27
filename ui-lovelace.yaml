@@ -373,6 +373,8 @@ views:
             name: Fan Speed (Night)
           - entity: input_datetime.vacuum_night_cleaning_end_time
             name: Night Cleaning End Time
+          - entity: vacuum_room_cleaned_today_reset_time
+            name: Cleaned Today Reset Time
           - entity: input_boolean.vacuum_enable_all_rooms
             name: All Rooms
           - type: divider
