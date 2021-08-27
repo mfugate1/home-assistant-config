@@ -2,9 +2,10 @@
     - name: vacuum_next_room_to_clean
       state: >-
         {% set clean_this = namespace(entity='none',last_cleaned='') %}
+        {% set time = 'day' if is_state('input_boolean.sleep_mode', 'off') else 'night' %}
         {% for state in states.input_datetime %}
           {% if 'vacuum' in state.entity_id %}
-            {% set room_enabled = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', 'enable'), 'on') %}
+            {% set room_enabled = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', time + '_enable'), 'on') %}
             {% set room_cleaned_today = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', 'cleaned_today'), 'on') %}
             {% set state_date = strptime(state.state, '%Y-%m-%d %H-%M-%S') %}
             {% if room_enabled and not room_cleaned_today and (clean_this.entity == 'none' or state_date < clean_this.last_cleaned) %}
