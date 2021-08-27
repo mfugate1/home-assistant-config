@@ -26,9 +26,6 @@ upstairsbathroom_occupancy:
 
 
 # Vacuum
-vacuum_enable_all_rooms_day:
-vacuum_enable_all_rooms_night:
-
 vacuum_gameroom_16_night_enable:
 vacuum_hallway_17_night_enable:
 vacuum_bedroom_18_night_enable:
