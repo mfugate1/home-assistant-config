@@ -363,7 +363,16 @@ views:
             name: Max Rooms Cleaned Before Emptying
           - entity: input_number.run_vacuum_after_away_min
             type: custom:numberbox-card
-            name: Run Vacuum After Away For... (Minutes)
+            name: Run Vacuum After Away For (Min)
+          - entity: input_number.run_vacuum_after_asleep_min
+            type: custom:numberbox-card
+            name: Run Vacuum After Asleep For (Min)
+          - entity: input_select.vacuum_fan_speed_day
+            name: Fan Speed (Day)
+          - entity: input_select.vacuum_fan_speed_night
+            name: Fan Speed (Night)
+          - entity: input_datetime.vacuum_night_cleaning_end_time
+            name: Night Cleaning End Time
           - entity: input_boolean.vacuum_enable_all_rooms
             name: All Rooms
           - type: divider
