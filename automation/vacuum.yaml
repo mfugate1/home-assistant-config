@@ -94,7 +94,7 @@
         {% set entities = namespace(ids=[]) %}
         {% set time = trigger.entity_id.split('_')[-1] %}
         {% for state in states.input_boolean %}
-          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_enable_' + time) %}
+          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith(time + '_enable') %}
             {% set entities.ids = entities.ids + [state.entity_id] %}
           {% endif %}
         {% endfor %}
