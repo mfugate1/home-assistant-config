@@ -370,6 +370,7 @@ views:
                 type: custom:multiple-entity-row
                 entity: switch.vacuum_run
                 toggle: true
+                state_color: true
                 entities:
                   - entity: sensor.vacuum_next_room_to_clean
                     attribute: display_name
