@@ -46,7 +46,7 @@ cards:
         name: Night Cleaning End Time
       - entity: input_datetime.vacuum_room_cleaned_today_reset_time
         name: Cleaned Today Reset Time
-      - name: All Rooms
+      - name: Next Room
         type: custom:multiple-entity-row
         entity: group.vacuum_enable_all_rooms_night
         state_header: Night
