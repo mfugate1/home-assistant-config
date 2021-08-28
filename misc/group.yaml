@@ -191,6 +191,7 @@ laundryroom_motion:
   icon: hass:walk
   entities:
     - binary_sensor.laundryroom_motion_1
+    
 office_motion:
   icon: hass:walk
   entities:
