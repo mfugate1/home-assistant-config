@@ -2,7 +2,7 @@
   id: upstairs_bathroom_occupied
   trigger:
     platform: state
-    entity_id: binary_sensor.upstairsbathroom_motion
+    entity_id: group.upstairsbathroom_motion
     to: 'on'
   action:
     service: input_boolean.turn_on
@@ -12,7 +12,7 @@
   id: upstairs_bathroom_unoccupied
   trigger:
     - platform: state
-      entity_id: binary_sensor.upstairsbathroom_motion
+      entity_id: group.upstairsbathroom_motion
       to: 'off'
     - platform: state
       entity_id: binary_sensor.upstairsbathroom_door
@@ -93,7 +93,7 @@
   id: upstairs_bathroom_all_off_if_no_motion
   trigger:
     platform: state
-    entity_id: binary_sensor.upstairsbathroom_motion
+    entity_id: group.upstairsbathroom_motion
     to: 'off'
     for: 
       minutes: "{{ states('input_number.upstairsbathroom_no_motion_timeout_min') | int }}"

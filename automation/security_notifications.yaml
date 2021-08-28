@@ -43,10 +43,13 @@
   trigger:
     platform: state
     entity_id:
-      - binary_sensor.basement_motion
-      - binary_sensor.bedroom_motion
-      - binary_sensor.office_motion
-      - binary_sensor.upstairsbathroom_motion
+      - group.basement_motion
+      - group.bedroom_motion
+      - group.diningroom_motion
+      - group.laundryroom_motion
+      - group.office_motion
+      - group.patio_motion
+      - group.upstairsbathroom_motion
     to: 'on'
   condition:
     condition: not

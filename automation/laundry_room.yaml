@@ -4,7 +4,7 @@
     platform: state
     entity_id: 
       - binary_sensor.laundryroom_door
-      - binary_sensor.laundryroom_motion
+      - group.laundryroom_motion
     to: 'on'
   action:
     service: light.turn_on
@@ -16,13 +16,13 @@
     platform: state
     entity_id: 
       - binary_sensor.laundryroom_door
-      - binary_sensor.laundryroom_motion
+      - group.laundryroom_motion
     to: 'off'
   condition:
     condition: state
     entity_id:
       - binary_sensor.laundryroom_door
-      - binary_sensor.laundryroom_motion
+      - group.laundryroom_motion
     state: 'off'
   action:
     service: light.turn_off
@@ -36,7 +36,7 @@
       to: 'on'
       for: '00:15:00'
     - platform: state
-      entity_id: binary_sensor.laundryroom_motion
+      entity_id: group.laundryroom_motion
       to: 'off'
   condition:
     - condition: state
@@ -44,7 +44,7 @@
       state: 'on'
       for: '00:15:00'
     - condition: state
-      entity_id: binary_sensor.laundryroom_motion
+      entity_id: group.laundryroom_motion
       state: 'off'
   action:
     service: light.turn_off

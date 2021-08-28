@@ -278,7 +278,7 @@ views:
         entities:
           - type: buttons
             entities:
-              - entity: binary_sensor.upstairsbathroom_motion
+              - entity: group.upstairsbathroom_motion
                 show_name: false
               - entity: input_boolean.upstairsbathroom_occupancy
                 show_name: false
@@ -404,15 +404,20 @@ views:
       - type: entities
         title: Motion
         entities:
-          - binary_sensor.basement_motion
-          - entity: binary_sensor.diningroom_motion_1
-            name: Dining Room Motion (Above Fridge)
-          - entity: binary_sensor.laundryroom_motion
-            name: Laundry Room Motion
-          - entity: binary_sensor.patio_motion_1
-            name: Patio Motion (Above Sliding Door)
-          - entity: binary_sensor.upstairsbathroom_motion
-            name: Upstairs Bathroom Motion
+          - entity: group.basement_motion
+            name: Basement
+          - entity: group.bedroom_motion
+            name: Bedroom
+          - entity: group.diningroom_motion
+            name: Dining Room
+          - entity: group.laundryroom_motion
+            name: Laundry Room
+          - entity: group.office_motion
+            name: Office
+          - entity: group.patio_motion
+            name: Patio
+          - entity: group.upstairsbathroom_motion
+            name: Upstairs Bathroom
 
 
       

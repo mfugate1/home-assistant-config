@@ -169,3 +169,41 @@ vacuum_enable_all_rooms_night:
     - input_boolean.vacuum_diningroom_21_night_enable
     - input_boolean.vacuum_office_22_night_enable
     - input_boolean.vacuum_upstairsbathroom_23_night_enable
+
+# Motion
+basement_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.basement_motion_1
+
+bedroom_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.bedroom_motion_1
+
+diningroom_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.diningroom_motion_1
+    - binary_sensor.diningroom_motion_2
+
+laundryroom_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.laundryroom_motion_1
+office_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.office_motion_1
+
+patio_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.patio_motion_1
+
+upstairsbathroom_motion:
+  icon: hass:walk
+  entities:
+    - binary_sensor.upstairsbathroom_motion_1
+    - binary_sensor.upstairsbathroom_motion_2
+    - binary_sensor.upstairsbathroom_motion_3
