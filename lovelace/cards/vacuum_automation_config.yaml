@@ -61,7 +61,7 @@ cards:
             name: false
           entities:
             - entity: switch.vacuum_run
-              name: "${states['switch.vacuum_run'] === 'on' ? 'Stop' : 'Start'}"
+              name: "${states['switch.vacuum_run'].state === 'on' ? 'Stop' : 'Start'}"
               toggle: true
             - entity: group.vacuum_enable_all_rooms_day
               name: Day
