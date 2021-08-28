@@ -370,10 +370,10 @@ views:
                 type: custom:multiple-entity-row
                 entity: switch.vacuum_run
                 toggle: true
-                secondary_info:
-                  entity: sensor.vacuum_next_room_to_clean
-                  name: false
                 entities:
+                  - entity: sensor.vacuum_next_room_to_clean
+                    attribute: display_name
+                    name: false
                   - entity: sensor.vacuum_next_room_to_clean
                     attribute: label
                     name: false
