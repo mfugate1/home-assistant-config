@@ -47,6 +47,8 @@ cards:
       - entity: input_datetime.vacuum_room_cleaned_today_reset_time
         name: Cleaned Today Reset Time
       - type: custom:config-template-card
+        entities:
+          - switch.vacuum_run
         row:
           name: Next Room
           type: custom:multiple-entity-row
