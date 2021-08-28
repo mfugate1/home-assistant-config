@@ -58,6 +58,7 @@ cards:
         entities:
           - entity: switch.vacuum_run
             name: Start/Stop
+            toggle: true
           - entity: group.vacuum_enable_all_rooms_day
             name: Day
             toggle: true
