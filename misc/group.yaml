@@ -159,6 +159,7 @@ vacuum_enable_all_rooms_day:
     - input_boolean.vacuum_upstairsbathroom_23_day_enable
 
 vacuum_enable_all_rooms_night:
+  icon: mdi:robot-vacuum
   entities:
     - input_boolean.vacuum_gameroom_16_night_enable
     - input_boolean.vacuum_hallway_17_night_enable
