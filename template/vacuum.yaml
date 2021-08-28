@@ -28,6 +28,10 @@
             {{ raw.capitalize() }}
           {% endif %}
         label: "Start/Stop"
+- trigger:
+    platform: time_pattern
+    minutes: "/1"
+  sensor:
     - name: vacuum_gameroom_16_last_cleaned
       state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_gameroom_16_last_cleaned'))) }} ago"
     - name: vacuum_hallway_17_last_cleaned
