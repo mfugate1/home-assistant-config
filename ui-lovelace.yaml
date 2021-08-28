@@ -374,7 +374,8 @@ views:
                   entity: sensor.vacuum_next_room_to_clean
                   name: false
                 entities:
-                  - entity: sensor.vacuum_next_room_label
+                  - entity: sensor.vacuum_next_room_to_clean
+                    attribute: label
                     name: false
               - entity: input_number.vacuum_rooms_cleaned_since_being_emptied
                 name: Rooms Cleaned Since Being Emptied

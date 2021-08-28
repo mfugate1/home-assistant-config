@@ -18,5 +18,13 @@
       attributes:
         next_room: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[0] }}"
         next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
-    - name: vacuum_next_room_label
-      state: "Start/Stop"
+        display_name: >-
+          {% set raw = state_attr('sensor.vacuum_next_room_to_clean', 'next_room') %}
+          {% if raw.endswith('bathroom') %}
+            {{ raw.replace('bathroom', '').capitalize() }} Bathroom
+          {% elif raw.endswith('room') %}
+            {{ raw.replace('room', '').capitalize() }} Room
+          {% else %}
+            {{ raw.capitalize() }}
+          {% endif %}
+        label: "Start/Stop"
