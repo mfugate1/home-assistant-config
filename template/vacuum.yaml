@@ -28,3 +28,6 @@
             {{ raw.capitalize() }}
           {% endif %}
         label: "Start/Stop"
+    - name: vacuum_gameroom_16_last_cleaned
+      state: "{{ relative_time(states('input_datetime.vacuum_gameroom_16_last_cleaned')) }}"
+    
