@@ -46,22 +46,24 @@ cards:
         name: Night Cleaning End Time
       - entity: input_datetime.vacuum_room_cleaned_today_reset_time
         name: Cleaned Today Reset Time
-      - name: Next Room
-        type: custom:multiple-entity-row
-        entity: group.vacuum_enable_all_rooms_night
-        state_header: Night
-        toggle: true
-        secondary_info:
-          entity: sensor.vacuum_next_room_to_clean
-          attribute: display_name
-          name: false
-        entities:
-          - entity: switch.vacuum_run
-            name: Start/Stop
-            toggle: true
-          - entity: group.vacuum_enable_all_rooms_day
-            name: Day
-            toggle: true
+      - type: custom:config-template-card
+        row:
+          name: Next Room
+          type: custom:multiple-entity-row
+          entity: group.vacuum_enable_all_rooms_night
+          state_header: Night
+          toggle: true
+          secondary_info:
+            entity: sensor.vacuum_next_room_to_clean
+            attribute: display_name
+            name: false
+          entities:
+            - entity: switch.vacuum_run
+              name: "${states['switch.vacuum_run'] === 'on' ? 'Stop' : 'Start'}"
+              toggle: true
+            - entity: group.vacuum_enable_all_rooms_day
+              name: Day
+              toggle: true
       - type: divider
       - type: custom:multiple-entity-row
         name: Game Room
