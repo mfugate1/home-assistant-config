@@ -422,9 +422,8 @@ views:
                 entity: switch.vacuum_gameroom_16_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_gameroom_16_last_cleaned
+                  entity: sensor.vacuum_gameroom_16_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_gameroom_16_day_enable
                     name: false
@@ -434,9 +433,8 @@ views:
                 entity: switch.vacuum_hallway_17_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_hallway_17_last_cleaned
+                  entity: sensor.vacuum_hallway_17_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_hallway_17_day_enable
                     name: false
@@ -446,9 +444,8 @@ views:
                 entity: switch.vacuum_bedroom_18_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_bedroom_18_last_cleaned
+                  entity: sensor.vacuum_bedroom_18_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_bedroom_18_day_enable
                     name: false
@@ -458,9 +455,8 @@ views:
                 entity: switch.vacuum_livingroom_19_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_livingroom_19_last_cleaned
+                  entity: sensor.vacuum_livingroom_19_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_livingroom_19_day_enable
                     name: false
@@ -470,9 +466,8 @@ views:
                 entity: switch.vacuum_kitchen_20_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_kitchen_20_last_cleaned
+                  entity: sensor.vacuum_kitchen_20_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_kitchen_20_day_enable
                     name: false
@@ -482,9 +477,8 @@ views:
                 entity: switch.vacuum_diningroom_21_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_diningroom_21_last_cleaned
+                  entity: sensor.vacuum_diningroom_21_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_diningroom_21_day_enable
                     name: false
@@ -494,9 +488,8 @@ views:
                 entity: switch.vacuum_office_22_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_office_22_last_cleaned
+                  entity: sensor.vacuum_office_22_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_office_22_day_enable
                     name: false
@@ -506,9 +499,8 @@ views:
                 entity: switch.vacuum_upstairsbathroom_23_night_enable
                 toggle: true
                 secondary_info:
-                  entity: input_datetime.vacuum_upstairsbathroom_23_last_cleaned
+                  entity: sensor.vacuum_upstairsbathroom_23_last_cleaned
                   name: false
-                  format: relative
                 entities:
                   - entity: input_boolean.vacuum_upstairsbathroom_23_day_enable
                     name: false
