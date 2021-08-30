@@ -1,0 +1,27 @@
+- alias: 'Occupancy - Office - On'
+  id: occupancy_office_on
+  trigger:
+    platform: state
+    entity_id: group.office_motion
+    to: 'on'
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.office_occupancy
+
+- alias: 'Occupancy - Office - Off No Motion'
+  id: occupancy_office_off_no_motion
+  trigger:
+    platform: state
+    entity_id: group.office_motion
+    to: 'off'
+    for: "{{ states('input_number.occupancy_office_motion_timeout_minutes') | int }}"
+  condition:
+    - condition: numeric_state
+      entity_id: input_number.occupancy_office_motion_timeout_minutes
+      above: 0
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.office_occupancy
