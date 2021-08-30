@@ -73,7 +73,7 @@ include:
     - sensor.sm_g981u1_phone_state
     - sensor.steps_today
     - sensor.tablet
-    - sensor.tablet_battery
+    - sensor.battery_livingroom_tablet
     - sensor.target_temp_cooling
     - sensor.target_temp_heating
     - sensor.upstairsbathroom_door_sensor_battery_level

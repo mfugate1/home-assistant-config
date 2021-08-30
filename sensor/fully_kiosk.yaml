@@ -23,5 +23,5 @@
 
 - platform: template
   sensors:
-    tablet_battery:
+    battery_livingroom_tablet:
       value_template: "{{ state_attr('sensor.tablet', 'batteryLevel') }}"

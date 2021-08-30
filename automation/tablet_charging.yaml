@@ -2,13 +2,13 @@
   id: tablet_charging_off
   trigger:
     - platform: numeric_state
-      entity_id: sensor.tablet_battery
+      entity_id: sensor.battery_livingroom_tablet
       above: 85
     - platform: homeassistant
       event: start
   condition:
     condition: numeric_state
-    entity_id: sensor.tablet_battery
+    entity_id: sensor.battery_livingroom_tablet
     above: 85
   action:
     service: switch.turn_off
@@ -18,13 +18,13 @@
   id: tablet_charging_on
   trigger:
     - platform: numeric_state
-      entity_id: sensor.tablet_battery
+      entity_id: sensor.battery_livingroom_tablet
       below: 20
     - platform: homeassistant
       event: start
   condition:
     condition: numeric_state
-    entity_id: sensor.tablet_battery
+    entity_id: sensor.battery_livingroom_tablet
     below: 20
   action:
     service: switch.turn_on
