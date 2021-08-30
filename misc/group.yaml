@@ -172,37 +172,50 @@ vacuum_enable_all_rooms_night:
 
 # Motion
 basement_motion:
+  name: Basement
   icon: hass:walk
   entities:
     - binary_sensor.basement_motion_1
 
 bedroom_motion:
+  name: Bedroom
   icon: hass:walk
   entities:
     - binary_sensor.bedroom_motion_1
 
 diningroom_motion:
+  name: Dining Room
   icon: hass:walk
   entities:
     - binary_sensor.diningroom_motion_1
     - binary_sensor.diningroom_motion_2
 
 laundryroom_motion:
+  name: Laundry Room
   icon: hass:walk
   entities:
     - binary_sensor.laundryroom_motion_1
-    
+
+livingroom_motion:
+  name: Living Room
+  icon: hass:walk
+  entities:
+    - binary_sensor.livingroom_motion_1
+
 office_motion:
+  name: Office
   icon: hass:walk
   entities:
     - binary_sensor.office_motion_1
 
 patio_motion:
+  name: Patio
   icon: hass:walk
   entities:
     - binary_sensor.patio_motion_1
 
 upstairsbathroom_motion:
+  name: Upstairs Bathroom
   icon: hass:walk
   entities:
     - binary_sensor.upstairsbathroom_motion_1
