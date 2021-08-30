@@ -41,3 +41,26 @@ vacuum_office_22_last_cleaned:
 vacuum_upstairsbathroom_23_last_cleaned:
   has_date: true
   has_time: true
+
+####### BATTERY TRACKING #######
+battery_last_replaced_diningroom_sensor:
+  has_date: true
+  has_time: true
+battery_last_replaced_garage_door_tilt_sensor:
+  has_date: true
+  has_time: true
+battery_last_replaced_livingroom_sensor:
+  has_date: true
+  has_time: true
+battery_last_replaced_livingroom_smoke_detector:
+  has_date: true
+  has_time: true
+battery_last_replaced_mousetrap:
+  has_date: true
+  has_time: true
+battery_last_replaced_upstairsbathroom_door_sensor:
+  has_date: true
+  has_time: true
+battery_last_replaced_upstairsbathroom_sensor:
+  has_date: true
+  has_time: true
