@@ -37,3 +37,54 @@
         {% else %}
           {{ states('sensor.target_temp_cooling') }}
         {% endif %}
+
+- alias: 'Climate: Alert if exterior doors/windows are open when outside temp is above inside'
+  id: climate_alert_exterior_open_when_outside_temp_above_inside
+  trigger:
+    - platform: state
+      entity_id:
+        - sensor.hvac_current_temperature
+        - sensor.outside_temp
+    - platform: state
+      entity_id: group.exterior_doors_and_windows
+      to: 'on'
+      for:
+        minutes: 5
+  condition: 
+    - condition: template
+      value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.hvac_current_temperature') | int) - 2  }}"
+    - condition: state
+      entity_id: group.exterior_doors_and_windows
+      state: 'on'
+      for:
+        minutes: 5
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: "Outside temp ({{states('sensor.outside_temp')}}) is approaching inside temp ({{states('sensor.hvac_current_temperature')}})"
+      data:
+        sticky: 'true'
+        tag: climate-alert
+
+- alias: 'Climate: Clear warning to close doors and windows'
+  id: climate_clear_warning_to_close_doors_and_windows
+  trigger:
+    - platform: state
+      entity_id:
+        - sensor.hvac_current_temperature
+        - sensor.outside_temp
+    - platform: state
+      entity_id: group.exterior_doors_and_windows
+      to: 'off'
+  condition: 
+    - condition: template
+      value_template: "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2  }}"
+    - condition: state
+      entity_id: group.exterior_doors_and_windows
+      state: 'off'
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: clear_notification
+      data:
+        tag: climate-alert
