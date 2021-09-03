@@ -10,6 +10,8 @@ include:
     - light
     - person
     - switch
+  entity_globs:
+    - group.*_motion
   entities:
     - device_tracker.sm_g950u1
     - media_player.basement_squeezelite
