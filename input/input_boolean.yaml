@@ -27,7 +27,15 @@ bedroom_occupancy:
   icon: mdi:home
 diningroom_occupancy:
   icon: mdi:home
+gameroom_occupancy:
+  icon: mdi:home
+garage_occupancy:
+  icon: mdi:home
+kitchen_occupancy:
+  icon: mdi:home
 laundryroom_occupancy:
+  icon: mdi:home
+livingroom_occupancy:
   icon: mdi:home
 office_occupancy:
   icon: mdi:home
