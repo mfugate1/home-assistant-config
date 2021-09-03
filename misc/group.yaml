@@ -191,13 +191,13 @@ diningroom_motion:
     - binary_sensor.diningroom_motion_2
 
 gameroom_motion:
-  name: Laundry Room
+  name: Game Room
   icon: hass:walk
   entities:
     - binary_sensor.gameroom_motion_1
 
 laundryroom_motion:
-  name: Game Room
+  name: Laundry Room
   icon: hass:walk
   entities:
     - binary_sensor.laundryroom_motion_1
