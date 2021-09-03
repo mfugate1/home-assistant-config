@@ -5,4 +5,4 @@
     hvac_heat_on:
       value_template: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'heating') }}"
     hvac_only_fan_on:
-      value_template: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'idle') and is_state_attr('climate.thermostat', 'fan_action', 'Running') }}"
+      value_template: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'idle') and is_state_attr('climate.thermostat', 'fan_state', 'Running / running low') }}"
