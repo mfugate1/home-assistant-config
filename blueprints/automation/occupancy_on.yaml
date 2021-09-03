@@ -5,11 +5,11 @@ blueprint:
   input:
     room:
 variables:
-  room: !input room
+  room_name: !input room
 trigger:
   platform: state
-  entity_id: "group.{{ room }}_motion"
+  entity_id: "group.{{ room_name }}_motion"
   to: 'on'
 action:
   service: input_boolean.turn_on
-  entity_id: "input_boolean.{{ room }}_occupancy"
+  entity_id: "input_boolean.{{ room_name }}_occupancy"
