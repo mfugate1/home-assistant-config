@@ -1,27 +1,49 @@
-- alias: 'Occupancy - Office - On'
+- alias: 'Occupancy: Office - On'
   id: occupancy_office_on
-  trigger:
-    platform: state
-    entity_id: group.office_motion
-    to: 'on'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.office_occupancy
+  use_blueprint:
+    path: occupancy_on.yaml
+    input:
+      room: office
 
-- alias: 'Occupancy - Office - Off No Motion'
-  id: occupancy_office_off_no_motion
+- alias: 'Occupancy: Office - Off'
+  id: occupancy_office_off
   trigger:
     platform: state
     entity_id: group.office_motion
     to: 'off'
-    for: "{{ states('input_number.occupancy_office_motion_timeout_minutes') | int }}"
+    for: 
+      minutes: "{{ states('input_number.occupancy_office_motion_timeout_minutes') | int }}"
+      seconds: "{{ states('input_number.occupancy_office_motion_timeout_seconds') | int }}"
   condition:
-    - condition: numeric_state
-      entity_id: input_number.occupancy_office_motion_timeout_minutes
-      above: 0
+    - condition: or
+      conditions:
+        - condition: numeric_state
+          entity_id: input_number.occupancy_office_motion_timeout_seconds
+          above: 0
+        - condition: numeric_state
+          entity_id: input_number.occupancy_office_motion_timeout_minutes
+          above: 0
     - condition: state
       entity_id: input_boolean.single_occupancy_mode
       state: 'off'
+  action:
+    service: input_boolean.turn_off
+    entity_id: input_boolean.office_occupancy
+
+- alias: 'Occupancy: Office - Off Single Occupancy'
+  id: occupancy_office_off_single_occupancy
+  trigger:
+    platform: state
+    entity_id: sensor.last_occupied_room
+    for: 
+      seconds: "{{ states('input_number.occupancy_office_single_occupancy_timeout_seconds') }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'on'
+    - condition: numeric_state
+      entity_id: input_number.occupancy_office_single_occupancy_timeout_seconds
+      above: 0
   action:
     service: input_boolean.turn_off
     entity_id: input_boolean.office_occupancy
