@@ -84,11 +84,13 @@
       entity_id: group.exterior_doors_and_windows
       to: 'off'
   condition: 
-    - condition: template
-      value_template: "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2  }}"
-    - condition: state
-      entity_id: group.exterior_doors_and_windows
-      state: 'off'
+    condition: or
+    conditions:
+      - condition: template
+        value_template: "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2  }}"
+      - condition: state
+        entity_id: group.exterior_doors_and_windows
+        state: 'off'
   action:
     service: notify.mobile_app_sm_g981u1
     data:
