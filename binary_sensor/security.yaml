@@ -95,3 +95,10 @@
   device_class: motion
   payload_on: 1
   off_delay: 5
+
+- platform: mqtt
+  name: gameroom_motion_1
+  state_topic: rtl_433/+/devices/Kerui-Security/235841/motion
+  device_class: motion
+  payload_on: 1
+  off_delay: 5
