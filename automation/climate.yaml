@@ -58,6 +58,13 @@
       state: 'on'
       for:
         minutes: 5
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: 
+            - sensor.hvac_current_temperature
+            - sensor.outside_temp
+          state: unknown
   action:
     service: notify.mobile_app_sm_g981u1
     data:
