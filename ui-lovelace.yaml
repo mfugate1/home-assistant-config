@@ -359,7 +359,7 @@ views:
             entities:
               - sensor.basement_humidity
         
-      - !include lovelace/cards/vacuum_automation_config.yaml
+      - !include lovelace/cards/automation_config/vacuum.yaml
   - icon: mdi:cctv
     panel: true
     cards:
