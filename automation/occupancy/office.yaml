@@ -49,7 +49,7 @@
     - condition: template
       value_template: "{{ states('input_number.occupancy_office_single_occupancy_timeout_seconds') | int > 0 }}"
     - condition: template
-      value_template: "{{ states('sensor.last_occupied_room') != office }}"
+      value_template: "{{ states('sensor.last_occupied_room') != 'office' }}"
   action:
     service: input_boolean.turn_off
     target:
