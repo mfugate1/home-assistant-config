@@ -5,21 +5,21 @@ blueprint:
   input:
     room:
 variables:
-  room_name: !input room
+  room: !input room
 trigger:
     platform: state
     entity_id: sensor.last_occupied_room
     for: 
-      seconds: "{{ states('input_number.occupancy_' + room_name + '_single_occupancy_timeout_seconds') }}"
+      seconds: "{{ states('input_number.occupancy_' + room + '_single_occupancy_timeout_seconds') }}"
 condition:
   - condition: state
     entity_id: input_boolean.single_occupancy_mode
     state: 'on'
   - condition: template
-    value_template: "{{ states('input_number.occupancy_' + room_name + '_single_occupancy_timeout_seconds') | int > 0 }}"
-  - conditon: template
-    value_template: "{{ states('sensor.last_occupied_room') != room_name }}"
+    value_template: "{{ states('input_number.occupancy_' + room + '_single_occupancy_timeout_seconds') | int > 0 }}"
+  - condition: template
+    value_template: "{{ states('sensor.last_occupied_room') != room }}"
 action:
   service: input_boolean.turn_off
   target:
-    entity_id: "input_boolean.{{ room_name }}_occupancy"
+    entity_id: "input_boolean.{{ room }}_occupancy"
