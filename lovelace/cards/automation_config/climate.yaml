@@ -1,0 +1,55 @@
+title: Climate
+type: custom:stack-in-card
+cards:
+  - type: entities
+    entities:
+      - automation.set_thermostat_temperature
+      - type: divider
+      - type: custom:multiple-entity-row
+        name: Target Temperatures
+        entity: sensor.target_temp_heating
+        state_header: heat
+        entities:
+          - entity: climate.thermostat
+            name: current
+          - entity: sensor.target_temp_cooling
+            name: cool
+      - type: divider
+  - type: horizontal-stack
+    cards:
+      - type: entities
+        title: Heating
+        entities:
+          - entity: input_number.climate_heat_away_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_heat_asleep_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_heat_home_temp
+            type: custom:numberbox-card
+      - type: entities
+        title: Cooling
+        entities:
+          - entity: input_number.climate_cool_away_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_cool_asleep_temp
+            type: custom:numberbox-card
+          - entity: input_number.climate_cool_home_temp
+            type: custom:numberbox-card
+  - name: Usage (2 weeks)
+    type: custom:mini-graph-card
+    aggregate_func: max
+    hours_to_show: 336
+    decimals: 0
+    group_by: date
+    show:
+      state: false
+      icon: false
+      legend: false
+      labels: true
+    entities:
+      - entity: sensor.hvac_heat_on_today
+        color: red
+      - entity: sensor.hvac_cool_on_today
+        color: blue
+      - entity: sensor.hvac_fan_only_on_today
+        color: yellow

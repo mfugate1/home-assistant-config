@@ -1,0 +1,48 @@
+title: Dehumidifier
+type: custom:stack-in-card
+cards:
+  - type: entities
+    entities:
+      - type: divider
+      - name: Status
+        type: custom:multiple-entity-row
+        entity: switch.dehumidifier
+        toggle: true
+        entities:
+          - entity: sensor.dehumidifier_power
+            name: false
+          - entity: sensor.basement_humidity
+            name: false
+      - type: divider
+      - name: Automations
+        type: custom:multiple-entity-row
+        entity: automation.turn_on_dehumidifier_if_above_threshold
+        toggle: true
+        state_header: 'On'
+        entities:
+          - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
+            name: 'Off'
+            toggle: true
+      - type: divider
+  - type: horizontal-stack
+    cards:
+      - type: entities
+        entities:
+          - entity: input_number.dehumidifier_off_threshold
+            name: 'Off'
+            type: custom:numberbox-card
+      - type: entities
+        entities:
+          - entity: input_number.dehumidifier_on_threshold
+            name: 'On'
+            type: custom:numberbox-card
+  - name: Basement Humidity
+    type: custom:mini-graph-card
+    line_color: blue
+    lower_bound: 35
+    upper_bound: 55
+    hours_to_show: 48
+    smoothing: false
+    points_per_hour: 2
+    entities:
+      - sensor.basement_humidity
