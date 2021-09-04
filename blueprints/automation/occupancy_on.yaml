@@ -3,13 +3,13 @@ blueprint:
   description: Turn on occupancy input boolean when motion is detected in a room
   domain: automation
   input:
-    room:
+    motion_group:
 variables:
-  room_name: !input room
+  motion_group: !input motion_group
 trigger:
   platform: state
-  entity_id: "group.{{ room_name }}_motion"
+  entity_id: !input motion_group
   to: 'on'
 action:
   service: input_boolean.turn_on
-  entity_id: "input_boolean.{{ room_name }}_occupancy"
+  entity_id: "input_boolean.{{ motion_group.split('.')[1].split('_')[0] }}_occupancy"

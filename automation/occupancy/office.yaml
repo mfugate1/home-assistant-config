@@ -3,7 +3,7 @@
   use_blueprint:
     path: occupancy_on.yaml
     input:
-      room: office
+      room: group.office_motion
 
 - alias: 'Occupancy: Office - Off'
   id: occupancy_office_off
