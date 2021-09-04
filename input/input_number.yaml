@@ -193,9 +193,6 @@ occupancy_upstairsbathroom_motion_timeout_seconds:
 occupancy_upstairsbathroom_single_occupancy_timeout_seconds:
   min: 0
   max: 240
-occupancy_upstairsbathroom_single_occupancy_fallback_timeout_minutes:
-  min: 0
-  max: 30
 occupancy_upstairsbathroom_motion_quick_timeout_seconds:
   min: 0
   max: 240

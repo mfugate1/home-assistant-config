@@ -1,106 +1,62 @@
-- alias: 'Upstairs bathroom occupied'
-  id: upstairs_bathroom_occupied
+- alias: 'Occupancy: Upstairs Bathroom - On'
+  id: occupancy_upstairsbathroom_on
+  use_blueprint:
+    path: occupancy_on.yaml
+    input:
+      motion_group: group.upstairsbathroom_motion
+
+- alias: 'Occupancy: Upstairs Bathroom - Off'
+  id: occupancy_upstairsbathroom_off
   trigger:
     platform: state
     entity_id: group.upstairsbathroom_motion
-    to: 'on'
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.upstairsbathroom_occupancy
-
-- alias: 'Upstairs bathroom unoccupied'
-  id: upstairs_bathroom_unoccupied
-  trigger:
-    - platform: state
-      entity_id: group.upstairsbathroom_motion
-      to: 'off'
-    - platform: state
-      entity_id: binary_sensor.upstairsbathroom_door
-      to: 'on'
+    to: 'off'
+    for:
+      minutes: "{{ states('input_number.occupancy_upstairsbathroom_motion_timeout_minutes') }}"
+      seconds: "{{ states('input_number.occupancy_upstairsbathroom_motion_timeout_seconds') }}"
   condition:
-    condition: state
-    entity_id: binary_sensor.upstairsbathroom_door
-    state: 'on'
+    - condition: or
+      conditions:
+        - condition: numeric_state
+          entity_id: input_number.occupancy_upstairsbathroom_motion_timeout_minutes
+          above: 0
+        - condition: numeric_state
+          entity_id: input_number.occupancy_upstairsbathroom_motion_timeout_seconds
+          above: 0
+    - condition: state
+      entity_id: binary_sensor.upstairsbathroom_door
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
   action:
     service: input_boolean.turn_off
     entity_id: input_boolean.upstairsbathroom_occupancy
 
-- alias: 'Upstairs bathroom lights on'
-  id: upstairs_bathroom_lights_on
-  trigger:
-    platform: state
-    entity_id: input_boolean.upstairsbathroom_occupancy
-    to: 'on'
-  condition:
-    condition: state
-    entity_id: light.upstairsbathroom
-    state: 'off'
-  action:
-    service: light.turn_on
-    entity_id: light.upstairsbathroom
-    data:
-      brightness: "{{ states('input_number.upstairsbathroom_light_brightness')}}"
-      transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
-
-- alias: 'Upstairs bathroom lights off'
-  id: upstairs_bathroom_lights_off
-  trigger: 
-    platform: state
-    entity_id: input_boolean.upstairsbathroom_occupancy
-    to: 'off'
-    for: 
-      minutes: "{{ states('input_number.upstairsbathroom_occupancy_timeout_min') | int }}"
-      seconds: "{{ states('input_number.upstairsbathroom_occupancy_timeout_sec') | int }}"
-  action:
-    service: light.turn_off
-    entity_id: light.upstairsbathroom
-
-- alias: 'Upstairs bathroom vent control'
-  id: upstairs_bathroom_vent_control
+- alias: 'Occupancy: Upstairs Bathroom - Off Quickly After Door Opens'
+  id: occupancy_upstairsbathroom_off_quickly_after_door_opens
   trigger:
     platform: state
     entity_id: binary_sensor.upstairsbathroom_door
+    to: 'on'
+  condition:
+    - condition: numeric_state
+      entity_id: input_number.occupancy_upstairsbathroom_motion_quick_timeout_seconds
+      above: 0
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
   action:
-    service: >-
-      {% if trigger.to_state.state == 'on' %}
-        switch.turn_off
-      {% else %}
-        switch.turn_on
-      {% endif %}
-    entity_id: switch.upstairsbathroom_vent
+    - wait_template: "{{ is_state('group.upstairsbathroom_motion', 'off') }}"
+      timeout: 
+        seconds: "{{ states('input_number.occupancy_upstairsbathroom_motion_quick_timeout_seconds') }}"
+      continue_on_timeout: false
+    - service: input_boolean.turn_off
+      entity_id: input_boolean.upstairsbathroom_occupancy
 
-- alias: 'Set upstairs bathroom light brightness'
-  id: set_upstairs_bathroom_light_brightness
-  trigger:
-    platform: state
-    entity_id:
-      - input_boolean.sleep_mode
-      - sun.sun
-  action:
-    service: input_number.set_value
-    entity_id: input_number.upstairsbathroom_light_brightness
-    data:
-      value: >-
-        {% if is_state('input_boolean.sleep_mode', 'on') %}
-          {{ states('input_number.upstairsbathroom_light_sleeping_brightness') }}
-        {% elif is_state('sun.sun', 'above_horizon') %}
-          {{ states('input_number.upstairsbathroom_light_day_brightness') }}
-        {% else %}
-          {{ states('input_number.upstairsbathroom_light_night_brightness') }}
-        {% endif %}
-
-- alias: 'Upstairs bathroom all off if no motion'
-  id: upstairs_bathroom_all_off_if_no_motion
-  trigger:
-    platform: state
-    entity_id: group.upstairsbathroom_motion
-    to: 'off'
-    for: 
-      minutes: "{{ states('input_number.upstairsbathroom_no_motion_timeout_min') | int }}"
-  action:
-    service: homeassistant.turn_off
-    entity_id:
-      - light.upstairsbathroom
-      - switch.upstairsbathroom_vent
-      - input_boolean.upstairsbathroom_occupancy
-
+- alias: 'Occupancy: Upstairs Bathroom - Off Single Occupancy'
+  id: occupancy_upstairsbathroom_off_single_occupancy
+  use_blueprint:
+    path: occupancy_off_single_occupancy.yaml
+    input:
+      room: upstairsbathroom
