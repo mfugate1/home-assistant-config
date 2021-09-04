@@ -1,0 +1,52 @@
+- alias: 'Occupancy: Dining Room - On'
+  id: occupancy_diningroom_on
+  trigger:
+    platform: state
+    entity_id: group.diningroom_motion
+    to: 'on'
+  action:
+    service: input_boolean.turn_on
+    target:
+      entity_id: "input_boolean.diningroom_occupancy"
+
+- alias: 'Occupancy: Dining Room - Off'
+  id: occupancy_diningroom_off
+  trigger:
+    platform: state
+    entity_id: group.diningroom_motion
+    to: 'off'
+    for: 
+      minutes: "{{ states('input_number.occupancy_diningroom_motion_timeout_minutes') | int > 0 }}"
+      seconds: "{{ states('input_number.occupancy_diningroom_motion_timeout_seconds') | int > 0 }}"
+  condition:
+    - condition: or
+      conditions:
+        - "{{ states('input_number.occupancy_diningroom_motion_timeout_minutes') | int > 0 }}"
+        - "{{ states('input_number.occupancy_diningroom_motion_timeout_seconds') | int > 0 }}"
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: "input_boolean.diningroom_occupancy"
+
+- alias: 'Occupancy: Dining Room - Off Single Occupancy'
+  id: occupancy_diningroom_off_single_occupancy
+  trigger:
+    platform: state
+    entity_id: sensor.last_occupied_room
+    for: 
+      seconds: "{{ states('input_number.occupancy_diningroom_single_occupancy_timeout_seconds') }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'on'
+    - condition: template
+      value_template: "{{ states('input_number.occupancy_diningroom_single_occupancy_timeout_seconds') | int > 0 }}"
+    - condition: template
+      value_template: "{{ states('sensor.last_occupied_room') != 'diningroom' }}"
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: "input_boolean.diningroom_occupancy"
