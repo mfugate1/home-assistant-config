@@ -8,7 +8,7 @@ variables:
   motion_group: !input motion_group
 trigger:
   platform: state
-  entity_id: !input motion_group
+  entity_id: "group.{{ motion_group.split('.')[1].split('_')[0] }}_motion"
   to: 'on'
 action:
   service: input_boolean.turn_on
