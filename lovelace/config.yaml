@@ -36,6 +36,8 @@ resources:
     type: module
   - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
     type: module
+  - url: /hacsfiles/lovelace-state-switch/state-switch.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
