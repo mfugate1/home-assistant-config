@@ -1,5 +1,6 @@
 - sensor:
     - name: vacuum_next_room_to_clean
+      availability: "{{ state_attr('sensor.vacuum_next_room_to_clean', 'next_room') != None }}"
       state: >-
         {% set clean_this = namespace(entity='none',last_cleaned='') %}
         {% set time = 'day' if is_state('input_boolean.sleep_mode', 'off') else 'night' %}
