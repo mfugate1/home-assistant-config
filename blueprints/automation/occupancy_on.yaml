@@ -6,6 +6,7 @@ blueprint:
     motion_group:
 variables:
   motion_group: !input motion_group
+  room: "{{ motion_group.split('.')[1].split('_')[0] }}"
 trigger:
   platform: state
   entity_id: !input motion_group
@@ -13,4 +14,4 @@ trigger:
 action:
   service: input_boolean.turn_on
   target:
-    entity_id: "input_boolean.{{ motion_group.split('.')[1].split('_')[0] }}_occupancy"
+    entity_id: "input_boolean.{{ room }}_occupancy"
