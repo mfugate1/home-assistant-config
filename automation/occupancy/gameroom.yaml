@@ -1,52 +1,52 @@
-- alias: 'Occupancy: Office - On'
-  id: occupancy_office_on
+- alias: 'Occupancy: Game Room - On'
+  id: occupancy_gameroom_on
   trigger:
     platform: state
-    entity_id: group.office_motion
+    entity_id: group.gameroom_motion
     to: 'on'
   action:
     service: input_boolean.turn_on
-    entity_id: input_boolean.office_occupancy
+    entity_id: input_boolean.gameroom_occupancy
 
-- alias: 'Occupancy: Office - Off'
-  id: occupancy_office_off
+- alias: 'Occupancy: Game Room - Off'
+  id: occupancy_gameroom_off
   trigger:
     platform: state
-    entity_id: group.office_motion
+    entity_id: group.gameroom_motion
     to: 'off'
     for: 
-      minutes: "{{ states('input_number.occupancy_office_motion_timeout_minutes') | int }}"
-      seconds: "{{ states('input_number.occupancy_office_motion_timeout_seconds') | int }}"
+      minutes: "{{ states('input_number.occupancy_gameroom_motion_timeout_minutes') | int }}"
+      seconds: "{{ states('input_number.occupancy_gameroom_motion_timeout_seconds') | int }}"
   condition:
     - condition: or
       conditions:
         - condition: numeric_state
-          entity_id: input_number.occupancy_office_motion_timeout_seconds
+          entity_id: input_number.occupancy_gameroom_motion_timeout_seconds
           above: 0
         - condition: numeric_state
-          entity_id: input_number.occupancy_office_motion_timeout_minutes
+          entity_id: input_number.occupancy_gameroom_motion_timeout_minutes
           above: 0
     - condition: state
       entity_id: input_boolean.single_occupancy_mode
       state: 'off'
   action:
     service: input_boolean.turn_off
-    entity_id: input_boolean.office_occupancy
+    entity_id: input_boolean.gameroom_occupancy
 
-- alias: 'Occupancy: Office - Off Single Occupancy'
-  id: occupancy_office_off_single_occupancy
+- alias: 'Occupancy: Game Room - Off Single Occupancy'
+  id: occupancy_gameroom_off_single_occupancy
   trigger:
     platform: state
     entity_id: sensor.last_occupied_room
     for: 
-      seconds: "{{ states('input_number.occupancy_office_single_occupancy_timeout_seconds') }}"
+      seconds: "{{ states('input_number.occupancy_gameroom_single_occupancy_timeout_seconds') }}"
   condition:
     - condition: state
       entity_id: input_boolean.single_occupancy_mode
       state: 'on'
     - condition: numeric_state
-      entity_id: input_number.occupancy_office_single_occupancy_timeout_seconds
+      entity_id: input_number.occupancy_gameroom_single_occupancy_timeout_seconds
       above: 0
   action:
     service: input_boolean.turn_off
-    entity_id: input_boolean.office_occupancy
+    entity_id: input_boolean.gameroom_occupancy
