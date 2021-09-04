@@ -413,6 +413,15 @@ views:
           - group.office_motion
           - group.patio_motion
           - group.upstairsbathroom_motion
+      - type: entities
+        title: SO DEBUG
+        entities:
+          - sensor.last_occupied_room
+          - input_boolean.office_occupancy
+          - input_boolean.upstairsbathroom_occupancy
+          - automation.occupancy_office_off_single_occupancy
+          - automation.occupancy_upstairs_bathroom_off_single_occupancy
+
 
 
       
