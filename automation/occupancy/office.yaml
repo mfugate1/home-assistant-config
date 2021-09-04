@@ -1,9 +1,13 @@
 - alias: 'Occupancy: Office - On'
   id: occupancy_office_on
-  use_blueprint:
-    path: occupancy_on.yaml
-    input:
-      motion_group: group.office_motion
+  trigger:
+    platform: state
+    entity_id: group.office_motion
+    to: 'on'
+  action:
+    service: input_boolean.turn_on
+    target:
+      entity_id: "input_boolean.office_occupancy"
 
 - alias: 'Occupancy: Office - Off'
   id: occupancy_office_off
@@ -11,10 +15,42 @@
     path: occupancy_off.yaml
     input:
       motion_group: group.office_motion
+  trigger:
+    platform: state
+    entity_id: group.office_motion
+    to: 'off'
+    for: 
+      minutes: "{{ states('input_number.occupancy_office_motion_timeout_minutes') | int > 0 }}"
+      seconds: "{{ states('input_number.occupancy_office_motion_timeout_seconds') | int > 0 }}"
+  condition:
+    - condition: or
+      conditions:
+        - "{{ states('input_number.occupancy_office_motion_timeout_minutes') | int > 0 }}"
+        - "{{ states('input_number.occupancy_office_motion_timeout_seconds') | int > 0 }}"
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: "input_boolean.office_occupancy"
 
 - alias: 'Occupancy: Office - Off Single Occupancy'
   id: occupancy_office_off_single_occupancy
-  use_blueprint:
-    path: occupancy_off_single_occupancy.yaml
-    input:
-      room: office
+  trigger:
+    platform: state
+    entity_id: sensor.last_occupied_room
+    for: 
+      seconds: "{{ states('input_number.occupancy_office_single_occupancy_timeout_seconds') }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'on'
+    - condition: template
+      value_template: "{{ states('input_number.occupancy_office_single_occupancy_timeout_seconds') | int > 0 }}"
+    - condition: template
+      value_template: "{{ states('sensor.last_occupied_room') != office }}"
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: "input_boolean.office_occupancy"
