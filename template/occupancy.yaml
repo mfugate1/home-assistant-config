@@ -1,0 +1,18 @@
+- trigger:
+    platform: state
+    entity_id:
+      - input_boolean.basement_occupancy
+      - input_boolean.bedroom_occupancy
+      - input_boolean.diningroom_occupancy
+      - input_boolean.gameroom_occupancy
+      - input_boolean.garage_occupancy
+      - input_boolean.kitchen_occupancy
+      - input_boolean.laundryroom_occupancy
+      - input_boolean.livingroom_occupancy
+      - input_boolean.office_occupancy
+      - input_boolean.patio_occupancy
+      - input_boolean.upstairsbathroom_occupancy
+    to: 'on'
+  sensor:
+    - name: last_occupied_room
+      state: "{{ trigger.entity_id.replace('input_boolean.', '').replace('_occupancy', '') }}"
