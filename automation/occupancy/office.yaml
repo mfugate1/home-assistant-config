@@ -11,10 +11,6 @@
 
 - alias: 'Occupancy: Office - Off'
   id: occupancy_office_off
-  use_blueprint:
-    path: occupancy_off.yaml
-    input:
-      motion_group: group.office_motion
   trigger:
     platform: state
     entity_id: group.office_motion
