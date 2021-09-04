@@ -12,4 +12,5 @@ trigger:
   to: 'on'
 action:
   service: input_boolean.turn_on
-  entity_id: "input_boolean.{{ motion_group.split('.')[1].split('_')[0] }}_occupancy"
+  target:
+    entity_id: "input_boolean.{{ motion_group.split('.')[1].split('_')[0] }}_occupancy"
