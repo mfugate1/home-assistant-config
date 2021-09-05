@@ -3,7 +3,7 @@ type: custom:stack-in-card
 cards:
   - type: entities
     canary_style:
-      margin: '0px 0px -32px'
+      margin: '-32px 0px -32px'
     entities:
       - entity: input_number.vacuum_rooms_cleaned_since_being_emptied
         name: Rooms Cleaned Since Being Emptied
