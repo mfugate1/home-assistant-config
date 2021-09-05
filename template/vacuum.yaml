@@ -20,7 +20,9 @@
         next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
         display_name: >-
           {% set raw = state_attr('sensor.vacuum_next_room_to_clean', 'next_room') %}
-          {% if raw.endswith('bathroom') %}
+          {% if not raw %}
+            None
+          {% elif raw.endswith('bathroom') %}
             {{ raw.replace('bathroom', '').capitalize() }} Bathroom
           {% elif raw.endswith('room') %}
             {{ raw.replace('room', '').capitalize() }} Room
