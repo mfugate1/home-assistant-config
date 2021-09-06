@@ -31,11 +31,8 @@
   condition:
     condition: not
     conditions:
-      condition: state
-      entity_id:
-        - sensor.target_temp_cooling
-        - sensor.target_temp_heating
-      state: unknown
+      - "{{ is_state('sensor.target_temp_cooling', 'unknown') }}"
+      - "{{ is_state('sensor.target_temp_heating', 'unknown') }}"
   action:
     service: climate.set_temperature
     entity_id: climate.thermostat
