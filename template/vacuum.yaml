@@ -16,8 +16,8 @@
         {% endfor %}
         {{ clean_this.entity.replace('input_datetime.vacuum_', '').replace('_last_cleaned', '') }}     
       attributes:
-        next_room: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[0] }}"
-        next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
+        next_room: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[0]  if '_' in states('sensor.vacuum_next_room_to_clean') else '' }}"
+        next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] if '_' in states('sensor.vacuum_next_room_to_clean') else '' }}"
         display_name: >-
           {% set raw = state_attr('sensor.vacuum_next_room_to_clean', 'next_room') %}
           {% if not raw %}
