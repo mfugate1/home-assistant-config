@@ -104,7 +104,8 @@
     entity_id:
       - input_number.vacuum_max_rooms_cleaned_before_emptying
       - input_number.vacuum_rooms_cleaned_since_being_emptied
-  condition: "{{ ( states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) >= ( states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
+      - vacuum.roborock_s6_pure
+  condition: "{{ is_state('vacuum.roborock_s6_pure', 'docked') and (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) >= (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
   action:
     service: input_boolean.turn_on
     target:
