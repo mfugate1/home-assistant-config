@@ -29,7 +29,7 @@
       - sensor.target_temp_heating
       - sensor.target_temp_cooling
   condition:
-    conditon: not
+    condition: not
     conditions:
       condition: state
       entity_id:
