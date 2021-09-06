@@ -1,5 +1,5 @@
-- alias: 'Turn off HVAC if any doors or windows are open'
-  id: turn_off_hvac_if_any_doors_or_windows_are_open
+- alias: 'Climate: Turn off HVAC if any doors or windows are open'
+  id: climate_turn_off_hvac_if_any_doors_or_windows_are_open
   trigger:
     platform: state
     entity_id: group.hvac_off
@@ -10,8 +10,8 @@
     service: climate.turn_off
     entity_id: climate.thermostat
 
-- alias: 'Turn on HVAC when all doors and windows are closed'
-  id: turn_on_hvac_when_all_doors_and_windows_are_closed
+- alias: 'Climate: Turn on HVAC when all doors and windows are closed'
+  id: climate_turn_on_hvac_when_all_doors_and_windows_are_closed
   trigger:
     platform: state
     entity_id: group.hvac_off
@@ -20,8 +20,9 @@
     service: climate.turn_on
     entity_id: climate.thermostat
 
-- alias: 'Set thermostat temperature'
-  id: set_thermostat_temperature
+- alias: 'Climate: Set thermostat temperature'
+  id: climate_set_thermostat_temperature
+  mode: restart
   trigger:
     platform: state
     entity_id:
