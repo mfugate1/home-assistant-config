@@ -3,10 +3,10 @@
       webhook_id: !secret garmin_challenge_01
   sensor: &sensor
     - unique_id: garmin_challenge_01
-      name: "{{ trigger.json.name }}"
-      state: "{{ trigger.json.state }}"
-      picture: "{{ trigger.json.image_url }}"
-      icon: "{{ trigger.json.icon }}"
+      name: "{{ trigger.json.name if 'name' in trigger.json else '' }}"
+      state: "{{ trigger.json.state if 'state' in trigger.json else '' }}"
+      picture: "{{ trigger.json.image_url if 'image_url' in trigger.json else '' }}"
+      icon: "{{ trigger.json.icon if 'icon' in trigger.json else '' }}"
       attributes: 
         start_date: "{{ trigger.json.start_date if 'start_date' in trigger.json else '' }}"
         end_date: "{{ trigger.json.end_date if 'end_date' in trigger.json else '' }}"
