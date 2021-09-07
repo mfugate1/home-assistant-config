@@ -80,6 +80,9 @@
     - condition: state
       entity_id: group.upstairsbathroom_motion
       state: 'off'
+    - condition: state
+      entity_id: binary_sensor.upstairsbathroom_door
+      state: 'on'
   action:
     service: input_boolean.turn_off
     target:
