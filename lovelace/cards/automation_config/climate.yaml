@@ -3,7 +3,7 @@ type: custom:stack-in-card
 cards:
   - type: entities
     entities:
-      - automation.set_thermostat_temperature
+      - automation.climate_set_thermostat_temperature
       - type: divider
       - type: custom:multiple-entity-row
         name: Target Temperatures
