@@ -196,6 +196,12 @@ gameroom_motion:
   entities:
     - binary_sensor.gameroom_motion_1
 
+kitchen_motion:
+  name: Kitchen
+  icon: hass:walk
+  entities:
+    - binary_sensor.kitchen_motion_1
+
 laundryroom_motion:
   name: Laundry Room
   icon: hass:walk

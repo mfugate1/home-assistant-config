@@ -5,6 +5,7 @@
       - group.bedroom_motion
       - group.diningroom_motion
       - group.gameroom_motion
+      - group.kitchen_motion
       - group.laundryroom_motion
       - group.livingroom_motion
       - group.office_motion
