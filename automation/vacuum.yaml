@@ -8,7 +8,24 @@
       for:
         minutes: "{{ states('input_number.run_vacuum_after_away_min') }}"
     - platform: state
-      entity_id: input_boolean.workout_mode
+      entity_id: 
+        - input_boolean.workout_mode
+        - input_boolean.vacuum_gameroom_16_day_enable
+        - input_boolean.vacuum_hallway_17_day_enable
+        - input_boolean.vacuum_bedroom_18_day_enable
+        - input_boolean.vacuum_livingroom_19_day_enable
+        - input_boolean.vacuum_kitchen_20_day_enable
+        - input_boolean.vacuum_diningroom_21_day_enable
+        - input_boolean.vacuum_office_22_day_enable
+        - input_boolean.vacuum_upstairsbathroom_23_day_enable
+        - input_boolean.vacuum_gameroom_16_night_enable
+        - input_boolean.vacuum_hallway_17_night_enable
+        - input_boolean.vacuum_bedroom_18_night_enable
+        - input_boolean.vacuum_livingroom_19_night_enable
+        - input_boolean.vacuum_kitchen_20_night_enable
+        - input_boolean.vacuum_diningroom_21_night_enable
+        - input_boolean.vacuum_office_22_night_enable
+        - input_boolean.vacuum_upstairsbathroom_23_night_enable
       to: 'on'
     - platform: state
       entity_id: vacuum.roborock_s6_pure
@@ -21,6 +38,17 @@
     - platform: state
       entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
       to: '0'
+    - platform: state
+      entity_id:
+        - input_boolean.vacuum_gameroom_16_cleaned_today
+        - input_boolean.vacuum_hallway_17_cleaned_today
+        - input_boolean.vacuum_bedroom_18_cleaned_today
+        - input_boolean.vacuum_livingroom_19_cleaned_today
+        - input_boolean.vacuum_kitchen_20_cleaned_today
+        - input_boolean.vacuum_diningroom_21_cleaned_today
+        - input_boolean.vacuum_office_22_cleaned_today
+        - input_boolean.vacuum_upstairsbathroom_23_cleaned_today
+      to: 'off'
   condition:
     condition: or
     conditions:
