@@ -6,6 +6,7 @@
     entity_id: 
       - group.led_red
       - group.led_yellow
+      - group.led_green
       - group.led_purple
       - group.led_chase
       - group.led_blink
