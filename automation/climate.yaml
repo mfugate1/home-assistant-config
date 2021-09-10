@@ -89,6 +89,7 @@
       entity_id:
         - sensor.hvac_current_temperature
         - sensor.outside_temp
+        - sensor.target_temp_cooling
     - platform: state
       entity_id: group.exterior_doors_and_windows
       to: 'off'
