@@ -51,6 +51,7 @@
       entity_id:
         - sensor.hvac_current_temperature
         - sensor.outside_temp
+        - sensor.target_temp_cooling
     - platform: state
       entity_id: group.exterior_doors_and_windows
       to: 'on'
@@ -58,7 +59,9 @@
         minutes: 5
   condition: 
     - condition: template
-      value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.hvac_current_temperature') | int) - 2  }}"
+      value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.hvac_current_temperature') | int) - 2 }}"
+    - condition: template
+      value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.target_temp_cooling') | int) - 2 }}"
     - condition: state
       entity_id: group.exterior_doors_and_windows
       state: 'on'
@@ -92,8 +95,8 @@
   condition: 
     condition: or
     conditions:
-      - condition: template
-        value_template: "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2  }}"
+      - "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2 }}"
+      - "{{ (states('sensor.outside_temp') | int) <= (states('sensor.target_temp_cooling') | int) - 2 }}"
       - condition: state
         entity_id: group.exterior_doors_and_windows
         state: 'off'
