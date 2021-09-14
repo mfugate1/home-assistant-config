@@ -131,7 +131,7 @@
     platform: state
     entity_id: vacuum.roborock_s6_pure
     to: docked
-  condition: "{{ is_state('vacuum.roborock_s6_pure', 'docked') and (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) >= (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
+  condition: "{{ (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) >= (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
   action:
     service: input_boolean.turn_on
     target:
