@@ -1,0 +1,52 @@
+- alias: 'Occupancy: Garage - On'
+  id: occupancy_garage_on
+  trigger:
+    platform: state
+    entity_id: group.garage_motion
+    to: 'on'
+  action:
+    service: input_boolean.turn_on
+    target:
+      entity_id: "input_boolean.garage_occupancy"
+
+- alias: 'Occupancy: Garage - Off'
+  id: occupancy_garage_off
+  trigger:
+    platform: state
+    entity_id: group.garage_motion
+    to: 'off'
+    for: 
+      minutes: "{{ states('input_number.occupancy_garage_motion_timeout_minutes') | int > 0 }}"
+      seconds: "{{ states('input_number.occupancy_garage_motion_timeout_seconds') | int > 0 }}"
+  condition:
+    - condition: or
+      conditions:
+        - "{{ states('input_number.occupancy_garage_motion_timeout_minutes') | int > 0 }}"
+        - "{{ states('input_number.occupancy_garage_motion_timeout_seconds') | int > 0 }}"
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: "input_boolean.garage_occupancy"
+
+- alias: 'Occupancy: Garage - Off Single Occupancy'
+  id: occupancy_garage_off_single_occupancy
+  trigger:
+    platform: state
+    entity_id: sensor.last_occupied_room
+    for: 
+      seconds: "{{ states('input_number.occupancy_garage_single_occupancy_timeout_seconds') }}"
+  condition:
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'on'
+    - condition: template
+      value_template: "{{ states('input_number.occupancy_garage_single_occupancy_timeout_seconds') | int > 0 }}"
+    - condition: template
+      value_template: "{{ states('sensor.last_occupied_room') != 'garage' }}"
+  action:
+    service: input_boolean.turn_off
+    target:
+      entity_id: "input_boolean.garage_occupancy"
