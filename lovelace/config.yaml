@@ -46,6 +46,8 @@ resources:
     type: module
   - url: /hacsfiles/text-divider-row/text-divider-row.js
     type: module
+  - url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
