@@ -68,7 +68,7 @@
           fan_mode: "{{ state_attr('climate.thermostat', 'fan_mode') }}"
     heat_mode:
       icon_template: mdi:fire
-      value_template: "{{ is_state('climate.thermostat', 'heat') }}"
+      value_template: "{{ is_state('climate.thermostat', 'heat') or is_state_attr('climate.thermostat', 'hvac_action', 'heating') }}"
       availability_template: "{{ not is_state('climate.thermostat', 'unavailable') }}"
       turn_on:
         service: climate.set_hvac_mode
@@ -82,7 +82,7 @@
           hvac_mode: 'off'
     cool_mode:
       icon_template: mdi:snowflake
-      value_template: "{{ is_state('climate.thermostat', 'cool') }}"
+      value_template: "{{ is_state('climate.thermostat', 'cool') or is_state_attr('climate.thermostat', 'hvac_action', 'cooling') }}"
       availability_template: "{{ not is_state('climate.thermostat', 'unavailable') }}"
       turn_on:
         service: climate.set_hvac_mode
