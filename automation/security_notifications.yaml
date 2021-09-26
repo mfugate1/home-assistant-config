@@ -63,3 +63,20 @@
       message: "Motion detected! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}"
       data:
         tag: motion
+
+- alias: 'Security: Object detected in driveway'
+  id: security_object_detected_in_driveway
+  trigger:
+    platform: state
+    entity_id: 
+      - sensor.driveway_person
+      - sensor.driveway_car
+  condition:
+    condition: template
+    value_template: "{{ states(trigger.entity_id) | int > 0 }}"
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: "{{ trigger.entity_id.split('_')[1].capitalize() }} detected in driveway"
+      data:
+        image: "/api/camera_proxy/{{ trigger.entity_id.replace('sensor', 'camera') }}"
