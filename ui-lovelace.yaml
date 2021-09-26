@@ -235,8 +235,9 @@ views:
   - icon: mdi:cctv
     panel: true
     cards:
-      - type: custom:webrtc-camera
+      - type: picture-entity
         entity: camera.driveway
+        camera_view: live
   - icon: mdi:home-alert
     cards:
       - type: entities
