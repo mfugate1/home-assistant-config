@@ -4,7 +4,7 @@
   max: 30
   trigger:
     platform: state
-    entity_id:
+    entity_id: &motion_entities
       - group.basement_motion
       - group.bedroom_motion
       - group.diningroom_motion
@@ -45,3 +45,27 @@
             - service: input_boolean.turn_off
               target:
                 entity_id: "input_boolean.{{ trigger.entity_id.split('.')[1].split('_')[0] }}_occupancy"
+        - conditions:
+            - condition: not
+              conditions:
+                condition: state
+                entity_id: *motion_entities
+                state: 'off'
+          sequence:
+            - service: input_boolean.turn_off
+              target:
+                entity_id: >-
+                  {% set ns = namespace(entities='', comma='', last_updated_entity='', last_updated_date='') %}
+                  {% for state in states.group %}
+                    {% if state.entity_id.endwith('motion') and state.state == 'on' %}
+                      {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
+                        {% set ns.last_updated_entity = state.entity_id %}
+                        {% set ns.last_updated_date = state.last_updated %}
+                      {% endif %}
+                    {% endif %}
+                  {% endfor %}
+                  {% for state in states.group %}
+                    {% if state.entity_id.endwith('motion')  and state.entity_id != ns.last_updated_entity %}
+                      {% set ns.entities = ns.entities + ns.comma + 'input_boolean.' + state.entity_id.split('.')[1].split('_')[0] + '_occupancy' %}
+                    {% endif %}
+                  {% endfor %}

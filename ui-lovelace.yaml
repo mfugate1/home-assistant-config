@@ -292,7 +292,6 @@ views:
       - type: entities
         title: SO DEBUG
         entities:
-          - sensor.last_occupied_room
           - input_boolean.basement_occupancy
           - input_boolean.bedroom_occupancy
           - input_boolean.diningroom_occupancy
