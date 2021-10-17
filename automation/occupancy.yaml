@@ -32,7 +32,7 @@
                   {% set ns = namespace(entities='', comma='') %}
                   {% for state in states.group %}
                     {% if state.entity_id.endswith('_motion') and state.entity_id != trigger.entity_id %}
-                      {% set ns.entities = ns.entities + ns.comma + 'input_boolean.' state.entity_id.split('.')[1].split('_')[0] + '_occupancy' %}
+                      {% set ns.entities = ns.entities + ns.comma + 'input_boolean.' + state.entity_id.split('.')[1].split('_')[0] + '_occupancy' %}
                       {% set ns.comma = ',' %}
                     {% endif %}
                   {% endfor %}
