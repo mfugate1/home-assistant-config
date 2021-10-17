@@ -1,3 +1,4 @@
+title: Occupancy Config
 type: custom:config-template-card
 variables:
   - states['input_select.occupancy_config_card_room_select'].state.toLowerCase().replace(/\s+/g, '')
