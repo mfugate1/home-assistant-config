@@ -16,21 +16,21 @@ cards:
         "(max-width: 360px)":
           type: entities
           entities:
-            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_minutes'}"
+            - entity: "${'input_select.occupancy_' + vars[0] + '_motion_timeout_minutes'}"
               name: Motion Timeout (min)
               type: custom:numberbox-card
-            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_seconds'}"
+            - entity: "${'input_select.occupancy_' + vars[0] + '_motion_timeout_seconds'}"
               name: Motion Timeout (sec)
               type: custom:numberbox-card
-            - entity: "${'occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
+            - entity: "${'input_select.occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
               name: SO Timeout (sec)
               type: custom:numberbox-card
         all:
           type: entities
           entities:
-            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_minutes'}"
+            - entity: "${'input_select.occupancy_' + vars[0] + '_motion_timeout_minutes'}"
               name: Motion Timeout (min)
-            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_seconds'}"
+            - entity: "${'input_select.occupancy_' + vars[0] + '_motion_timeout_seconds'}"
               name: Motion Timeout (sec)
-            - entity: "${'occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
+            - entity: "${'input_select.occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
               name: SO Timeout (sec)
