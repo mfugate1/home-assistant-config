@@ -76,7 +76,8 @@
           state: unknown
   action:
     - service: automation.turn_on
-      entity_id: automation.climate_clear_warning_to_close_doors_and_windows
+      target:
+        entity_id: automation.climate_clear_warning_to_close_doors_and_windows
     - service: notify.mobile_app_sm_g981u1
       data:
         message: "Outside temp ({{states('sensor.outside_temp')}}) is approaching inside temp ({{states('sensor.hvac_current_temperature')}})"
@@ -110,4 +111,5 @@
         data:
           tag: climate-alert
     - service: automation.turn_off
-      entity_id: "{{ this.entity_id }}"
+      target:
+        entity_id: "{{ this.entity_id }}"
