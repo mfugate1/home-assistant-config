@@ -95,7 +95,7 @@
                 {% endif %}
               {% endfor %}
               {% for state in states.group %}
-                {% if state.entity_id.endswith('motion') and state.entity_id != last_updated_entity %}
+                {% if state.entity_id.endswith('motion') and state.entity_id != ns.last_updated_entity %}
                   {% set ns.entities = ns.entities + ['input_boolean.' + state.entity_id.split('.')[1].split('_')[0] + '_occupancy'] %}
                 {% endif %}
               {% endfor %}
