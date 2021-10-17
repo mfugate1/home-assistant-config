@@ -5,7 +5,7 @@
     entity_id: binary_sensor.mousetrap_triggered
     to: 'on'
   action:
-    service: notify.email
+    service: notify.mobile_app_sm_g981u1
     data: 
       message: "Mouse trap activated! {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
       data:
