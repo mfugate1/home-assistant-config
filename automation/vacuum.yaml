@@ -50,37 +50,33 @@
         - input_boolean.vacuum_upstairsbathroom_23_cleaned_today
       to: 'off'
   condition:
-    condition: or
-    conditions:
-      - condition: state
-        entity_id: person.mike
-        state: not_home
-      - condition: state
-        entity_id: input_boolean.workout_mode
-        state: 'on'
-      - condition: and
-        conditions:
-          - condition: state
-            entity_id: input_boolean.sleep_mode
-            state: 'on'
-          - condition: time
-            before: input_datetime.vacuum_night_cleaning_end_time
-            after: input_datetime.sleep_mode_last_start_time
-  action:
-    - alias: 'Check that the vacuum is not already running'
-      condition: state
+    - condition: state
       entity_id: vacuum.roborock_s6_pure
       state: docked
-    - alias: 'Check that the vacuum does not need to be emptied'
-      condition: state
-      entity_id: input_boolean.empty_vacuum
-      state: 'off'
-    - alias: 'Check that next room is not set to none'
-      condition: not
+    - condition: template
+      value_template: "{{ (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) < (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
+    - condition: not
       conditions:
         - condition: state
           entity_id: sensor.vacuum_next_room_to_clean
           state: none
+    - condition: or
+      conditions:
+        - condition: state
+          entity_id: person.mike
+          state: not_home
+        - condition: state
+          entity_id: input_boolean.workout_mode
+          state: 'on'
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.sleep_mode
+              state: 'on'
+            - condition: time
+              before: input_datetime.vacuum_night_cleaning_end_time
+              after: input_datetime.sleep_mode_last_start_time
+  action:
     - alias: 'Start vacuum'
       service: xiaomi_miio.vacuum_clean_segment
       target:
