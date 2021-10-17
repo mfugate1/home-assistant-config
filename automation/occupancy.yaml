@@ -91,6 +91,7 @@
                 {% if state.entity_id.endswith('motion') %}
                   {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
                     {% set ns.last_updated_entity = state.entity_id %}
+                    {% set ns.last_updated_date = state.last_updated %}
                   {% endif %}
                 {% endif %}
               {% endfor %}
