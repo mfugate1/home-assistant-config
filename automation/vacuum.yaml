@@ -37,7 +37,7 @@
         minutes: "{{ states('input_number.run_vacuum_after_asleep_min') }}"
     - platform: state
       entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
-      to: '0'
+      to: '0.0'
     - platform: state
       entity_id:
         - input_boolean.vacuum_gameroom_16_cleaned_today
