@@ -1,4 +1,3 @@
-title: Occupancy Config
 type: custom:config-template-card
 variables:
   - states['input_select.occupancy_config_card_room_select'].state.toLowerCase().replace(/\s+/g, '')
@@ -10,6 +9,7 @@ card:
   states:
     "(max-width: 360px)":
       type: entities
+      title: Occupancy Config
       entities:
         - entity: input_select.occupancy_config_card_room_select
         - entity: "${'input_number.occupancy_' + vars[0] + '_motion_timeout_minutes'}"
@@ -23,6 +23,7 @@ card:
           type: custom:numberbox-card
     all:
       type: entities
+      title: Occupancy Config
       entities:
         - entity: input_select.occupancy_config_card_room_select
         - entity: "${'input_number.occupancy_' + vars[0] + '_motion_timeout_minutes'}"
