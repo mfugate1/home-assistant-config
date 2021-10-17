@@ -54,6 +54,7 @@ vacuum_fan_speed_night:
     - Medium
     - Turbo
 occupancy_config_card_room_select:
+  name: Room
   options:
     - Basement
     - Bedroom
