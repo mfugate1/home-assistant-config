@@ -1,0 +1,47 @@
+- alias: Occupancy
+  id: occupancy
+  mode: queued
+  max: 30
+  trigger:
+    platform: state
+    entity_id:
+      - group.basement_motion
+      - group.bedroom_motion
+      - group.diningroom_motion
+      - group.gameroom_motion
+      - group.garage_motion
+      - group.kitchen_motion
+      - group.laundryroom_motion
+      - group.livingroom_motion
+      - group.office_motion
+      - group.patio_motion
+      - group.upstairsbathroom_motion
+  action:
+    - choose:
+        - conditions: "{{ trigger.to_state.state == 'on' }}"
+          sequence:
+            - service: input_boolean.turn_on
+              target:
+                entity_id: "input_boolean.{{ trigger.entity_id.split('.')[1].split('_')[0] }}_occupancy"
+            - condition: state
+              entity_id: input_boolean.single_occupancy_mode
+              state: 'on'
+            - service: input_boolean.turn_off
+              target:
+                entity_id: >-
+                  {% set ns = namespace(entities='', comma='') %}
+                  {% for state in states.group %}
+                    {% if state.entity_id.endswith('_motion') and state.entity_id != trigger.entity_id %}
+                      {% set ns.entities = ns.entities + ns.comma + 'input_boolean.' state.entity_id.split('.')[1].split('_')[0] + '_occupancy' %}
+                      {% set ns.comma = ',' %}
+                    {% endif %}
+                  {% endfor %}
+                  {{ ns.entities }}
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.single_occupancy_mode
+              state: 'off'
+          sequence:
+            - service: input_boolean.turn_off
+              target:
+                entity_id: "input_boolean.{{ trigger.entity_id.split('.')[1].split('_')[0] }}_occupancy"
