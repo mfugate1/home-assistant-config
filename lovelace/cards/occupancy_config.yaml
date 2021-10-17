@@ -1,0 +1,34 @@
+type: custom:stack-in-card
+title: Occupancy Configuration
+mode: vertical
+cards:
+  - type: entity
+    entity: input_select.occupancy_config_card_room_select
+  - type: custom:config-template-card
+    variables:
+      - states['input_select.occupancy_config_card_room_select'].state.toLowerCase().replace(/\s+/g, '')
+    card:
+      type: custom:state-switch
+      entity: mediaquery
+      states:
+        "(max-width: 360px)":
+          type: entities
+          entities:
+            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_minutes'}"
+              name: Motion Timeout (min)
+              type: custom:numberbox-card
+            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_seconds'}"
+              name: Motion Timeout (sec)
+              type: custom:numberbox-card
+            - entity: "${'occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
+              name: SO Timeout (sec)
+              type: custom:numberbox-card
+        all:
+          type: entities
+          entities:
+            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_minutes'}"
+              name: Motion Timeout (min)
+            - entity: "${'occupancy_' + vars[0] + '_motion_timeout_seconds'}"
+              name: Motion Timeout (sec)
+            - entity: "${'occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
+              name: SO Timeout (sec)

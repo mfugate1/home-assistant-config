@@ -53,3 +53,14 @@ vacuum_fan_speed_night:
     - Standard
     - Medium
     - Turbo
+occupancy_config_card_room_select:
+  options:
+    - Basement
+    - Bedroom
+    - Dining Room
+    - Game Room
+    - Garage
+    - Kitchen
+    - Living Room
+    - Office
+    - Upstairs Bathroom
