@@ -18,12 +18,17 @@
 - alias: 'Upstairs bathroom lights off'
   id: upstairs_bathroom_lights_off
   trigger: 
-    platform: state
-    entity_id: input_boolean.upstairsbathroom_occupancy
-    to: 'off'
+    - platform: state
+      entity_id: input_boolean.upstairsbathroom_occupancy
+      to: 'off'
+    - platform: state
+      entity_id: binary_sensor.upstairsbathroom_door
+      to: 'on'
   condition:
     condition: state
-    entity_id: light.upstairsbathroom
+    entity_id: 
+      - binary_sensor.upstairsbathroom_door
+      - light.upstairsbathroom
     state: 'on'
   action:
     service: light.turn_off
