@@ -53,9 +53,9 @@
     - service: homeassistant.turn_off
       target:
         entity_id: group.basement
-    - service: media_player.media_pause
+    - service: media_player.clear_playlist
       target:
-        entity_id: media_player.spotify_stukabombr1
+        entity_id: media_player.picoreplayer
     - condition: state
       entity_id: climate.thermostat
       state: heat
