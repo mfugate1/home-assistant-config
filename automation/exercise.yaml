@@ -7,28 +7,9 @@
   action:
     - service: light.turn_on
       entity_id: light.basement
-    - choose:
-        - conditions: "{{ not is_state('sensor.spotify_lms_source', '') }}"
-          sequence:
-            - service: media_player.select_source
-              target:
-                entity_id: media_player.spotify_stukabombr1
-              data:
-                source: "{{ states('sensor.spotify_lms_source') }}"
-            - service: media_player.play_media
-              target:
-                entity_id: media_player.spotify_stukabombr1
-              data:
-                media_content_type: playlist
-                media_content_id: "https://open.spotify.com/playlist/0B6eaVFw7FpYuQIFiQb0bF?si=ia1wgc10TbmXSBm-JD3wwg"
-    - service: media_player.shuffle_set
-      target:
-        entity_id: media_player.spotify_stukabombr1
+    - service: shell_command.curl
       data:
-        shuffle: true
-    - service: media_player.media_next_track
-      target:
-        entity_id: media_player.spotify_stukabombr1
+        url: !secret workout_music_url
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.workout_mode_available
