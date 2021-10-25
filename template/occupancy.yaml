@@ -10,4 +10,4 @@
             {% endif %}
           {% endif %}
         {% endfor %}
-        {{ ns.last_updated_entity }}
+        {{ ns.last_updated_entity.split('.')[1].split('_')[0] }}
