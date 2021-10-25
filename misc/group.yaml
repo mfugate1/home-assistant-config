@@ -173,22 +173,6 @@ vacuum_enable_all_rooms_night:
     - input_boolean.vacuum_upstairsbathroom_23_night_enable
 
 # Motion
-all_occupancy:
-  name: All Rooms
-  icon: hass:walk
-  entities:
-    - group.basement_occupancy
-    - group.bedroom_occupancy
-    - group.diningroom_occupancy
-    - group.gameroom_occupancy
-    - group.garage_occupancy
-    - group.kitchen_occupancy
-    - group.laundryroom_occupancy
-    - group.livingroom_occupancy
-    - group.office_occupancy
-    - group.patio_occupancy
-    - group.upstairsbathroom_occupancy
-    
 basement_occupancy:
   name: Basement
   icon: hass:walk
