@@ -1,7 +1,7 @@
 - sensor:
     - name: last_occupied_room
       state: >-
-        {% if (now() - states.sensor.last_occupied_room).total_seconds() < 1 %}
+        {% if (now() - states.sensor.last_occupied_room.last_updated).total_seconds() < 1 %}
           {{ states('sensor.last_occupied_room') }}
         {% else %}
           {% set ns = namespace(comma='', last_updated_entity='', last_updated_date='') %}
