@@ -1,18 +1,4 @@
-- trigger:
-    platform: state
-    entity_id:
-      - group.basement_occupancy
-      - group.bedroom_occupancy
-      - group.diningroom_occupancy
-      - group.gameroom_occupancy
-      - group.garage_occupancy
-      - group.kitchen_occupancy
-      - group.laundryroom_occupancy
-      - group.livingroom_occupancy
-      - group.office_occupancy
-      - group.patio_occupancy
-      - group.upstairsbathroom_occupancy
-  sensor:
+- sensor:
     - name: last_occupied_room
       state: >-
         {% set ns = namespace(comma='', last_updated_entity='', last_updated_date='') %}
