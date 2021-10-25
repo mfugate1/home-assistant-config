@@ -20,4 +20,12 @@
             {% endif %}
           {% endfor %}
         {% endif %} 
-        {{ ns.last_updated_entity.split('.')[1].split('_')[0] }}
+        {% if len(ns.last_updated_entity.split('.')) == 2 %}
+          {{ ns.last_updated_entity.split('.')[1].split('_')[0] }}
+        {% else %}
+          {% if ns.last_updated_entity == '' %}
+            blank
+          {% else %}
+            {{ ns.last_updated_entity }}
+          {% endif %}
+        {% endif %}
