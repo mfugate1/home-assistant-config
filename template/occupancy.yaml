@@ -8,7 +8,7 @@
           {% endif %}
         {% endfor %}
         {% for state in states.group %}
-          {% if state.entity_id != 'group.all_occupancy' and state.entity_id.endswith('_occupancy') and (all_off or state.state == 'on')%}
+          {% if state.entity_id != 'group.all_occupancy' and state.entity_id.endswith('_occupancy') and (ns.all_off or state.state == 'on')%}
             {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
               {% set ns.last_updated_entity = state.entity_id %}
               {% set ns.last_updated_date = state.last_updated %}
