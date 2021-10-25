@@ -2,12 +2,15 @@
   id: upstairs_bathroom_lights_on
   trigger:
     platform: state
-    entity_id: input_boolean.upstairsbathroom_occupancy
+    entity_id: group.upstairsbathroom_occupancy
     to: 'on'
   condition:
-    condition: state
-    entity_id: light.upstairsbathroom
-    state: 'off'
+    - condition: state
+      entity_id: light.upstairsbathroom
+      state: 'off'
+    - condition: state
+      entity_id: person.mike
+      state: home
   action:
     service: light.turn_on
     entity_id: light.upstairsbathroom
@@ -19,17 +22,25 @@
   id: upstairs_bathroom_lights_off
   trigger: 
     - platform: state
-      entity_id: input_boolean.upstairsbathroom_occupancy
+      entity_id: group.upstairsbathroom_occupancy
       to: 'off'
     - platform: state
       entity_id: binary_sensor.upstairsbathroom_door
       to: 'on'
+    - platform: state
+      entity_id: sensor.last_occupied_room
   condition:
-    condition: state
-    entity_id: 
-      - binary_sensor.upstairsbathroom_door
-      - light.upstairsbathroom
-    state: 'on'
+    - condition: state
+      entity_id: binary_sensor.upstairsbathroom_door
+      state: 'on'
+    - condition: state
+      entity_id: group.upstairsbathroom_occupancy
+      state: 'off'
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: sensor.last_occupied_room
+          state: upstairsbathroom
   action:
     service: light.turn_off
     entity_id: light.upstairsbathroom
