@@ -210,8 +210,6 @@ views:
             entities:
               - entity: group.upstairsbathroom_occupancy
                 show_name: false
-              - entity: input_boolean.upstairsbathroom_occupancy
-                show_name: false
               - entity: binary_sensor.upstairsbathroom_door
                 show_name: false
               - entity: light.upstairsbathroom
@@ -278,6 +276,7 @@ views:
       - type: entities
         title: Motion
         entities:
+          - sensor.last_occupied_room
           - group.basement_occupancy
           - group.bedroom_occupancy
           - group.diningroom_occupancy
@@ -289,20 +288,6 @@ views:
           - group.office_occupancy
           - group.patio_occupancy
           - group.upstairsbathroom_occupancy
-      - type: entities
-        title: SO DEBUG
-        entities:
-          - input_boolean.basement_occupancy
-          - input_boolean.bedroom_occupancy
-          - input_boolean.diningroom_occupancy
-          - input_boolean.gameroom_occupancy
-          - input_boolean.garage_occupancy
-          - input_boolean.kitchen_occupancy
-          - input_boolean.laundryroom_occupancy
-          - input_boolean.livingroom_occupancy
-          - input_boolean.office_occupancy
-          - input_boolean.patio_occupancy
-          - input_boolean.upstairsbathroom_occupancy
 
 
 

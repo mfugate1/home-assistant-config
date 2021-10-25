@@ -19,33 +19,7 @@ replace_sediment_filter:
 take_medication:
 take_out_garbage_bins:
 
-
-# Occupancy
-basement_occupancy:
-  icon: mdi:home
-bedroom_occupancy:
-  icon: mdi:home
-diningroom_occupancy:
-  icon: mdi:home
-gameroom_occupancy:
-  icon: mdi:home
-garage_occupancy:
-  icon: mdi:home
-kitchen_occupancy:
-  icon: mdi:home
-laundryroom_occupancy:
-  icon: mdi:home
-livingroom_occupancy:
-  icon: mdi:home
-office_occupancy:
-  icon: mdi:home
-patio_occupancy:
-  icon: mdi:home
-upstairsbathroom_occupancy:
-  icon: mdi:home
-
 single_occupancy_mode:
-
 
 # Vacuum
 vacuum_gameroom_16_night_enable:
