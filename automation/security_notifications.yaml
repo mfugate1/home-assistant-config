@@ -43,13 +43,13 @@
   trigger:
     platform: state
     entity_id:
-      - group.basement_motion
-      - group.bedroom_motion
-      - group.diningroom_motion
-      - group.laundryroom_motion
-      - group.office_motion
-      - group.patio_motion
-      - group.upstairsbathroom_motion
+      - group.basement_occupancy
+      - group.bedroom_occupancy
+      - group.diningroom_occupancy
+      - group.laundryroom_occupancy
+      - group.office_occupancy
+      - group.patio_occupancy
+      - group.upstairsbathroom_occupancy
     to: 'on'
   condition:
     condition: not

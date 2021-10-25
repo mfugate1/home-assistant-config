@@ -5,7 +5,7 @@
       entity_id: sensor.basement_humidity
     - platform: state
       entity_id: 
-        - group.basement_motion
+        - group.basement_occupancy
         - input_boolean.workout_mode
         - media_player.basement_tv
         - switch.basement_stereo
@@ -16,7 +16,7 @@
       above: input_number.dehumidifier_on_threshold
     - condition: state
       entity_id: 
-        - group.basement_motion
+        - group.basement_occupancy
         - input_boolean.workout_mode
         - media_player.basement_tv
         - switch.basement_stereo
@@ -32,7 +32,7 @@
       entity_id: sensor.basement_humidity
     - platform: state
       entity_id: 
-        - group.basement_motion
+        - group.basement_occupancy
         - input_boolean.workout_mode
         - media_player.basement_tv
         - switch.basement_stereo
@@ -44,7 +44,7 @@
         entity_id: sensor.basement_humidity
         below: input_number.dehumidifier_off_threshold
       - condition: state
-        entity_id: group.basement_motion
+        entity_id: group.basement_occupancy
         state: 'on'
       - condition: state
         entity_id: input_boolean.workout_mode

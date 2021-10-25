@@ -173,72 +173,72 @@ vacuum_enable_all_rooms_night:
     - input_boolean.vacuum_upstairsbathroom_23_night_enable
 
 # Motion
-all_motion:
+all_occupancy:
   name: All Rooms
   icon: hass:walk
   entities:
-    - group.basement_motion
-    - group.bedroom_motion
-    - group.diningroom_motion
-    - group.gameroom_motion
-    - group.garage_motion
-    - group.kitchen_motion
-    - group.laundryroom_motion
-    - group.livingroom_motion
-    - group.office_motion
-    - group.patio_motion
-    - group.upstairsbathroom_motion
+    - group.basement_occupancy
+    - group.bedroom_occupancy
+    - group.diningroom_occupancy
+    - group.gameroom_occupancy
+    - group.garage_occupancy
+    - group.kitchen_occupancy
+    - group.laundryroom_occupancy
+    - group.livingroom_occupancy
+    - group.office_occupancy
+    - group.patio_occupancy
+    - group.upstairsbathroom_occupancy
     
-basement_motion:
+basement_occupancy:
   name: Basement
   icon: hass:walk
   entities:
     - binary_sensor.basement_motion_1
 
-bedroom_motion:
+bedroom_occupancy:
   name: Bedroom
   icon: hass:walk
   entities:
     - binary_sensor.bedroom_motion_1
 
-diningroom_motion:
+diningroom_occupancy:
   name: Dining Room
   icon: hass:walk
   entities:
     - binary_sensor.diningroom_motion_1
     - binary_sensor.diningroom_motion_2
 
-gameroom_motion:
+gameroom_occupancy:
   name: Game Room
   icon: hass:walk
   entities:
     - binary_sensor.gameroom_motion_1
 
-garage_motion:
+garage_occupancy:
   name: Garage
   icon: hass:walk
   entities:
     - binary_sensor.garage_motion_1
 
-kitchen_motion:
+kitchen_occupancy:
   name: Kitchen
   icon: hass:walk
   entities:
     - binary_sensor.kitchen_motion_1
 
-laundryroom_motion:
+laundryroom_occupancy:
   name: Laundry Room
   icon: hass:walk
   entities:
     - binary_sensor.laundryroom_motion_1
 
-livingroom_motion:
+livingroom_occupancy:
   name: Living Room
   icon: hass:walk
   entities:
     - binary_sensor.livingroom_motion_1
 
-office_motion:
+office_occupancy:
   name: Office
   icon: hass:walk
   entities:
@@ -246,13 +246,13 @@ office_motion:
     - binary_sensor.office_motion_2
     - binary_sensor.office_motion_3
 
-patio_motion:
+patio_occupancy:
   name: Patio
   icon: hass:walk
   entities:
     - binary_sensor.patio_motion_1
 
-upstairsbathroom_motion:
+upstairsbathroom_occupancy:
   name: Upstairs Bathroom
   icon: hass:walk
   entities:

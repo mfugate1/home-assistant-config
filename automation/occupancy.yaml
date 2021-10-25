@@ -4,18 +4,18 @@
   max: 30
   trigger:
     platform: state
-    entity_id: &motion_entities
-      - group.basement_motion
-      - group.bedroom_motion
-      - group.diningroom_motion
-      - group.gameroom_motion
-      - group.garage_motion
-      - group.kitchen_motion
-      - group.laundryroom_motion
-      - group.livingroom_motion
-      - group.office_motion
-      - group.patio_motion
-      - group.upstairsbathroom_motion
+    entity_id: &occupancy_entities
+      - group.basement_occupancy
+      - group.bedroom_occupancy
+      - group.diningroom_occupancy
+      - group.gameroom_occupancy
+      - group.garage_occupancy
+      - group.kitchen_occupancy
+      - group.laundryroom_occupancy
+      - group.livingroom_occupancy
+      - group.office_occupancy
+      - group.patio_occupancy
+      - group.upstairsbathroom_occupancy
   action:
     - choose:
         - conditions: "{{ trigger.to_state.state == 'on' }}"
@@ -31,7 +31,7 @@
                 entity_id: >-
                   {% set ns = namespace(entities='', comma='') %}
                   {% for state in states.group %}
-                    {% if state.entity_id.endswith('_motion') and state.entity_id != trigger.entity_id %}
+                    {% if state.entity_id.endswith('_occupancy') and state.entity_id != trigger.entity_id %}
                       {% set ns.entities = ns.entities + ns.comma + 'input_boolean.' + state.entity_id.split('.')[1].split('_')[0] + '_occupancy' %}
                       {% set ns.comma = ',' %}
                     {% endif %}
@@ -49,7 +49,7 @@
             - condition: not
               conditions:
                 condition: state
-                entity_id: *motion_entities
+                entity_id: *occupancy_entities
                 state: 'off'
           sequence:
             - service: input_boolean.turn_off
@@ -57,7 +57,7 @@
                 entity_id: >-
                   {% set ns = namespace(entities=[], comma='', last_updated_entity='', last_updated_date='') %}
                   {% for state in states.group %}
-                    {% if state.entity_id.endwith('motion') and state.state == 'on' %}
+                    {% if state.entity_id.endwith('_occupancy') and state.state == 'on' %}
                       {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
                         {% set ns.last_updated_entity = state.entity_id %}
                         {% set ns.last_updated_date = state.last_updated %}
@@ -65,7 +65,7 @@
                     {% endif %}
                   {% endfor %}
                   {% for state in states.group %}
-                    {% if state.entity_id.endwith('motion')  and state.entity_id != ns.last_updated_entity %}
+                    {% if state.entity_id.endwith('_occupancy')  and state.entity_id != ns.last_updated_entity %}
                       {% set ns.entities = ns.entities + ['input_boolean.' + state.entity_id.split('.')[1].split('_')[0] + '_occupancy'] %}
                     {% endif %}
                   {% endfor %}
@@ -76,7 +76,7 @@
             entity_id: >-
               {% set ns = namespace(last_updated_entity='', last_updated_date='') %}
               {% for state in states.group %}
-                {% if state.entity_id.endswith('motion') %}
+                {% if state.entity_id.endswith('_occupancy') %}
                   {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
                     {% set ns.last_updated_entity = state.entity_id %}
                   {% endif %}
@@ -88,7 +88,7 @@
             entity_id: >-
               {% set ns = namespace(entities=[], last_updated_entity='', last_updated_date='') %}
               {% for state in states.group %}
-                {% if state.entity_id.endswith('motion') %}
+                {% if state.entity_id.endswith('_occupancy') %}
                   {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
                     {% set ns.last_updated_entity = state.entity_id %}
                     {% set ns.last_updated_date = state.last_updated %}
@@ -96,7 +96,7 @@
                 {% endif %}
               {% endfor %}
               {% for state in states.group %}
-                {% if state.entity_id.endswith('motion') and state.entity_id != ns.last_updated_entity %}
+                {% if state.entity_id.endswith('_occupancy') and state.entity_id != ns.last_updated_entity %}
                   {% set ns.entities = ns.entities + ['input_boolean.' + state.entity_id.split('.')[1].split('_')[0] + '_occupancy'] %}
                 {% endif %}
               {% endfor %}

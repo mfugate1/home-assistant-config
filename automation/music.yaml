@@ -2,7 +2,7 @@
   id: turn_on_patio_music_when_motion_is_detected
   trigger:
     platform: state
-    entity_id: group.patio_motion
+    entity_id: group.patio_occupancy
     to: 'on'
   condition:
     condition: state
