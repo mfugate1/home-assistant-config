@@ -1,13 +1,17 @@
 - sensor:
     - name: last_occupied_room
       state: >-
-        {% set ns = namespace(comma='', last_updated_entity='', last_updated_date='') %}
-        {% for state in states.group %}
-          {% if state.entity_id != 'group.all_occupancy' and state.entity_id.endswith('_occupancy') and (is_state('group.all_occupancy', 'off') or state.state == 'on')%}
-            {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
-              {% set ns.last_updated_entity = state.entity_id %}
-              {% set ns.last_updated_date = state.last_updated %}
+        {% if (now() - states.sensor.last_occupied_room).total_seconds() < 1 %}
+          {{ states('sensor.last_occupied_room') }}
+        {% else %}
+          {% set ns = namespace(comma='', last_updated_entity='', last_updated_date='') %}
+          {% for state in states.group %}
+            {% if state.entity_id != 'group.all_occupancy' and state.entity_id.endswith('_occupancy') and (is_state('group.all_occupancy', 'off') or state.state == 'on')%}
+              {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
+                {% set ns.last_updated_entity = state.entity_id %}
+                {% set ns.last_updated_date = state.last_updated %}
+              {% endif %}
             {% endif %}
-          {% endif %}
-        {% endfor %}
-        {{ ns.last_updated_entity.split('.')[1].split('_')[0] }}
+          {% endfor %}
+          {{ ns.last_updated_entity.split('.')[1].split('_')[0] }}
+        {% endif %}
