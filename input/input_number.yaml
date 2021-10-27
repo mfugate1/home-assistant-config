@@ -108,6 +108,24 @@ upstairsbathroom_light_transition:
   min: 1
   max: 10
 
+# Bedroom automation config
+bedroom_occupancy_timeout_minutes:
+  name: Occupancy Timeout (min)
+  min: 0
+  max: 60
+bedroom_occupancy_timeout_seconds:
+  name: Occupancy Timeout (sec)
+  min: 0
+  max: 60
+bedroom_quick_timeout_minutes:
+  name: Occupancy Timeout (min)
+  min: 0
+  max: 60
+bedroom_quick_timeout_seconds:
+  name: Occupancy Timeout (sec)
+  min: 0
+  max: 60
+
 # Occupancy timeouts
 occupancy_basement_motion_timeout_minutes:
   min: 0
