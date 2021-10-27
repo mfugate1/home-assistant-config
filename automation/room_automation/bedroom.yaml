@@ -24,6 +24,9 @@
     - platform: state
       entity_id: group.bedroom_occupancy
       to: 'off'
+      for:
+        minutes: "{{ (states('input_number.bedroom_quick_timeout_minutes') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_minutes')) | int }}"
+        seconds: "{{ (states('input_number.bedroom_quick_timeout_seconds') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_seconds')) | int }}"
     - platform: state
       entity_id: sensor.last_occupied_room
   condition:
@@ -66,18 +69,12 @@
   mode: single
   max_exceeded: silent
   trigger:
-    - platform: event
-      event_type: zwave_js_value_notification
-      event_data:
-        node_id: 20
-        label: 'Scene 001'
-        value: KeyPressed
-    - platform: event
-      event_type: zwave_js_value_notification
-      event_data:
-        node_id: 20
-        label: 'Scene 001'
-        value: KeyHeldDown
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 20
+      label: 'Scene 001'
+  condition: "{{ trigger.event.data.value != 'KeyReleased' }}"
   action:
     - choose:
         - conditions:
@@ -116,20 +113,35 @@
     event_type: zwave_js_value_notification
     event_data:
       node_id: 20
-  condition: "{{ trigger.event.data.label != 'Scene 001' and trigger.event.data.value != 'KeyReleased' }}"
+  condition: "{{ trigger.event.data.label not in ('Scene 001', 'Scene 004') and trigger.event.data.value != 'KeyReleased' }}"
   action:
     - service: homeassistant.toggle
       target:
         entity_id: >-
           {% if trigger.event.data.label == 'Scene 002' %}
-            {% if trigger.event.data.value == 'KeyPressed' %}
-              light.bedroom_overhead
-            {% else %}
-              light.bedroom_lamps
-            {% endif %}
-          {% elif trigger.event.data.label == 'Scene 003' %}
-            switch.bedroom_fan
+            light.bedroom_{{ 'overhead' if trigger.event.data.value == 'KeyPressed' else 'lamps' }}
           {% else %}
-            switch.bedroom_noise_machine
+            switch.bedroom_{{ 'fan' if trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}
           {% endif %}
     - delay: 2
+
+- alias: 'Bedroom remote bed presets'
+  id: bedroom_remote_bed_presets
+  mode: single
+  max_exceeded: silent
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 20
+      label: 'Scene 004'
+  condition: "{{ trigger.event.data.value != 'KeyReleased' }}"
+  action:
+    service: input_select.select_option
+    target:
+      entity_id: >-
+        {% if is_state('input_select.bed_presets', 'Flat') %}
+          {{ 'Read' if trigger.event.data.value == 'KeyPressed' else 'Watch TV' }}
+        {% else %}
+          Flat
+        {% endif %}

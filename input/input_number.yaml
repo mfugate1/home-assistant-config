@@ -113,18 +113,22 @@ bedroom_occupancy_timeout_minutes:
   name: Occupancy Timeout (min)
   min: 0
   max: 60
+  mode: box
 bedroom_occupancy_timeout_seconds:
   name: Occupancy Timeout (sec)
   min: 0
   max: 60
+  mode: box
 bedroom_quick_timeout_minutes:
   name: Occupancy Timeout (min)
   min: 0
   max: 60
+  mode: box
 bedroom_quick_timeout_seconds:
   name: Occupancy Timeout (sec)
   min: 0
   max: 60
+  mode: box
 
 # Occupancy timeouts
 occupancy_basement_motion_timeout_minutes:
@@ -136,19 +140,6 @@ occupancy_basement_motion_timeout_seconds:
   max: 120
   mode: box
 occupancy_basement_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_bedroom_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_bedroom_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_bedroom_single_occupancy_timeout_seconds:
   min: 0
   max: 240
   mode: box
