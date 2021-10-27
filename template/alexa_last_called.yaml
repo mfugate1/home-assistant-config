@@ -1,0 +1,11 @@
+- sensor:
+    - name: alexa_last_called_device
+      state: "{{ expand(states.group.echos) | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first }}"
+    - name: alexa_last_called_room
+      state: >-
+        {% if '.' in states('sensor.alexa_last_called_device') %}
+          {{ states('sensor.alexa_last_called_device').split('.')[1].split('_')[0] }}
+        {% else %}
+          unknown
+        {% endif %}
+      availability: "{{ 'media_player' in states('sensor.alexa_last_called_device') }}"
