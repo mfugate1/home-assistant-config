@@ -13,6 +13,9 @@
     - condition: state
       entity_id: binary_sensor.bedroom_door
       state: 'on'
+    - condition: state
+      entity_id: person.mike
+      state: home
   action:
     service: light.turn_on
     target:
