@@ -201,7 +201,6 @@ views:
             name: Walk
   - icon: mdi:auto-fix
     cards:
-      - !include lovelace/cards/automation_config/sleep_mode.yaml
       - !include lovelace/cards/automation_config/climate.yaml
       - type: entities
         title: Upstairs Bathroom
