@@ -1,0 +1,132 @@
+- alias: 'Bedroom light on'
+  id: bedroom_light_on
+  trigger:
+    platform: state
+    entity_id: group.bedroom_occupancy
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: 
+        - binary_sensor.bed_occupied
+        - input_boolean.sleep_mode
+      state: 'off'
+  action:
+    service: light.turn_on
+    target:
+      entity_id: light.bedroom_overhead
+
+- alias: 'Bedroom lights off'
+  id: bedroom_lights_off
+  trigger:
+    - platform: state
+      entity_id: group.bedroom_occupancy
+      to: 'off'
+    - platform: state
+      entity_id: sensor.last_occupied_room
+  condition:
+    - condition: state
+      entity_id: group.bedroom_occupancy
+      state: 'off'
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: sensor.last_occupied_room
+          state: bedroom
+  action:
+    service: light.turn_off
+    target:
+      entity_id:
+        - light.bedroom_lamps
+        - light.bedroom_overhead
+
+- alias: 'Bedroom light switch to lamps if door closed'
+  id: bedroom_light_switch_to_lamps_if_door_closed
+  trigger:
+    platform: state
+    entity_id: binary_sensor.bedroom_door
+    to: 'off'
+  condition:
+    condition: state
+    entity_id: light.bedroom_overhead
+    state: 'on'
+  action:
+    - service: light.turn_on
+      target:
+        entity_id: light.bedroom_lamps
+    - delay: 10
+    - service: light.turn_off
+      target:
+        entity_id: light.bedroom_overhead
+
+- alias: 'Sleep mode button toggle'
+  id: sleep_mode_button_toggle
+  mode: single
+  max_exceeded: silent
+  trigger:
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 20
+        label: 'Scene 001'
+        value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 20
+        label: 'Scene 001'
+        value: KeyHeldDown
+  action:
+    - choose:
+        - conditions:
+            - condition: state
+              entity_id: input_boolean.sleep_mode
+              state: 'off'
+          sequence:
+            - service: light.turn_off
+              target:
+                entity_id:
+                  - light.bedroom_lamps
+                  - light.bedroom_overhead
+            - service: switch.turn_on
+              target:
+                entity_id: "switch.bedroom_{{ 'fan' if trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}"
+      default:
+        - service: light.turn_on
+          target:
+            entity_id: light.bedroom_lamps
+        - service: switch.turn_off
+          target:
+            entity_id: 
+              - switch.bedroom_fan
+              - switch.bedroom_noise_machine
+    - service: input_boolean.toggle
+      target:
+        entity_id: input_boolean.sleep_mode
+    - delay: 2
+
+- alias: 'Bedroom remote toggle buttons'
+  id: bedroom_remote_toggle_buttons
+  mode: single
+  max_exceeded: silent
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 20
+  condition: "{{ trigger.event.data.label != 'Scene 001' and trigger.event.data.value != 'KeyReleased' }}"
+  action:
+    - service: homeassistant.toggle
+      target:
+        entity_id: >-
+          {% if trigger.event.data.label == 'Scene 002' %}
+            {% if trigger.event.data.value == 'KeyPressed' %}
+              light.bedroom_overhead
+            {% else %}
+              light.bedroom_lamps
+            {% endif %}
+          {% elif trigger.event.data.label == 'Scene 003' %}
+            switch.bedroom_fan
+          {% else %}
+            switch.bedroom_noise_machine
+          {% endif %}
+    - delay: 2
