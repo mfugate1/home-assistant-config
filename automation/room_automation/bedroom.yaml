@@ -10,6 +10,9 @@
         - binary_sensor.bed_occupied
         - input_boolean.sleep_mode
       state: 'off'
+    - condition: state
+      entity_id: binary_sensor.bedroom_door
+      state: 'on'
   action:
     service: light.turn_on
     target:
