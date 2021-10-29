@@ -54,10 +54,6 @@
     platform: state
     entity_id: binary_sensor.bedroom_door
     to: 'off'
-  condition:
-    condition: state
-    entity_id: light.bedroom_overhead
-    state: 'on'
   action:
     - service: light.turn_on
       target:
