@@ -29,3 +29,8 @@
             {{ ns.last_updated_entity }}
           {% endif %}
         {% endif %}
+- binary_sensor:
+    - name: bedroom_motion_2
+      state: "{{ states('binary_sensor.bedroom_motion_1') }}"
+      delay_off: 
+        seconds: 10
