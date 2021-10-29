@@ -1,7 +1,6 @@
-- platform: template
-  sensors:
-    target_temp_heating:
-      value_template: >-
+- sensor:
+    - name: target_temp_heating
+      state: >-
         {% if not is_state('person.mike', 'home') %}
           {{ states('input_number.climate_heat_away_temp') }}
         {% elif is_state('input_boolean.sleep_mode', 'on') %}
@@ -9,8 +8,8 @@
         {% else %}
           {{ states('input_number.climate_heat_home_temp') }}
         {% endif %}
-    target_temp_cooling:
-      value_template: >-
+    - name: target_temp_cooling
+      state: >-
         {% if not is_state('person.mike', 'home') %}
           {{ states('input_number.climate_cool_away_temp') }}
         {% elif is_state('input_boolean.sleep_mode', 'on') %}
