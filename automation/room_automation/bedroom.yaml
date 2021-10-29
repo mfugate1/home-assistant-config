@@ -36,7 +36,6 @@
     - condition: state
       entity_id: group.bedroom_occupancy
       state: 'off'
-      for: *timeouts
     - condition: not
       conditions:
         - condition: state
