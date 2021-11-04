@@ -37,12 +37,8 @@
     service: climate.set_temperature
     entity_id: climate.thermostat
     data:
-      temperature: >-
-        {% if is_state('climate.thermostat', 'heat') %}
-          {{ states('sensor.target_temp_heating') }}
-        {% else %}
-          {{ states('sensor.target_temp_cooling') }}
-        {% endif %}
+      target_temp_high: "{{ states('sensor.target_temp_cooling') | int }}"
+      target_temp_low: "{{ states('sensor.target_temp_heating') | int }}"
 
 - alias: 'Climate: Alert if exterior doors/windows are open when outside temp is above inside'
   id: climate_alert_exterior_open_when_outside_temp_above_inside
