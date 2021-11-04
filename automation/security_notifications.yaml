@@ -67,11 +67,11 @@
 - alias: 'Security: Object detected in driveway'
   id: security_object_detected_in_driveway
   trigger:
-    platform: numeric_state
+    platform: state
     entity_id: 
-      - sensor.driveway_car
-      - sensor.driveway_person
-    above: 0
+      - binary_sensor.driveway_car_motion
+      - binary_sensor.driveway_person_motion
+    to: 'on'
   action:
     service: notify.mobile_app_sm_g981u1
     data:
