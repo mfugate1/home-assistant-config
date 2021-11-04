@@ -54,6 +54,10 @@
     platform: state
     entity_id: binary_sensor.bedroom_door
     to: 'off'
+  condition:
+    condition: state
+    entity_id: input_boolean.sleep_mode
+    state: 'off'
   action:
     - service: light.turn_on
       target:
