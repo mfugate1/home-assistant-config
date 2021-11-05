@@ -33,6 +33,11 @@
     - platform: state
       entity_id: sensor.last_occupied_room
   condition:
+    - condition: template
+      value_template: >-
+        {% set type = 'quick' if is_state('input_boolean.single_occupancy_mode', 'on') else 'occupancy' %}
+        {% set timeout = (states('input_number.bedroom_' + type + '_timeout_minutes') | int) * 60 + (states('input_number.bedroom_' + type + '_timeout_seconds') | int) %}
+        {{ (now() - states.group.bedroom_occupancy.last_updated).total_seconds() > timeout }}
     - condition: state
       entity_id: group.bedroom_occupancy
       state: 'off'
