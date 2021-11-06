@@ -25,11 +25,15 @@
     - platform: state
       entity_id: sensor.last_occupied_room
   condition:
-    condition: not
-    conditions:
-      - condition: state
-        entity_id: sensor.last_occupied_room
-        state: office
+    - condition: template
+      value_template: >-
+        {% set timeout = (states('input_number.office_occupancy_timeout_minutes') | int) * 60 + (states('input_number.office_occupancy_timeout_seconds') | int) %}
+        {{ (now() - states.group.office_occupancy.last_updated).total_seconds() > timeout }}
+    - condition: not
+      conditions:
+        - condition: state
+          entity_id: sensor.last_occupied_room
+          state: office
   action:
     service: light.turn_off
     target:
