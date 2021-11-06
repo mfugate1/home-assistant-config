@@ -1,5 +1,6 @@
 - alias: 'Bedroom light on'
   id: bedroom_light_on
+  mode: restart
   trigger:
     platform: state
     entity_id: group.bedroom_occupancy
@@ -23,6 +24,7 @@
 
 - alias: 'Bedroom lights off'
   id: bedroom_lights_off
+  mode: restart
   trigger:
     - platform: state
       entity_id: group.bedroom_occupancy
@@ -55,6 +57,7 @@
 
 - alias: 'Bedroom light switch to lamps if door closed'
   id: bedroom_light_switch_to_lamps_if_door_closed
+  mode: restart
   trigger:
     platform: state
     entity_id: binary_sensor.bedroom_door

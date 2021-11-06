@@ -1,5 +1,6 @@
 - alias: 'Office lights on'
   id: office_lights_on
+  mode: restart
   trigger:
     platform: state
     entity_id: group.office_occupancy
@@ -15,6 +16,7 @@
 
 - alias: 'Office lights off'
   id: office_lights_off
+  mode: restart
   trigger:
     - platform: state
       entity_id: group.office_occupancy
