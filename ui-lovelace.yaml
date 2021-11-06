@@ -216,16 +216,10 @@ views:
               - entity: switch.upstairsbathroom_vent
                 icon: mdi:fan
                 show_name: false
-          - entity: input_number.upstairsbathroom_light_brightness
-            name: Current Brightness
-          - entity: input_number.upstairsbathroom_light_transition
-            name: Transition
-          - entity: input_number.upstairsbathroom_light_sleeping_brightness
-            name: Sleeping Brightness
-          - entity: input_number.upstairsbathroom_light_day_brightness
-            name: Daytime Brightness
-          - entity: input_number.upstairsbathroom_light_night_brightness
-            name: Nighttime Brightness
+          - input_number.upstairsbathroom_light_transition
+          - input_number.upstairsbathroom_light_sleeping_brightness
+          - input_number.upstairsbathroom_light_day_brightness
+          - input_number.upstairsbathroom_light_night_brightness
       - !include lovelace/cards/automation_config/dehumidifier.yaml
       - !include lovelace/cards/automation_config/vacuum.yaml
       - !include lovelace/cards/occupancy_config.yaml

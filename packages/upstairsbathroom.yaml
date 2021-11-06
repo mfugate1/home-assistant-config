@@ -29,7 +29,14 @@ automation:
       service: light.turn_on
       entity_id: light.upstairsbathroom
       data:
-        brightness: "{{ states('input_number.upstairsbathroom_light_brightness')}}"
+        brightness: >-
+          {% if is_state('input_boolean.sleep_mode', 'on') %}
+            {{ states('input_number.upstairsbathroom_light_sleeping_brightness') | int }}
+          {% elif is_state('sun.sun', 'above_horizon') %}
+            {{ states('input_number.upstairsbathroom_light_day_brightness') | int }}
+          {% else %}
+            {{ states('input_number.upstairsbathroom_light_night_brightness') | int }}
+          {% endif %}
         transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
 
   - alias: 'Upstairs bathroom lights off'
@@ -73,39 +80,20 @@ automation:
         {% endif %}
       entity_id: switch.upstairsbathroom_vent
 
-  - alias: 'Set upstairs bathroom light brightness'
-    id: set_upstairs_bathroom_light_brightness
-    trigger:
-      platform: state
-      entity_id:
-        - input_boolean.sleep_mode
-        - sun.sun
-    action:
-      service: input_number.set_value
-      entity_id: input_number.upstairsbathroom_light_brightness
-      data:
-        value: >-
-          {% if is_state('input_boolean.sleep_mode', 'on') %}
-            {{ states('input_number.upstairsbathroom_light_sleeping_brightness') }}
-          {% elif is_state('sun.sun', 'above_horizon') %}
-            {{ states('input_number.upstairsbathroom_light_day_brightness') }}
-          {% else %}
-            {{ states('input_number.upstairsbathroom_light_night_brightness') }}
-          {% endif %}
-
 input_number:
-  upstairsbathroom_light_brightness:
-    min: 1
-    max: 255
   upstairsbathroom_light_sleeping_brightness:
+    name: Sleeping Brightness
     min: 1
     max: 255
   upstairsbathroom_light_day_brightness:
+    name: Daytime Brightness
     min: 1
     max: 255
   upstairsbathroom_light_night_brightness:
+    name: Nighttime Brightness
     min: 1
     max: 255
   upstairsbathroom_light_transition:
+    name: Transition
     min: 1
     max: 10
