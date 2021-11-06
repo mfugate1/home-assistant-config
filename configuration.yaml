@@ -17,6 +17,9 @@ google:
   client_id: !secret google_calendar_client_id
   client_secret: !secret google_calendar_client_secret
 
+homeassistant:
+  packages: !include_dir_named packages
+
 http:
   use_x_forwarded_for: true
   trusted_proxies: !secret trusted_proxies

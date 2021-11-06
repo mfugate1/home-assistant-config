@@ -223,14 +223,6 @@ livingroom_occupancy:
   entities:
     - binary_sensor.livingroom_motion_1
 
-office_occupancy:
-  name: Office
-  icon: hass:walk
-  entities:
-    - binary_sensor.office_motion_1
-    - binary_sensor.office_motion_2
-    - binary_sensor.office_motion_3
-
 patio_occupancy:
   name: Patio
   icon: hass:walk

@@ -1,0 +1,84 @@
+group:
+  office:
+    entities:
+      - light.office
+  office_occupancy:
+    name: Office
+    icon: hass:walk
+    entities:
+      - binary_sensor.office_motion_1
+      - binary_sensor.office_motion_2
+      - binary_sensor.office_motion_3
+
+binary_sensor:
+  - platform: mqtt
+    name: office_window
+    state_topic: rtl_433/+/devices/Generic-Remote/29544/cmd
+    device_class: door
+    payload_off: 14
+    payload_on: 10
+  - platform: mqtt
+    name: office_motion_2
+    state_topic: rtl_433/+/devices/Kerui-Security/493889/motion
+    device_class: motion
+    payload_on: 1
+    off_delay: 10
+
+automation:
+  - alias: 'Office lights on'
+    id: office_lights_on
+    mode: restart
+    trigger:
+      platform: state
+      entity_id: group.office_occupancy
+      to: 'on'
+    condition:
+      - condition: state
+        entity_id: person.mike
+        state: home
+    action:
+      service: light.turn_on
+      target:
+        entity_id: light.office
+
+  - alias: 'Office lights off'
+    id: office_lights_off
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: group.office_occupancy
+        to: 'off'
+        for: 
+          minutes: "{{ states('input_number.office_occupancy_timeout_minutes') | int }}"
+          seconds: "{{ states('input_number.office_occupancy_timeout_seconds') | int }}"
+      - platform: state
+        entity_id: sensor.last_occupied_room
+    condition:
+      - condition: state
+        entity_id: group.office_occupancy
+        state: 'off'
+      - condition: template
+        value_template: >-
+          {% set timeout = (states('input_number.office_occupancy_timeout_minutes') | int) * 60 + (states('input_number.office_occupancy_timeout_seconds') | int) %}
+          {{ (now() - states.group.office_occupancy.last_updated).total_seconds() > timeout }}
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: sensor.last_occupied_room
+            state: office
+    action:
+      service: light.turn_off
+      target:
+        entity_id: light.office
+
+input_number:
+  office_occupancy_timeout_minutes:
+    name: Occupancy Timeout (min)
+    min: 0
+    max: 60
+    mode: box
+  office_occupancy_timeout_seconds:
+    name: Occupancy Timeout (sec)
+    min: 0
+    max: 60
+    mode: box
