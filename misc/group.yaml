@@ -91,9 +91,6 @@ livingroom:
     - media_player.livingroom_tv
     - media_player.playstation_4_office
     - switch.entry_light
-office:
-  entities:
-    - light.office
 patio:
   entities:
     - light.patio
