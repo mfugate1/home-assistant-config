@@ -83,17 +83,21 @@ automation:
 input_number:
   upstairsbathroom_light_sleeping_brightness:
     name: Sleeping Brightness
+    icon: mdi:sleep
     min: 1
     max: 255
   upstairsbathroom_light_day_brightness:
     name: Daytime Brightness
+    icon: mdi:brightness-5
     min: 1
     max: 255
   upstairsbathroom_light_night_brightness:
     name: Nighttime Brightness
+    icon: mdi:brightness-4
     min: 1
     max: 255
   upstairsbathroom_light_transition:
     name: Transition
+    icon: mdi:arrow-right
     min: 1
     max: 10
