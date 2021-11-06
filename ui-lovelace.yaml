@@ -202,24 +202,7 @@ views:
   - icon: mdi:auto-fix
     cards:
       - !include lovelace/cards/automation_config/climate.yaml
-      - type: entities
-        title: Upstairs Bathroom
-        entities:
-          - type: buttons
-            entities:
-              - entity: group.upstairsbathroom_occupancy
-                show_name: false
-              - entity: binary_sensor.upstairsbathroom_door
-                show_name: false
-              - entity: light.upstairsbathroom
-                show_name: false
-              - entity: switch.upstairsbathroom_vent
-                icon: mdi:fan
-                show_name: false
-          - input_number.upstairsbathroom_light_transition
-          - input_number.upstairsbathroom_light_sleeping_brightness
-          - input_number.upstairsbathroom_light_day_brightness
-          - input_number.upstairsbathroom_light_night_brightness
+      - !include lovelace/cards/room_config/upstairsbathroom.yaml
       - !include lovelace/cards/automation_config/dehumidifier.yaml
       - !include lovelace/cards/automation_config/vacuum.yaml
       - !include lovelace/cards/occupancy_config.yaml

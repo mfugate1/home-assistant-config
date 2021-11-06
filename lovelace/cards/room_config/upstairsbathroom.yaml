@@ -1,0 +1,30 @@
+title: Upstairs Bathroom
+type: entities
+entities:
+  - type: buttons
+    entities:
+      - entity: group.upstairsbathroom_occupancy
+        show_name: false
+      - entity: binary_sensor.upstairsbathroom_door
+        show_name: false
+      - entity: light.upstairsbathroom
+        show_name: false
+      - entity: switch.upstairsbathroom_vent
+        icon: mdi:fan
+        show_name: false
+  - name: Automations
+    type: custom:multiple-entity-row
+    entity: automation.upstairs_bathroom_lights_on
+    toggle: true
+    state_header: 'On'
+    entities:
+      - entity: automation.upstairs_bathroom_vent_control
+        name: Vent
+        toggle: true
+      - entity: automation.upstairs_bathroom_lights_off
+        name: 'Off'
+        toggle: true
+  - input_number.upstairsbathroom_light_transition
+  - input_number.upstairsbathroom_light_sleeping_brightness
+  - input_number.upstairsbathroom_light_day_brightness
+  - input_number.upstairsbathroom_light_night_brightness
