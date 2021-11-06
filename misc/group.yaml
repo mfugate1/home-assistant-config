@@ -225,11 +225,3 @@ patio_occupancy:
   icon: hass:walk
   entities:
     - binary_sensor.patio_motion_1
-
-upstairsbathroom_occupancy:
-  name: Upstairs Bathroom
-  icon: hass:walk
-  entities:
-    - binary_sensor.upstairsbathroom_motion_1
-    - binary_sensor.upstairsbathroom_motion_2
-    - binary_sensor.upstairsbathroom_motion_3

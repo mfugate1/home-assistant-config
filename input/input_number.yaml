@@ -91,23 +91,6 @@ vacuum_upstairsbathroom_last_clean_duration:
   min: 1
   max: 1800
 
-# Upstairs bathroom automation config
-upstairsbathroom_light_brightness:
-  min: 1
-  max: 255
-upstairsbathroom_light_sleeping_brightness:
-  min: 1
-  max: 255
-upstairsbathroom_light_day_brightness:
-  min: 1
-  max: 255
-upstairsbathroom_light_night_brightness:
-  min: 1
-  max: 255
-upstairsbathroom_light_transition:
-  min: 1
-  max: 10
-
 # Bedroom automation config
 bedroom_occupancy_timeout_minutes:
   name: Occupancy Timeout (min)
@@ -241,23 +224,6 @@ occupancy_patio_motion_timeout_seconds:
   max: 120
   mode: box
 occupancy_patio_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_upstairsbathroom_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_upstairsbathroom_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_upstairsbathroom_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-occupancy_upstairsbathroom_motion_quick_timeout_seconds:
   min: 0
   max: 240
   mode: box

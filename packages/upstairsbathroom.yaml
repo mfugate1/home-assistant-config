@@ -1,0 +1,111 @@
+group:
+  upstairsbathroom:
+    entities:
+      - light.upstairsbathroom
+      - switch.upstairsbathroom_vent
+  upstairsbathroom_occupancy:
+    name: Upstairs Bathroom
+    icon: hass:walk
+    entities:
+      - binary_sensor.upstairsbathroom_motion_1
+      - binary_sensor.upstairsbathroom_motion_2
+      - binary_sensor.upstairsbathroom_motion_3
+
+automation:
+  - alias: 'Upstairs bathroom lights on'
+    id: upstairs_bathroom_lights_on
+    trigger:
+      platform: state
+      entity_id: group.upstairsbathroom_occupancy
+      to: 'on'
+    condition:
+      - condition: state
+        entity_id: light.upstairsbathroom
+        state: 'off'
+      - condition: state
+        entity_id: person.mike
+        state: home
+    action:
+      service: light.turn_on
+      entity_id: light.upstairsbathroom
+      data:
+        brightness: "{{ states('input_number.upstairsbathroom_light_brightness')}}"
+        transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
+
+  - alias: 'Upstairs bathroom lights off'
+    id: upstairs_bathroom_lights_off
+    trigger: 
+      - platform: state
+        entity_id: group.upstairsbathroom_occupancy
+        to: 'off'
+      - platform: state
+        entity_id: binary_sensor.upstairsbathroom_door
+        to: 'on'
+      - platform: state
+        entity_id: sensor.last_occupied_room
+    condition:
+      - condition: state
+        entity_id: binary_sensor.upstairsbathroom_door
+        state: 'on'
+      - condition: state
+        entity_id: group.upstairsbathroom_occupancy
+        state: 'off'
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: sensor.last_occupied_room
+            state: upstairsbathroom
+    action:
+      service: light.turn_off
+      entity_id: light.upstairsbathroom
+
+  - alias: 'Upstairs bathroom vent control'
+    id: upstairs_bathroom_vent_control
+    trigger:
+      platform: state
+      entity_id: binary_sensor.upstairsbathroom_door
+    action:
+      service: >-
+        {% if trigger.to_state.state == 'on' %}
+          switch.turn_off
+        {% else %}
+          switch.turn_on
+        {% endif %}
+      entity_id: switch.upstairsbathroom_vent
+
+  - alias: 'Set upstairs bathroom light brightness'
+    id: set_upstairs_bathroom_light_brightness
+    trigger:
+      platform: state
+      entity_id:
+        - input_boolean.sleep_mode
+        - sun.sun
+    action:
+      service: input_number.set_value
+      entity_id: input_number.upstairsbathroom_light_brightness
+      data:
+        value: >-
+          {% if is_state('input_boolean.sleep_mode', 'on') %}
+            {{ states('input_number.upstairsbathroom_light_sleeping_brightness') }}
+          {% elif is_state('sun.sun', 'above_horizon') %}
+            {{ states('input_number.upstairsbathroom_light_day_brightness') }}
+          {% else %}
+            {{ states('input_number.upstairsbathroom_light_night_brightness') }}
+          {% endif %}
+
+input_number:
+  upstairsbathroom_light_brightness:
+    min: 1
+    max: 255
+  upstairsbathroom_light_sleeping_brightness:
+    min: 1
+    max: 255
+  upstairsbathroom_light_day_brightness:
+    min: 1
+    max: 255
+  upstairsbathroom_light_night_brightness:
+    min: 1
+    max: 255
+  upstairsbathroom_light_transition:
+    min: 1
+    max: 10
