@@ -75,6 +75,6 @@
   action:
     service: notify.mobile_app_sm_g981u1
     data:
-      message: "{{ trigger.entity_id.split('_')[1].capitalize() }} detected in driveway"
+      message: "{{ trigger.entity_id.split('_')[2].capitalize() }} detected in driveway"
       data:
-        image: "/api/camera_proxy/{{ trigger.entity_id.replace('sensor', 'camera') }}"
+        image: "/api/camera_proxy/{{ trigger.entity_id.replace('binary_sensor', 'camera').replace('_motion', '') }}"
