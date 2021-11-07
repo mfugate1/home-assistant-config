@@ -71,8 +71,13 @@
         - condition: and
           conditions:
             - condition: state
-              entity_id: input_boolean.sleep_mode
+              entity_id: 
+                - input_boolean.sleep_mode
+                - switch.bedroom_fan
               state: 'on'
+            - condition: state
+              entity_id: binary_sensor.bedroom_door
+              state: 'off'
             - condition: time
               before: input_datetime.vacuum_night_cleaning_end_time
               after: input_datetime.sleep_mode_last_start_time
