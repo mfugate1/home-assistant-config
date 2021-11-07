@@ -36,6 +36,9 @@ automation:
       - condition: state
         entity_id: person.mike
         state: home
+      - condition: state
+        entity_id: input_boolean.sleep_mode
+        state: 'off'
     action:
       service: light.turn_on
       target:
