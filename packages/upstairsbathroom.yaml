@@ -107,11 +107,13 @@ automation:
 input_number:
   upstairsbathroom_occupancy_timeout_seconds:
     name: Occupancy Timeout
+    icon: mdi:clock-outline
     min: 0
     max: 360
     mode: box
   upstairsbathroom_door_closed_occupancy_timeout_minutes:
     name: Occupancy Timeout (Door Closed)
+    icon: mdi:clock-outline
     min: 1
     max: 60
     mode: box

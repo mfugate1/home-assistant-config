@@ -74,11 +74,13 @@ automation:
 input_number:
   office_occupancy_timeout_minutes:
     name: Occupancy Timeout (min)
+    icon: mdi:clock-outline
     min: 0
     max: 60
     mode: box
   office_occupancy_timeout_seconds:
     name: Occupancy Timeout (sec)
+    icon: mdi:clock-outline
     min: 0
     max: 60
     mode: box
