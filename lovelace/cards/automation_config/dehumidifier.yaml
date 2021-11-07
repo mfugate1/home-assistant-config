@@ -3,7 +3,6 @@ type: custom:stack-in-card
 cards:
   - type: entities
     entities:
-      - type: divider
       - name: Status
         type: custom:multiple-entity-row
         entity: switch.dehumidifier
