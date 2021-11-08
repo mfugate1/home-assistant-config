@@ -93,11 +93,13 @@ automation:
   - alias: 'Upstairs bathroom vent control'
     id: upstairs_bathroom_vent_control
     trigger:
-      platform: state
-      entity_id: binary_sensor.upstairsbathroom_door
+      - platform: state
+        entity_id: 
+          - binary_sensor.upstairsbathroom_door
+          - sensor.upstairsbathroom_humidity
     action:
       service: >-
-        {% if trigger.to_state.state == 'on' %}
+        {% if is_state('binary_sensor.upstairsbathroom_door', 'on') and (states('sensor.upstairsbathroom_humidity') | int) < 70 %}
           switch.turn_off
         {% else %}
           switch.turn_on
