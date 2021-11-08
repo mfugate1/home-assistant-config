@@ -11,7 +11,16 @@ include:
     - person
     - switch
   entity_globs:
-    - group.*_motion
+    - group.*_occupancy
+    - sensor.*battery*
+    - sensor.*bed*
+    - sensor.dcp_l2540dw*
+    - sensor.*docker*
+    - sensor.*humidity*
+    - sensor.*hvac*
+    - sensor.*mileage*
+    - sensor.*playstation*
+    - sensor.*temperature*
   entities:
     - device_tracker.sm_g950u1
     - media_player.basement_squeezelite
@@ -24,64 +33,23 @@ include:
     - media_player.livingroom_roku
     - media_player.livingroom_tv
     - media_player.livingroom_squeezelite
-    - media_player.playstation_4_basement
-    - media_player.playstation_4_office
     - sensor.alexa_last_called_device
     - sensor.alexa_last_called_room
-    - sensor.basement_door_sensor_battery_level
-    - sensor.basement_humidity
-    - sensor.basement_temperature
     - sensor.bedroom_phone_charger_power
-    - sensor.bedroom_remote_battery_level
-    - sensor.bike_mileage_today
-    - sensor.dcp_l2540dw_black_toner_remaining
-    - sensor.dcp_l2540dw_drum_remaining_life
-    - sensor.dcp_l2540dw_page_counter
-    - sensor.dcp_l2540dw_status
-    - sensor.dcp_l2540dw_uptime
     - sensor.dehumidifier_power
-    - sensor.diningroom_humidity
-    - sensor.diningroom_temperature
     - sensor.disk_use_percent
-    - sensor.front_door_sensor_battery_level
-    - sensor.garage_door_tilt_sensor_battery_level
-    - sensor.garage_inner_door_sensor_battery_level
-    - sensor.garage_outer_door_sensor_battery_level
-    - sensor.hvac_cool_on_today
-    - sensor.hvac_current_temperature
-    - sensor.hvac_fan_only_on_today
-    - sensor.hvac_heat_on_today
-    - sensor.hvac_target_temperature
-    - sensor.kitchen_window_sensor_battery_level
     - sensor.lifting_sessions_today
     - sensor.livingroom_smoke_detector_alarm_level
     - sensor.livingroom_smoke_detector_alarm_type
-    - sensor.livingroom_smoke_detector_battery_level
     - sensor.memory_free
     - sensor.memory_use
     - sensor.memory_use_percent
     - sensor.mike_sleep_time
-    - sensor.mousetrap_battery_level
     - sensor.outside_temp
-    - sensor.required_bike_mileage_for_today
-    - sensor.required_run_mileage_for_today
-    - sensor.required_walk_mileage_for_today
-    - sensor.run_mileage_today
-    - sensor.sleepnumber_master_bed_guest_sleepnumber
-    - sensor.sleepnumber_master_bed_mike_sleepnumber
-    - sensor.sliding_side_door_sensor_battery_level
     - sensor.sm_g981u1_battery_level
     - sensor.sm_g981u1_battery_state
     - sensor.sm_g981u1_phone_state
     - sensor.steps_today
     - sensor.tablet
-    - sensor.battery_livingroom_tablet
     - sensor.target_temp_cooling
     - sensor.target_temp_heating
-    - sensor.upstairsbathroom_door_sensor_battery_level
-    - sensor.upstairsbathroom_humidity
-    - sensor.upstairsbathroom_humidity_2
-    - sensor.upstairsbathroom_sensor_battery_level
-    - sensor.upstairsbathroom_temperature
-    - sensor.upstairsbathroom_temperature_2
-    - sensor.walk_mileage_today
