@@ -1,55 +1,11 @@
 db_url: !secret mariadb_url
-purge_keep_days: 30
-include:
+purge_keep_days: 90
+exclude:
   domains:
-    - binary_sensor
-    - climate
-    - cover
-    - input_boolean
-    - input_number
-    - light
-    - person
-    - switch
-  entity_globs:
-    - group.*_occupancy
-    - sensor.*battery*
-    - sensor.*bed*
-    - sensor.dcp_l2540dw*
-    - sensor.*docker*
-    - sensor.*humidity*
-    - sensor.*hvac*
-    - sensor.*mileage*
-    - sensor.*playstation*
-    - sensor.*temperature*
-  entities:
-    - device_tracker.sm_g950u1
-    - media_player.basement_squeezelite
-    - media_player.basement_tv
-    - media_player.gameroom_receiver
-    - media_player.gameroom_tv
-    - media_player.gameroom
-    - media_player.garage
-    - media_player.livingroom_receiver
-    - media_player.livingroom_roku
-    - media_player.livingroom_tv
-    - media_player.livingroom_squeezelite
-    - sensor.alexa_last_called_device
-    - sensor.alexa_last_called_room
-    - sensor.bedroom_phone_charger_power
-    - sensor.dehumidifier_power
-    - sensor.disk_use_percent
-    - sensor.lifting_sessions_today
-    - sensor.livingroom_smoke_detector_alarm_level
-    - sensor.livingroom_smoke_detector_alarm_type
-    - sensor.memory_free
-    - sensor.memory_use
-    - sensor.memory_use_percent
-    - sensor.mike_sleep_time
-    - sensor.outside_temp
-    - sensor.sm_g981u1_battery_level
-    - sensor.sm_g981u1_battery_state
-    - sensor.sm_g981u1_phone_state
-    - sensor.steps_today
-    - sensor.tablet
-    - sensor.target_temp_cooling
-    - sensor.target_temp_heating
+    - automation
+    - calendar
+    - camera
+    - remote
+    - script
+    - weather
+    - zone
