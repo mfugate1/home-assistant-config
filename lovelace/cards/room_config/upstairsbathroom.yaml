@@ -30,3 +30,4 @@ entities:
   - input_number.upstairsbathroom_light_night_brightness
   - input_number.upstairsbathroom_light_sleeping_brightness
   - input_number.upstairsbathroom_light_transition
+  - input_number.upstairsbathroom_vent_humidity_threshold

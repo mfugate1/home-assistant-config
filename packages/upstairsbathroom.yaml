@@ -99,7 +99,7 @@ automation:
           - sensor.upstairsbathroom_humidity
     action:
       service: >-
-        {% if is_state('binary_sensor.upstairsbathroom_door', 'on') and (states('sensor.upstairsbathroom_humidity') | int) < 70 %}
+        {% if is_state('binary_sensor.upstairsbathroom_door', 'on') and (states('sensor.upstairsbathroom_humidity') | int) < (states('input_number.upstairsbathroom_vent_humidity_threshold') | int) %}
           switch.turn_off
         {% else %}
           switch.turn_on
@@ -107,6 +107,12 @@ automation:
       entity_id: switch.upstairsbathroom_vent
 
 input_number:
+  upstairsbathroom_vent_humidity_threshold:
+    name: Humidity Threshold
+    icon: mdi:water-percent
+    min: 50
+    max: 100
+    mode: box
   upstairsbathroom_occupancy_timeout_seconds:
     name: Occupancy Timeout
     icon: mdi:clock-outline
