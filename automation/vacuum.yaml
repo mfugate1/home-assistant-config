@@ -53,8 +53,6 @@
     - condition: state
       entity_id: vacuum.roborock_s6_pure
       state: docked
-    - condition: template
-      value_template: "{{ (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) < (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
     - condition: not
       conditions:
         - condition: state
