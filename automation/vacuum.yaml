@@ -151,6 +151,32 @@
     data:
       value: 0
 
+- alias: 'Vacuum: Error notification'
+  id: vacuum_error_notification
+  trigger:
+    platform: state
+    entity_id: vacuum.roborock_s6_pure
+    to: error
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data: 
+      message: "Vacuum Error"
+      data:
+        tag: vacuum_error
+
+- alias: 'Vacuum: Clear error notification'
+  id: vacuum_clear_error_notification
+  trigger:
+    platform: state
+    entity_id: vacuum.roborock_s6_pure
+    from: error
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data: 
+      message: clear_notification
+      data:
+        tag: vacuum_error
+
 - alias: 'Vacuum: Set fan speed'
   id: vacuum_set_fan_speed
   trigger:
