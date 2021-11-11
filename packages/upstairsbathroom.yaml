@@ -68,7 +68,7 @@ automation:
               - condition: template
                 value_template: >-
                   {% set timeout = states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int %}
-                  {{ (now() - states.group.office_occupancy.last_updated).total_seconds() >= timeout }}
+                  {{ (now() - states.group.upstairsbathroom_occupancy.last_updated).total_seconds() >= timeout }}
           - condition: and
             conditions:
               - condition: state
@@ -77,7 +77,7 @@ automation:
               - condition: template
                 value_template: >-
                   {% set timeout = (states('input_number.upstairsbathroom_door_closed_occupancy_timeout_minutes') | int) * 60 %}
-                  {{ (now() - states.group.office_occupancy.last_updated).total_seconds() >= timeout }}
+                  {{ (now() - states.group.upstairsbathroom_occupancy.last_updated).total_seconds() >= timeout }}
       - condition: state
         entity_id: group.upstairsbathroom_occupancy
         state: 'off'
