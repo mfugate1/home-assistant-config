@@ -77,3 +77,33 @@
     service: shell_command.curl
     data:
       url: !secret jenkins_garmin_update_url
+
+- alias: 'Workout mode: Turn off everything else when motion detected'
+  id: workout_mode_turn_off_everything_else_when_motion_detected
+  trigger:
+    platform: state
+    entity_id: group.basement_occupancy
+    to: 'on'
+  condition:
+    - condition: state
+      entity_id: input_boolean.workout_mode
+      state: 'on'
+    - condition: state
+      entity_id: input_boolean.single_occupancy_mode
+      state: 'off'
+  action:
+    service: light.turn_off
+    target:
+      entity_id:
+        - light.basement
+        - light.bedroom_lamps
+        - light.bedroom_overhead
+        - light.diningroom
+        - light.entry_light
+        - light.gameroom_lamp
+        - light.gameroom_overhead
+        - light.laundryroom
+        - light.livingroom_lamp
+        - light.office
+        - light.patio
+        - light.upstairsbathroom
