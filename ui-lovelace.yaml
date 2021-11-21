@@ -205,7 +205,6 @@ views:
       - !include lovelace/cards/room_config/upstairsbathroom.yaml
       - !include lovelace/cards/automation_config/dehumidifier.yaml
       - !include lovelace/cards/automation_config/vacuum.yaml
-      - !include lovelace/cards/occupancy_config.yaml
       - !include lovelace/cards/recent_automations.yaml
   - icon: mdi:cctv
     panel: true
