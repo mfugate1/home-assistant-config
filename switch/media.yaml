@@ -26,7 +26,8 @@
           target:
             entity_id: script.select_livingroom_sources
           data:
-            media_type: music
+            variables:
+              media_type: music
         - service: shell_command.curl
           data:
             url: !secret workout_music_url
