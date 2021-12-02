@@ -1,6 +1,7 @@
 - platform: ping
-  name: office_pc
-  host: !secret pc_ip
+  name: laptop_wired
+  host: !secret laptop_wired_ip
+  scan_interval: 60
 - platform: ping
   name: freenas_server
   host: !secret freenas_server_ip
