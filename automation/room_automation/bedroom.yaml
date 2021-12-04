@@ -80,11 +80,13 @@
   mode: single
   max_exceeded: silent
   trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 20
-      label: 'Scene 001'
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 20
+        label: 'Scene 001'
+    - platform: state
+      entity_id: input_boolean.sleep_mode
   condition: "{{ trigger.event.data.value != 'KeyReleased' }}"
   action:
     - choose:
@@ -98,7 +100,7 @@
                 entity_id: *allLights
             - service: switch.turn_on
               target:
-                entity_id: "switch.bedroom_{{ 'fan' if trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}"
+                entity_id: "switch.bedroom_{{ 'fan' if trigger.platform == 'state' or trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}"
       default:
         - service: light.turn_on
           target:
@@ -111,6 +113,8 @@
             entity_id: 
               - switch.bedroom_fan
               - switch.bedroom_noise_machine
+    - condition: template
+      value_template: "{{ trigger.platform == 'event' }}"
     - service: input_boolean.toggle
       target:
         entity_id: input_boolean.sleep_mode
