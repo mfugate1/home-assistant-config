@@ -34,20 +34,20 @@
     platform: time_pattern
     minutes: "/1"
   sensor:
-    - name: vacuum_gameroom_16_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_gameroom_16_last_cleaned'))) }} ago"
-    - name: vacuum_hallway_17_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_hallway_17_last_cleaned'))) }} ago"
-    - name: vacuum_bedroom_18_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_bedroom_18_last_cleaned'))) }} ago"
-    - name: vacuum_livingroom_19_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_livingroom_19_last_cleaned'))) }} ago"
-    - name: vacuum_kitchen_20_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_kitchen_20_last_cleaned'))) }} ago"
-    - name: vacuum_diningroom_21_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_diningroom_21_last_cleaned'))) }} ago"
-    - name: vacuum_office_22_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_office_22_last_cleaned'))) }} ago"
-    - name: vacuum_upstairsbathroom_23_last_cleaned
-      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_upstairsbathroom_23_last_cleaned'))) }} ago"
+    - name: vacuum_gameroom_23_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_gameroom_23_last_cleaned'))) }} ago"
+    - name: vacuum_hallway_20_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_hallway_20_last_cleaned'))) }} ago"
+    - name: vacuum_bedroom_22_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_bedroom_22_last_cleaned'))) }} ago"
+    - name: vacuum_livingroom_16_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_livingroom_16_last_cleaned'))) }} ago"
+    - name: vacuum_kitchen_18_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_kitchen_18_last_cleaned'))) }} ago"
+    - name: vacuum_diningroom_17_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_diningroom_17_last_cleaned'))) }} ago"
+    - name: vacuum_office_19_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_office_19_last_cleaned'))) }} ago"
+    - name: vacuum_upstairsbathroom_21_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_upstairsbathroom_21_last_cleaned'))) }} ago"
     

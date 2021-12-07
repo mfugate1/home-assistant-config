@@ -17,28 +17,28 @@ vacuum_room_cleaned_today_reset_time:
 vacuum_night_cleaning_end_time:
   has_time: true
 
-vacuum_gameroom_16_last_cleaned:
+vacuum_gameroom_23_last_cleaned:
   has_date: true
   has_time: true
-vacuum_hallway_17_last_cleaned:
+vacuum_hallway_20_last_cleaned:
   has_date: true
   has_time: true
-vacuum_bedroom_18_last_cleaned:
+vacuum_bedroom_22_last_cleaned:
   has_date: true
   has_time: true
-vacuum_livingroom_19_last_cleaned:
+vacuum_livingroom_16_last_cleaned:
   has_date: true
   has_time: true
-vacuum_kitchen_20_last_cleaned:
+vacuum_kitchen_18_last_cleaned:
   has_date: true
   has_time: true
-vacuum_diningroom_21_last_cleaned:
+vacuum_diningroom_17_last_cleaned:
   has_date: true
   has_time: true
-vacuum_office_22_last_cleaned:
+vacuum_office_19_last_cleaned:
   has_date: true
   has_time: true
-vacuum_upstairsbathroom_23_last_cleaned:
+vacuum_upstairsbathroom_21_last_cleaned:
   has_date: true
   has_time: true
 
