@@ -17,8 +17,10 @@ smart_home:
       - switch.dehumidifier
       - switch.basement_stereo
       - switch.bedroom_fan
+      - switch.christmas_tree
       - switch.circulation
       - switch.pc
+      - switch.train
     exclude_entities:
       - script.bootstrap_music_db
       - script.rescan_lms
