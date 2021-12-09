@@ -1,0 +1,13 @@
+automation:
+  - alias: 'Christmas tree on at sunset'
+    id: christmas_tree_on_at_sunset
+    trigger:
+      platform: numeric_state
+      entity_id: sun.sun
+      attribute: elevation
+      below: -4.0
+    action:
+      service: switch.turn_on
+      target:
+        entity_id: switch.christmas_tree
+        

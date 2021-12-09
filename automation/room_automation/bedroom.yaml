@@ -101,6 +101,11 @@
             - service: switch.turn_on
               target:
                 entity_id: "switch.bedroom_{{ 'fan' if trigger.platform == 'state' or trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}"
+            - service: switch.turn_off
+              target:
+                entity_id:
+                  - switch.christmas_tree
+                  - switch.train
       default:
         - service: light.turn_on
           target:
