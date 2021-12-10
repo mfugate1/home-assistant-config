@@ -53,6 +53,7 @@ vacuum_fan_speed_night:
     - Standard
     - Medium
     - Turbo
+
 occupancy_config_card_room_select:
   name: Room
   options:
@@ -65,3 +66,9 @@ occupancy_config_card_room_select:
     - Living Room
     - Office
     - Upstairs Bathroom
+
+jenkins_status:
+  options:
+    - None
+    - Building
+    - Updating
