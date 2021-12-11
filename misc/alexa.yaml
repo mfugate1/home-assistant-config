@@ -22,6 +22,8 @@ smart_home:
       - switch.pc
       - switch.train
     exclude_entities:
+      - light.livingroom_wall_switch_1
+      - light.livingroom_wall_switch_2
       - script.bootstrap_music_db
       - script.rescan_lms
       - script.media_controller_command
