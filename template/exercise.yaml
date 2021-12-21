@@ -1,3 +1,20 @@
+- binary_sensor:
+    - name: bike_goal_met_today
+      state: "{{ (states('sensor.bike_mileage_today') | float) >= (states('sensor.required_bike_mileage_for_today') | float) }}"
+    - name: lifting_goal_met_today
+      state: >-
+        {% if is_state('calendar.next_lifting', 'on') %}
+          {{ states('sensor.lifting_sessions_today')|int >= 1}}
+        {% else %}
+          on
+        {% endif %}
+    - name: run_goal_met_today
+      state: "{{ (states('sensor.run_mileage_today') | float) >= (states('sensor.required_run_mileage_for_today') | float) }}"
+    - name: steps_goal_met_today
+      state: "{{ (states('sensor.steps_today') | int) >= (states('sensor.step_goal_today') | int) }}"
+    - name: walk_goal_met_today
+      state: "{{ (states('sensor.walk_mileage_today') | float) >= (states('sensor.required_walk_mileage_for_today') | float) }}"
+
 - trigger:
     - platform: webhook
       webhook_id: !secret garmin_challenge_01
