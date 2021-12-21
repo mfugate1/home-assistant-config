@@ -1,5 +1,0 @@
-- binary_sensor:
-    - name: livingroom_roku_media_active
-      state: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
-    - name: livingroom_roku_available
-      state: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"
