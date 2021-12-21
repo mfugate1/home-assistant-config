@@ -21,13 +21,6 @@
   type: time
   start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
   end: "{{ now() }}"
-  
-- platform: template
-  sensors:
-    hvac_current_temperature:
-      value_template: "{{ state_attr('climate.thermostat', 'current_temperature') }}"
-    hvac_target_temperature:
-      value_template: "{{ state_attr('climate.thermostat', 'temperature') }}"
 
 - platform: mqtt
   name: outside_temp

@@ -17,6 +17,8 @@
         {% else %}
           {{ states('input_number.climate_cool_home_temp') }}
         {% endif %}
+    - name: hvac_current_temperature
+      state: "{{ state_attr('climate.thermostat', 'current_temperature') }}"
 - binary_sensor:
     - name: hvac_cool_on
       state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'cooling') }}"
