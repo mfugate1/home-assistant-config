@@ -17,3 +17,10 @@
         {% else %}
           {{ states('input_number.climate_cool_home_temp') }}
         {% endif %}
+- binary_sensor:
+    - name: hvac_cool_on
+      state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'cooling') }}"
+    - name: hvac_heat_on
+      state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'heating') }}"
+    - name: hvac_only_fan_on
+      state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'idle') and is_state_attr('climate.thermostat', 'fan_state', 'Running / running low') }}"
