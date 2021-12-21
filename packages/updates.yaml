@@ -1,3 +1,14 @@
+binary_sensor:
+  - platform: rest
+    name: latest_unifi_image_available_on_docker_hub
+    resource_template: "https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}"
+    value_template: &valueTemplate "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
+
+  - platform: rest
+    name: latest_zwavejs2mqtt_image_available_on_docker_hub
+    resource_template: "https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}"
+    value_template: *valueTemplate
+    
 sensor:
   - platform: github
     access_token: ${GITHUB-PERSONAL-ACCESS-TOKEN}
