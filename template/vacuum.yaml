@@ -50,4 +50,7 @@
       state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_office_19_last_cleaned'))) }} ago"
     - name: vacuum_upstairsbathroom_21_last_cleaned
       state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_upstairsbathroom_21_last_cleaned'))) }} ago"
+- binary_sensor:
+    - name: run_vacuum
+      state: "{{ is_state('input_boolean.run_vacuum', 'on') }}"
     
