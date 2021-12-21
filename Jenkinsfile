@@ -47,14 +47,6 @@ List getAffectedFiles(Map files) {
     return affectedFiles.unique()
 }
 
-@NonCPS
-Map getAzureVaultSecrets() {
-    return com.cloudbees.plugins.credentials.CredentialsProvider.lookupCredentials(
-        org.jenkinsci.plugins.azurekeyvaultplugin.credentials.string.AzureSecretStringCredentials,
-        Jenkins.instance
-    ).collectEntries{[("\${${it.id}}"): it.secret]}
-}
-
 // Returns a map of files with their secrets and services
 Map applySecrets(Map secrets) {
     Map files = [:]

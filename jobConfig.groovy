@@ -6,7 +6,7 @@ pipelineJob ('Update-Home-Assistant-Config') {
                     remote {
                         url('https://github.com/mfugate1/home-assistant-config.git')
                     }
-                    branch('better-secrets')
+                    branch('main')
                 }
                 scriptPath('Jenkinsfile')
             }
