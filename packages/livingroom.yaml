@@ -32,7 +32,7 @@ sensor:
       - locationAltitude
       - startUrl
       - currentPage
-    resource: !secret tablet_rest_url
+    resource: ${LIVINGROOM-TABLET-STATS-URL}
     value_template: "{{ value_json.isScreenOn if 'isScreenOn' in value_json else 'off' }}"
 
 template:

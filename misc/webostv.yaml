@@ -1,6 +1,6 @@
-host: !secret gameroom_tv_ip
+host: ${GAMEROOM-TV-IP}
 name: gameroom_tv
 turn_on_action:
   service: wake_on_lan.send_magic_packet
   data:
-    mac: !secret gameroom_tv_mac
+    mac: ${GAMEROOM-TV-MAC}

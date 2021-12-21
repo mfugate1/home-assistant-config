@@ -1,4 +1,4 @@
-db_url: !secret mariadb_url
+db_url: ${HASS-MARIADB-URL}
 purge_keep_days: 90
 exclude:
   domains:

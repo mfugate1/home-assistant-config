@@ -1,5 +1,5 @@
 - platform: sql
-  db_url: !secret fitnessdb_url
+  db_url: ${FITNESS-DB-URL}
   queries:
     - name: run_mileage_today
       query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'running';"

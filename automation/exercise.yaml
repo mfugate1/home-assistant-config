@@ -9,7 +9,7 @@
       entity_id: light.basement
     - service: shell_command.curl
       data:
-        url: !secret workout_music_url
+        url: ${LMS-URL}/plugins/spotty/index.html?action=playall&index=8.1&player=b8%3A27%3Aeb%3Ad3%3A90%3A9b&sess=&start=
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.workout_mode_available
@@ -24,24 +24,6 @@
         entity_id: climate.thermostat
       data:
         temperature: "{{ states('input_number.climate_heat_away_temp') }}"
-        
-- alias: 'Workout mode off delayed'
-  id: workout_mode_off_delayed
-  trigger:
-    platform: webhook
-    webhook_id: !secret workout_mode_off_webhook
-  condition:
-    condition: state
-    entity_id: input_boolean.workout_mode
-    state: 'on'
-  action:
-    - wait_template: "{{ is_state('binary_sensor.basement_door', 'on') }}"
-      timeout: '01:00:00'
-    - wait_template: "{{ is_state('binary_sensor.basement_door', 'off') }}"
-      timeout: '01:00:00'
-    - service: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.workout_mode
 
 - alias: 'Workout mode off'
   id: workout_mode_off
@@ -76,7 +58,7 @@
   action:
     service: shell_command.curl
     data:
-      url: !secret jenkins_garmin_update_url
+      url: http://${JENKINS-IP}:${JENKINS-PORT}/generic-webhook-trigger/invoke?token=${JENKINS-GARMIN-UPDATE-TOKEN}
 
 - alias: 'Workout mode: Turn off everything else when motion detected'
   id: workout_mode_turn_off_everything_else_when_motion_detected
