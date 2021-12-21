@@ -15,6 +15,29 @@
     - name: walk_goal_met_today
       state: "{{ (states('sensor.walk_mileage_today') | float) >= (states('sensor.required_walk_mileage_for_today') | float) }}"
 
+- sensor:
+    - name: required_run_mileage_for_today
+      state: >-
+        {% if state_attr('calendar.next_run', 'start_time') and state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_run', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+    - name: required_bike_mileage_for_today
+      state: >-
+        {% if state_attr('calendar.next_bike', 'start_time') and state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_bike', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+    - name: required_walk_mileage_for_today
+      state: >-
+        {% if state_attr('calendar.next_walk', 'start_time') and state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_walk', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+
 - trigger:
     - platform: webhook
       webhook_id: !secret garmin_challenge_01
