@@ -1,0 +1,13 @@
+sensor:
+  - platform: github
+    access_token: ${GITHUB-PERSONAL-ACCESS-TOKEN}
+    repositories:
+      - path: jacobalberty/unifi-docker
+      - path: zwave-js/zwavejs2mqtt
+
+template:
+  - sensor:
+      - name: unifi_latest_version
+        state: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
+      - name: zwavejs2mqtt_latest_version
+        state: "{{ state_attr('sensor.zwavejs2mqtt', 'latest_release_tag')[1:] }}"
