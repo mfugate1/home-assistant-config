@@ -10,7 +10,16 @@ automation:
       service: switch.turn_on
       target:
         entity_id: switch.christmas_tree
-        
+
+group:
+  livingroom:
+    entities:
+      - light.livingroom_lamp
+      - media_player.livingroom_receiver
+      - media_player.livingroom_tv
+      - media_player.playstation_4_office
+      - switch.entry_light
+      
 sensor:
   - platform: rest
     name: tablet

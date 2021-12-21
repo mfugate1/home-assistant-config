@@ -73,23 +73,9 @@ garmin_watch:
     - light.patio
     - light.upstairsbathroom
     - switch.basement_stereo
-livingroom:
-  entities:
-    - light.livingroom_lamp
-    - media_player.livingroom_receiver
-    - media_player.livingroom_tv
-    - media_player.playstation_4_office
-    - switch.entry_light
 patio:
   entities:
     - light.patio
-update_available:
-  icon: mdi:update
-  entities:
-    - binary_sensor.updater
-    - binary_sensor.unifi_update_available
-    - binary_sensor.zwavejs2mqtt_update_available
-
 
 # LED Notification Groups
 led_red:
@@ -132,31 +118,6 @@ led_solid:
   entities:
     - group.exterior_doors_and_windows
     - input_boolean.phone_text_notification
-    
-
-# Vacuum enable/disable groups
-vacuum_enable_all_rooms_day:
-  entities:
-    - input_boolean.vacuum_gameroom_23_day_enable
-    - input_boolean.vacuum_hallway_20_day_enable
-    - input_boolean.vacuum_bedroom_22_day_enable
-    - input_boolean.vacuum_livingroom_16_day_enable
-    - input_boolean.vacuum_kitchen_18_day_enable
-    - input_boolean.vacuum_diningroom_17_day_enable
-    - input_boolean.vacuum_office_19_day_enable
-    - input_boolean.vacuum_upstairsbathroom_21_day_enable
-
-vacuum_enable_all_rooms_night:
-  icon: mdi:robot-vacuum
-  entities:
-    - input_boolean.vacuum_gameroom_23_night_enable
-    - input_boolean.vacuum_hallway_20_night_enable
-    - input_boolean.vacuum_bedroom_22_night_enable
-    - input_boolean.vacuum_livingroom_16_night_enable
-    - input_boolean.vacuum_kitchen_18_night_enable
-    - input_boolean.vacuum_diningroom_17_night_enable
-    - input_boolean.vacuum_office_19_night_enable
-    - input_boolean.vacuum_upstairsbathroom_21_night_enable
 
 # Motion
 basement_occupancy:

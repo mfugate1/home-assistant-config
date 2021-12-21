@@ -8,7 +8,15 @@ binary_sensor:
     name: latest_zwavejs2mqtt_image_available_on_docker_hub
     resource_template: "https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}"
     value_template: *valueTemplate
-    
+
+group:
+  update_available:
+    icon: mdi:update
+    entities:
+      - binary_sensor.updater
+      - binary_sensor.unifi_update_available
+      - binary_sensor.zwavejs2mqtt_update_available
+      
 sensor:
   - platform: github
     access_token: ${GITHUB-PERSONAL-ACCESS-TOKEN}
