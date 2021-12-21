@@ -73,17 +73,6 @@ garmin_watch:
     - light.patio
     - light.upstairsbathroom
     - switch.basement_stereo
-hvac_off:
-  entities:
-    - binary_sensor.bedroom_window_back
-    - binary_sensor.bedroom_window_side
-    - binary_sensor.front_bay_window_left
-    - binary_sensor.front_bay_window_right
-    - binary_sensor.front_door
-    - binary_sensor.gameroom_window_side
-    - binary_sensor.kitchen_window
-    - binary_sensor.office_window
-    - binary_sensor.sliding_side_door
 livingroom:
   entities:
     - light.livingroom_lamp
