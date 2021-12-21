@@ -49,48 +49,6 @@ inovelli_light_duration:
   min: 0
   max: 120
 
-#### VACUUM CONFIG ####
-
-vacuum_rooms_cleaned_since_being_emptied:
-  min: 0
-  max: 30
-  mode: box
-vacuum_max_rooms_cleaned_before_emptying:
-  min: 1
-  max: 30
-
-run_vacuum_after_away_min:
-  min: 1
-  max: 30
-run_vacuum_after_asleep_min:
-  min: 15
-  max: 120
-
-vacuum_bedroom_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_diningroom_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_gameroom_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_hallway_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_kitchen_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_livingroom_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_office_last_clean_duration:
-  min: 1
-  max: 1800
-vacuum_upstairsbathroom_last_clean_duration:
-  min: 1
-  max: 1800
-
 # Bedroom automation config
 bedroom_occupancy_timeout_minutes:
   name: Occupancy Timeout (min)

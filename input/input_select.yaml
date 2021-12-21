@@ -40,20 +40,6 @@ inovelli_light_effect:
     - Pulse
     - Solid
 
-#### VACUUM FAN SPEEDS ####
-vacuum_fan_speed_day:
-  options:
-    - Silent
-    - Standard
-    - Medium
-    - Turbo
-vacuum_fan_speed_night:
-  options:
-    - Silent
-    - Standard
-    - Medium
-    - Turbo
-
 occupancy_config_card_room_select:
   name: Room
   options:

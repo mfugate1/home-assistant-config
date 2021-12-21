@@ -1,0 +1,466 @@
+automation:
+  - alias: 'Vacuum: Run'
+    id: vacuum_run
+    max_exceeded: silent
+    trigger:
+      - platform: state
+        entity_id: person.mike
+        to: not_home
+        for:
+          minutes: "{{ states('input_number.run_vacuum_after_away_min') }}"
+      - platform: state
+        entity_id: 
+          - input_boolean.workout_mode
+          - input_boolean.vacuum_gameroom_23_day_enable
+          - input_boolean.vacuum_hallway_20_day_enable
+          - input_boolean.vacuum_bedroom_22_day_enable
+          - input_boolean.vacuum_livingroom_16_day_enable
+          - input_boolean.vacuum_kitchen_18_day_enable
+          - input_boolean.vacuum_diningroom_17_day_enable
+          - input_boolean.vacuum_office_19_day_enable
+          - input_boolean.vacuum_upstairsbathroom_21_day_enable
+          - input_boolean.vacuum_gameroom_23_night_enable
+          - input_boolean.vacuum_hallway_20_night_enable
+          - input_boolean.vacuum_bedroom_22_night_enable
+          - input_boolean.vacuum_livingroom_16_night_enable
+          - input_boolean.vacuum_kitchen_18_night_enable
+          - input_boolean.vacuum_diningroom_17_night_enable
+          - input_boolean.vacuum_office_19_night_enable
+          - input_boolean.vacuum_upstairsbathroom_21_night_enable
+        to: 'on'
+      - platform: state
+        entity_id: vacuum.roborock_s6_pure
+        to: docked
+      - platform: state
+        entity_id: input_boolean.sleep_mode
+        to: 'on'
+        for:
+          minutes: "{{ states('input_number.run_vacuum_after_asleep_min') }}"
+      - platform: state
+        entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+        to: '0.0'
+      - platform: state
+        entity_id:
+          - input_boolean.vacuum_gameroom_23_cleaned_today
+          - input_boolean.vacuum_hallway_20_cleaned_today
+          - input_boolean.vacuum_bedroom_22_cleaned_today
+          - input_boolean.vacuum_livingroom_16_cleaned_today
+          - input_boolean.vacuum_kitchen_18_cleaned_today
+          - input_boolean.vacuum_diningroom_17_cleaned_today
+          - input_boolean.vacuum_office_19_cleaned_today
+          - input_boolean.vacuum_upstairsbathroom_21_cleaned_today
+        to: 'off'
+    condition:
+      - condition: state
+        entity_id: vacuum.roborock_s6_pure
+        state: docked
+      - condition: not
+        conditions:
+          - condition: state
+            entity_id: sensor.vacuum_next_room_to_clean
+            state: none
+      - condition: or
+        conditions:
+          - condition: state
+            entity_id: person.mike
+            state: not_home
+          - condition: state
+            entity_id: input_boolean.workout_mode
+            state: 'on'
+          - condition: and
+            conditions:
+              - condition: state
+                entity_id: 
+                  - input_boolean.sleep_mode
+                  - switch.bedroom_fan
+                state: 'on'
+              - condition: state
+                entity_id: binary_sensor.bedroom_door
+                state: 'off'
+              - condition: time
+                before: input_datetime.vacuum_night_cleaning_end_time
+                after: input_datetime.sleep_mode_last_start_time
+    action:
+      - alias: 'Start vacuum'
+        service: xiaomi_miio.vacuum_clean_segment
+        target:
+          entity_id: vacuum.roborock_s6_pure
+        data:
+          segments: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
+      - alias: 'Set last room cleaned input text'
+        service: input_text.set_value
+        target:
+          entity_id: input_text.vacuum_last_room_cleaned
+        data:
+          value: "{{ states('sensor.vacuum_next_room_to_clean') }}"
+      - alias: 'Increment rooms cleaned counter'
+        service: input_number.increment
+        target:
+          entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+      - alias: 'Set last cleaned datetime'
+        service: input_datetime.set_datetime
+        target:
+          entity_id: "input_datetime.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_last_cleaned"
+        data:
+          timestamp: "{{ now().timestamp() }}"
+      - alias: 'Turn on cleaned today input boolean'
+        service: input_boolean.turn_on
+        target:
+          entity_id: "input_boolean.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_cleaned_today"
+
+  - alias: 'Vacuum: Reset room cleaned today input booleans'
+    id: vacuum_reset_room_cleaned_today_input_booleans
+    trigger:
+      platform: time
+      at: input_datetime.vacuum_room_cleaned_today_reset_time
+    action:
+      service: input_boolean.turn_off
+      target:
+        entity_id: >-
+          {% set entities = namespace(ids=[]) %}
+          {% for state in states.input_boolean %}
+            {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_cleaned_today') %}
+              {% set entities.ids = entities.ids + [state.entity_id] %}
+            {% endif %}
+          {% endfor %}
+          {{ entities.ids }}
+
+  - alias: 'Vacuum: Empty bin notification'
+    id: vacuum_empty_bin_notification
+    trigger:
+      platform: state
+      entity_id: vacuum.roborock_s6_pure
+      to: docked
+    condition: "{{ (states('input_number.vacuum_rooms_cleaned_since_being_emptied') | int) >= (states('input_number.vacuum_max_rooms_cleaned_before_emptying') | int)}}"
+    action:
+      service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.empty_vacuum
+      
+  - alias: 'Vacuum: Reset rooms cleaned counter'
+    id: vacuum_reset_rooms_cleaned_counter
+    trigger:
+      platform: state
+      entity_id: input_boolean.empty_vacuum
+      to: 'off'
+    action:
+      service: input_number.set_value
+      target:
+        entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+      data:
+        value: 0
+
+  - alias: 'Vacuum: Error notification'
+    id: vacuum_error_notification
+    trigger:
+      platform: state
+      entity_id: vacuum.roborock_s6_pure
+      to: error
+    action:
+      service: notify.mobile_app_sm_g981u1
+      data: 
+        message: "Vacuum Error"
+        data:
+          tag: vacuum_error
+
+  - alias: 'Vacuum: Clear error notification'
+    id: vacuum_clear_error_notification
+    trigger:
+      platform: state
+      entity_id: vacuum.roborock_s6_pure
+      from: error
+    action:
+      service: notify.mobile_app_sm_g981u1
+      data: 
+        message: clear_notification
+        data:
+          tag: vacuum_error
+
+  - alias: 'Vacuum: Set fan speed'
+    id: vacuum_set_fan_speed
+    trigger:
+      - platform: state
+        entity_id: 
+          - input_boolean.sleep_mode
+          - input_select.vacuum_fan_speed_day
+          - input_select.vacuum_fan_speed_night
+    condition:
+      condition: or
+      conditions:
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.sleep_mode
+              state: 'off'
+            - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_day') }}"
+        - condition: and
+          conditions:
+            - condition: state
+              entity_id: input_boolean.sleep_mode
+              state: 'on'
+            - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_night') }}"
+    action:
+      service: vacuum.set_fan_speed
+      target:
+        entity_id: vacuum.roborock_s6_pure
+      data:
+        fan_speed: >-
+          {% if is_state('input_boolean.sleep_mode', 'on') %}
+            {{ states('input_select.vacuum_fan_speed_night') }}
+          {% else %}
+            {{ states('input_select.vacuum_fan_speed_day') }}
+          {% endif %}
+
+input_boolean:
+  vacuum_gameroom_23_night_enable:
+  vacuum_hallway_20_night_enable:
+  vacuum_bedroom_22_night_enable:
+  vacuum_livingroom_16_night_enable:
+  vacuum_kitchen_18_night_enable:
+  vacuum_diningroom_17_night_enable:
+  vacuum_office_19_night_enable:
+  vacuum_upstairsbathroom_21_night_enable:
+
+  vacuum_gameroom_23_day_enable:
+  vacuum_hallway_20_day_enable:
+  vacuum_bedroom_22_day_enable:
+  vacuum_livingroom_16_day_enable:
+  vacuum_kitchen_18_day_enable:
+  vacuum_diningroom_17_day_enable:
+  vacuum_office_19_day_enable:
+  vacuum_upstairsbathroom_21_day_enable:
+
+  vacuum_gameroom_23_cleaned_today:
+  vacuum_hallway_20_cleaned_today:
+  vacuum_bedroom_22_cleaned_today:
+  vacuum_livingroom_16_cleaned_today:
+  vacuum_kitchen_18_cleaned_today:
+  vacuum_diningroom_17_cleaned_today:
+  vacuum_office_19_cleaned_today:
+  vacuum_upstairsbathroom_21_cleaned_today:
+
+input_datetime:
+  vacuum_room_cleaned_today_reset_time:
+    has_time: true
+  vacuum_night_cleaning_end_time:
+    has_time: true
+  vacuum_gameroom_23_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_hallway_20_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_bedroom_22_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_livingroom_16_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_kitchen_18_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_diningroom_17_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_office_19_last_cleaned:
+    has_date: true
+    has_time: true
+  vacuum_upstairsbathroom_21_last_cleaned:
+    has_date: true
+    has_time: true
+
+input_number:
+  vacuum_rooms_cleaned_since_being_emptied:
+    min: 0
+    max: 30
+    mode: box
+  vacuum_max_rooms_cleaned_before_emptying:
+    min: 1
+    max: 30
+  run_vacuum_after_away_min:
+    min: 1
+    max: 30
+  run_vacuum_after_asleep_min:
+    min: 15
+    max: 120
+
+input_select:
+  vacuum_fan_speed_day:
+    options:
+      - Silent
+      - Standard
+      - Medium
+      - Turbo
+  vacuum_fan_speed_night:
+    options:
+      - Silent
+      - Standard
+      - Medium
+      - Turbo
+
+input_text:
+  vacuum_last_room_cleaned:
+
+switch:
+  - platform: template
+    switches:
+      vacuum_run:
+        value_template: "{{ is_state('vacuum.roborock_s6_pure', 'cleaning') }}"
+        icon_template: mdi:robot-vacuum
+        turn_on:
+          service: automation.trigger
+          target:
+            entity_id: automation.vacuum_run
+        turn_off:
+          - service: vacuum.stop
+            target:
+              entity_id: vacuum.roborock_s6_pure
+          - service: vacuum.return_to_base
+            target:
+              entity_id: vacuum.roborock_s6_pure
+      vacuum_gameroom_23_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_gameroom_23_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_gameroom_23_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_gameroom_23_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_gameroom_23_night_enable
+      vacuum_hallway_20_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_hallway_20_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_hallway_20_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_hallway_20_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_hallway_20_night_enable
+      vacuum_bedroom_22_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_bedroom_22_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_bedroom_22_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_bedroom_22_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_bedroom_22_night_enable
+      vacuum_livingroom_16_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_livingroom_16_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_livingroom_16_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_livingroom_16_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_livingroom_16_night_enable
+      vacuum_kitchen_18_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_kitchen_18_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_kitchen_18_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_kitchen_18_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_kitchen_18_night_enable
+      vacuum_diningroom_17_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_diningroom_17_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_diningroom_17_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_diningroom_17_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_diningroom_17_night_enable
+      vacuum_office_19_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_office_19_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_office_19_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_office_19_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_office_19_night_enable
+      vacuum_upstairsbathroom_21_night_enable:
+        value_template: "{{ states('input_boolean.vacuum_upstairsbathroom_21_night_enable') }}"
+        icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_upstairsbathroom_21_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
+        turn_on:
+          service: input_boolean.turn_on
+          target:
+            entity_id: input_boolean.vacuum_upstairsbathroom_21_night_enable
+        turn_off:
+          service: input_boolean.turn_off
+          target:
+            entity_id: input_boolean.vacuum_upstairsbathroom_21_night_enable
+
+template:
+  - sensor:
+    - name: vacuum_next_room_to_clean
+      state: >-
+        {% set clean_this = namespace(entity='none',last_cleaned='') %}
+        {% set time = 'day' if is_state('input_boolean.sleep_mode', 'off') else 'night' %}
+        {% for state in states.input_datetime %}
+          {% if 'vacuum' in state.entity_id %}
+            {% set room_enabled = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', time + '_enable'), 'on') %}
+            {% set room_cleaned_today = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', 'cleaned_today'), 'on') %}
+            {% set state_date = strptime(state.state, '%Y-%m-%d %H-%M-%S') %}
+            {% if room_enabled and not room_cleaned_today and (clean_this.entity == 'none' or state_date < clean_this.last_cleaned) %}
+              {% set clean_this.entity = state.entity_id %}
+              {% set clean_this.last_cleaned = state_date %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {{ clean_this.entity.replace('input_datetime.vacuum_', '').replace('_last_cleaned', '') }}     
+      attributes:
+        next_room: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[0]  if '_' in states('sensor.vacuum_next_room_to_clean') else '' }}"
+        next_id: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] if '_' in states('sensor.vacuum_next_room_to_clean') else '' }}"
+        display_name: >-
+          {% set raw = state_attr('sensor.vacuum_next_room_to_clean', 'next_room') %}
+          {% if not raw %}
+            None
+          {% elif raw.endswith('bathroom') %}
+            {{ raw.replace('bathroom', '').capitalize() }} Bathroom
+          {% elif raw.endswith('room') %}
+            {{ raw.replace('room', '').capitalize() }} Room
+          {% else %}
+            {{ raw.capitalize() }}
+          {% endif %}
+        label: "Start/Stop"
+  - trigger:
+      platform: time_pattern
+      minutes: "/1"
+    sensor:
+    - name: vacuum_gameroom_23_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_gameroom_23_last_cleaned'))) }} ago"
+    - name: vacuum_hallway_20_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_hallway_20_last_cleaned'))) }} ago"
+    - name: vacuum_bedroom_22_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_bedroom_22_last_cleaned'))) }} ago"
+    - name: vacuum_livingroom_16_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_livingroom_16_last_cleaned'))) }} ago"
+    - name: vacuum_kitchen_18_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_kitchen_18_last_cleaned'))) }} ago"
+    - name: vacuum_diningroom_17_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_diningroom_17_last_cleaned'))) }} ago"
+    - name: vacuum_office_19_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_office_19_last_cleaned'))) }} ago"
+    - name: vacuum_upstairsbathroom_21_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_upstairsbathroom_21_last_cleaned'))) }} ago"
+  - binary_sensor:
+    - name: run_vacuum
+      state: "{{ is_state('input_boolean.run_vacuum', 'on') }}"
+    

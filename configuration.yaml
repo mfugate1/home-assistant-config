@@ -44,7 +44,6 @@ input_boolean: !include input/input_boolean.yaml
 input_datetime: !include input/input_datetime.yaml
 input_number: !include input/input_number.yaml
 input_select: !include input/input_select.yaml
-input_text: !include input/input_text.yaml
 light: !include_dir_merge_list light/
 lovelace: !include lovelace/config.yaml
 media_player: !include_dir_merge_list media_player/
