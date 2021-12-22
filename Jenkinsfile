@@ -1,6 +1,3 @@
-String hassConfigDir = '/docker/home-assistant-v2'
-String remoteUser = 'jenkins'
-
 node ('docker') {
     Map scmVars = checkout scm
 
@@ -8,7 +5,7 @@ node ('docker') {
     Map files = applySecrets(secrets)
 
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${remoteUser}@${secrets['DOCKER1_IP']}:${hassConfigDir}"
+        sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}:${HASS_CONFIG_DIR}"
     }
 
     boolean scheduleRestart = false
