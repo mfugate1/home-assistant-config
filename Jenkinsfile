@@ -50,7 +50,9 @@ List getAffectedFiles(Map files) {
 // Returns a map of files with their secrets and services
 Map applySecrets(Map secrets) {
     Map files = [:]
+    echo(secrets, true, '-------- Secrets --------')
     for (String file in findFiles(glob: '**/*.yaml').collect{it.path}) {
+        echo "Adding secrets to ${file}"
         String contents = readFile(file)
         writeFile (
             file: file,
