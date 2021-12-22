@@ -16,7 +16,7 @@ pipelineJob ('Update-Home-Assistant-Config') {
         parameters {
             parameterDefinitions {
                 string (
-                    name('updatedSecrets'),
+                    name('updatedSecrets')
                     trim(true)
                 )
             }
