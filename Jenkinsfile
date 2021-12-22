@@ -56,13 +56,21 @@ Map applySecrets(Map secrets) {
         String contents = readFile(file)
         writeFile (
             file: file,
-            text: template(contents, secrets)
+            text: secretReplacement(contents, secrets)
         )
         files[file] = [
             secrets: getSecretsInFile(contents, secrets),
             reload: getReloadServices(file, contents)
         ]
     }
+}
+
+@NonCPS
+String secretReplacement(String contents, Map secrets) {
+    secrets.each { secret, value ->
+        contents = contents.replaceAll('${' + secret + '}', value)
+    }
+    return contents
 }
 
 @NonCPS
