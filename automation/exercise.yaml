@@ -58,7 +58,7 @@
   action:
     service: shell_command.curl
     data:
-      url: http://${JENKINS_IP}:${JENKINS_PORT}/generic-webhook-trigger/invoke?token=${JENKINS_GARMIN_UPDATE_TOKEN}
+      url: http://${TRUENAS_DOCKER_IP}:${JENKINS_PORT}/generic-webhook-trigger/invoke?token=${JENKINS_GARMIN_UPDATE_TOKEN}
 
 - alias: 'Workout mode: Turn off everything else when motion detected'
   id: workout_mode_turn_off_everything_else_when_motion_detected
