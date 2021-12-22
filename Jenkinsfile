@@ -2,7 +2,7 @@ node ('docker') {
     Map scmVars = checkout scm
 
     Map secrets = getAzureVaultSecrets()
-    Map files = applySecrets(secrets)
+    Map files = applySecrets('**/*.yaml', secrets)
 
     sshagent (credentials: ['docker1-ssh']) {
         sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}:${HASS_CONFIG_DIR}"
@@ -12,10 +12,15 @@ node ('docker') {
     List reloadServices = []
 
     for (String file in getAffectedFiles(files)) {
-        reloadServices += files[file].reload
+        reloadServices += getReloadServices(file)
     }
 
     reloadServices = reloadServices.unique()
+
+    if (!reloadServices) {
+        echo "Nothing to reload"
+        return
+    }
 
     echo "Restarting the following services: ${reloadServices}"
 
@@ -23,7 +28,6 @@ node ('docker') {
         echo "Scheduling a full restart"
     }
 }
-
 
 @NonCPS
 List getAffectedFiles(Map files) {
@@ -46,36 +50,7 @@ List getAffectedFiles(Map files) {
     return affectedFiles.unique()
 }
 
-// Returns a map of files with their secrets and services
-Map applySecrets(Map secrets) {
-    Map files = [:]
-    for (String file in findFiles(glob: '**/*.yaml').collect{it.path}) {
-        String contents = readFile(file)
-        writeFile (
-            file: file,
-            text: secretReplacement(contents, secrets)
-        )
-        files[file] = [
-            secrets: getSecretsInFile(contents, secrets),
-            reload: getReloadServices(file, contents)
-        ]
-    }
-}
-
-@NonCPS
-String secretReplacement(String contents, Map secrets) {
-    secrets.each { secret, value ->
-        contents = contents.replace('\${' + secret + '}', value)
-    }
-    return contents
-}
-
-@NonCPS
-List getSecretsInFile(String contents, Map secrets) {
-    return secrets.findAll{contents.contains("\${${it.key}}")}.collect{it.key}
-}
-
-List getReloadServices(String file, String contents) {
+List getReloadServices(String file) {
     if (file.startsWith('automation/')) return ['automation']
     if (file.startsWith('input/')) return [file.tokenize('/')[-1] - '.yaml']
     if (file.startsWith('light/')) return ['restart']
@@ -89,6 +64,8 @@ List getReloadServices(String file, String contents) {
     if (file.startsWith('template/')) return ['template']
 
     if (file == 'configuration.yaml') return ['restart']
+
+    String contents = readFile(file)
 
     if (file.startsWith('packages/')) return parseYaml(readYaml(file: file))
 
