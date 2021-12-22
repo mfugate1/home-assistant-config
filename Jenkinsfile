@@ -105,13 +105,6 @@ List getReloadServices(String file, String contents) {
 }
 
 @NonCPS
-String template(String contents, Map secrets) {
-    return new groovy.text.GStringTemplateEngine().createTemplate(contents)
-                                                  .make(secrets)
-                                                  .toString()
-}
-
-@NonCPS
 List parseYaml(Map yaml) {
     List reloadDomains = ['automation', 'group', 'template']
     List restartDomains = ['switch']
