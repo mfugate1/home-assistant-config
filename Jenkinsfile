@@ -30,6 +30,9 @@ node ('docker') {
 
 @NonCPS
 List getAffectedFiles(Map files) {
+    echo currentBuild.changeSets.size()
+    if (currentBuild.changeSets[0] == null) return []
+
     List affectedFiles = currentBuild.changeSets[0].items.collectMany{it.affectedPaths}
 
     if (params.updatedSecrets) {
