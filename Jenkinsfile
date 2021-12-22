@@ -22,11 +22,23 @@ node ('docker') {
         return
     }
 
-    echo "Restarting the following services: ${reloadServices}"
-
     if (reloadServices.contains('restart')) {
         echo "Scheduling a full restart"
+        reloadServices.remove('restart')
     }
+
+    echo "Restarting the following services: ${reloadServices}"
+    for (String platform in reloadServices) {
+        reload("http://${secrets.DOCKER1_IP}:${secrets.HASS_PORT}", secrets.HASS_TOKEN, platform)
+    }
+}
+
+void reload(String url, String token, String platform) {
+    httpRequest (
+        url: "${url}/api/services/${platform}/reload",
+        httpMode: 'POST',
+        customHeaders: [[name: 'Authorization', value: "Bearer ${token}", maskValue: true]]
+    )
 }
 
 @NonCPS
@@ -73,7 +85,7 @@ List getReloadServices(String file) {
     List reloadablePlatforms = ['history_stats', 'mqtt', 'ping', 'rest', 'time_date', 'universal']
     for (String line in contents.tokenize('\n').findAll{it.contains('- platform:')}) {
         for (String platform in reloadablePlatforms) {
-            if (line.contains(platform)) {
+            if (line.contains(platform) && platform != 'time_date') {
                 reload += platform
             } else {
                 reload += 'restart'
