@@ -68,7 +68,7 @@ Map applySecrets(Map secrets) {
 @NonCPS
 String secretReplacement(String contents, Map secrets) {
     secrets.each { secret, value ->
-        contents = contents.replaceAll('${' + secret + '}', value)
+        contents = contents.replaceAll('\${' + secret + '}', value)
     }
     return contents
 }
