@@ -8,7 +8,7 @@ node ('docker') {
     Map files = applySecrets(secrets)
 
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${remoteUser}@${secrets['DOCKER1-IP']}:${hassConfigDir}"
+        sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${remoteUser}@${secrets['DOCKER1_IP']}:${hassConfigDir}"
     }
 
     boolean scheduleRestart = false
