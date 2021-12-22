@@ -1,4 +1,4 @@
 - platform: ping
   consider_home: 25
   hosts:
-    mikes_phone: ${MIKES-PHONE-IP}
+    mikes_phone: ${MIKES_PHONE_IP}

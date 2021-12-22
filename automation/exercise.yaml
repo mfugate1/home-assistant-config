@@ -9,7 +9,7 @@
       entity_id: light.basement
     - service: shell_command.curl
       data:
-        url: ${LMS-URL}/plugins/spotty/index.html?action=playall&index=8.1&player=b8%3A27%3Aeb%3Ad3%3A90%3A9b&sess=&start=
+        url: ${LMS_URL}/plugins/spotty/index.html?action=playall&index=8.1&player=b8%3A27%3Aeb%3Ad3%3A90%3A9b&sess=&start=
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.workout_mode_available
@@ -58,7 +58,7 @@
   action:
     service: shell_command.curl
     data:
-      url: http://${JENKINS-IP}:${JENKINS-PORT}/generic-webhook-trigger/invoke?token=${JENKINS-GARMIN-UPDATE-TOKEN}
+      url: http://${JENKINS_IP}:${JENKINS_PORT}/generic-webhook-trigger/invoke?token=${JENKINS_GARMIN_UPDATE_TOKEN}
 
 - alias: 'Workout mode: Turn off everything else when motion detected'
   id: workout_mode_turn_off_everything_else_when_motion_detected

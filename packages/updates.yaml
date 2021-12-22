@@ -19,7 +19,7 @@ group:
       
 sensor:
   - platform: github
-    access_token: ${GITHUB-PERSONAL-ACCESS-TOKEN}
+    access_token: ${GITHUB_PERSONAL_ACCESS_TOKEN}
     repositories:
       - path: jacobalberty/unifi-docker
       - path: zwave-js/zwavejs2mqtt

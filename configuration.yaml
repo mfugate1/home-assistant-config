@@ -16,23 +16,23 @@ frontend:
   themes: !include_dir_merge_named themes
 
 google:
-  client_id: ${GOOGLE-CALENDAR-CLIENT-ID}
-  client_secret: ${GOOGLE-CALENDAR-CLIENT-SECRET}
+  client_id: ${GOOGLE_CALENDAR_CLIENT_ID}
+  client_secret: ${GOOGLE_CALENDAR_CLIENT_SECRET}
 
 homeassistant:
   packages: !include_dir_named packages
 
 http:
   use_x_forwarded_for: true
-  trusted_proxies: ${HASS-TRUSTED-PROXIES}
+  trusted_proxies: ${HASS_TRUSTED_PROXIES}
     
 sleepiq:
-  username: ${SLEEPIQ-USERNAME}
-  password: ${SLEEPIQ-PASSWORD}
+  username: ${SLEEPIQ_USERNAME}
+  password: ${SLEEPIQ_PASSWORD}
 
 spotify:
-  client_id: ${SPOTIFY-CLIENT-ID}
-  client_secret: ${SPOTIFY-CLIENT-SECRET}
+  client_id: ${SPOTIFY_CLIENT_ID}
+  client_secret: ${SPOTIFY_CLIENT_SECRET}
 
 alexa: !include misc/alexa.yaml
 automation: !include_dir_merge_list automation/

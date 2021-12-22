@@ -1,4 +1,4 @@
 - platform: wake_on_lan
   name: PC
-  host: ${PC-IP}
-  mac: ${PC-MAC}
+  host: ${PC_IP}
+  mac: ${PC_MAC}

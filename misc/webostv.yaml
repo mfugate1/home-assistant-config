@@ -1,6 +1,6 @@
-host: ${GAMEROOM-TV-IP}
+host: ${GAMEROOM_TV_IP}
 name: gameroom_tv
 turn_on_action:
   service: wake_on_lan.send_magic_packet
   data:
-    mac: ${GAMEROOM-TV-MAC}
+    mac: ${GAMEROOM_TV_MAC}
