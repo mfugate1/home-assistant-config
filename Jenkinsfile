@@ -66,9 +66,9 @@ Map applySecrets(Map secrets) {
 @NonCPS
 List getSecretsInFile(String contents, Map secrets) {
     return secrets.findAll {
-        contents.contains(it)
+        contents.contains(it.key)
     }.collect {
-        it - '${' - '}'
+        it.key - '${' - '}'
     }
 }
 
