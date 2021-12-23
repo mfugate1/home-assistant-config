@@ -12,7 +12,8 @@ node ('docker') {
     lock ('hass-config-check') {
         sshagent (credentials: ['docker1-ssh']) {
             sh "rsync -e '${ssh}' -a ./ ${remote}:${HASS_TEST_CONFIG_DIR}"
-            sh "${ssh} ${remote} cp -r /docker/home-assistant/custom_components /docker/home-assistant-test/"
+            sh "${ssh} ${remote} rm -rf ${HASS_TEST_CONFIG_DIR}/custom_components"
+            sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${HASS_TEST_CONFIG_DIR}/"
             sh "${ssh} ${remote} docker exec -it home-assistant hass --script check_config -c /test-config -f"
         }
     }
