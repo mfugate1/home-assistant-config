@@ -27,9 +27,8 @@ jobs:
         with:
           destination_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - if: steps.create-pull-request.outputs.pull-request-operation == 'created'
-        uses: peter-evans/enable-pull-request-automerge@v1
+      - uses: peter-evans/enable-pull-request-automerge@v1
         with:
           token: ${{ steps.az.outputs.GITHUB }}
-          pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+          pull-request-number: ${{ steps.create-pull-request.outputs.pr_number }}
           merge-method: merge
