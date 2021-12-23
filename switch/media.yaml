@@ -1,3 +1,5 @@
+# another comment
+
 - platform: template
   switches:
     livingroom_hulu:
