@@ -13,8 +13,23 @@ jobs:
     name: Create Pull Request
     runs-on: ubuntu-latest
     steps:
+      - uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: overlord-vault
+          secrets: GITHUB
+        id: az
       - uses: actions/checkout@v2
-      - uses: repo-sync/pull-request@v2
+      - id: create-pull-request
+        uses: repo-sync/pull-request@v2
         with:
           destination_branch: main
           github_token: ${{ secrets.GITHUB_TOKEN }}
+      - if: steps.create-pull-request.outputs.pull-request-operation == 'created'
+        uses: peter-evans/enable-pull-request-automerge@v1
+        with:
+          token: ${{ steps.az.outputs.GITHUB }}
+          pull-request-number: ${{ steps.create-pull-request.outputs.pull-request-number }}
+          merge-method: merge
