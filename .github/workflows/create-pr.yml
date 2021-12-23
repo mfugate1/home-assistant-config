@@ -5,6 +5,7 @@ name: 'Create Pull Request'
 on:
   push:
     branches:
+      - '*'
       - '!main'
 
 jobs:
