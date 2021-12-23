@@ -1,3 +1,5 @@
+# Add a comment to test pr automation
+
 - alias: 'Bedroom light on'
   id: bedroom_light_on
   mode: restart
