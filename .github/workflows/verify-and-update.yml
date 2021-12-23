@@ -18,12 +18,16 @@ jobs:
         with: 
           keyvault: overlord-vault
           secrets: >
-            HASS-TOKEN,
             JENKINS-HASS-CONFIG-UPDATE-TOKEN,
             OVERLORD-URL
         id: az
       - uses: 'actions/checkout@v2'
         with:
           fetch-depth: 0
+      - uses: kpucynski/action-ha-config-check@master
+        with:
+          ha_version: latest
+        env:
+          HASS_EXTRA_ARGS: "-f -s -i"
       - if: ${{ github.ref_name == 'main' }}
         run: "curl ${{ steps.az.outputs.OVERLORD-URL }}/jenkins-webhook-truenas?token=${{ steps.az.outputs.JENKINS-HASS-CONFIG-UPDATE-TOKEN }} -X POST -d '{}"
