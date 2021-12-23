@@ -44,6 +44,96 @@ sensor:
     resource: ${LIVINGROOM_TABLET_STATS_URL}
     value_template: "{{ value_json.isScreenOn if 'isScreenOn' in value_json else 'off' }}"
 
+switch:
+  - platform: template
+    switches:
+      livingroom_hulu:
+        friendly_name: Hulu
+        icon_template: mdi:hulu
+        value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu') }}"
+        availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
+        turn_on:
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: Hulu
+        turn_off:
+          service: media_player.turn_off
+          entity_id: media_player.livingroom_media
+      livingroom_music:
+        friendly_name: Music
+        icon_template: mdi:music
+        value_template: "{{ is_state('media_player.livingroom_squeezelite', 'playing') and is_state('media_player.livingroom_receiver', 'on') and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 2') }}"
+        availability_template: "{{ not is_state('media_player.livingroom_receiver', 'unavailable') and not is_state('media_player.livingroom_squeezelite', 'unavailable') }}"
+        turn_on:
+          - service: script.turn_on
+            target:
+              entity_id: script.select_livingroom_sources
+            data:
+              variables:
+                media_type: music
+          - service: shell_command.curl
+            data:
+              url: ${LMS_URL}/plugins/spotty/index.html?action=playall&index=8.1&player=b8%3A27%3Aeb%3Ad3%3A90%3A9b&sess=&start=
+        turn_off:
+          - service: media_player.turn_off
+            target:
+              entity_id: media_player.livingroom_receiver
+          - service: media_player.clear_playlist
+            target:
+              entity_id: media_player.livingroom_squeezelite
+      livingroom_netflix:
+        friendly_name: Netflix
+        icon_template: mdi:netflix
+        value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix') }}"
+        availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
+        turn_on:
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: Netflix
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+        turn_off:
+          service: media_player.turn_off
+          entity_id: media_player.livingroom_media
+      livingroom_ps4:
+        friendly_name: PS4
+        icon_template: mdi:sony-playstation
+        value_template: "{{ not is_state('media_player.playstation_4_office', 'standby') and not is_state('media_player.playstation_4_office', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
+        availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_office', 'unavailable') and not is_state('media_player.playstation_4_office', 'unknown') }}"
+        turn_on:
+          - service: media_player.turn_on
+            entity_id: media_player.playstation_4_office
+          - service: script.select_livingroom_sources
+            data:
+              media_type: ps4
+        turn_off:
+          service: media_player.turn_off
+          entity_id: 
+            - media_player.playstation_4_office
+            - media_player.livingroom_media
+      livingroom_steam:
+        friendly_name: Steam
+        icon_template: mdi:steam
+        value_template: "{{ is_state('switch.pc', 'on') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_1') }}"
+        availability_template: "{{ not is_state('switch.pc', 'unavailable') and not is_state('media_player.livingroom_tv', 'unavailable') }}"
+        turn_on:
+          - service: switch.turn_on
+            entity_id: switch.pc
+          - service: script.select_livingroom_sources
+            data:
+              media_type: steam
+        turn_off:
+          service: homeassistant.turn_off
+          entity_id: 
+            - switch.pc
+            - media_player.livingroom_media
+
 template:
   - sensor:
     - name: battery_livingroom_tablet
