@@ -1,34 +1,26 @@
-pipelineJob ('Update-Home-Assistant-Config') {
-    definition {
-        cpsScm {
-            scm {
-                git {
-                    remote {
-                        url('https://github.com/mfugate1/home-assistant-config.git')
-                    }
-                    branch('main')
-                }
-                scriptPath('Jenkinsfile')
-            }
+multibranchPipelineJob('Update-Home-Assistant-Config') {
+    branchSources {
+        git {
+            id('home-assistant-config')
+            remote('https://github.com/mfugate1/home-assistant-config.git')
         }
     }
-    properties {
-        parameters {
-            parameterDefinitions {
-                string {
-                    name('updatedSecrets')
-                    trim(true)
-                }
-            }
+    factory {
+        workflowBranchProjectFactory {
+            scriptPath('Jenkinsfile')
         }
-        pipelineTriggers {
-            triggers {
-                GenericTrigger {
-                    regexpFilterExpression('')
-                    regexpFilterText('')
-                    tokenCredentialId('JENKINS-HASS-CONFIG-UPDATE-TOKEN')
-                }
-            }
+    }
+    orphanedItemStrategy {
+        defaultOrphanedItemStrategy {
+            daysToKeepStr('1')
+            numToKeepStr('-1')
+            pruneDeadBranches(true)
         }
+        discardOldItems {
+            numToKeep(10)
+        }
+    }
+    triggers {
+        githubPush()
     }
 }

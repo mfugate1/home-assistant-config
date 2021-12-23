@@ -1,3 +1,5 @@
+properties ([disableConcurrentBuilds()])
+
 node ('docker') {
     Map scmVars = checkout scm
 
@@ -5,7 +7,7 @@ node ('docker') {
     Map files = applySecrets('**/*.yaml', secrets)
 
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}:${HASS_CONFIG_DIR}"
+        sh "rsync -e 'ssh -o StrictHostKeyChecking=no' -a ./ ${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}:/docker/home-assistant-test"
     }
 
     boolean scheduleRestart = false
