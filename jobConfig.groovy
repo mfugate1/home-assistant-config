@@ -20,7 +20,4 @@ multibranchPipelineJob('Update-Home-Assistant-Config') {
             numToKeep(10)
         }
     }
-    triggers {
-        githubPush()
-    }
 }
