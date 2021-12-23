@@ -4,6 +4,7 @@ multibranchPipelineJob('Update-Home-Assistant-Config') {
             id('home-assistant-config')
             repoOwner('mfugate1')
             repository('home-assistant-config')
+            scanCredentialsId('GITHUB')
             buildOriginPRMerge(true)
             buildOriginPRHead(true)
             buildForkPRMerge(false)
