@@ -1,9 +1,12 @@
 multibranchPipelineJob('Update-Home-Assistant-Config') {
     branchSources {
-        git {
+        github {
             id('home-assistant-config')
-            remote('https://github.com/mfugate1/home-assistant-config.git')
-            credentialsId('github-credentials')
+            repoOwner('mfugate1')
+            repository('home-assistant-config')
+            buildOriginPRMerge(true)
+            buildOriginPRHead(true)
+            buildForkPRMerge(false)
         }
     }
     factory {
