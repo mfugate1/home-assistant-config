@@ -38,20 +38,23 @@ node ('docker') {
         return
     }
 
+    String hassUrl = "http://${secrets.DOCKER1_IP}:${secrets.HASS_PORT}"
+
     if (reloadServices.contains('restart')) {
         echo "Scheduling a full restart"
-        reloadServices.remove('restart')
+        reload(hassUrl, secrets.HASS_TOKEN, 'homeassistant', 'restart')
+        return
     }
 
     echo "Restarting the following services: ${reloadServices}"
     for (String platform in reloadServices) {
-        reload("http://${secrets.DOCKER1_IP}:${secrets.HASS_PORT}", secrets.HASS_TOKEN, platform)
+        reload(hassUrl, secrets.HASS_TOKEN, platform)
     }
 }
 
-void reload(String url, String token, String platform) {
+void reload(String url, String token, String platform, String service = 'reload') {
     httpRequest (
-        url: "${url}/api/services/${platform}/reload",
+        url: "${url}/api/services/${platform}/${service}",
         httpMode: 'POST',
         customHeaders: [[name: 'Authorization', value: "Bearer ${token}", maskValue: true]]
     )
