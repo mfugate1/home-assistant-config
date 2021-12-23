@@ -9,10 +9,12 @@ node ('docker') {
     String remote = "${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}"
     String ssh = 'ssh -o StrictHostKeyChecking=no'
 
-    sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e '${ssh}' -a ./ ${remote}:${HASS_TEST_CONFIG_DIR}"
-        sh "${ssh} ${remote} cp -r /docker/home-assistant/custom_components /docker/home-assistant-test/"
-        sh "${ssh} ${remote} docker exec -it home-assistant hass --script check_config -c /test-config -f"
+    lock ('hass-config-check') {
+        sshagent (credentials: ['docker1-ssh']) {
+            sh "rsync -e '${ssh}' -a ./ ${remote}:${HASS_TEST_CONFIG_DIR}"
+            sh "${ssh} ${remote} cp -r /docker/home-assistant/custom_components /docker/home-assistant-test/"
+            sh "${ssh} ${remote} docker exec -it home-assistant hass --script check_config -c /test-config -f"
+        }
     }
 
     if (BRANCH_NAME != 'main') return
