@@ -77,6 +77,8 @@ List getReloadServices(String file) {
 
     if (file == 'configuration.yaml') return ['restart']
 
+    if (!fileExists(file)) return []
+
     String contents = readFile(file)
 
     if (file.startsWith('packages/')) return parseYaml(readYaml(file: file))
