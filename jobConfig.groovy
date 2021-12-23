@@ -23,7 +23,11 @@ pipelineJob ('Update-Home-Assistant-Config') {
         }
         pipelineTriggers {
             triggers {
-                githubPush()
+                GenericTrigger {
+                    regexpFilterExpression('')
+                    regexpFilterText('')
+                    tokenCredentialId('JENKINS-HASS-CONFIG-UPDATE-TOKEN')
+                }
             }
         }
     }

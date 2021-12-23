@@ -1,0 +1,29 @@
+name: Verify and Update Config
+on:
+  push:
+    paths-ignore:
+      - '.github/**'
+      - 'Jenkinsfile'
+      - 'jobConfig.groovy'
+
+jobs:
+  verify-and-update:
+    name: Verify and Update Config
+    runs-on: ubuntu-latest
+    steps:
+      - uses: Azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - uses: Azure/get-keyvault-secrets@v1
+        with: 
+          keyvault: overlord-vault
+          secrets: >
+            HASS-TOKEN,
+            JENKINS-HASS-CONFIG-UPDATE-TOKEN,
+            OVERLORD-URL
+        id: az
+      - uses: 'actions/checkout@v2'
+        with:
+          fetch-depth: 0
+      - if: ${{ github.ref_name == 'main' }}
+        run: "curl ${{ steps.az.outputs.OVERLORD-URL }}/jenkins-webhook-truenas?token=${{ steps.az.outputs.JENKINS-HASS-CONFIG-UPDATE-TOKEN }} -X POST -d '{}"
