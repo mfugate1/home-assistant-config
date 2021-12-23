@@ -3,6 +3,7 @@ multibranchPipelineJob('Update-Home-Assistant-Config') {
         git {
             id('home-assistant-config')
             remote('https://github.com/mfugate1/home-assistant-config.git')
+            credentialsId('github-credentials')
         }
     }
     factory {
