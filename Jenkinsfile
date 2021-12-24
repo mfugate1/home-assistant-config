@@ -6,6 +6,8 @@ node ('docker') {
     Map secrets = getAzureVaultSecrets()
     Map files = applySecrets('**/*.yaml', secrets)
 
+    echo(files, true, '-------- Secrets in files ---------')
+
     String remote = "${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}"
     String ssh = 'ssh -o StrictHostKeyChecking=no'
 
