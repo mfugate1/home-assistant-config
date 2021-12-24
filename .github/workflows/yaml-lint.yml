@@ -6,3 +6,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: ibiqlik/action-yamllint@v3
+        with:
+          config_data: |
+            rules:
+              document-start: disable
+              line-length:
+                max: 150
