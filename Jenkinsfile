@@ -29,7 +29,10 @@ node ('docker') {
     boolean scheduleRestart = false
     List reloadServices = []
 
-    for (String file in getAffectedFiles(files)) {
+    List affectedFiles = getAffectedFiles(files)
+    echo(affectedFiles, true, '----------- Affected files -----------')
+
+    for (String file in affectedFiles) {
         reloadServices += getReloadServices(file)
     }
 
