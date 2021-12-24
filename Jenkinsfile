@@ -73,9 +73,9 @@ List getAffectedFiles(Map files) {
 
     if (params.updatedSecrets) {
         List updatedSecrets = params.updatedSecrets.tokenize(',')
-        files.each { file, info ->
+        files.each { file, secrets ->
             for (String secret in updatedSecrets) {
-                if (info.secrets.contains(secret)) {
+                if (secrets.contains(secret)) {
                     affectedFiles += file
                     break
                 }
