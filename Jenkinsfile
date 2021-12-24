@@ -1,4 +1,4 @@
-properties ([disableConcurrentBuilds()])
+properties([disableConcurrentBuilds(), parameters([string(name: 'updatedSecrets', trim: true)])])
 
 node ('docker') {
     Map scmVars = checkout scm
