@@ -10,13 +10,17 @@ node ('docker') {
 
     String remote = "${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}"
     String ssh = 'ssh -o StrictHostKeyChecking=no'
+    String uniqueDirName = "${BRANCH_NAME}_${BUILD_NUMBER}"
+    String testConfigDir = "${HASS_TEST_CONFIG_DIR}/${uniqueDirName}"
 
-    lock ('hass-config-check') {
-        sshagent (credentials: ['docker1-ssh']) {
-            sh "rsync -e '${ssh}' -a ./ ${remote}:${HASS_TEST_CONFIG_DIR}"
-            sh "${ssh} ${remote} rm -rf ${HASS_TEST_CONFIG_DIR}/custom_components"
-            sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${HASS_TEST_CONFIG_DIR}/"
-            sh "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config -f"
+    sshagent (credentials: ['docker1-ssh']) {
+        try {
+            sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
+            sh "rsync -e '${ssh}' -a ./ ${remote}:${testConfigDir}"
+            sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${testConfigDir}/"
+            sh "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config/${uniqueDirName} -f"
+        } finally {
+            sh "${ssh} ${remote} rm -rf ${testConfigDir}"
         }
     }
 
