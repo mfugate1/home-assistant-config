@@ -1,5 +1,9 @@
 name: YAML Lint
-on: [push]
+on:
+  push:
+    paths:
+      - "**/*.yml"
+      - "**/*.yaml"
 jobs:
   yaml-lint:
     runs-on: ubuntu-latest
@@ -9,6 +13,32 @@ jobs:
         with:
           config_data: |
             rules:
+              braces: enable
+              brackets: enable
+              colons: enable
+              commas: enable
+              comments: enable
+              comments-indentation: enable
+              document-end: disable
               document-start: disable
-              line-length:
-                max: 150
+              empty-lines: enable
+              empty-values: enable
+              hyphens: enable
+              indentation:
+                spaces: 2
+                indent-sequences: true
+                check-multi-line-strings: false
+              key-duplicates: enable
+              key-ordering: disable
+              line-length: disable
+              new-line-at-end-of-file: enable
+              new-lines:
+                type: unix
+              octal-values:
+                forbid-implicit-octal: true
+                forbid-explicit-octal: true
+              quoted-strings:
+                quote-type: double
+                required: only-when-needed
+              trailing-spaces: enable
+              truthy: enable
