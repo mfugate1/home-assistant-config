@@ -1,4 +1,4 @@
-- alias: 'Set living room lamp color from input select'
+- alias: Set living room lamp color from input select
   id: set_living_room_lamp_color_from_input_select
   trigger:
     platform: state
@@ -7,5 +7,6 @@
     service: light.turn_on
     entity_id: light.livingroom_lamp
     data_template:
-      color_name: "{{ states('input_select.living_room_lamp_color') }}"
+      color_name: >-
+        {{ states('input_select.living_room_lamp_color') }}
       transition: 5

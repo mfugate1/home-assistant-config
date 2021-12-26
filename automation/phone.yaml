@@ -1,4 +1,4 @@
-- alias: 'Notification for text message'
+- alias: Notification for text message
   id: notification_for_text_message
   trigger:
     platform: state
@@ -11,4 +11,3 @@
         input_boolean.turn_on
       {% endif %}
     entity_id: input_boolean.phone_text_notification
-    

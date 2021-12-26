@@ -8,8 +8,8 @@ button_card_templates:
     styles:
       card:
         - padding: 0.2em
-        - '--mdc-ripple-color': yellow
-        - '--mdc-ripple-press-opacity': 0.5
+        - "--mdc-ripple-color": yellow
+        - "--mdc-ripple-press-opacity": 0.5
       icon:
         - opacity: 0.5
       name:
@@ -34,7 +34,7 @@ button_card_templates:
         }
       `]]]
     state:
-      - value: 'on'
+      - value: "on"
         id: value_on
         styles:
           card:
@@ -46,7 +46,7 @@ views:
         cards:
           - !include lovelace/cards/thermostat.yaml
           - type: entities
-            entities: 
+            entities:
               - cover.garage_door
           - type: entities
             title: Bedroom
@@ -128,7 +128,7 @@ views:
               - type: conditional
                 conditions:
                   - entity: media_player.gameroom_receiver
-                    state: 'on'
+                    state: "on"
                 row:
                   type: custom:slider-entity-row
                   entity: light.game_room_volume
@@ -178,7 +178,7 @@ views:
             background:
               enabled: false
             style:
-              colors: ['#FF2D00', '#FF2D00', '#FF2D00']
+              colors: ["#FF2D00", "#FF2D00", "#FF2D00"]
         header:
           title: Daily Mileage
           show: true
@@ -263,7 +263,3 @@ views:
           - group.office_occupancy
           - group.patio_occupancy
           - group.upstairsbathroom_occupancy
-
-
-
-      

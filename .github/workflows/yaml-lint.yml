@@ -22,7 +22,9 @@ jobs:
               document-end: disable
               document-start: disable
               empty-lines: enable
-              empty-values: enable
+              empty-values:
+                forbid-in-block-mappings: false
+                forbid-in-flow-mappings: true
               hyphens: enable
               indentation:
                 spaces: 2

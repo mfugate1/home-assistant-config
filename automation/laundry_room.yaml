@@ -1,51 +1,51 @@
-- alias: 'Laundry room light on'
+- alias: Laundry room light on
   id: laundry_room_light_on
   trigger:
     platform: state
-    entity_id: 
+    entity_id:
       - binary_sensor.laundryroom_door
       - group.laundryroom_occupancy
-    to: 'on'
+    to: "on"
   action:
     service: light.turn_on
     entity_id: light.laundryroom
 
-- alias: 'Laundry room light off'
+- alias: Laundry room light off
   id: laundry_room_light_off
   trigger:
     platform: state
-    entity_id: 
+    entity_id:
       - binary_sensor.laundryroom_door
       - group.laundryroom_occupancy
-    to: 'off'
+    to: "off"
   condition:
     condition: state
     entity_id:
       - binary_sensor.laundryroom_door
       - group.laundryroom_occupancy
-    state: 'off'
+    state: "off"
   action:
     service: light.turn_off
     entity_id: light.laundryroom
 
-- alias: 'Laundry room light off after 15 minutes if door is closed'
+- alias: Laundry room light off after 15 minutes if door is closed
   id: laundry_room_light_off_after_15_minutes_if_door_is_closed
   trigger:
     - platform: state
       entity_id: light.laundryroom
-      to: 'on'
-      for: '00:15:00'
+      to: "on"
+      for: 00:15:00
     - platform: state
       entity_id: group.laundryroom_occupancy
-      to: 'off'
+      to: "off"
   condition:
     - condition: state
       entity_id: light.laundryroom
-      state: 'on'
-      for: '00:15:00'
+      state: "on"
+      for: 00:15:00
     - condition: state
       entity_id: group.laundryroom_occupancy
-      state: 'off'
+      state: "off"
   action:
     service: light.turn_off
     entity_id: light.laundryroom

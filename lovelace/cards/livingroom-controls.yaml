@@ -45,7 +45,7 @@ entities:
   - type: conditional
     conditions:
       - entity: media_player.livingroom_receiver
-        state: 'on'
+        state: "on"
     row:
       type: custom:slider-entity-row
       entity: light.living_room_volume

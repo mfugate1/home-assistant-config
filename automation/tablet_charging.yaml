@@ -1,4 +1,4 @@
-- alias: 'Tablet charging off'
+- alias: Tablet charging off
   id: tablet_charging_off
   trigger:
     - platform: numeric_state
@@ -13,8 +13,8 @@
   action:
     service: switch.turn_off
     entity_id: switch.tablet_power
-    
-- alias: 'Tablet charging on'
+
+- alias: Tablet charging on
   id: tablet_charging_on
   trigger:
     - platform: numeric_state

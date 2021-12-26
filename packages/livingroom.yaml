@@ -1,5 +1,5 @@
 automation:
-  - alias: 'Christmas tree on at sunset'
+  - alias: "Christmas tree on at sunset"
     id: christmas_tree_on_at_sunset
     trigger:
       platform: numeric_state
@@ -19,7 +19,7 @@ group:
       - media_player.livingroom_tv
       - media_player.playstation_4_office
       - switch.entry_light
-      
+
 sensor:
   - platform: rest
     name: tablet
@@ -114,7 +114,7 @@ switch:
               media_type: ps4
         turn_off:
           service: media_player.turn_off
-          entity_id: 
+          entity_id:
             - media_player.playstation_4_office
             - media_player.livingroom_media
       livingroom_steam:
@@ -130,16 +130,16 @@ switch:
               media_type: steam
         turn_off:
           service: homeassistant.turn_off
-          entity_id: 
+          entity_id:
             - switch.pc
             - media_player.livingroom_media
 
 template:
   - sensor:
-    - name: battery_livingroom_tablet
-      state: "{{ state_attr('sensor.tablet', 'batteryLevel') }}"
+      - name: battery_livingroom_tablet
+        state: "{{ state_attr('sensor.tablet', 'batteryLevel') }}"
   - binary_sensor:
-    - name: livingroom_roku_media_active
-      state: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
-    - name: livingroom_roku_available
-      state: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"
+      - name: livingroom_roku_media_active
+        state: "{{ is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
+      - name: livingroom_roku_available
+        state: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.livingroom_roku', 'unavailable') }}"

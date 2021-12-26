@@ -1,44 +1,44 @@
-- alias: 'Garage Door Open For 20 Minutes'
+- alias: Garage Door Open For 20 Minutes
   id: garage_door_open_for_20_minutes
   trigger:
     platform: state
     entity_id: cover.garage_door
-    to: 'open'
+    to: open
     for: 00:20:00
   action:
     service: notify.mobile_app_sm_g981u1
-    data: 
-      message: "Garage door is open! {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
+    data:
+      message: Garage door is open! {{ states.sensor.date.state }} {{ states.sensor.time.state}}
       data:
         tag: garage
-- alias: 'Door Alarm'
+- alias: Door Alarm
   id: door_alarm
   trigger:
     - platform: state
-      entity_id: 
+      entity_id:
         - binary_sensor.basement_door
         - binary_sensor.front_door
         - binary_sensor.garage_inner_door
         - binary_sensor.garage_outer_door
         - binary_sensor.kitchen_window
         - binary_sensor.upstairsbathroom_door
-      to: 'on'
+      to: "on"
     - platform: state
       entity_id: cover.garage_door
-      to: 'open'
+      to: open
   condition:
     condition: not
     conditions:
       - condition: state
         entity_id: person.mike
-        state: 'home'
+        state: home
   action:
     service: notify.mobile_app_sm_g981u1
-    data: 
-      message: "Sensor triggered! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}"
+    data:
+      message: Sensor triggered! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}
       data:
         tag: door_window
-- alias: 'Motion detected'
+- alias: Motion detected
   id: motion_detected
   trigger:
     platform: state
@@ -50,31 +50,33 @@
       - group.office_occupancy
       - group.patio_occupancy
       - group.upstairsbathroom_occupancy
-    to: 'on'
+    to: "on"
   condition:
     condition: not
     conditions:
       - condition: state
         entity_id: person.mike
-        state: 'home'
-  action:
-    service: notify.mobile_app_sm_g981u1
-    data: 
-      message: "Motion detected! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}"
-      data:
-        tag: motion
-
-- alias: 'Security: Object detected in driveway'
-  id: security_object_detected_in_driveway
-  trigger:
-    platform: state
-    entity_id: 
-      - binary_sensor.driveway_car_motion
-      - binary_sensor.driveway_person_motion
-    to: 'on'
+        state: home
   action:
     service: notify.mobile_app_sm_g981u1
     data:
-      message: "{{ trigger.entity_id.split('_')[2].capitalize() }} detected in driveway"
+      message: Motion detected! {{trigger.entity_id}} {{states.sensor.date.state}} {{states.sensor.time.state}}
       data:
-        image: "/api/camera_proxy/{{ trigger.entity_id.replace('binary_sensor', 'camera').replace('_motion', '') }}"
+        tag: motion
+
+- alias: Security - Object detected in driveway
+  id: security_object_detected_in_driveway
+  trigger:
+    platform: state
+    entity_id:
+      - binary_sensor.driveway_car_motion
+      - binary_sensor.driveway_person_motion
+    to: "on"
+  action:
+    service: notify.mobile_app_sm_g981u1
+    data:
+      message: >-
+        {{ trigger.entity_id.split('_')[2].capitalize() }} detected in driveway
+      data:
+        image: >-
+          /api/camera_proxy/{{ trigger.entity_id.replace('binary_sensor', 'camera').replace('_motion', '') }}

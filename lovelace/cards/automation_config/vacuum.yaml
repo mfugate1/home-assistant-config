@@ -3,7 +3,7 @@ type: custom:stack-in-card
 cards:
   - type: entities
     canary_style:
-      margin: '-32px 0px -32px'
+      margin: -32px 0px -32px
     entities:
       - entity: input_number.vacuum_rooms_cleaned_since_being_emptied
         name: Rooms Cleaned Since Being Emptied
@@ -28,7 +28,7 @@ cards:
             name: Fan Speed (Night)
   - type: entities
     canary_style:
-      margin: '-30px 0px 0px'
+      margin: -30px 0px 0px
     entities:
       - entity: input_datetime.vacuum_night_cleaning_end_time
         name: Night Cleaning End Time
@@ -49,7 +49,8 @@ cards:
             name: false
           entities:
             - entity: switch.vacuum_run
-              name: "${states['switch.vacuum_run'].state === 'on' ? 'Stop' : 'Start'}"
+              name: >-
+                ${states['switch.vacuum_run'].state === 'on' ? 'Stop' : 'Start'}
               toggle: true
             - entity: group.vacuum_enable_all_rooms_day
               name: Day

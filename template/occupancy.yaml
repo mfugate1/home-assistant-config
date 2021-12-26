@@ -32,7 +32,7 @@
 - binary_sensor:
     - name: bedroom_motion_2
       state: "{{ states('binary_sensor.bedroom_motion_1') }}"
-      delay_off: 
+      delay_off:
         seconds: 10
     - name: bed_occupied
       state: "{{ is_state('binary_sensor.sleepnumber_master_bed_mike_is_in_bed', 'on') or is_state('binary_sensor.binary_sensor.sleepnumber_master_bed_guest_is_in_bed', 'on') }}"

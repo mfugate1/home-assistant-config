@@ -6,4 +6,4 @@ sequence:
       seconds: 2
   - service: switch.turn_on
     target:
-      entity_id: "switch.{{ states('sensor.alexa_last_called_room') }}_ps4"
+      entity_id: switch.{{ states('sensor.alexa_last_called_room') }}_ps4
