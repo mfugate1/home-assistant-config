@@ -95,7 +95,7 @@ entities:
             if (count == 1) {
               return 'session'
             } else {
-              return 'sessions'  
+              return 'sessions'
             }
           }
       entities:
@@ -190,7 +190,7 @@ entities:
       type: conditional
       conditions:
         - entity: ${'sensor.template_garmin_challenge_' + NUM}
-          state_not: "unknown"
+          state_not: unknown
       row:
         type: custom:bar-card
         entity: ${'sensor.template_garmin_challenge_' + NUM}

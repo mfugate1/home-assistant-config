@@ -96,12 +96,12 @@ automation:
           entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
       - service: input_datetime.set_datetime
         target:
-          entity_id: "input_datetime.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_last_cleaned"
+          entity_id: input_datetime.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_last_cleaned
         data:
           timestamp: "{{ now().timestamp() }}"
       - service: input_boolean.turn_on
         target:
-          entity_id: "input_boolean.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_cleaned_today"
+          entity_id: input_boolean.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_cleaned_today
 
   - alias: Vacuum - Reset room cleaned today input booleans
     id: vacuum_reset_room_cleaned_today_input_booleans
