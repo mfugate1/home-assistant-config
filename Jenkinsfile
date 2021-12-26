@@ -13,9 +13,9 @@ node ('docker') {
     String testConfigDir = "${HASS_TEST_CONFIG_DIR}/${BRANCH_NAME}_${BUILD_NUMBER}"
 
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e '${ssh}' -a ./ ${remote}:${HASS_TEST_CONFIG_DIR}"
-        sh "${ssh} ${remote} rm -rf ${HASS_TEST_CONFIG_DIR}/custom_components"
         sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
+        sh "rsync -e '${ssh}' -a ./ ${remote}:${testConfigDir}"
+        sh "${ssh} ${remote} rm -rf ${HASS_TEST_CONFIG_DIR}/custom_components"
         sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${testConfigDir}/"
         sh "${ssh} ${remote} docker exec home-assistant hass --script check_config -c ${testConfigDir} -f"
     }
