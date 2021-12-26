@@ -113,7 +113,7 @@ led_blink:
     - input_boolean.add_spa_complete_to_hot_tub
     - input_boolean.replace_sediment_filter
     - input_boolean.take_out_garbage_bins
-    
+
 led_solid:
   entities:
     - group.exterior_doors_and_windows

@@ -8,7 +8,7 @@ sun:
 system_health:
 updater:
 wake_on_lan:
-  
+
 frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
@@ -24,7 +24,7 @@ homeassistant:
 http:
   use_x_forwarded_for: true
   trusted_proxies: ${HASS_TRUSTED_PROXIES}
-    
+
 sleepiq:
   username: ${SLEEPIQ_USERNAME}
   password: ${SLEEPIQ_PASSWORD}

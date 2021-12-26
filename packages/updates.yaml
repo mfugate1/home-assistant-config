@@ -1,12 +1,12 @@
 binary_sensor:
   - platform: rest
     name: latest_unifi_image_available_on_docker_hub
-    resource_template: "https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}"
+    resource_template: https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}
     value_template: &valueTemplate "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
 
   - platform: rest
     name: latest_zwavejs2mqtt_image_available_on_docker_hub
-    resource_template: "https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}"
+    resource_template: https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}
     value_template: *valueTemplate
 
 group:
@@ -16,7 +16,7 @@ group:
       - binary_sensor.updater
       - binary_sensor.unifi_update_available
       - binary_sensor.zwavejs2mqtt_update_available
-      
+
 sensor:
   - platform: github
     access_token: ${GITHUB_PASSWORD}
@@ -26,12 +26,12 @@ sensor:
 
 template:
   - sensor:
-    - name: unifi_latest_version
-      state: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
-    - name: zwavejs2mqtt_latest_version
-      state: "{{ state_attr('sensor.zwavejs2mqtt', 'latest_release_tag')[1:] }}"
+      - name: unifi_latest_version
+        state: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
+      - name: zwavejs2mqtt_latest_version
+        state: "{{ state_attr('sensor.zwavejs2mqtt', 'latest_release_tag')[1:] }}"
   - binary_sensor:
-    - name: unifi_update_available
-      state: "{{ states('sensor.unifi_latest_version') != state_attr('sensor.docker_unifi', 'image').split(':')[1] and is_state('binary_sensor.latest_unifi_image_available_on_docker_hub', 'on') }}"
-    - name: zwavejs2mqtt_update_available
-      state: "{{ states('sensor.zwavejs2mqtt_latest_version') != state_attr('sensor.office_raspi4_zwavejs', 'image').split(':')[1] and is_state('binary_sensor.latest_zwavejs2mqtt_image_available_on_docker_hub', 'on') }}"
+      - name: unifi_update_available
+        state: "{{ states('sensor.unifi_latest_version') != state_attr('sensor.docker_unifi', 'image').split(':')[1] and is_state('binary_sensor.latest_unifi_image_available_on_docker_hub', 'on') }}"
+      - name: zwavejs2mqtt_update_available
+        state: "{{ states('sensor.zwavejs2mqtt_latest_version') != state_attr('sensor.office_raspi4_zwavejs', 'image').split(':')[1] and is_state('binary_sensor.latest_zwavejs2mqtt_image_available_on_docker_hub', 'on') }}"

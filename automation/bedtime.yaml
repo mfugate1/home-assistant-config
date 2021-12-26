@@ -1,4 +1,4 @@
-- alias: 'Bedtime routine'
+- alias: Bedtime routine
   id: bedtime_routine
   max_exceeded: silent
   trigger:
@@ -7,15 +7,16 @@
       above: 1
     - platform: state
       entity_id: switch.watch_charging_in_bedroom
-      to: 'on'
+      to: "on"
   action:
-    - wait_template: "{{ is_state('binary_sensor.sleepnumber_master_bed_mike_is_in_bed', 'on') }}"
+    - wait_template: >-
+        {{ is_state('binary_sensor.sleepnumber_master_bed_mike_is_in_bed', 'on') }}
     - service: notify.alexa_media_bedroom_echo_dot
       data:
         data:
           type: tts
         message: >-
-          Good night. 
+          Good night.
           {% if states('sensor.bedroom_phone_charger_power') | float < 1 %}
             Don't forget to charge your phone.
           {% elif is_state('switch.watch_charging_in_bedroom', 'off') %}
@@ -32,13 +33,13 @@
     - service: automation.turn_off
       entity_id: automation.bedtime_routine
 
-- alias: 'Enable bedtime routine'
+- alias: Enable bedtime routine
   id: enable_bedtime_routine
   trigger:
     platform: state
     entity_id: input_boolean.sleep_mode
-    to: 'off'
-    for: '01:00:00'
+    to: "off"
+    for: 01:00:00
   action:
     service: automation.turn_on
     entity_id: automation.bedtime_routine

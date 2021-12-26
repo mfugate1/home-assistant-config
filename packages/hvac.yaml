@@ -1,27 +1,27 @@
 automation:
-  - alias: 'Climate: Turn off HVAC if any doors or windows are open'
+  - alias: Climate - Turn off HVAC if any doors or windows are open
     id: climate_turn_off_hvac_if_any_doors_or_windows_are_open
     trigger:
       platform: state
       entity_id: group.hvac_off
-      to: 'on'
+      to: "on"
       for:
         minutes: 5
     action:
       service: climate.turn_off
       entity_id: climate.thermostat
 
-  - alias: 'Climate: Turn on HVAC when all doors and windows are closed'
+  - alias: Climate - Turn on HVAC when all doors and windows are closed
     id: climate_turn_on_hvac_when_all_doors_and_windows_are_closed
     trigger:
       platform: state
       entity_id: group.hvac_off
-      to: 'off'
+      to: "off"
     action:
       service: climate.turn_on
       entity_id: climate.thermostat
 
-  - alias: 'Climate: Set thermostat temperature'
+  - alias: Climate - Set thermostat temperature
     id: climate_set_thermostat_temperature
     mode: restart
     trigger:
@@ -41,7 +41,7 @@ automation:
         target_temp_high: "{{ states('sensor.target_temp_cooling') | int }}"
         target_temp_low: "{{ states('sensor.target_temp_heating') | int }}"
 
-  - alias: 'Climate: Alert if exterior doors/windows are open when outside temp is above inside'
+  - alias: Climate - Alert if exterior doors/windows are open when outside temp is above inside
     id: climate_alert_exterior_open_when_outside_temp_above_inside
     trigger:
       - platform: state
@@ -51,23 +51,23 @@ automation:
           - sensor.target_temp_cooling
       - platform: state
         entity_id: group.exterior_doors_and_windows
-        to: 'on'
+        to: "on"
         for:
           minutes: 5
-    condition: 
+    condition:
       - condition: template
         value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.hvac_current_temperature') | int) - 2 }}"
       - condition: template
         value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.target_temp_cooling') | int) - 2 }}"
       - condition: state
         entity_id: group.exterior_doors_and_windows
-        state: 'on'
+        state: "on"
         for:
           minutes: 5
       - condition: not
         conditions:
           - condition: state
-            entity_id: 
+            entity_id:
               - sensor.hvac_current_temperature
               - sensor.outside_temp
             state: unknown
@@ -77,12 +77,12 @@ automation:
           entity_id: automation.climate_clear_warning_to_close_doors_and_windows
       - service: notify.mobile_app_sm_g981u1
         data:
-          message: "Outside temp ({{states('sensor.outside_temp')}}) is approaching inside temp ({{states('sensor.hvac_current_temperature')}})"
+          message: Outside temp ({{states('sensor.outside_temp')}}) is approaching inside temp ({{states('sensor.hvac_current_temperature')}})
           data:
-            sticky: 'true'
+            sticky: "true"
             tag: climate-alert
 
-  - alias: 'Climate: Clear warning to close doors and windows'
+  - alias: Climate - Clear warning to close doors and windows
     id: climate_clear_warning_to_close_doors_and_windows
     trigger:
       - platform: state
@@ -92,15 +92,15 @@ automation:
           - sensor.target_temp_cooling
       - platform: state
         entity_id: group.exterior_doors_and_windows
-        to: 'off'
-    condition: 
+        to: "off"
+    condition:
       condition: or
       conditions:
         - "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2 }}"
         - "{{ (states('sensor.outside_temp') | int) <= (states('sensor.target_temp_cooling') | int) - 2 }}"
         - condition: state
           entity_id: group.exterior_doors_and_windows
-          state: 'off'
+          state: "off"
     action:
       - service: notify.mobile_app_sm_g981u1
         data:
@@ -154,7 +154,7 @@ sensor:
   - platform: history_stats
     name: hvac_cool_on_today
     entity_id: binary_sensor.hvac_cool_on
-    state: 'on'
+    state: "on"
     type: time
     start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
     end: "{{ now() }}"
@@ -162,15 +162,15 @@ sensor:
   - platform: history_stats
     name: hvac_heat_on_today
     entity_id: binary_sensor.hvac_heat_on
-    state: 'on'
+    state: "on"
     type: time
     start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
     end: "{{ now() }}"
-    
+
   - platform: history_stats
     name: hvac_fan_only_on_today
     entity_id: binary_sensor.hvac_only_fan_on
-    state: 'on'
+    state: "on"
     type: time
     start: "{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}"
     end: "{{ now() }}"
@@ -179,7 +179,7 @@ sensor:
     name: outside_temp
     unit_of_measurement: °F
     device_class: temperature
-    state_topic: "rtl_433/+/devices/WG-PB12V1/6/temperature_C"
+    state_topic: rtl_433/+/devices/WG-PB12V1/6/temperature_C
     value_template: "{{ (value | float * 9 / 5) + 32 | round(1) }}"
 
 switch:
@@ -216,7 +216,7 @@ switch:
             entity_id: climate.thermostat
             fan_mode: Auto low
       fan_on:
-        friendly_name: 'On'
+        friendly_name: "On"
         icon_template: mdi:fan
         value_template: "{{ is_state_attr('climate.thermostat', 'fan_mode', 'Low') }}"
         availability_template: "{{ not is_state('climate.thermostat', 'unavailable') }}"
@@ -224,7 +224,7 @@ switch:
           service: climate.set_fan_mode
           data:
             entity_id: climate.thermostat
-            fan_mode: 'Low'
+            fan_mode: Low
         turn_off:
           service: climate.set_fan_mode
           data:
@@ -264,7 +264,7 @@ switch:
           service: climate.set_hvac_mode
           data:
             entity_id: climate.thermostat
-            hvac_mode: 'off'
+            hvac_mode: "off"
       cool_mode:
         icon_template: mdi:snowflake
         value_template: "{{ is_state('climate.thermostat', 'cool') or is_state_attr('climate.thermostat', 'hvac_action', 'cooling') }}"
@@ -278,7 +278,7 @@ switch:
           service: climate.set_hvac_mode
           data:
             entity_id: climate.thermostat
-            hvac_mode: 'off'
+            hvac_mode: "off"
       hvac_off:
         icon_template: mdi:power
         value_template: "{{ is_state('climate.thermostat', 'off') }}"
@@ -287,39 +287,39 @@ switch:
           service: climate.set_hvac_mode
           data:
             entity_id: climate.thermostat
-            hvac_mode: 'off'
+            hvac_mode: "off"
         turn_off:
           service: climate.set_hvac_mode
           data:
             entity_id: climate.thermostat
-            hvac_mode: 'off'
+            hvac_mode: "off"
 
 template:
   - sensor:
-    - name: target_temp_heating
-      state: >-
-        {% if not is_state('person.mike', 'home') %}
-          {{ states('input_number.climate_heat_away_temp') }}
-        {% elif is_state('input_boolean.sleep_mode', 'on') %}
-          {{ states('input_number.climate_heat_asleep_temp') }}
-        {% else %}
-          {{ states('input_number.climate_heat_home_temp') }}
-        {% endif %}
-    - name: target_temp_cooling
-      state: >-
-        {% if not is_state('person.mike', 'home') %}
-          {{ states('input_number.climate_cool_away_temp') }}
-        {% elif is_state('input_boolean.sleep_mode', 'on') %}
-          {{ states('input_number.climate_cool_asleep_temp') }}
-        {% else %}
-          {{ states('input_number.climate_cool_home_temp') }}
-        {% endif %}
-    - name: hvac_current_temperature
-      state: "{{ state_attr('climate.thermostat', 'current_temperature') }}"
+      - name: target_temp_heating
+        state: >-
+          {% if not is_state('person.mike', 'home') %}
+            {{ states('input_number.climate_heat_away_temp') }}
+          {% elif is_state('input_boolean.sleep_mode', 'on') %}
+            {{ states('input_number.climate_heat_asleep_temp') }}
+          {% else %}
+            {{ states('input_number.climate_heat_home_temp') }}
+          {% endif %}
+      - name: target_temp_cooling
+        state: >-
+          {% if not is_state('person.mike', 'home') %}
+            {{ states('input_number.climate_cool_away_temp') }}
+          {% elif is_state('input_boolean.sleep_mode', 'on') %}
+            {{ states('input_number.climate_cool_asleep_temp') }}
+          {% else %}
+            {{ states('input_number.climate_cool_home_temp') }}
+          {% endif %}
+      - name: hvac_current_temperature
+        state: "{{ state_attr('climate.thermostat', 'current_temperature') }}"
   - binary_sensor:
-    - name: hvac_cool_on
-      state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'cooling') }}"
-    - name: hvac_heat_on
-      state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'heating') }}"
-    - name: hvac_only_fan_on
-      state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'idle') and is_state_attr('climate.thermostat', 'fan_state', 'Running / running low') }}"
+      - name: hvac_cool_on
+        state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'cooling') }}"
+      - name: hvac_heat_on
+        state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'heating') }}"
+      - name: hvac_only_fan_on
+        state: "{{ is_state_attr('climate.thermostat', 'hvac_action', 'idle') and is_state_attr('climate.thermostat', 'fan_state', 'Running / running low') }}"

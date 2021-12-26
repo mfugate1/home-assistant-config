@@ -32,7 +32,8 @@
         service: media_player.volume_set
         entity_id: media_player.gameroom_receiver
         data:
-          volume_level: "{{ (brightness / 255 * 100) | int / 80 }}"
+          volume_level: >-
+            {{ (brightness / 255 * 100) | int / 80 }}
     living_room_volume:
       friendly_name: Living Room Volume
       level_template: >-
@@ -65,4 +66,5 @@
         service: media_player.volume_set
         entity_id: media_player.livingroom_receiver
         data:
-          volume_level: "{{ (brightness / 255 * 100) | int / 80 }}"
+          volume_level: >-
+            {{ (brightness / 255 * 100) | int / 80 }}

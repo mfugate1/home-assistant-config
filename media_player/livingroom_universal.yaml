@@ -1,6 +1,7 @@
 - platform: universal
   name: livingroom_media
-  state_template: "{{ states('media_player.livingroom_receiver') }}"
+  state_template: >-
+    {{ states('media_player.livingroom_receiver') }}
   children:
     - media_player.livingroom_roku
     - media_player.playstation_4_office
@@ -12,7 +13,7 @@
     turn_on:
       service: media_player.turn_on
       data:
-        entity_id: 
+        entity_id:
           - media_player.livingroom_tv
           - media_player.livingroom_receiver
     volume_up:

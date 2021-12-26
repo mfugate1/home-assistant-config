@@ -12,13 +12,13 @@ card:
       title: Occupancy Config
       entities:
         - entity: input_select.occupancy_config_card_room_select
-        - entity: "${'input_number.occupancy_' + vars[0] + '_motion_timeout_minutes'}"
+        - entity: ${'input_number.occupancy_' + vars[0] + '_motion_timeout_minutes'}
           name: Motion Timeout (min)
           type: custom:numberbox-card
-        - entity: "${'input_number.occupancy_' + vars[0] + '_motion_timeout_seconds'}"
+        - entity: ${'input_number.occupancy_' + vars[0] + '_motion_timeout_seconds'}
           name: Motion Timeout (sec)
           type: custom:numberbox-card
-        - entity: "${'input_number.occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
+        - entity: ${'input_number.occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}
           name: SO Timeout (sec)
           type: custom:numberbox-card
     all:
@@ -26,9 +26,9 @@ card:
       title: Occupancy Config
       entities:
         - entity: input_select.occupancy_config_card_room_select
-        - entity: "${'input_number.occupancy_' + vars[0] + '_motion_timeout_minutes'}"
+        - entity: ${'input_number.occupancy_' + vars[0] + '_motion_timeout_minutes'}
           name: Motion Timeout (min)
-        - entity: "${'input_number.occupancy_' + vars[0] + '_motion_timeout_seconds'}"
+        - entity: ${'input_number.occupancy_' + vars[0] + '_motion_timeout_seconds'}
           name: Motion Timeout (sec)
-        - entity: "${'input_number.occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}"
+        - entity: ${'input_number.occupancy_' + vars[0] + '_single_occupancy_timeout_seconds'}
           name: SO Timeout (sec)

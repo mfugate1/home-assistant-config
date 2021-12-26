@@ -1,42 +1,42 @@
-- alias: 'Turn on dehumidifier if above threshold'
+- alias: Turn on dehumidifier if above threshold
   id: turn_on_dehumidifier if above threshold
   trigger:
     - platform: state
       entity_id: sensor.basement_humidity
     - platform: state
-      entity_id: 
+      entity_id:
         - group.basement_occupancy
         - input_boolean.workout_mode
         - media_player.basement_tv
         - switch.basement_stereo
-      to: 'off'
+      to: "off"
   condition:
     - condition: numeric_state
       entity_id: sensor.basement_humidity
       above: input_number.dehumidifier_on_threshold
     - condition: state
-      entity_id: 
+      entity_id:
         - group.basement_occupancy
         - input_boolean.workout_mode
         - media_player.basement_tv
         - switch.basement_stereo
-      state: 'off'
+      state: "off"
   action:
     service: switch.turn_on
     entity_id: switch.dehumidifier
 
-- alias: 'Turn off dehumidifier if below threshold or basement occupied'
+- alias: Turn off dehumidifier if below threshold or basement occupied
   id: turn_off_dehumidifier_if_below_threshold_or_basement_occupied
   trigger:
     - platform: state
       entity_id: sensor.basement_humidity
     - platform: state
-      entity_id: 
+      entity_id:
         - group.basement_occupancy
         - input_boolean.workout_mode
         - media_player.basement_tv
         - switch.basement_stereo
-      to: 'on'
+      to: "on"
   condition:
     condition: or
     conditions:
@@ -45,39 +45,39 @@
         below: input_number.dehumidifier_off_threshold
       - condition: state
         entity_id: group.basement_occupancy
-        state: 'on'
+        state: "on"
       - condition: state
         entity_id: input_boolean.workout_mode
-        state: 'on'
+        state: "on"
       - condition: state
         entity_id: media_player.basement_tv
-        state: 'on'
+        state: "on"
       - condition: state
         entity_id: switch.basement_stereo
-        state: 'on'
+        state: "on"
   action:
     service: switch.turn_off
     entity_id: switch.dehumidifier
 
-- alias: 'Empty dehumidifier'
+- alias: Empty dehumidifier
   id: empty_dehumidifier
   mode: restart
   trigger:
     - platform: state
-      entity_id: 
+      entity_id:
         - sensor.dehumidifier_power
         - switch.dehumidifier
     - platform: state
       entity_id: switch.dehumidifier
-      to: 'on'
-      for: '00:02:00'
+      to: "on"
+      for: 00:02:00
   action:
     - choose:
         - conditions:
             - condition: state
               entity_id: switch.dehumidifier
-              state: 'on'
-              for: '00:02:00'
+              state: "on"
+              for: 00:02:00
             - condition: numeric_state
               entity_id: sensor.dehumidifier_power
               below: 0.5
@@ -87,7 +87,7 @@
         - conditions:
             - condition: state
               entity_id: switch.dehumidifier
-              state: 'on'
+              state: "on"
             - condition: numeric_state
               entity_id: sensor.dehumidifier_power
               above: 20

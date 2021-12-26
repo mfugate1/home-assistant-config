@@ -16,13 +16,13 @@ entities:
     type: custom:multiple-entity-row
     entity: automation.upstairs_bathroom_lights_on
     toggle: true
-    state_header: 'On'
+    state_header: "On"
     entities:
       - entity: automation.upstairs_bathroom_vent_control
         name: Vent
         toggle: true
       - entity: automation.upstairs_bathroom_lights_off
-        name: 'Off'
+        name: "Off"
         toggle: true
   - input_number.upstairsbathroom_occupancy_timeout_seconds
   - input_number.upstairsbathroom_door_closed_occupancy_timeout_minutes

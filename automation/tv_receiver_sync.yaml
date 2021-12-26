@@ -1,9 +1,9 @@
-- alias: 'Turn on living room receiver when tv turns on'
+- alias: Turn on living room receiver when tv turns on
   id: turn_on_living_room_receiver_when_tv_turns_on
   trigger:
     platform: state
     entity_id: media_player.livingroom_tv
-    to: 'on'
+    to: "on"
   action:
     - service: media_player.turn_on
       entity_id: media_player.livingroom_receiver
@@ -12,21 +12,22 @@
       entity_id: media_player.livingroom_receiver
       data:
         source: tv/cd
-        
-- alias: 'Turn off living room receiver when tv turns off'
+
+- alias: Turn off living room receiver when tv turns off
   id: turn_off_living_room_receiver_when_tv_turns_off
   trigger:
     platform: state
     entity_id: media_player.livingroom_tv
-    to: 'off'
+    to: "off"
   condition:
     condition: template
-    value_template: "{{ state_attr('media_player.livingroom_receiver', 'source') == 'cd_tv/cd' }}"
+    value_template: >-
+      {{ state_attr('media_player.livingroom_receiver', 'source') == 'cd_tv/cd' }}
   action:
     service: media_player.turn_off
     entity_id: media_player.livingroom_receiver
 
-- alias: 'Sync basement stereo to tv'
+- alias: Sync basement stereo to tv
   id: sync_basement_stereo_to_tv
   trigger:
     platform: state
@@ -34,7 +35,7 @@
   condition:
     condition: state
     entity_id: input_boolean.workout_mode
-    state: 'off'
+    state: "off"
   action:
     service: switch.turn_{{ trigger.to_state.state }}
     entity_id: switch.basement_stereo

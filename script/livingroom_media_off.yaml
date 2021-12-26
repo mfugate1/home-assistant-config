@@ -4,6 +4,6 @@ sequence:
     entity_id: media_player.livingroom_roku
   - service: media_player.turn_off
     data:
-      entity_id: 
+      entity_id:
         - media_player.livingroom_tv
         - media_player.livingroom_receiver

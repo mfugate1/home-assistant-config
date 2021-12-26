@@ -1,11 +1,11 @@
-- alias: 'Game room config button x1 - toggle tv and receiver'
+- alias: Game room config button x1 - toggle tv and receiver
   id: game_room_config_button_x1_toggle_tv_and_receiver
   trigger:
     platform: event
     event_type: zwave_js_value_notification
     event_data:
       node_id: 6
-      property_key: '003'
+      property_key: "003"
       value: KeyPressed
   action:
     - service: media_player.toggle
@@ -16,19 +16,19 @@
     - service: light.turn_off
       target:
         entity_id: light.gameroom_overhead
-    
-- alias: 'Game room lights on'
+
+- alias: Game room lights on
   id: game_room_lights_on
   trigger:
     platform: state
     entity_id: group.gameroom_occupancy
-    to: 'on'
+    to: "on"
   condition:
     - condition: state
-      entity_id: 
+      entity_id:
         - light.gameroom_overhead
         - media_player.gameroom_tv
-      state: 'off'
+      state: "off"
     - condition: state
       entity_id: person.mike
       state: home
@@ -37,21 +37,21 @@
     target:
       entity_id: light.gameroom_overhead
 
-- alias: 'Game room lights off'
+- alias: Game room lights off
   id: game_room_lights_off
   trigger:
     - platform: state
       entity_id: group.gameroom_occupancy
-      to: 'off'
+      to: "off"
     - platform: state
       entity_id: sensor.last_occupied_room
   condition:
     - condition: state
       entity_id: light.gameroom_overhead
-      state: 'on'
+      state: "on"
     - condition: state
       entity_id: group.gameroom_occupancy
-      state: 'off'
+      state: "off"
     - condition: not
       conditions:
         - condition: state

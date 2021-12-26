@@ -1,2 +1,2 @@
-curl: '/usr/bin/curl {{ url }}'
+curl: /usr/bin/curl {{ url }}
 git_pull: /usr/bin/git pull

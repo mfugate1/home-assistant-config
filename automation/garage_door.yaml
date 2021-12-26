@@ -1,36 +1,36 @@
-- alias: 'Close garage door after leaving'
+- alias: Close garage door after leaving
   id: close_garage_door_after_leaving
   trigger:
     platform: state
     entity_id: person.mike
-    to: 'not_home'
+    to: not_home
   condition:
     condition: state
     entity_id: binary_sensor.garage_door
-    state: 'on'
+    state: "on"
   action:
     - service: notify.mobile_app_sm_g981u1
-      data: 
-        message: "Closing garage door because you left {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
+      data:
+        message: Closing garage door because you left {{ states.sensor.date.state }} {{ states.sensor.time.state}}
         data:
           tag: garage
     - service: cover.close_cover
       entity_id: cover.garage_door
 
-- alias: 'Open garage door when arriving then close'
+- alias: Open garage door when arriving then close
   id: open_garage_door_when_arriving_then_close
   trigger:
     platform: state
     entity_id: person.mike
-    to: 'home'
+    to: home
   condition:
     condition: state
     entity_id: binary_sensor.garage_door
-    state: 'off'
+    state: "off"
   action:
     - service: notify.mobile_app_sm_g981u1
       data:
-        message: "Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}"
+        message: Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}
         data:
           tag: garage
     - service: cover.open_cover
@@ -38,8 +38,8 @@
     - wait_for_trigger:
         - platform: state
           entity_id: binary_sensor.garage_inner_door
-          to: 'on'
-      timeout: 
+          to: "on"
+      timeout:
         minutes: 10
     - service: cover.close_cover
       entity_id: cover.garage_door
@@ -49,13 +49,13 @@
         data:
           tag: garage
 
-- alias: 'Garage door relay shut off'
+- alias: Garage door relay shut off
   id: garage_door_relay_shut_off
   trigger:
     platform: state
     entity_id: switch.garage_door_relay
-    to: 'on'
-    for: '00:00:02'
+    to: "on"
+    for: 00:00:02
   action:
     service: switch.turn_off
     entity_id: switch.garage_door_relay

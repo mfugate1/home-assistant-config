@@ -17,7 +17,7 @@ entities:
         entity_id: automation.run_garmin_update_in_jenkins
   - type: custom:config-template-card
     variables:
-      TYPE: '''run'''
+      TYPE: "'run'"
       getDisplay: &getMileageDisplay |
         type => {
           var current_mileage = parseFloat(states['sensor.' + type + '_mileage_today'].state)
@@ -29,29 +29,29 @@ entities:
           }
         }
     entities: &mileageEntities
-      - "${'sensor.required_' + TYPE + '_mileage_for_today'}"
-      - "${'sensor.' + TYPE + '_mileage_today'}"
+      - ${'sensor.required_' + TYPE + '_mileage_for_today'}
+      - ${'sensor.' + TYPE + '_mileage_today'}
     row: &mileageRow
       type: conditional
       conditions:
-        - entity: "${'sensor.required_' + TYPE + '_mileage_for_today'}"
-          state_not: '0'
+        - entity: ${'sensor.required_' + TYPE + '_mileage_for_today'}
+          state_not: "0"
       row:
         type: custom:bar-card
-        entity: "${'sensor.' + TYPE + '_mileage_today'}"
-        icon: "${'mdi:' + TYPE}"
-        name: "${getDisplay(TYPE)}"
+        entity: ${'sensor.' + TYPE + '_mileage_today'}
+        icon: ${'mdi:' + TYPE}
+        name: ${getDisplay(TYPE)}
         min: 0
-        max: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
+        max: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"\
         entity_row: true
         positions:
-          value: 'off'
+          value: "off"
         severity:
           - from: 0
-            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.11}"
+            to: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.11}
             color: darkred
-          - from: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.1}"
-            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}"
+          - from: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.1}
+            to: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}
             color: darkgreen
         style: &style |
           bar-card-contentbar {
@@ -70,14 +70,14 @@ entities:
 
   - type: custom:config-template-card
     variables:
-      TYPE: '''bike'''
+      TYPE: "'bike'"
       getDisplay: *getMileageDisplay
     entities: *mileageEntities
     row: *mileageRow
 
   - type: custom:config-template-card
     variables:
-      TYPE: '''walk'''
+      TYPE: "'walk'"
       getDisplay: *getMileageDisplay
     entities: *mileageEntities
     row: *mileageRow
@@ -85,7 +85,7 @@ entities:
   - type: conditional
     conditions:
       - entity: calendar.next_lifting
-        state: 'on'
+        state: "on"
     row:
       type: custom:config-template-card
       variables:
@@ -95,7 +95,7 @@ entities:
             if (count == 1) {
               return 'session'
             } else {
-              return 'sessions'  
+              return 'sessions'
             }
           }
       entities:
@@ -109,7 +109,7 @@ entities:
         max: 1
         entity_row: true
         positions:
-          value: 'off'
+          value: "off"
         severity:
           - from: 0
             to: 0.99
@@ -136,16 +136,16 @@ entities:
       icon: mdi:shoe-print
       name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'DONE! (' + addCommas(STEPS) + ' steps)' : addCommas(STEPS) + ' / ' + addCommas(GOAL) + ' steps today'}"
       min: 0
-      max: "${GOAL}"
+      max: ${GOAL}
       entity_row: true
       positions:
-        value: 'off'
+        value: "off"
       severity:
         - from: 0
-          to: "${parseInt(GOAL) - 1}"
+          to: ${parseInt(GOAL) - 1}
           color: darkred
-        - from: "${GOAL}"
-          to: "${parseInt(GOAL) + 100000}"
+        - from: ${GOAL}
+          to: ${parseInt(GOAL) + 100000}
           color: darkgreen
       style: *style
 
@@ -153,7 +153,7 @@ entities:
 
   - type: custom:config-template-card
     variables:
-      NUM: '''01'''
+      NUM: "'01'"
       getDisplay: &getChallengeDisplay |
         sensor_entity => {
             var state = states[sensor_entity].state
@@ -185,125 +185,125 @@ entities:
             return display
           }
     entities: &challengeEntities
-      - "${'sensor.template_garmin_challenge_' + NUM}"
+      - ${'sensor.template_garmin_challenge_' + NUM}
     row: &challengeRow
       type: conditional
       conditions:
-        - entity: "${'sensor.template_garmin_challenge_' + NUM}"
-          state_not: 'unknown'
+        - entity: ${'sensor.template_garmin_challenge_' + NUM}
+          state_not: unknown
       row:
         type: custom:bar-card
-        entity: "${'sensor.template_garmin_challenge_' + NUM}"
+        entity: ${'sensor.template_garmin_challenge_' + NUM}
         attribute: current_progress
-        name: "${getDisplay('sensor.template_garmin_challenge_' + NUM)}"
+        name: ${getDisplay('sensor.template_garmin_challenge_' + NUM)}
         min: 0
-        max: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
+        max: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}
         entity_row: true
         positions:
-          value: 'off'
+          value: "off"
         severity:
           - from: 0
-            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal - 0.01}"
+            to: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal - 0.01}
             color: darkred
-          - from: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
-            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal + 100000}"
+          - from: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}
+            to: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal + 100000}
             color: darkgreen
         style: *style
 
   - type: custom:config-template-card
     variables:
-      NUM: '''02'''
+      NUM: "'02'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''03'''
+      NUM: "'03'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''04'''
+      NUM: "'04'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''05'''
+      NUM: "'05'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''06'''
+      NUM: "'06'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''07'''
+      NUM: "'07'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''08'''
+      NUM: "'08'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''09'''
+      NUM: "'09'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''10'''
+      NUM: "'10'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''11'''
+      NUM: "'11'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''12'''
+      NUM: "'12'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''13'''
+      NUM: "'13'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''14'''
+      NUM: "'14'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow
 
   - type: custom:config-template-card
     variables:
-      NUM: '''15'''
+      NUM: "'15'"
       getDisplay: *getChallengeDisplay
     entities: *challengeEntities
     row: *challengeRow

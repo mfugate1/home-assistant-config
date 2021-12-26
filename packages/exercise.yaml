@@ -1,10 +1,10 @@
 automation:
-  - alias: 'Workout mode on'
+  - alias: Workout mode on
     id: workout_mode_on
     trigger:
       platform: state
       entity_id: input_boolean.workout_mode
-      to: 'on'
+      to: "on"
     action:
       - service: light.turn_on
         entity_id: light.basement
@@ -24,14 +24,15 @@ automation:
         target:
           entity_id: climate.thermostat
         data:
-          temperature: "{{ states('input_number.climate_heat_away_temp') }}"
+          temperature: >-
+            {{ states('input_number.climate_heat_away_temp') }}
 
-  - alias: 'Workout mode off'
+  - alias: Workout mode off
     id: workout_mode_off
     trigger:
       platform: state
       entity_id: input_boolean.workout_mode
-      to: 'off'
+      to: "off"
     action:
       - service: homeassistant.turn_off
         target:
@@ -46,14 +47,15 @@ automation:
         target:
           entity_id: climate.thermostat
         data:
-          temperature: "{{ states('input_number.climate_heat_home_temp') }}"
+          temperature: >-
+            {{ states('input_number.climate_heat_home_temp') }}
 
-  - alias: 'Run Garmin Update in Jenkins'
+  - alias: Run Garmin Update in Jenkins
     id: run_garmin_update_in_jenkins
     trigger:
       - platform: state
         entity_id: sensor.sm_g981u1_last_notification
-        to: 'Your activity is ready to view.'
+        to: Your activity is ready to view.
       - platform: homeassistant
         event: start
     action:
@@ -61,19 +63,19 @@ automation:
       data:
         url: http://${TRUENAS_DOCKER_IP}:${JENKINS_PORT}/generic-webhook-trigger/invoke?token=${JENKINS_GARMIN_UPDATE_TOKEN}
 
-  - alias: 'Workout mode: Turn off everything else when motion detected'
+  - alias: Workout mode - Turn off everything else when motion detected
     id: workout_mode_turn_off_everything_else_when_motion_detected
     trigger:
       platform: state
       entity_id: group.basement_occupancy
-      to: 'on'
+      to: "on"
     condition:
       - condition: state
         entity_id: input_boolean.workout_mode
-        state: 'on'
+        state: "on"
       - condition: state
         entity_id: input_boolean.single_occupancy_mode
-        state: 'off'
+        state: "off"
     action:
       service: light.turn_off
       target:
@@ -100,176 +102,176 @@ sensor:
     db_url: ${FITNESS_DB_URL}
     queries:
       - name: run_mileage_today
-        query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'running';"
+        query: SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'running';
         column: mileage
         value_template: "{{ value | round(2) if value != '0' else value }}"
         unit_of_measurement: miles
       - name: bike_mileage_today
-        query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType in ('cycling', 'indoor_cycling');"
+        query: SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType in ('cycling', 'indoor_cycling');
         column: mileage
         value_template: "{{ value | round(2) if value != '0' else value }}"
         unit_of_measurement: miles
       - name: walk_mileage_today
-        query: "SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'walking';"
+        query: SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'walking';
         column: mileage
         value_template: "{{ value | round(2) if value != '0' else value }}"
         unit_of_measurement: miles
       - name: lifting_sessions_today
-        query: "SELECT COUNT(*) as cnt FROM garmin_activities WHERE activityType = 'strength_training' AND DATE(startTimeLocal) = CURDATE() LIMIT 1;"
+        query: SELECT COUNT(*) as cnt FROM garmin_activities WHERE activityType = 'strength_training' AND DATE(startTimeLocal) = CURDATE() LIMIT 1;
         column: cnt
       - name: steps_today
-        query: "SELECT IFNULL(totalSteps, 0) as totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
+        query: SELECT IFNULL(totalSteps, 0) as totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE();
         column: totalSteps
         value_template: "{{ value | round }}"
         unit_of_measurement: steps
       - name: step_goal_today
-        query: "SELECT IFNULL(dailyStepGoal, 10000) as dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE();"
+        query: SELECT IFNULL(dailyStepGoal, 10000) as dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE();
         column: dailyStepGoal
         value_template: "{{ value | round }}"
         unit_of_measurement: steps
 
 template:
   - binary_sensor:
-    - name: bike_goal_met_today
-      state: "{{ (states('sensor.bike_mileage_today') | float) >= (states('sensor.required_bike_mileage_for_today') | float) }}"
-    - name: lifting_goal_met_today
-      state: >-
-        {% if is_state('calendar.next_lifting', 'on') %}
-          {{ states('sensor.lifting_sessions_today')|int >= 1}}
-        {% else %}
-          on
-        {% endif %}
-    - name: run_goal_met_today
-      state: "{{ (states('sensor.run_mileage_today') | float) >= (states('sensor.required_run_mileage_for_today') | float) }}"
-    - name: steps_goal_met_today
-      state: "{{ (states('sensor.steps_today') | int) >= (states('sensor.step_goal_today') | int) }}"
-    - name: walk_goal_met_today
-      state: "{{ (states('sensor.walk_mileage_today') | float) >= (states('sensor.required_walk_mileage_for_today') | float) }}"
+      - name: bike_goal_met_today
+        state: "{{ (states('sensor.bike_mileage_today') | float) >= (states('sensor.required_bike_mileage_for_today') | float) }}"
+      - name: lifting_goal_met_today
+        state: >-
+          {% if is_state('calendar.next_lifting', "on") %}
+            {{ states('sensor.lifting_sessions_today')|int >= 1}}
+          {% else %}
+            on
+          {% endif %}
+      - name: run_goal_met_today
+        state: "{{ (states('sensor.run_mileage_today') | float) >= (states('sensor.required_run_mileage_for_today') | float) }}"
+      - name: steps_goal_met_today
+        state: "{{ (states('sensor.steps_today') | int) >= (states('sensor.step_goal_today') | int) }}"
+      - name: walk_goal_met_today
+        state: "{{ (states('sensor.walk_mileage_today') | float) >= (states('sensor.required_walk_mileage_for_today') | float) }}"
   - sensor:
-    - name: required_run_mileage_for_today
-      state: >-
-        {% if state_attr('calendar.next_run', 'start_time') and state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
-          {{ state_attr('calendar.next_run', 'message').split()[0] }}
-        {% else %}
-          0
-        {% endif %}
-    - name: required_bike_mileage_for_today
-      state: >-
-        {% if state_attr('calendar.next_bike', 'start_time') and state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
-          {{ state_attr('calendar.next_bike', 'message').split()[0] }}
-        {% else %}
-          0
-        {% endif %}
-    - name: required_walk_mileage_for_today
-      state: >-
-        {% if state_attr('calendar.next_walk', 'start_time') and state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
-          {{ state_attr('calendar.next_walk', 'message').split()[0] }}
-        {% else %}
-          0
-        {% endif %}
+      - name: required_run_mileage_for_today
+        state: >-
+          {% if state_attr('calendar.next_run', 'start_time') and state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+            {{ state_attr('calendar.next_run', 'message').split()[0] }}
+          {% else %}
+            0
+          {% endif %}
+      - name: required_bike_mileage_for_today
+        state: >-
+          {% if state_attr('calendar.next_bike', 'start_time') and state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+            {{ state_attr('calendar.next_bike', 'message').split()[0] }}
+          {% else %}
+            0
+          {% endif %}
+      - name: required_walk_mileage_for_today
+        state: >-
+          {% if state_attr('calendar.next_walk', 'start_time') and state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+            {{ state_attr('calendar.next_walk', 'message').split()[0] }}
+          {% else %}
+            0
+          {% endif %}
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_01
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_01
     sensor: &sensor
-    - unique_id: garmin_challenge_01
-      name: "{{ trigger.json.name if 'name' in trigger.json else '' }}"
-      state: "{{ trigger.json.state if 'state' in trigger.json else '' }}"
-      picture: "{{ trigger.json.image_url if 'image_url' in trigger.json else '' }}"
-      icon: "{{ trigger.json.icon if 'icon' in trigger.json else '' }}"
-      attributes: 
-        start_date: "{{ trigger.json.start_date if 'start_date' in trigger.json else '' }}"
-        end_date: "{{ trigger.json.end_date if 'end_date' in trigger.json else '' }}"
-        description: "{{ trigger.json.description if 'description' in trigger.json else '' }}"
-        current_progress: "{{ trigger.json.current_progress if 'current_progress' in trigger.json else '' }}"
-        goal: "{{ trigger.json.goal if 'goal' in trigger.json else '' }}"
-        units: "{{ trigger.json.units if 'units' in trigger.json else '' }}"
-        user: "{{ trigger.json.user if 'user' in trigger.json else '' }}"
-        activity_type: "{{ trigger.json.activity_type if 'activity_type' in trigger.json else '' }}"
-        type: "{{ trigger.json.type if 'type' in trigger.json else '' }}"
-        current_progress_display: "{{ trigger.json.current_progress_display if 'current_progress_display' in trigger.json else '' }}"
-        progress_raw: "{{ trigger.json.progress_raw if 'progress_raw' in trigger.json else '' }}"
-        url: "{{ trigger.json.url if 'url' in trigger.json else '' }}"
+      - unique_id: garmin_challenge_01
+        name: "{{ trigger.json.name if 'name' in trigger.json else '' }}"
+        state: "{{ trigger.json.state if 'state' in trigger.json else '' }}"
+        picture: "{{ trigger.json.image_url if 'image_url' in trigger.json else '' }}"
+        icon: "{{ trigger.json.icon if 'icon' in trigger.json else '' }}"
+        attributes:
+          start_date: "{{ trigger.json.start_date if 'start_date' in trigger.json else '' }}"
+          end_date: "{{ trigger.json.end_date if 'end_date' in trigger.json else '' }}"
+          description: "{{ trigger.json.description if 'description' in trigger.json else '' }}"
+          current_progress: "{{ trigger.json.current_progress if 'current_progress' in trigger.json else '' }}"
+          goal: "{{ trigger.json.goal if 'goal' in trigger.json else '' }}"
+          units: "{{ trigger.json.units if 'units' in trigger.json else '' }}"
+          user: "{{ trigger.json.user if 'user' in trigger.json else '' }}"
+          activity_type: "{{ trigger.json.activity_type if 'activity_type' in trigger.json else '' }}"
+          type: "{{ trigger.json.type if 'type' in trigger.json else '' }}"
+          current_progress_display: "{{ trigger.json.current_progress_display if 'current_progress_display' in trigger.json else '' }}"
+          progress_raw: "{{ trigger.json.progress_raw if 'progress_raw' in trigger.json else '' }}"
+          url: "{{ trigger.json.url if 'url' in trigger.json else '' }}"
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_02
-    sensor: 
-    - <<: *sensor
-      unique_id: garmin_challenge_02
-  - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_03
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_02
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_03
+      - <<: *sensor
+        unique_id: garmin_challenge_02
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_04
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_03
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_04
+      - <<: *sensor
+        unique_id: garmin_challenge_03
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_05
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_04
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_05
+      - <<: *sensor
+        unique_id: garmin_challenge_04
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_06
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_05
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_06
+      - <<: *sensor
+        unique_id: garmin_challenge_05
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_07
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_06
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_07
+      - <<: *sensor
+        unique_id: garmin_challenge_06
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_08
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_07
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_08
+      - <<: *sensor
+        unique_id: garmin_challenge_07
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_09
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_08
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_09
+      - <<: *sensor
+        unique_id: garmin_challenge_08
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_10
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_09
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_10
+      - <<: *sensor
+        unique_id: garmin_challenge_09
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_11
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_10
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_11
+      - <<: *sensor
+        unique_id: garmin_challenge_10
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_12
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_11
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_12
+      - <<: *sensor
+        unique_id: garmin_challenge_11
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_13
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_12
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_13
+      - <<: *sensor
+        unique_id: garmin_challenge_12
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_14
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_13
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_14
+      - <<: *sensor
+        unique_id: garmin_challenge_13
   - trigger:
-    - platform: webhook
-      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_15
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_14
     sensor:
-    - <<: *sensor
-      unique_id: garmin_challenge_15
+      - <<: *sensor
+        unique_id: garmin_challenge_14
+  - trigger:
+      - platform: webhook
+        webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_15
+    sensor:
+      - <<: *sensor
+        unique_id: garmin_challenge_15

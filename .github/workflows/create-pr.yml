@@ -1,12 +1,12 @@
 # Automatically create a pull request for branches other than main
 # The PR should automatically merge once it passes all status checks
 
-name: 'Create Pull Request'
+name: Create Pull Request
 on:
   push:
     branches:
-      - '*'
-      - '!main'
+      - "*"
+      - "!main"
 
 jobs:
   create-pull-request:
@@ -17,7 +17,7 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       - uses: Azure/get-keyvault-secrets@v1
-        with: 
+        with:
           keyvault: overlord-vault
           secrets: GITHUB
         id: az
@@ -30,5 +30,6 @@ jobs:
       - uses: peter-evans/enable-pull-request-automerge@v1
         with:
           token: ${{ steps.az.outputs.GITHUB }}
-          pull-request-number: ${{ steps.create-pull-request.outputs.pr_number }}
+          pull-request-number:
+            ${{ steps.create-pull-request.outputs.pr_number }}
           merge-method: merge

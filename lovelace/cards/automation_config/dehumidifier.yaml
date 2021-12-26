@@ -17,10 +17,10 @@ cards:
         type: custom:multiple-entity-row
         entity: automation.turn_on_dehumidifier_if_above_threshold
         toggle: true
-        state_header: 'On'
+        state_header: "On"
         entities:
           - entity: automation.turn_off_dehumidifier_if_below_threshold_or_basement_occupied
-            name: 'Off'
+            name: "Off"
             toggle: true
       - type: divider
   - type: horizontal-stack
@@ -28,12 +28,12 @@ cards:
       - type: entities
         entities:
           - entity: input_number.dehumidifier_off_threshold
-            name: 'Off'
+            name: "Off"
             type: custom:numberbox-card
       - type: entities
         entities:
           - entity: input_number.dehumidifier_on_threshold
-            name: 'On'
+            name: "On"
             type: custom:numberbox-card
   - name: Basement Humidity
     type: custom:mini-graph-card
