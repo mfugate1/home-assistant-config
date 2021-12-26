@@ -81,30 +81,25 @@ automation:
                 before: input_datetime.vacuum_night_cleaning_end_time
                 after: input_datetime.sleep_mode_last_start_time
     action:
-      - alias: "Start vacuum"
-        service: xiaomi_miio.vacuum_clean_segment
+      - service: xiaomi_miio.vacuum_clean_segment
         target:
           entity_id: vacuum.roborock_s6_pure
         data:
           segments: "{{ states('sensor.vacuum_next_room_to_clean').split('_')[1] }}"
-      - alias: "Set last room cleaned input text"
-        service: input_text.set_value
+      - service: input_text.set_value
         target:
           entity_id: input_text.vacuum_last_room_cleaned
         data:
           value: "{{ states('sensor.vacuum_next_room_to_clean') }}"
-      - alias: "Increment rooms cleaned counter"
-        service: input_number.increment
+      - service: input_number.increment
         target:
           entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
-      - alias: "Set last cleaned datetime"
-        service: input_datetime.set_datetime
+      - service: input_datetime.set_datetime
         target:
           entity_id: "input_datetime.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_last_cleaned"
         data:
           timestamp: "{{ now().timestamp() }}"
-      - alias: "Turn on cleaned today input boolean"
-        service: input_boolean.turn_on
+      - service: input_boolean.turn_on
         target:
           entity_id: "input_boolean.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_cleaned_today"
 
@@ -159,7 +154,7 @@ automation:
     action:
       service: notify.mobile_app_sm_g981u1
       data:
-        message: "Vacuum Error"
+        message: Vacuum Error
         data:
           tag: vacuum_error
 

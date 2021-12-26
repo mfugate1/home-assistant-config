@@ -10,7 +10,7 @@ entities:
   - type: custom:simple-thermostat
     entity: climate.thermostat
     canary_style:
-      margin: "-20px 0px"
+      margin: -20px 0px
     no_card: true
     control: false
     decimals: 0
@@ -44,7 +44,7 @@ entities:
   - type: custom:paper-buttons-row
     no_card: true
     canary_style:
-      margin: "-30px 0px 0px"
+      margin: -30px 0px 0px
     base_config:
       icon: false
       style:

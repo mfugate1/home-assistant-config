@@ -43,4 +43,6 @@ jobs:
                 quote-type: double
                 required: only-when-needed
               trailing-spaces: enable
-              truthy: enable
+              truthy:
+                allowed-values: ["true", "false"]
+                check-keys: false

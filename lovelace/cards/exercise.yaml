@@ -29,29 +29,29 @@ entities:
           }
         }
     entities: &mileageEntities
-      - "${'sensor.required_' + TYPE + '_mileage_for_today'}"
-      - "${'sensor.' + TYPE + '_mileage_today'}"
+      - ${'sensor.required_' + TYPE + '_mileage_for_today'}
+      - ${'sensor.' + TYPE + '_mileage_today'}
     row: &mileageRow
       type: conditional
       conditions:
-        - entity: "${'sensor.required_' + TYPE + '_mileage_for_today'}"
+        - entity: ${'sensor.required_' + TYPE + '_mileage_for_today'}
           state_not: "0"
       row:
         type: custom:bar-card
-        entity: "${'sensor.' + TYPE + '_mileage_today'}"
-        icon: "${'mdi:' + TYPE}"
-        name: "${getDisplay(TYPE)}"
+        entity: ${'sensor.' + TYPE + '_mileage_today'}
+        icon: ${'mdi:' + TYPE}
+        name: ${getDisplay(TYPE)}
         min: 0
-        max: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"
+        max: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state)}"\
         entity_row: true
         positions:
           value: "off"
         severity:
           - from: 0
-            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.11}"
+            to: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.11}
             color: darkred
-          - from: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.1}"
-            to: "${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}"
+          - from: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) - 0.1}
+            to: ${parseFloat(states['sensor.required_' + TYPE + '_mileage_for_today'].state) + 10000000}
             color: darkgreen
         style: &style |
           bar-card-contentbar {
@@ -136,16 +136,16 @@ entities:
       icon: mdi:shoe-print
       name: "${parseInt(STEPS) >= parseInt(GOAL) ? 'DONE! (' + addCommas(STEPS) + ' steps)' : addCommas(STEPS) + ' / ' + addCommas(GOAL) + ' steps today'}"
       min: 0
-      max: "${GOAL}"
+      max: ${GOAL}
       entity_row: true
       positions:
         value: "off"
       severity:
         - from: 0
-          to: "${parseInt(GOAL) - 1}"
+          to: ${parseInt(GOAL) - 1}
           color: darkred
-        - from: "${GOAL}"
-          to: "${parseInt(GOAL) + 100000}"
+        - from: ${GOAL}
+          to: ${parseInt(GOAL) + 100000}
           color: darkgreen
       style: *style
 
@@ -185,28 +185,28 @@ entities:
             return display
           }
     entities: &challengeEntities
-      - "${'sensor.template_garmin_challenge_' + NUM}"
+      - ${'sensor.template_garmin_challenge_' + NUM}
     row: &challengeRow
       type: conditional
       conditions:
-        - entity: "${'sensor.template_garmin_challenge_' + NUM}"
+        - entity: ${'sensor.template_garmin_challenge_' + NUM}
           state_not: "unknown"
       row:
         type: custom:bar-card
-        entity: "${'sensor.template_garmin_challenge_' + NUM}"
+        entity: ${'sensor.template_garmin_challenge_' + NUM}
         attribute: current_progress
-        name: "${getDisplay('sensor.template_garmin_challenge_' + NUM)}"
+        name: ${getDisplay('sensor.template_garmin_challenge_' + NUM)}
         min: 0
-        max: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
+        max: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}
         entity_row: true
         positions:
           value: "off"
         severity:
           - from: 0
-            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal - 0.01}"
+            to: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal - 0.01}
             color: darkred
-          - from: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}"
-            to: "${states['sensor.template_garmin_challenge_' + NUM].attributes.goal + 100000}"
+          - from: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal}
+            to: ${states['sensor.template_garmin_challenge_' + NUM].attributes.goal + 100000}
             color: darkgreen
         style: *style
 

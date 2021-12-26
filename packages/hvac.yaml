@@ -224,7 +224,7 @@ switch:
           service: climate.set_fan_mode
           data:
             entity_id: climate.thermostat
-            fan_mode: "Low"
+            fan_mode: Low
         turn_off:
           service: climate.set_fan_mode
           data:

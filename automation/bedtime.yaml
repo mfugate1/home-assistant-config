@@ -16,7 +16,7 @@
         data:
           type: tts
         message: >-
-          Good night. 
+          Good night.
           {% if states('sensor.bedroom_phone_charger_power') | float < 1 %}
             Don't forget to charge your phone.
           {% elif is_state('switch.watch_charging_in_bedroom', 'off') %}

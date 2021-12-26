@@ -22,7 +22,7 @@
   trigger:
     platform: state
     entity_id: person.mike
-    to: "home"
+    to: home
   condition:
     condition: state
     entity_id: binary_sensor.garage_door

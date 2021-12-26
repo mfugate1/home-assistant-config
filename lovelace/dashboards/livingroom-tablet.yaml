@@ -20,7 +20,7 @@ button_card_templates:
         styles:
           card:
             - animation: pulse 1s infinite
-      - value: "open"
+      - value: open
         styles:
           card:
             - animation: pulse 1s infinite
@@ -68,7 +68,8 @@ views:
             - color: var(--paper-item-icon-color)
       - type: custom:button-card
         entity: group.update_available
-        name: '[[[ if (entity.state == "on") return "Updates"; else return "No Updates"]]]'
+        name: >-
+          [[[if (entity.state == "on") return "Updates"; else return "No Updates"]]]
         template: warning_flash
         view_layout:
           grid-area: btn5
