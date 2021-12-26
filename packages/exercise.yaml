@@ -173,8 +173,7 @@ template:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_01
     sensor: &sensor
-      - unique_id: garmin_challenge_01
-        name: "{{ trigger.json.name if 'name' in trigger.json else '' }}"
+      - name: "{{ trigger.json.name if 'name' in trigger.json else '' }}"
         state: "{{ trigger.json.state if 'state' in trigger.json else '' }}"
         picture: "{{ trigger.json.image_url if 'image_url' in trigger.json else '' }}"
         icon: "{{ trigger.json.icon if 'icon' in trigger.json else '' }}"
@@ -196,82 +195,68 @@ template:
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_02
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_02
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_03
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_03
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_04
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_04
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_05
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_05
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_06
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_06
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_07
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_07
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_08
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_08
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_09
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_09
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_10
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_10
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_11
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_11
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_12
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_12
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_13
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_13
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_14
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_14
   - trigger:
       - platform: webhook
         webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_15
     sensor:
       - <<: *sensor
-        unique_id: garmin_challenge_15
