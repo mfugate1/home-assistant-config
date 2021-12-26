@@ -1,9 +1,5 @@
 name: YAML Lint
-on:
-  push:
-    paths:
-      - "**/*.yml"
-      - "**/*.yaml"
+on: ["push"]
 jobs:
   yaml-lint:
     runs-on: ubuntu-latest
