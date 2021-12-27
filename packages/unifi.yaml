@@ -16,16 +16,20 @@ sensor:
       c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
       echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/stat/device/${UBIQUITI_AP1_MAC}
     value_template: |-
-      {% set json = value_json.data[0] %}
-      {{ json["ip"] }}
-      {{ json["mac"] }}
-      {{ json["version"] }}
-      {{ json["adopted"] }}
-      {{ json["internet"] }}
-      {{ json["last_seen"] }}
-      {{ json["upgradable"] }}
-      {{ json["uptime"] }}
-      {{ json["num_sta"] }}
+      {% if value_json.meta.rc == 'error' %}
+        {{ value }}
+      {% else %}
+        {% set json = value_json.data[0] %}
+        {{ json["ip"] }}
+        {{ json["mac"] }}
+        {{ json["version"] }}
+        {{ json["adopted"] }}
+        {{ json["internet"] }}
+        {{ json["last_seen"] }}
+        {{ json["upgradable"] }}
+        {{ json["uptime"] }}
+        {{ json["num_sta"] }}
+      {% endif %}
     scan_interval: 300
 
 template:
