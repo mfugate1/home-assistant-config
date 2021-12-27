@@ -77,6 +77,7 @@ List getAffectedFiles(Map files) {
 
     if (params.updatedSecrets) {
         List updatedSecrets = params.updatedSecrets.tokenize(',')
+        echo "Updated secrets: ${updatedSecrets}"
         files.each { file, secrets ->
             for (String secret in updatedSecrets) {
                 if (secrets.contains(secret)) {
