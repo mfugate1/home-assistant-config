@@ -125,7 +125,7 @@ sensor:
         value_template: "{{ value | round }}"
         unit_of_measurement: steps
       - name: step_goal_today
-        query: SELECT IFNULL((SELECT IFNULL(dailyStepGoal, 10000) as dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE() LIMIT 1), 0) AS totalSteps;
+        query: SELECT IFNULL((SELECT IFNULL(dailyStepGoal, 10000) as dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE() LIMIT 1), 0) AS dailyStepGoal;
         column: dailyStepGoal
         value_template: "{{ value | round }}"
         unit_of_measurement: steps
