@@ -1,0 +1,37 @@
+binary_sensor:
+  - platform: rest
+    name: latest_unifi_image_available_on_docker_hub
+    resource_template: https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}
+    value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
+
+sensor:
+  - platform: github
+    access_token: ${GITHUB_PASSWORD}
+    repositories:
+      - path: jacobalberty/unifi-docker
+  - platform: command_line
+    name: ubiquiti_ap1
+    command: |-
+      data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD"}'; url='https://${DOCKER_IP}:${UNIFI_PORT}';\
+      c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
+      echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/stat/device/${UBIQUITI_AP1_MAC}
+    json_attributes:
+      - ip
+      - mac
+      - version
+      - adopted
+      - internet
+      - last_seen
+      - upgradable
+      - uptime
+      - num_sta
+    value_template: "{{ value_json.data[0] }}"
+    scan_interval: 300
+
+template:
+  - sensor:
+      - name: unifi_latest_version
+        state: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
+  - binary_sensor:
+      - name: unifi_update_available
+        state: "{{ states('sensor.unifi_latest_version') != state_attr('sensor.docker_unifi', 'image').split(':')[1] and is_state('binary_sensor.latest_unifi_image_available_on_docker_hub', 'on') }}"
