@@ -12,7 +12,7 @@ sensor:
   - platform: command_line
     name: ubiquiti_ap1
     command: |-
-      data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD"}'; url='https://${DOCKER_IP}:${UNIFI_PORT}';\
+      data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"'; url='https://${UNIFI_IP}:${UNIFI_PORT}';\
       c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
       echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/stat/device/${UBIQUITI_AP1_MAC}
     json_attributes:
