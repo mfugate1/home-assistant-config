@@ -29,7 +29,7 @@ node ('docker') {
     if (BRANCH_NAME != 'main') return
 
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e '${ssh}' -a --delete --exclude {'custom_components', '*google*', '.HA_VERSION', 'home*', 'rtsp*', '.storage', 'webos*', 'www'}./ ${remote}:${HASS_CONFIG_DIR}"
+        sh "rsync -e '${ssh}' -a --delete --exclude {'custom_components', '*google*', '.HA_VERSION', 'home*', 'rtsp*', '.storage', 'webos*', 'www'} ./ ${remote}:${HASS_CONFIG_DIR}"
     }
 
     boolean scheduleRestart = false
