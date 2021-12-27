@@ -33,6 +33,7 @@ node ('docker') {
         'custom_components*',
         '*google*',
         '.HA_VERSION',
+        'known_devices.yaml',
         '*.log*',
         'rtsp*',
         '.storage*',
