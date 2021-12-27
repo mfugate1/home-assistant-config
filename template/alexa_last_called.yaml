@@ -1,11 +1,7 @@
 - sensor:
     - name: alexa_last_called_device
-      state: >-
-        {% if expand(states.group.echos) | count == 0 %}
-          none
-        {% else %}
-          {{ expand(states.group.echos) | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first }}
-        {% endif %}
+      state: "{{ expand(states.group.echos) | selectattr('attributes.last_called','eq',True) | map(attribute='entity_id') | first }}"
+      availability: "{{ is_state('group.echos', 'off') }}"
     - name: alexa_last_called_room
       state: >-
         {% if '.' in states('sensor.alexa_last_called_device') %}
