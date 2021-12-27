@@ -10,11 +10,33 @@ sensor:
     repositories:
       - path: jacobalberty/unifi-docker
   - platform: command_line
-    name: ubiquiti_ap1_raw
+    name: ubiquiti_ap1_status
     command: |-
       data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';\
       c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
       echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/stat/device/${UBIQUITI_AP1_MAC}
+    value_template: |-
+      {% if value_json.meta.rc == 'error' %}
+        {{ value }}
+      {% else %}
+        {% set json = value_json.data[0] %}
+        {{ json["ip"] }}
+        {{ json["mac"] }}
+        {{ json["version"] }}
+        {{ json["adopted"] }}
+        {{ json["internet"] }}
+        {{ json["last_seen"] }}
+        {{ json["upgradable"] }}
+        {{ json["uptime"] }}
+        {{ json["num_sta"] }}
+      {% endif %}
+    scan_interval: 300
+  - platform: command_line
+    name: ubiquiti_ap2_status
+    command: |-
+      data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';\
+      c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
+      echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/stat/device/${UBIQUITI_AP2_MAC}
     value_template: |-
       {% if value_json.meta.rc == 'error' %}
         {{ value }}
@@ -39,3 +61,25 @@ template:
   - binary_sensor:
       - name: unifi_update_available
         state: "{{ states('sensor.unifi_latest_version') != state_attr('sensor.docker_unifi', 'image').split(':')[1] and is_state('binary_sensor.latest_unifi_image_available_on_docker_hub', 'on') }}"
+      - name: ubiquiti_ap1_firmware_update_available
+        state: "{{ states('ubiquiti_ap1_status').split('\n')[6] }}"
+        attributes:
+          ip: "{{ states('ubiquiti_ap1_status').split('\n')[0] }}"
+          mac: "{{ states('ubiquiti_ap1_status').split('\n')[1] }}"
+          version: "{{ states('ubiquiti_ap1_status').split('\n')[2] }}"
+          adopted: "{{ states('ubiquiti_ap1_status').split('\n')[3] }}"
+          internet: "{{ states('ubiquiti_ap1_status').split('\n')[4] }}"
+          last_seen: "{{ states('ubiquiti_ap1_status').split('\n')[5] }}"
+          uptime: "{{ states('ubiquiti_ap1_status').split('\n')[7] }}"
+          num_sta: "{{ states('ubiquiti_ap1_status').split('\n')[8] }}"
+      - name: ubiquiti_ap2_firmware_update_available
+        state: "{{ states('ubiquiti_ap2_status').split('\n')[6] }}"
+        attributes:
+          ip: "{{ states('ubiquiti_ap2_status').split('\n')[0] }}"
+          mac: "{{ states('ubiquiti_ap2_status').split('\n')[1] }}"
+          version: "{{ states('ubiquiti_ap2_status').split('\n')[2] }}"
+          adopted: "{{ states('ubiquiti_ap2_status').split('\n')[3] }}"
+          internet: "{{ states('ubiquiti_ap2_status').split('\n')[4] }}"
+          last_seen: "{{ states('ubiquiti_ap2_status').split('\n')[5] }}"
+          uptime: "{{ states('ubiquiti_ap2_status').split('\n')[7] }}"
+          num_sta: "{{ states('ubiquiti_ap2_status').split('\n')[8] }}"
