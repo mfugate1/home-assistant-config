@@ -28,8 +28,19 @@ node ('docker') {
 
     if (BRANCH_NAME != 'main') return
 
+    String protectFilters = [
+        'alexa*',
+        'custom_components*',
+        '*google*',
+        '.HA_VERSION',
+        '*.log*',
+        'rtsp*',
+        '.storage*',
+        'w*'
+    ].collect{"--filter 'P ${it}'"}.join(' ')
+
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e '${ssh}' -a --delete --exclude {'custom_components', '*google*', '.HA_VERSION', 'home*', 'rtsp*', '.storage', 'webos*', 'www'} ./ ${remote}:${HASS_CONFIG_DIR}"
+        sh "rsync -e '${ssh}' -a --delete ${protectFilters} ./ ${remote}:${HASS_CONFIG_DIR}"
     }
 
     boolean scheduleRestart = false
