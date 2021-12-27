@@ -4,7 +4,7 @@
     {{ states('media_player.livingroom_receiver') }}
   children:
     - media_player.livingroom_roku
-    - media_player.playstation_4_office
+    - media_player.playstation_4_livingroom
     - media_player.livingroom_receiver
     - media_player.livingroom_tv
   commands:

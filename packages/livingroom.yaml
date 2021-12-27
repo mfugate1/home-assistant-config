@@ -17,7 +17,7 @@ group:
       - light.livingroom_lamp
       - media_player.livingroom_receiver
       - media_player.livingroom_tv
-      - media_player.playstation_4_office
+      - media_player.playstation_4_livingroom
       - switch.entry_light
 
 sensor:
@@ -104,18 +104,18 @@ switch:
       livingroom_ps4:
         friendly_name: PS4
         icon_template: mdi:sony-playstation
-        value_template: "{{ not is_state('media_player.playstation_4_office', 'standby') and not is_state('media_player.playstation_4_office', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
-        availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_office', 'unavailable') and not is_state('media_player.playstation_4_office', 'unknown') }}"
+        value_template: "{{ not is_state('media_player.playstation_4_livingroom', 'standby') and not is_state('media_player.playstation_4_livingroom', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
+        availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_livingroom', 'unavailable') and not is_state('media_player.playstation_4_livingroom', 'unknown') }}"
         turn_on:
           - service: media_player.turn_on
-            entity_id: media_player.playstation_4_office
+            entity_id: media_player.playstation_4_livingroom
           - service: script.select_livingroom_sources
             data:
               media_type: ps4
         turn_off:
           service: media_player.turn_off
           entity_id:
-            - media_player.playstation_4_office
+            - media_player.playstation_4_livingroom
             - media_player.livingroom_media
       livingroom_steam:
         friendly_name: Steam

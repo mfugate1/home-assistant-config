@@ -21,7 +21,7 @@ entities:
         name: false
         hold_action:
           action: more-info
-          entity: media_player.playstation_4_office
+          entity: media_player.playstation_4_livingroom
       - entity: switch.livingroom_steam
         name: false
       - entity: switch.livingroom_netflix
