@@ -1,5 +1,7 @@
 properties([disableConcurrentBuilds(), parameters([string(name: 'updatedSecrets', trim: true)])])
 
+echo(params, true, '------ Job Parameters ------')
+
 node ('docker') {
     Map scmVars = checkout scm
 
@@ -69,7 +71,6 @@ void reload(String url, String token, String platform, String service = 'reload'
     )
 }
 
-@NonCPS
 List getAffectedFiles(Map files) {
     if (currentBuild.changeSets[0] == null) return []
 
