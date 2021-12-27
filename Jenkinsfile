@@ -35,7 +35,7 @@ node ('docker') {
     boolean scheduleRestart = false
     List reloadServices = []
 
-    List affectedFiles = getAffectedFiles(files, params.updatedSecrets)
+    List affectedFiles = getAffectedFiles(files)
     echo(affectedFiles, true, '----------- Affected files -----------')
 
     for (String file in affectedFiles) {
@@ -71,16 +71,18 @@ void reload(String url, String token, String platform, String service = 'reload'
     )
 }
 
-List getAffectedFiles(Map files, String updatedSecrets) {
-    if (currentBuild.changeSets[0] == null) return []
+@NonCPS
+List getAffectedFiles(Map files) {
+    List affectedFiles = []
 
-    List affectedFiles = currentBuild.changeSets[0].items.collectMany{it.affectedPaths}
+    if (currentBuild.changeSets[0]) {
+        affectedFiles += currentBuild.changeSets[0].items.collectMany{it.affectedPaths}
+    }
 
-    if (updatedSecrets) {
-        List updatedSecretsList = updatedSecrets.tokenize(',')
-        echo "Updated secrets: ${updatedSecretsList}"
+    if (params.updatedSecrets) {
+        List updatedSecrets = params.updatedSecrets.tokenize(',')
         files.each { file, secrets ->
-            for (String secret in updatedSecretsList) {
+            for (String secret in updatedSecrets) {
                 if (secrets.contains(secret)) {
                     affectedFiles += file
                     break
