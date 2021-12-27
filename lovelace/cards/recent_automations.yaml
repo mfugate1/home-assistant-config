@@ -23,7 +23,7 @@ filter:
       last_triggered: < 5
       options:
         type: custom:template-entity-row
-        active: "{{ (state_attr(config.entity, 'current') | int) > 0 }}"
+        active: "{{ (state_attr(config.entity, 'current') | int(0)) > 0 }}"
         secondary: |
           {%- if state_attr(config.entity, 'last_triggered') -%}
             {{ relative_time(state_attr(config.entity, 'last_triggered')) }} ago

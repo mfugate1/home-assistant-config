@@ -31,11 +31,11 @@ automation:
       data:
         brightness: >-
           {% if is_state('input_boolean.sleep_mode', 'on') %}
-            {{ states('input_number.upstairsbathroom_light_sleeping_brightness') | int }}
+            {{ states('input_number.upstairsbathroom_light_sleeping_brightness') | int(0) }}
           {% elif is_state('sun.sun', 'above_horizon') %}
-            {{ states('input_number.upstairsbathroom_light_day_brightness') | int }}
+            {{ states('input_number.upstairsbathroom_light_day_brightness') | int(0) }}
           {% else %}
-            {{ states('input_number.upstairsbathroom_light_night_brightness') | int }}
+            {{ states('input_number.upstairsbathroom_light_night_brightness') | int(0) }}
           {% endif %}
         transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
 
@@ -46,12 +46,12 @@ automation:
         entity_id: group.upstairsbathroom_occupancy
         to: "off"
         for:
-          seconds: "{{ states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int }}"
+          seconds: "{{ states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int(0) }}"
       - platform: state
         entity_id: group.upstairsbathroom_occupancy
         to: "off"
         for:
-          minutes: "{{ states('input_number.upstairsbathroom_door_closed_occupancy_timeout_minutes') | int }}"
+          minutes: "{{ states('input_number.upstairsbathroom_door_closed_occupancy_timeout_minutes') | int(0) }}"
       - platform: state
         entity_id: binary_sensor.upstairsbathroom_door
         to: "on"
@@ -67,7 +67,7 @@ automation:
                 state: "on"
               - condition: template
                 value_template: >-
-                  {% set timeout = states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int %}
+                  {% set timeout = states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int(0) %}
                   {{ (now() - states.group.upstairsbathroom_occupancy.last_updated).total_seconds() >= timeout }}
           - condition: and
             conditions:
@@ -76,7 +76,7 @@ automation:
                 state: "off"
               - condition: template
                 value_template: >-
-                  {% set timeout = (states('input_number.upstairsbathroom_door_closed_occupancy_timeout_minutes') | int) * 60 %}
+                  {% set timeout = (states('input_number.upstairsbathroom_door_closed_occupancy_timeout_minutes') | int(0)) * 60 %}
                   {{ (now() - states.group.upstairsbathroom_occupancy.last_updated).total_seconds() >= timeout }}
       - condition: state
         entity_id: group.upstairsbathroom_occupancy
@@ -100,7 +100,7 @@ automation:
           - input_number.upstairsbathroom_vent_humidity_threshold
     action:
       service: >-
-        {% if is_state('binary_sensor.upstairsbathroom_door', 'on') and (states('sensor.upstairsbathroom_humidity') | int) < (states('input_number.upstairsbathroom_vent_humidity_threshold') | int) %}
+        {% if is_state('binary_sensor.upstairsbathroom_door', 'on') and (states('sensor.upstairsbathroom_humidity') | int(0)) < (states('input_number.upstairsbathroom_vent_humidity_threshold') | int(0)) %}
           switch.turn_off
         {% else %}
           switch.turn_on

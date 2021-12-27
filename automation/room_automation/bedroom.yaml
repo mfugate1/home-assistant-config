@@ -31,16 +31,16 @@
       to: "off"
       for:
         minutes: >-
-          {{ (states('input_number.bedroom_quick_timeout_minutes') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_minutes')) | int }}
+          {{ (states('input_number.bedroom_quick_timeout_minutes') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_minutes')) | int(0) }}
         seconds: >-
-          {{ (states('input_number.bedroom_quick_timeout_seconds') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_seconds')) | int }}
+          {{ (states('input_number.bedroom_quick_timeout_seconds') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_seconds')) | int(0) }}
     - platform: state
       entity_id: sensor.last_occupied_room
   condition:
     - condition: template
       value_template: >-
         {% set type = 'quick' if is_state('input_boolean.single_occupancy_mode', 'on') else 'occupancy' %}
-        {% set timeout = (states('input_number.bedroom_' + type + '_timeout_minutes') | int) * 60 + (states('input_number.bedroom_' + type + '_timeout_seconds') | int) %}
+        {% set timeout = (states('input_number.bedroom_' + type + '_timeout_minutes') | int(0)) * 60 + (states('input_number.bedroom_' + type + '_timeout_seconds') | int(0)) %}
         {{ (now() - states.group.bedroom_occupancy.last_updated).total_seconds() > timeout }}
     - condition: state
       entity_id: group.bedroom_occupancy
@@ -115,9 +115,9 @@
             entity_id: light.bedroom_lamps
           data:
             brightness: >-
-              {{ states('input_number.bedroom_wake_up_lamp_brightness') | int }}
+              {{ states('input_number.bedroom_wake_up_lamp_brightness') | int(0) }}
             transition: >-
-              {{ states('input_number.bedroom_wake_up_lamp_transition') | int }}
+              {{ states('input_number.bedroom_wake_up_lamp_transition') | int(0) }}
         - service: switch.turn_off
           target:
             entity_id:

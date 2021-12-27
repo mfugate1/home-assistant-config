@@ -52,8 +52,8 @@ automation:
         entity_id: group.office_occupancy
         to: "off"
         for:
-          minutes: "{{ states('input_number.office_occupancy_timeout_minutes') | int }}"
-          seconds: "{{ states('input_number.office_occupancy_timeout_seconds') | int }}"
+          minutes: "{{ states('input_number.office_occupancy_timeout_minutes') | int(0) }}"
+          seconds: "{{ states('input_number.office_occupancy_timeout_seconds') | int(0) }}"
       - platform: state
         entity_id: sensor.last_occupied_room
     condition:
@@ -62,7 +62,7 @@ automation:
         state: "off"
       - condition: template
         value_template: >-
-          {% set timeout = (states('input_number.office_occupancy_timeout_minutes') | int) * 60 + (states('input_number.office_occupancy_timeout_seconds') | int) %}
+          {% set timeout = (states('input_number.office_occupancy_timeout_minutes') | int(0)) * 60 + (states('input_number.office_occupancy_timeout_seconds') | int(0)) %}
           {{ (now() - states.group.office_occupancy.last_updated).total_seconds() >= timeout }}
       - condition: not
         conditions:

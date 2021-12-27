@@ -38,8 +38,8 @@ automation:
       service: climate.set_temperature
       entity_id: climate.thermostat
       data:
-        target_temp_high: "{{ states('sensor.target_temp_cooling') | int }}"
-        target_temp_low: "{{ states('sensor.target_temp_heating') | int }}"
+        target_temp_high: "{{ states('sensor.target_temp_cooling') | int(0) }}"
+        target_temp_low: "{{ states('sensor.target_temp_heating') | int(0) }}"
 
   - alias: Climate - Alert if exterior doors/windows are open when outside temp is above inside
     id: climate_alert_exterior_open_when_outside_temp_above_inside
@@ -56,9 +56,9 @@ automation:
           minutes: 5
     condition:
       - condition: template
-        value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.hvac_current_temperature') | int) - 2 }}"
+        value_template: "{{ (states('sensor.outside_temp') | int(0)) > (states('sensor.hvac_current_temperature') | int(0)) - 2 }}"
       - condition: template
-        value_template: "{{ (states('sensor.outside_temp') | int) > (states('sensor.target_temp_cooling') | int) - 2 }}"
+        value_template: "{{ (states('sensor.outside_temp') | int(0)) > (states('sensor.target_temp_cooling') | int(0)) - 2 }}"
       - condition: state
         entity_id: group.exterior_doors_and_windows
         state: "on"
@@ -96,8 +96,8 @@ automation:
     condition:
       condition: or
       conditions:
-        - "{{ (states('sensor.outside_temp') | int) <= (states('sensor.hvac_current_temperature') | int) - 2 }}"
-        - "{{ (states('sensor.outside_temp') | int) <= (states('sensor.target_temp_cooling') | int) - 2 }}"
+        - "{{ (states('sensor.outside_temp') | int(0)) <= (states('sensor.hvac_current_temperature') | int(0)) - 2 }}"
+        - "{{ (states('sensor.outside_temp') | int(0)) <= (states('sensor.target_temp_cooling') | int(0)) - 2 }}"
         - condition: state
           entity_id: group.exterior_doors_and_windows
           state: "off"
@@ -180,7 +180,7 @@ sensor:
     unit_of_measurement: °F
     device_class: temperature
     state_topic: rtl_433/+/devices/WG-PB12V1/6/temperature_C
-    value_template: "{{ (value | float * 9 / 5) + 32 | round(1) }}"
+    value_template: "{{ (value | float(0) * 9 / 5) + 32 | round(1) }}"
 
 switch:
   - platform: template
