@@ -1,5 +1,6 @@
 - alias: Laundry room light on
   id: laundry_room_light_on
+  max_exceeded: silent
   trigger:
     platform: state
     entity_id:
