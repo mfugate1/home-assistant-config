@@ -1,2 +1,5 @@
 curl: /usr/bin/curl {{ url }}
-git_pull: /usr/bin/git pull
+unifi_curl: >-
+  data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';\
+  c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
+  echo "${c}" | curl -ksb - $url/{{ path }}

@@ -1,8 +1,29 @@
+automation:
+  - alias: 'Update Ubiquiti AP Firmware'
+    id: update_ubiquiti_ap_firmware
+    trigger:
+      platform: time
+      at: input_datetime.ubiquiti_firmware_update_check
+    condition:
+      condition: or
+      conditions:
+        - condition: state
+          entity_id: binary_sensor.ubiquiti_ap1_firmware_update_available
+          state: 'on'
+        - condition: state
+          entity_id: binary_sensor.ubiquiti_ap2_firmware_update_available
+          state: 'on'
+
 binary_sensor:
   - platform: rest
     name: latest_unifi_image_available_on_docker_hub
     resource_template: https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}
     value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
+
+input_datetime:
+  ubiquiti_firmware_update_check:
+    has_date: false
+    has_time: true
 
 sensor:
   - platform: github
