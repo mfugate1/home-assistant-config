@@ -30,6 +30,7 @@ node ('docker') {
 
     String protectFilters = [
         'alexa*',
+        'blueprints*',
         'custom_components*',
         '*google*',
         '.HA_VERSION',
