@@ -18,7 +18,7 @@ node ('docker') {
     sshagent (credentials: ['docker1-ssh']) {
         try {
             sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
-            sh "rsync -e '${ssh}' -a ./ ${remote}:${testConfigDir}"
+            sh "rsync -e '${ssh}' -a --exclude '.git*' ./ ${remote}:${testConfigDir}"
             sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${testConfigDir}/"
             sh "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config/${uniqueDirName} -f"
         } finally {
@@ -29,7 +29,7 @@ node ('docker') {
     if (BRANCH_NAME != 'main') return
 
     sshagent (credentials: ['docker1-ssh']) {
-        sh "rsync -e '${ssh}' -a ./ ${remote}:${HASS_CONFIG_DIR}"
+        sh "rsync -e '${ssh}' -a --delete --exclude {'custom_components', '*google*', '.HA_VERSION', 'home*', 'rtsp*', '.storage', 'webos*', 'www'}./ ${remote}:${HASS_CONFIG_DIR}"
     }
 
     boolean scheduleRestart = false
