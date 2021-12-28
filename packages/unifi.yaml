@@ -5,10 +5,7 @@ automation:
       platform: time
       at: input_datetime.ubiquiti_aps_check_for_firmware_updates_time
     action:
-      service: shell_command.unifi_api_cmd
-      data:
-        path: productinfo
-        cmd: check-firmware-update
+      service: shell_command.unifi_check_for_firmware_updates
 
   - alias: 'Ubiquiti APs - Update Firmware'
     id: ubiquiti_aps_update_firmware
@@ -25,10 +22,7 @@ automation:
           entity_id: binary_sensor.ubiquiti_ap2_firmware_update_available
           state: 'on'
     action:
-      service: shell_command.unifi_api_cmd
-      data:
-        path: devmgr
-        cmd: set-rollupgrade
+      service: shell_command.unifi_start_rolling_update
 
 input_datetime:
   ubiquiti_aps_check_for_firmware_updates_time:
@@ -85,10 +79,14 @@ sensor:
     scan_interval: 300
 
 shell_command:
-  unifi_api_cmd: >-
+  unifi_check_for_firmware_updates: >-
     data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';
     c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);
-    echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/cmd/{{ path }} -d '{"cmd": "{{ cmd }}"}'
+    echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/cmd/productinfo -d '{"cmd": "check-firmware-update"}'
+  unifi_start_rolling_update: >-
+    data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';
+    c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);
+    echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/cmd/devmgr -d '{"cmd": "set-rollupgrade"}'
 
 template:
   - binary_sensor:
