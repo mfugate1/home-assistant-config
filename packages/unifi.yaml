@@ -1,9 +1,20 @@
 automation:
-  - alias: 'Update Ubiquiti AP Firmware'
+  - alias: 'Ubiquiti APs - Check for Firmware Updates'
     id: update_ubiquiti_ap_firmware
     trigger:
       platform: time
-      at: input_datetime.ubiquiti_firmware_update_check
+      at: input_datetime.ubiquiti_aps_check_for_firmware_updates_time
+    action:
+      service: shell_command.unifi_api_cmd
+      data:
+        path: productinfo
+        cmd: check-firmware-update
+
+  - alias: 'Ubiquiti APs - Update Firmware'
+    id: update_ubiquiti_ap_firmware
+    trigger:
+      platform: time
+      at: input_datetime.ubiquiti_firmware_update
     condition:
       condition: or
       conditions:
@@ -13,23 +24,21 @@ automation:
         - condition: state
           entity_id: binary_sensor.ubiquiti_ap2_firmware_update_available
           state: 'on'
-
-binary_sensor:
-  - platform: rest
-    name: latest_unifi_image_available_on_docker_hub
-    resource_template: https://hub.docker.com/v2/repositories/jacobalberty/unifi/tags/{{ states('sensor.unifi_latest_version') }}
-    value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
+    action:
+      service: shell_command.unifi_api_cmd
+      data:
+        path: devmgr
+        cmd: set-rollupgrade
 
 input_datetime:
-  ubiquiti_firmware_update_check:
+  ubiquiti_aps_check_for_firmware_updates_time:
+    has_date: false
+    has_time: true
+  ubiquiti_aps_update_firmware_time:
     has_date: false
     has_time: true
 
 sensor:
-  - platform: github
-    access_token: ${GITHUB_PASSWORD}
-    repositories:
-      - path: jacobalberty/unifi-docker
   - platform: command_line
     name: ubiquiti_ap1_status
     command: |-
@@ -75,10 +84,13 @@ sensor:
       {% endif %}
     scan_interval: 300
 
+shell_command:
+  unifi_api_cmd: >-
+    data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';\
+    c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
+    echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/cmd/{{ path }} -d '{"cmd": "{{ cmd }}"}'
+
 template:
-  - sensor:
-      - name: unifi_latest_version
-        state: "{{ state_attr('sensor.unifi_docker', 'latest_release_tag') }}"
   - binary_sensor:
       - name: unifi_update_available
         state: "{{ states('sensor.unifi_latest_version') != state_attr('sensor.docker_unifi', 'image').split(':')[1] and is_state('binary_sensor.latest_unifi_image_available_on_docker_hub', 'on') }}"
