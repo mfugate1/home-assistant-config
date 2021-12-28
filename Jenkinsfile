@@ -148,8 +148,8 @@ List getReloadServices(String file) {
 @NonCPS
 List parseYaml(Map yaml) {
     List reloadDomains = ['automation', 'group', 'template']
-    List restartDomains = ['switch']
-    List reloadPlatforms = ['history_stats', 'mqtt', 'ping', 'rest', 'time_date', 'universal']
+    List restartDomains = ['shell_command', 'switch']
+    List reloadPlatforms = ['command_line', 'history_stats', 'mqtt', 'ping', 'rest', 'time_date', 'universal']
     List reload = []
     yaml.each { key, value ->
         if (reloadDomains.contains(key) || key.startsWith('input_')) {
