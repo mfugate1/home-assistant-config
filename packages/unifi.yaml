@@ -1,5 +1,5 @@
 automation:
-  - alias: 'Ubiquiti APs - Check for Firmware Updates'
+  - alias: Ubiquiti APs - Check for Firmware Updates
     id: ubiquiti_aps_check_for_firmware_updates
     trigger:
       platform: time
@@ -7,7 +7,7 @@ automation:
     action:
       service: shell_command.unifi_check_for_firmware_updates
 
-  - alias: 'Ubiquiti APs - Update Firmware'
+  - alias: Ubiquiti APs - Update Firmware
     id: ubiquiti_aps_update_firmware
     trigger:
       platform: time
@@ -17,10 +17,10 @@ automation:
       conditions:
         - condition: state
           entity_id: binary_sensor.ubiquiti_ap1_firmware_update_available
-          state: 'on'
+          state: "on"
         - condition: state
           entity_id: binary_sensor.ubiquiti_ap2_firmware_update_available
-          state: 'on'
+          state: "on"
     action:
       service: shell_command.unifi_start_rolling_update
 
