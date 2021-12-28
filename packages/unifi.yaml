@@ -86,8 +86,8 @@ sensor:
 
 shell_command:
   unifi_api_cmd: >-
-    data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';\
-    c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);\
+    data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';
+    c=$(curl -H 'Content-Type: application/json' -d $data -ksc - $url/api/login -o /dev/null);
     echo "${c}" | curl -ksb - $url/api/s/${UNIFI_SITE}/cmd/{{ path }} -d '{"cmd": "{{ cmd }}"}'
 
 template:
