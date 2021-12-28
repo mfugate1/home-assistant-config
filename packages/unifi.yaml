@@ -78,6 +78,7 @@ sensor:
       {% endif %}
     scan_interval: 300
 
+# Can't use templates in these because then they'll run in a restricted sandbox mode that doesn't support pipes
 shell_command:
   unifi_check_for_firmware_updates: >-
     data='{"username":"${UNIFI_USERNAME}","password":"${UNIFI_PASSWORD}"}'; url='https://${UNIFI_IP}:${UNIFI_PORT}';
