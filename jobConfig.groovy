@@ -15,4 +15,11 @@ multibranchPipelineJob('Update-Home-Assistant-Config') {
             scriptPath('Jenkinsfile')
         }
     }
+    orphanedItemStrategy {
+        defaultOrphanedItemStrategy {
+            daysToKeepStr('')
+            numToKeepStr('')
+            pruneDeadBranches(true)
+        }
+    }
 }
