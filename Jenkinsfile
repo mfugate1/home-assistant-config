@@ -1,4 +1,8 @@
-properties([disableConcurrentBuilds(), parameters([string(name: 'updatedSecrets', trim: true)])])
+properties([
+    disableConcurrentBuilds(), 
+    parameters([string(name: 'updatedSecrets', trim: true)])
+    buildDiscarder(logRotator(numToKeepStr: '10'))
+])
 
 echo(params, true, '------ Job Parameters ------')
 
