@@ -43,3 +43,7 @@ jobs:
               truthy:
                 allowed-values: ["true", "false"]
                 check-keys: false
+      - run: |
+          echo "$GITHUB_CONTEXT"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
