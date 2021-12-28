@@ -1,6 +1,6 @@
 properties([
     disableConcurrentBuilds(), 
-    parameters([string(name: 'updatedSecrets', trim: true)])
+    parameters([string(name: 'updatedSecrets', trim: true)]),
     buildDiscarder(logRotator(numToKeepStr: '10'))
 ])
 
