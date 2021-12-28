@@ -405,7 +405,7 @@ switch:
           service: input_boolean.turn_off
           target:
             entity_id: input_boolean.vacuum_livingroom_night_enable
-      vacuum_kitchen_18_night_enable:
+      vacuum_kitchen_night_enable:
         value_template: "{{ states('input_boolean.vacuum_kitchen_night_enable') }}"
         icon_template: "{{ 'mdi:checkbox-marked-circle' if is_state('input_boolean.vacuum_kitchen_cleaned_today', 'on') else 'mdi:checkbox-blank-circle'}}"
         turn_on:
