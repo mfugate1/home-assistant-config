@@ -24,7 +24,12 @@ node ('docker') {
             sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
             sh "rsync -e '${ssh}' -a --exclude '.git*' ./ ${remote}:${testConfigDir}"
             sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${testConfigDir}/"
-            sh "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config/${uniqueDirName} -f"
+            String results = sh (
+                script: "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config/${uniqueDirName} -f",
+                returnStdout: true
+            ).trim()
+            echo results
+            if (results.contains('ERROR')) error 'Invalid home assistant configuration'
         } finally {
             sh "${ssh} ${remote} rm -rf ${testConfigDir}"
         }
