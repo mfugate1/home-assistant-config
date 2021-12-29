@@ -6,7 +6,7 @@ properties([
 
 echo(params, true, '------ Job Parameters ------')
 
-node ('docker') {
+node ('built-in') {
     Map scmVars = checkout scm
 
     Map secrets = getAzureVaultSecrets()
