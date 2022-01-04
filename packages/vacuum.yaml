@@ -359,7 +359,7 @@ switch:
               {% set ns = namespace(segments=[]) %}
               {% set time = 'day' if is_state('input_boolean.sleep_mode', 'off') else 'night' %}
               {% for state in states.input_boolean %}
-                {% if state.entity_id.endswith(time + '_enable') %}
+                {% if state.entity_id.endswith(time + '_enable') and state.state == 'on' %}
                   {% set room = state.entity_id.split('_')[2] %}
                   {% set room_id = states('input_number.vacuum_' + room + '_id') | int %}
                   {% set ns.segments = ns.segments + [room_id] %}
