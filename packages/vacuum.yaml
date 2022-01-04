@@ -366,6 +366,13 @@ switch:
                 {% endif %}
               {% endfor %}
               {{ ns.segments }}
+        turn_off:
+          - service: vacuum.stop
+            target:
+              entity_id: vacuum.roborock_s6_pure
+          - service: vacuum.return_to_base
+            target:
+              entity_id: vacuum.roborock_s6_pure
       vacuum_run:
         value_template: "{{ is_state('vacuum.roborock_s6_pure', 'cleaning') }}"
         icon_template: mdi:robot-vacuum
