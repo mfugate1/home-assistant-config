@@ -21,6 +21,7 @@ sensor:
     access_token: ${GITHUB_PASSWORD}
     repositories:
       - path: certbot/certbot
+      - path: eclipse/mosquitto
       - path: zwave-js/zwavejs2mqtt
 
 template:
