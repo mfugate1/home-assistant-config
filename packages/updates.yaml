@@ -1,5 +1,9 @@
 binary_sensor:
   - platform: rest
+    name: latest_certbot_image_available_on_docker_hub
+    resource_template: https://hub.docker.com/v2/repositories/certbot/certbot/tags/{{ states('sensor.certbot_latest_version') }}
+    value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
+  - platform: rest
     name: latest_zwavejs2mqtt_image_available_on_docker_hub
     resource_template: https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}
     value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
@@ -16,12 +20,17 @@ sensor:
   - platform: github
     access_token: ${GITHUB_PASSWORD}
     repositories:
+      - path: certbot/certbot
       - path: zwave-js/zwavejs2mqtt
 
 template:
   - sensor:
+      - name: certbot_latest_version
+        state: "{{ state_attr('sensor.certbot', 'latest_release_tag') }}"
       - name: zwavejs2mqtt_latest_version
         state: "{{ state_attr('sensor.zwavejs2mqtt', 'latest_release_tag')[1:] }}"
   - binary_sensor:
+      - name: certbot_update_available
+        state: "{{ states('sensor.certbot_latest_version') != state_attr('sensor.docker_certbot', 'image').split(':')[1] and is_state('binary_sensor.latest_certbot_image_available_on_docker_hub', 'on') }}"
       - name: zwavejs2mqtt_update_available
         state: "{{ states('sensor.zwavejs2mqtt_latest_version') != state_attr('sensor.office_raspi4_zwavejs', 'image').split(':')[1] and is_state('binary_sensor.latest_zwavejs2mqtt_image_available_on_docker_hub', 'on') }}"
