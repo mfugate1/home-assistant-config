@@ -1,5 +1,6 @@
 auth:
 config:
+discovery:
 history:
 logbook:
 media_source:
