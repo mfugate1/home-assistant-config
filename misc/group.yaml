@@ -175,3 +175,9 @@ patio_occupancy:
   icon: hass:walk
   entities:
     - binary_sensor.patio_motion_1
+
+guest_devices:
+  name: Guest Devices
+  entities:
+    - device_tracker.pixel_3a
+    - device_tracker.space_invader
