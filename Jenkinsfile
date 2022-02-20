@@ -19,7 +19,7 @@ node ('built-in') {
     String uniqueDirName = "${BRANCH_NAME}_${BUILD_NUMBER}"
     String testConfigDir = "${HASS_TEST_CONFIG_DIR}/${uniqueDirName}"
 
-    sshagent (credentials: ['docker1-ssh']) {
+    sshagent (credentials: [JENKINS_SSH_KEY]) {
         try {
             sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
             sh "rsync -e '${ssh}' -a --exclude '.git*' ./ ${remote}:${testConfigDir}"
@@ -50,7 +50,7 @@ node ('built-in') {
         'w*'
     ].collect{"--filter 'P ${it}'"}.join(' ')
 
-    sshagent (credentials: ['docker1-ssh']) {
+    sshagent (credentials: [JENKINS_SSH_KEY]) {
         sh "rsync -e '${ssh}' -a --delete ${protectFilters} ./ ${remote}:${HASS_CONFIG_DIR}"
     }
 
