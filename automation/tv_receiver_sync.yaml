@@ -42,9 +42,9 @@
 
 - alias: Turn On Game Room TV with WakeOnLan
   trigger:
-    - platform: webostv.turn_on
-      entity_id: media_player.gameroom_tv
+    platform: webostv.turn_on
+    entity_id: media_player.gameroom_tv
   action:
-    - service: wake_on_lan.send_magic_packet
-      data:
-        mac: ${GAMEROOM_TV_MAC}
+    service: wake_on_lan.send_magic_packet
+    data:
+      mac: ${GAMEROOM_TV_MAC}
