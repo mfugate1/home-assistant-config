@@ -39,3 +39,12 @@
   action:
     service: switch.turn_{{ trigger.to_state.state }}
     entity_id: switch.basement_stereo
+
+- alias: Turn On Game Room TV with WakeOnLan
+  trigger:
+    - platform: webostv.turn_on
+      entity_id: media_player.gameroom_tv
+  action:
+    - service: wake_on_lan.send_magic_packet
+      data:
+        mac: ${GAMEROOM_TV_MAC}
