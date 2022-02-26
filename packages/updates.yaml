@@ -16,20 +16,12 @@ group:
       - binary_sensor.certbot_updater
       - binary_sensor.zwavejs2mqtt_updater
 
-sensor:
-  - platform: github
-    access_token: ${GITHUB_PASSWORD}
-    repositories:
-      - path: certbot/certbot
-      - path: eclipse/mosquitto
-      - path: zwave-js/zwavejs2mqtt
-
 template:
   - sensor:
       - name: certbot_latest_version
-        state: "{{ state_attr('sensor.certbot', 'latest_release_tag') }}"
+        state: "{{ state_attr('sensor.certbot_certbot_latest_release', 'tag') }}"
       - name: zwavejs2mqtt_latest_version
-        state: "{{ state_attr('sensor.zwavejs2mqtt', 'latest_release_tag')[1:] }}"
+        state: "{{ state_attr('sensor.zwave_js_zwavejs2mqtt_latest_release', 'tag')[1:] }}"
   - binary_sensor:
       - name: certbot_updater
         state: "{{ states('sensor.certbot_latest_version') != state_attr('sensor.docker_certbot', 'image').split(':')[1] and is_state('binary_sensor.latest_certbot_image_available_on_docker_hub', 'on') }}"
