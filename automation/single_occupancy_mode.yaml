@@ -8,7 +8,7 @@
     entity_id: input_boolean.single_occupancy_mode_lock
     state: "off"
   action:
-    service: input_boolean.turn_{{ "off" if trigger.to_state == "home" else "on" }}
+    service: input_boolean.turn_{{ "off" if trigger.to_state.state == "home" else "on" }}
     target:
       entity_id: input_boolean.single_occupancy_mode
 
@@ -20,7 +20,7 @@
     to: "off"
   condition: "{{ this.context.user_id }}"
   action:
-    service: input_boolean.turn_{{ "off" if trigger.to_state == "on" else "on" }}
+    service: input_boolean.turn_{{ "off" if trigger.to_state.state == "on" else "on" }}
     target:
       entity_id: input_boolean.single_occupancy_mode_lock
 
