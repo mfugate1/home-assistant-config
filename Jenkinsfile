@@ -47,6 +47,7 @@ node ('built-in') {
         '*.log*',
         'rtsp*',
         '.storage*',
+        'themes*',
         'w*'
     ].collect{"--filter 'P ${it}'"}.join(' ')
 
