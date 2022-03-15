@@ -181,3 +181,4 @@ guest_devices:
   entities:
     - device_tracker.pixel_3a
     - device_tracker.space_invader
+    - device_tracker.dummy_guest
