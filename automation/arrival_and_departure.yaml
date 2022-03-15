@@ -1,17 +1,3 @@
-- alias: Turn on lights when arriving home
-  id: turn_on_lights_when_arriving_home
-  trigger:
-    platform: state
-    entity_id: person.mike
-    to: home
-  condition:
-    condition: state
-    entity_id: sun.sun
-    state: below_horizon
-  action:
-    service: switch.turn_on
-    entity_id: switch.entry_light
-
 - alias: Turn off everything after leaving
   id: turn_off_everything_after_leaving
   trigger:

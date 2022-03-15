@@ -15,7 +15,8 @@
         data:
           tag: garage
     - service: cover.close_cover
-      entity_id: cover.garage_door
+      target:
+        entity_id: cover.garage_door
 
 - alias: Open garage door when arriving then close
   id: open_garage_door_when_arriving_then_close
@@ -34,20 +35,28 @@
         data:
           tag: garage
     - service: cover.open_cover
-      entity_id: cover.garage_door
+      target:
+        entity_id: cover.garage_door
     - wait_for_trigger:
         - platform: state
           entity_id: binary_sensor.garage_inner_door
           to: "on"
       timeout:
-        minutes: 10
+        minutes: 15
     - service: cover.close_cover
-      entity_id: cover.garage_door
+      target:
+        entity_id: cover.garage_door
     - service: notify.mobile_app_sm_g981u1
       data:
         message: clear_notification
         data:
           tag: garage
+    - condition: state
+      entity_id: sun.sun
+      state: below_horizon
+    - service: switch.turn_on
+      target:
+        entity_id: switch.entry_light
 
 - alias: Garage door relay shut off
   id: garage_door_relay_shut_off
@@ -58,4 +67,5 @@
     for: 00:00:02
   action:
     service: switch.turn_off
-    entity_id: switch.garage_door_relay
+    target:
+      entity_id: switch.garage_door_relay
