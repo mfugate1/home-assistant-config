@@ -59,12 +59,12 @@ gameroom:
     - media_player.gameroom_receiver
     - media_player.gameroom_tv
 office:
-    entities:
-      - light.office
+  entities:
+    - light.office
 upstairsbathroom:
-    entities:
-      - light.upstairsbathroom
-      - switch.upstairsbathroom_vent
+  entities:
+    - light.upstairsbathroom
+    - switch.upstairsbathroom_vent
 garmin_watch:
   entities:
     - cover.garage_door
@@ -191,11 +191,11 @@ patio_occupancy:
     - binary_sensor.patio_motion_1
 
 upstairsbathroom_occupancy:
-    name: Upstairs Bathroom
-    icon: hass:walk
-    entities:
-      - binary_sensor.upstairsbathroom_motion_1
-      - binary_sensor.upstairsbathroom_motion_2
+  name: Upstairs Bathroom
+  icon: hass:walk
+  entities:
+    - binary_sensor.upstairsbathroom_motion_1
+    - binary_sensor.upstairsbathroom_motion_2
 
 guest_devices:
   name: Guest Devices
