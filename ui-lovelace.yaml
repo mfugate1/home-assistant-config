@@ -157,54 +157,13 @@ views:
                 entity: light.patio
                 name: Patio
                 toggle: true
-  - icon: mdi:weight-lifter
-    cards:
-      - !include lovelace/cards/exercise.yaml
-      - type: custom:apexcharts-card
-        graph_span: 14d
-        y_axis_precision: 0
-        stacked: true
-        apex_config:
-          grid:
-            show: false
-            padding:
-              left: 10
-              right: 10
-          yaxis:
-            show: false
-          legend:
-            position: top
-          dataLabels:
-            background:
-              enabled: false
-            style:
-              colors: ["#FF2D00", "#FF2D00", "#FF2D00"]
-        header:
-          title: Daily Mileage
-          show: true
-          standard_format: true
-        all_series_config:
-          type: column
-          fill_raw: zero
-          group_by:
-            func: max
-            duration: 1d
-          show:
-            legend_value: false
-            datalabels: total
-        series:
-          - entity: sensor.run_mileage_today
-            name: Run
-          - entity: sensor.bike_mileage_today
-            name: Bike
-          - entity: sensor.walk_mileage_today
-            name: Walk
   - icon: mdi:auto-fix
     cards:
+      - !include lovelace/cards/automation_config/vacuum.yaml
+      - !include lovelace/cards/automation_config/single_occupancy_mode.yaml
       - !include lovelace/cards/automation_config/climate.yaml
       - !include lovelace/cards/room_config/upstairsbathroom.yaml
       - !include lovelace/cards/automation_config/dehumidifier.yaml
-      - !include lovelace/cards/automation_config/vacuum.yaml
       - !include lovelace/cards/recent_automations.yaml
   - icon: mdi:cctv
     panel: true
