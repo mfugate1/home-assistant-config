@@ -1,0 +1,9 @@
+- sensor:
+    - name: upstairsbathroom_occupancy_timeout_seconds
+      state: >-
+        {% if is_state("input_boolean.single_occupancy_mode", "on") %}
+          {{ states("input_number.upstairsbathroom_occupancy_timeout_so_seconds") }}
+        {% else %}
+          {{ states("input_number.upstairsbathroom_occupancy_timeout_seconds") }}
+        {% endif %}
+        
