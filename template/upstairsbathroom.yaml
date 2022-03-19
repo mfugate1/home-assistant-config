@@ -6,4 +6,12 @@
         {% else %}
           {{ states("input_number.upstairsbathroom_occupancy_timeout_seconds") }}
         {% endif %}
-        
+    - name: upstairsbathroom_light_brightness
+      state: >-
+        {% if is_state('input_boolean.sleep_mode', 'on') %}
+          {{ states('input_number.upstairsbathroom_light_sleeping_brightness') }}
+        {% elif is_state('sun.sun', 'above_horizon') %}
+          {{ states('input_number.upstairsbathroom_light_day_brightness') }}
+        {% else %}
+          {{ states('input_number.upstairsbathroom_light_night_brightness') }}
+        {% endif %}

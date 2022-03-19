@@ -15,14 +15,7 @@
     service: light.turn_on
     entity_id: light.upstairsbathroom
     data:
-      brightness: >-
-        {% if is_state('input_boolean.sleep_mode', 'on') %}
-          {{ states('input_number.upstairsbathroom_light_sleeping_brightness') | int(0) }}
-        {% elif is_state('sun.sun', 'above_horizon') %}
-          {{ states('input_number.upstairsbathroom_light_day_brightness') | int(0) }}
-        {% else %}
-          {{ states('input_number.upstairsbathroom_light_night_brightness') | int(0) }}
-        {% endif %}
+      brightness: "{{ states('sensor.upstairsbathroom_light_brightness')}}"
       transition: "{{ states('input_number.upstairsbathroom_light_transition')}}"
 
 - alias: Upstairs Bathroom - Lights Off
@@ -32,7 +25,12 @@
       entity_id: group.upstairsbathroom_occupancy
       to: "off"
       for:
-        seconds: "{{ states('sensor.upstairsbathroom_occupancy_timeout_seconds') | int(0) }}"
+        seconds: "{{ states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int(0) }}"
+    - platform: state
+      entity_id: group.upstairsbathroom_occupancy
+      to: "off"
+      for:
+        seconds: "{{ states('input_number.upstairsbathroom_occupancy_timeout_so_seconds') | int(0) }}"
     - platform: state
       entity_id: group.upstairsbathroom_occupancy
       to: "off"
@@ -53,7 +51,7 @@
               state: "on"
             - condition: template
               value_template: >-
-                {% set timeout = states('input_number.upstairsbathroom_occupancy_timeout_seconds') | int(0) %}
+                {% set timeout = states('sensor.upstairsbathroom_occupancy_timeout_seconds') | int(0) %}
                 {{ (now() - states.group.upstairsbathroom_occupancy.last_updated).total_seconds() >= timeout }}
         - condition: and
           conditions:
