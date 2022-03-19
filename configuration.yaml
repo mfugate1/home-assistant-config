@@ -7,7 +7,6 @@ media_source:
 mobile_app:
 sun:
 system_health:
-updater:
 wake_on_lan:
 
 frontend:
