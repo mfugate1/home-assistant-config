@@ -1,0 +1,35 @@
+alias: Sleep Mode - On
+fields:
+  noise_entity:
+    example: switch.bedroom_fan
+sequence:
+  - service: homeassistant.turn_off
+    target:
+      entity_id:
+        - light.basement
+        - light.bedroom_lamps
+        - light.bedroom_overhead
+        - light.diningroom
+        - light.gameroom_lamp
+        - light.gameroom_overhead
+        - light.livingroom_cabinets
+        - light.office
+        - light.patio
+        - light.upstairsbathroom
+        - media_player.basement_tv
+        - media_player.gameroom_receiver
+        - media_player.gameroom_tv
+        - media_player.livingroom_receiver
+        - media_player.livingroom_tv
+        - switch.christmas_tree
+        - switch.entry_light
+        - switch.train
+  - service: switch.turn_on
+    target:
+      entity_id: "{{ noise_entity }}"
+  - condition: state
+    entity_id: cover.garage_door
+    state: open
+  - service: cover.close_cover
+    target:
+      entity_id: cover.garage_door

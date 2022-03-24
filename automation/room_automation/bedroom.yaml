@@ -77,8 +77,8 @@
       target:
         entity_id: light.bedroom_overhead
 
-- alias: Sleep mode button toggle
-  id: sleep_mode_button_toggle
+- alias: Sleep Mode - Zwave Remote Button Toggle
+  id: sleep_mode_zwave_remote_button_toggle
   mode: single
   max_exceeded: silent
   trigger:
@@ -87,51 +87,53 @@
       event_data:
         node_id: 20
         label: Scene 001
-    - platform: state
-      entity_id: input_boolean.sleep_mode
   condition: >-
     {{ trigger.event.data.value != 'KeyReleased' }}
   action:
     - choose:
-        - conditions:
-            - condition: state
-              entity_id: input_boolean.sleep_mode
-              state: "off"
+        - conditions: "{{ is_state('input_boolean.sleep_mode', 'off')}}"
           sequence:
-            - service: light.turn_off
-              target:
-                entity_id: *allLights
-            - service: switch.turn_on
-              target:
-                entity_id: switch.bedroom_{{ 'fan' if trigger.platform == 'state' or trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}
-            - service: switch.turn_off
-              target:
-                entity_id:
-                  - switch.christmas_tree
-                  - switch.train
-      default:
-        - service: light.turn_on
-          target:
-            entity_id: light.bedroom_lamps
-          data:
-            brightness: >-
-              {{ states('input_number.bedroom_wake_up_lamp_brightness') | int(0) }}
-            transition: >-
-              {{ states('input_number.bedroom_wake_up_lamp_transition') | int(0) }}
-        - service: switch.turn_off
-          target:
-            entity_id:
-              - switch.bedroom_fan
-              - switch.bedroom_noise_machine
-    - condition: template
-      value_template: >-
-        {{ trigger.platform == 'event' }}
+            - service: script.sleep_mode_on
+              data:
+                noise_entity: switch.bedroom_{{ 'fan' if trigger.platform == 'state' or trigger.event.data.value == 'KeyPressed' else 'noise_machine' }}
     - service: input_boolean.toggle
-      target:
-        entity_id: input_boolean.sleep_mode
+      entity_id: input_boolean.sleep_mode
     - delay: 2
 
-- alias: Bedroom remote toggle buttons
+- alias: Sleep Mode - On
+  id: sleep_mode_on
+  trigger:
+    platform: state
+    entity_id: input_boolean.sleep_mode
+    to: "on"
+  condition: "{{ trigger.to_state.context.user_id != none }}"
+  action:
+    service: script.sleep_mode_on
+    data:
+      noise_entity: switch.bedroom_fan
+
+- alias: Sleep Mode - Off
+  id: sleep_mode_off
+  trigger:
+    platform: state
+    entity_id: input_boolean.sleep_mode
+    to: "off"
+  action:
+    - service: switch.turn_off
+      entity_id:
+        - switch.bedroom_fan
+        - switch.bedroom_noise_machine
+    - condition: >
+        {{ is_state('sun.sun', 'below_horizon') and
+          (is_state('group.bedroom_occupancy', 'on') or
+           is_state('binary_sensor.bedroom_door', 'off')) }}
+    - service: light.turn_on
+      entity_id: light.bedroom_lamps
+      data:
+        brightness: "{{ states('input_number.bedroom_wake_up_lamp_brightness') | int(0) }}"
+        transition: "{{ states('input_number.bedroom_wake_up_lamp_transition') | int(0) }}"
+
+- alias: Bedroom Remote - Toggle Buttons
   id: bedroom_remote_toggle_buttons
   mode: single
   max_exceeded: silent
@@ -153,7 +155,7 @@
           {% endif %}
     - delay: 2
 
-- alias: Bedroom remote bed presets
+- alias: Bedroom Remote - Bed Presets
   id: bedroom_remote_bed_presets
   mode: single
   max_exceeded: silent
