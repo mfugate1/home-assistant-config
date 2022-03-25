@@ -163,6 +163,11 @@ views:
         title: Home Assistant Deployment
         cards:
           - type: custom:button-card
+            entity: sensor.mfugate1_home_assistant_config_issues
+            name: Open Issues
+            show_state: true
+            icon: false
+          - type: custom:button-card
             entity: input_select.hass_deployment_status
             color_type: icon
             icon: mdi:autorenew
