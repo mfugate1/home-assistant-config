@@ -75,7 +75,7 @@ automation:
         state: "on"
       - condition: state
         entity_id: input_boolean.single_occupancy_mode
-        state: "off"
+        state: "on"
     action:
       service: light.turn_off
       target:
