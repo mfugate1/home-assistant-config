@@ -159,8 +159,10 @@ views:
                 toggle: true
   - icon: mdi:server
     cards:
-      - type: horizontal-stack
+      - type: grid
         title: Home Assistant Deployment
+        square: true
+        columns: 2
         cards:
           - type: custom:button-card
             entity: sensor.mfugate1_home_assistant_config_issues
