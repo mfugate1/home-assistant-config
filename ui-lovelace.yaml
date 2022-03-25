@@ -164,7 +164,7 @@ views:
         cards:
           - type: custom:button-card
             entity: input_select.hass_deployment_status
-            color_type: card
+            color_type: icon
             icon: mdi:autorenew
             color: yellow
             show_name: false
