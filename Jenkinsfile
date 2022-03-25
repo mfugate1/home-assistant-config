@@ -6,8 +6,6 @@ properties([
 
 echo(params, true, '------ Job Parameters ------')
 
-String hassDeploymentStatusEntity = "input_select.hass_deployment_status"
-
 node ('built-in') {
     Map scmVars = checkout scm
 
@@ -201,7 +199,7 @@ void statusUpdate(String hassUrl, String token, String option) {
         httpRequest (
             url: "${hassUrl}/api/services/input_select/select_option",
             httpMode: 'POST',
-            requestBody: """{"entity_id": "${hassDeploymentStatusEntity}", "option": "${option}"}""",
+            requestBody: """{"entity_id": "input_select.hass_deployment_status", "option": "${option}"}""",
             customHeaders: [[name: 'Authorization', value: "Bearer ${token}", maskValue: true]]
         )
     }
