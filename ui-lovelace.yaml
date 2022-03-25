@@ -45,15 +45,12 @@ views:
       - type: vertical-stack
         cards:
           - !include lovelace/cards/thermostat.yaml
-          - type: horizontal-stack
-            cards:
-              - type: entities
-                entities:
-                  - cover.garage_door
-              - type: entities
-                entities: 
-                  - entity: input_boolean.katy_garage_access
-                    name: Katy
+          - type: entities
+            title: Garage
+            entities:
+              - cover.garage_door
+              - entity: input_boolean.katy_garage_access
+                name: Katy
           - type: entities
             title: Bedroom
             entities:
