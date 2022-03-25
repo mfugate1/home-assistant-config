@@ -201,7 +201,7 @@ void statusUpdate(String hassUrl, String token, String option) {
         httpRequest (
             url: "${hassUrl}/api/services/input_select/select_option",
             httpMode: 'POST',
-            requestBody: """{"entity_id": "${hassDeploymentStatusEntity}", "option": "${option}"}"""
+            requestBody: """{"entity_id": "${hassDeploymentStatusEntity}", "option": "${option}"}""",
             customHeaders: [[name: 'Authorization', value: "Bearer ${token}", maskValue: true]]
         )
     }
