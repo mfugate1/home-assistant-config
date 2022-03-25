@@ -1,0 +1,11 @@
+- alias: Reset Deployment Status After Restart
+  id: reset_deployment_status_after_restart
+  trigger:
+    platform: homeassistant
+    event: start
+  condition: "{{ is_state('input_boolean.hass_deployment_status', 'Restarting Server') }}"
+  action:
+    service: input_select.select_option
+    entity_id: input_select.hass_deployment_status
+    data:
+      option: Up To Date

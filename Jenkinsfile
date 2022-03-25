@@ -6,83 +6,100 @@ properties([
 
 echo(params, true, '------ Job Parameters ------')
 
+String hassDeploymentStatusEntity = "input_select.hass_deployment_status"
+
 node ('built-in') {
     Map scmVars = checkout scm
 
     Map secrets = getAzureVaultSecrets()
-    Map files = applySecrets('**/*.yaml', secrets)
-
-    echo(files, true, '-------- Secrets in files ---------')
-
-    String remote = "${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}"
-    String ssh = 'ssh -o StrictHostKeyChecking=no'
-    String uniqueDirName = "${BRANCH_NAME}_${BUILD_NUMBER}"
-    String testConfigDir = "${HASS_TEST_CONFIG_DIR}/${uniqueDirName}"
-
-    sshagent (credentials: [JENKINS_SSH_KEY]) {
-        try {
-            sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
-            sh "rsync -e '${ssh}' -a --exclude '.git*' ./ ${remote}:${testConfigDir}"
-            sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${testConfigDir}/"
-            String results = sh (
-                script: "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config/${uniqueDirName} -f",
-                returnStdout: true
-            ).trim()
-            echo results
-            if (results.contains('ERROR')) error 'Invalid home assistant configuration'
-        } finally {
-            sh "${ssh} ${remote} rm -rf ${testConfigDir}"
-        }
-    }
-
-    if (BRANCH_NAME != 'main') return
-
-    String protectFilters = [
-        'alexa*',
-        'blueprints*',
-        'custom_components*',
-        '*google*',
-        '.HA_VERSION',
-        'known_devices.yaml',
-        '*.log*',
-        'rtsp*',
-        '.storage*',
-        'themes*',
-        'w*'
-    ].collect{"--filter 'P ${it}'"}.join(' ')
-
-    sshagent (credentials: [JENKINS_SSH_KEY]) {
-        sh "rsync -e '${ssh}' -a --delete ${protectFilters} ./ ${remote}:${HASS_CONFIG_DIR}"
-    }
-
-    boolean scheduleRestart = false
-    List reloadServices = []
-
-    List affectedFiles = getAffectedFiles(files)
-    echo(affectedFiles, true, '----------- Affected files -----------')
-
-    for (String file in affectedFiles) {
-        reloadServices += getReloadServices(file)
-    }
-
-    reloadServices = reloadServices.unique()
-
-    if (!reloadServices) {
-        echo "Nothing to reload"
-        return
-    }
 
     String hassUrl = "http://${secrets.DOCKER1_IP}:${secrets.HASS_PORT}"
 
-    if (reloadServices.contains('restart')) {
-        echo "Scheduling a full restart"
-        reload(hassUrl, secrets.HASS_TOKEN, 'homeassistant', 'restart')
-        return
-    }
+    try {
+        statusUpdate(hassUrl, secrets.HASS_TOKEN, "Checking Configuration")
 
-    echo "Restarting the following services: ${reloadServices}"
-    for (String platform in reloadServices) {
-        reload(hassUrl, secrets.HASS_TOKEN, platform)
+        Map files = applySecrets('**/*.yaml', secrets)
+
+        echo(files, true, '-------- Secrets in files ---------')
+
+        String remote = "${DOCKER1_REMOTE_USER}@${secrets['DOCKER1_IP']}"
+        String ssh = 'ssh -o StrictHostKeyChecking=no'
+        String uniqueDirName = "${BRANCH_NAME}_${BUILD_NUMBER}"
+        String testConfigDir = "${HASS_TEST_CONFIG_DIR}/${uniqueDirName}"
+
+        sshagent (credentials: [JENKINS_SSH_KEY]) {
+            try {
+                sh "${ssh} ${remote} mkdir -p ${testConfigDir}"
+                sh "rsync -e '${ssh}' -a --exclude '.git*' ./ ${remote}:${testConfigDir}"
+                sh "${ssh} ${remote} cp -r ${HASS_CONFIG_DIR}/custom_components ${testConfigDir}/"
+                String results = sh (
+                    script: "${ssh} ${remote} docker exec home-assistant hass --script check_config -c /test-config/${uniqueDirName} -f",
+                    returnStdout: true
+                ).trim()
+                echo results
+                if (results.contains('ERROR')) error 'Invalid home assistant configuration'
+            } finally {
+                sh "${ssh} ${remote} rm -rf ${testConfigDir}"
+            }
+        }
+
+        if (BRANCH_NAME != 'main') return
+
+        statusUpdate(hassUrl, secrets.HASS_TOKEN, "Deploying Configuration")
+
+        String protectFilters = [
+            'alexa*',
+            'blueprints*',
+            'custom_components*',
+            '*google*',
+            '.HA_VERSION',
+            'known_devices.yaml',
+            '*.log*',
+            'rtsp*',
+            '.storage*',
+            'themes*',
+            'w*'
+        ].collect{"--filter 'P ${it}'"}.join(' ')
+
+        sshagent (credentials: [JENKINS_SSH_KEY]) {
+            sh "rsync -e '${ssh}' -a --delete ${protectFilters} ./ ${remote}:${HASS_CONFIG_DIR}"
+        }
+
+        boolean scheduleRestart = false
+        List reloadServices = []
+
+        List affectedFiles = getAffectedFiles(files)
+        echo(affectedFiles, true, '----------- Affected files -----------')
+
+        for (String file in affectedFiles) {
+            reloadServices += getReloadServices(file)
+        }
+
+        reloadServices = reloadServices.unique()
+
+        if (!reloadServices) {
+            echo "Nothing to reload"
+            return
+        }
+
+        if (reloadServices.contains('restart')) {
+            echo "Scheduling a full restart"
+            statusUpdate(hassUrl, secrets.HASS_TOKEN, "Restarting Server")
+            reload(hassUrl, secrets.HASS_TOKEN, 'homeassistant', 'restart')
+            return
+        }
+
+        echo "Restarting the following services: ${reloadServices}"
+        for (String platform in reloadServices) {
+            reload(hassUrl, secrets.HASS_TOKEN, platform)
+        }
+
+        statusUpdate(hassUrl, secrets.HASS_TOKEN, "Up To Date")
+    } catch (Exception ex) {
+        if (!(ex instanceof org.jenkinsci.plugins.workflow.steps.FlowInterruptedException)) {
+            statusUpdate(hassUrl, secrets.HASS_TOKEN, "Error")
+        }
+        throw ex
     }
 }
 
@@ -177,4 +194,15 @@ List parseYaml(Map yaml) {
         }
     }
     return reload
+}
+
+void statusUpdate(String hassUrl, String token, String option) {
+    if (BRANCH_NAME == 'main') {
+        httpRequest (
+            url: "${hassUrl}/api/services/input_select/select_option",
+            httpMode: 'POST',
+            requestBody: """{"entity_id": "${hassDeploymentStatusEntity}", "option": "${option}"}"""
+            customHeaders: [[name: 'Authorization', value: "Bearer ${token}", maskValue: true]]
+        )
+    }
 }
