@@ -19,3 +19,5 @@ single_occupancy_mode:
 single_occupancy_mode_lock:
 dummy_guest:
 laptop_idle:
+
+katy_garage_access:

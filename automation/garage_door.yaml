@@ -22,13 +22,26 @@
   id: open_garage_door_when_arriving_then_close
   trigger:
     platform: state
-    entity_id: person.mike
+    entity_id: 
+      - person.mike
+      - device_tracker.pixel_3a
     to: home
   condition:
-    condition: state
-    entity_id: binary_sensor.garage_door
-    state: "off"
+    - condition: state
+      entity_id: 
+        - binary_sensor.garage_door
+        - input_boolean.sleep_mode
+      state: "off"
+    - condition: or
+      conditions:
+        - "{{ trigger.entity_id == 'person.mike' }}"
+        - "{{ is_state('input_boolean.katy_garage_access', 'on') }}"
   action:
+    - choose:
+        - conditions: "{{ trigger.entity_id == 'device_tracker.pixel_3a' }}"
+          sequence:
+            - service: input_boolean.turn_off
+              entity_id: input_boolean.katy_garage_access
     - service: notify.mobile_app_sm_g981u1
       data:
         message: Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}
