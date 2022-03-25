@@ -157,6 +157,36 @@ views:
                 entity: light.patio
                 name: Patio
                 toggle: true
+  - icon: mdi:server
+    cards:
+      - type: horizontal-stack
+        title: Home Assistant Deployment
+        cards:
+          - type: custom:button-card
+            entity: input_select.hass_deployment_status
+            color_type: card
+            icon: mdi:autorenew
+            color: yellow
+            show_name: false
+            show_state: true
+            state:
+              - value: Up To Date
+                icon: mdi:check-circle
+                color: green
+              - value: Error
+                icon: mdi:alert-circle
+                color: red
+                styles:
+                  icon:
+                    - animation:
+                      - blink 1s linear infinite
+              - value: Checking Configuration
+                spin: true
+              - value: Deploying Configuration
+                spin: true
+              - value: Restarting Server
+                spin: true
+        
   - icon: mdi:auto-fix
     cards:
       - !include lovelace/cards/automation_config/vacuum.yaml
