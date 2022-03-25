@@ -75,11 +75,6 @@ node ('built-in') {
 
         reloadServices = reloadServices.unique()
 
-        if (!reloadServices) {
-            echo "Nothing to reload"
-            return
-        }
-
         if (reloadServices.contains('restart')) {
             echo "Scheduling a full restart"
             statusUpdate(hassUrl, secrets.HASS_TOKEN, "Restarting Server")
