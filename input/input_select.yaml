@@ -65,4 +65,4 @@ hass_deployment_status:
     - Checking Configuration
     - Deploying Configuration
     - Restarting Server
-    - Configuration Error
+    - Error
