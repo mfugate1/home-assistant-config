@@ -58,3 +58,11 @@ jenkins_status:
     - None
     - Building
     - Updating
+
+hass_deployment_status:
+  options:
+    - Up To Date
+    - Checking Configuration
+    - Deploying Configuration
+    - Restarting Server
+    - Configuration Error
