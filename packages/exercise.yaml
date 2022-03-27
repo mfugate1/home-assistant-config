@@ -92,11 +92,6 @@ automation:
           - light.patio
           - light.upstairsbathroom
 
-input_boolean:
-  workout_mode:
-    name: Workout Mode
-    icon: mdi:weight-lifter
-
 sensor:
   - platform: sql
     db_url: ${FITNESS_DB_URL}

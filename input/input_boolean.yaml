@@ -21,3 +21,7 @@ dummy_guest:
 laptop_idle:
 
 katy_garage_access:
+
+workout_mode:
+  name: Workout Mode
+  icon: mdi:weight-lifter
