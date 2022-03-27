@@ -84,4 +84,4 @@
     data:
       command_class: "112"
       property: "13"
-      value: "{{ trigger.to_state.state == 'heating' | iif('21', '170') }}"
+      value: "{{ is_state('sensor.last_hvac_state', 'heating') | iif('21', '170') }}"
