@@ -1,0 +1,129 @@
+- binary_sensor:
+    - name: bike_goal_met_today
+      state: "{{ (states('sensor.bike_mileage_today') | float(0)) >= (states('sensor.required_bike_mileage_for_today') | float(0)) }}"
+    - name: lifting_goal_met_today
+      state: >-
+        {% if is_state('calendar.next_lifting', "on") %}
+          {{ states('sensor.lifting_sessions_today')|int >= 1}}
+        {% else %}
+          on
+        {% endif %}
+    - name: run_goal_met_today
+      state: "{{ (states('sensor.run_mileage_today') | float(0)) >= (states('sensor.required_run_mileage_for_today') | float(0)) }}"
+    - name: steps_goal_met_today
+      state: "{{ (states('sensor.steps_today') | int(0)) >= (states('sensor.step_goal_today') | int(0)) }}"
+    - name: walk_goal_met_today
+      state: "{{ (states('sensor.walk_mileage_today') | float(0)) >= (states('sensor.required_walk_mileage_for_today') | float(0)) }}"
+- sensor:
+    - name: required_run_mileage_for_today
+      state: >-
+        {% if state_attr('calendar.next_run', 'start_time') and state_attr('calendar.next_run', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_run', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+    - name: required_bike_mileage_for_today
+      state: >-
+        {% if state_attr('calendar.next_bike', 'start_time') and state_attr('calendar.next_bike', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_bike', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+    - name: required_walk_mileage_for_today
+      state: >-
+        {% if state_attr('calendar.next_walk', 'start_time') and state_attr('calendar.next_walk', 'start_time').split()[0] == now().strftime("%Y-%m-%d") %}
+          {{ state_attr('calendar.next_walk', 'message').split()[0] }}
+        {% else %}
+          0
+        {% endif %}
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_01
+  sensor: &sensor
+    - name: "{{ trigger.json.name if 'name' in trigger.json else '' }}"
+      state: "{{ trigger.json.state if 'state' in trigger.json else '' }}"
+      picture: "{{ trigger.json.image_url if 'image_url' in trigger.json else '' }}"
+      icon: "{{ trigger.json.icon if 'icon' in trigger.json else '' }}"
+      attributes:
+        start_date: "{{ trigger.json.start_date if 'start_date' in trigger.json else '' }}"
+        end_date: "{{ trigger.json.end_date if 'end_date' in trigger.json else '' }}"
+        description: "{{ trigger.json.description if 'description' in trigger.json else '' }}"
+        current_progress: "{{ trigger.json.current_progress if 'current_progress' in trigger.json else '' }}"
+        goal: "{{ trigger.json.goal if 'goal' in trigger.json else '' }}"
+        units: "{{ trigger.json.units if 'units' in trigger.json else '' }}"
+        user: "{{ trigger.json.user if 'user' in trigger.json else '' }}"
+        activity_type: "{{ trigger.json.activity_type if 'activity_type' in trigger.json else '' }}"
+        type: "{{ trigger.json.type if 'type' in trigger.json else '' }}"
+        current_progress_display: "{{ trigger.json.current_progress_display if 'current_progress_display' in trigger.json else '' }}"
+        progress_raw: "{{ trigger.json.progress_raw if 'progress_raw' in trigger.json else '' }}"
+        url: "{{ trigger.json.url if 'url' in trigger.json else '' }}"
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_02
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_03
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_04
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_05
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_06
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_07
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_08
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_09
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_10
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_11
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_12
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_13
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_14
+  sensor:
+    - <<: *sensor
+- trigger:
+    - platform: webhook
+      webhook_id: ${HASS_GARMIN_WEBHOOK_TOKEN}_15
+  sensor:
+    - <<: *sensor

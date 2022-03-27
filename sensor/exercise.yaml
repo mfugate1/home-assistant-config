@@ -1,0 +1,31 @@
+- platform: sql
+  db_url: ${FITNESS_DB_URL}
+  queries:
+    - name: run_mileage_today
+      query: SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'running';
+      column: mileage
+      value_template: "{{ value | round(2) if value != '0' else value }}"
+      unit_of_measurement: miles
+    - name: bike_mileage_today
+      query: SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType in ('cycling', 'indoor_cycling');
+      column: mileage
+      value_template: "{{ value | round(2) if value != '0' else value }}"
+      unit_of_measurement: miles
+    - name: walk_mileage_today
+      query: SELECT IFNULL(SUM(distance_miles), 0) as mileage FROM garmin_activities WHERE DATE(startTimeLocal) = CURDATE() AND activityType = 'walking';
+      column: mileage
+      value_template: "{{ value | round(2) if value != '0' else value }}"
+      unit_of_measurement: miles
+    - name: lifting_sessions_today
+      query: SELECT COUNT(*) as cnt FROM garmin_activities WHERE activityType = 'strength_training' AND DATE(startTimeLocal) = CURDATE() LIMIT 1;
+      column: cnt
+    - name: steps_today
+      query: SELECT IFNULL((SELECT IFNULL(totalSteps, 0) as totalSteps FROM garmin_daily_stats WHERE calendarDate = CURDATE() LIMIT 1), 0) AS totalSteps;
+      column: totalSteps
+      value_template: "{{ value | round }}"
+      unit_of_measurement: steps
+    - name: step_goal_today
+      query: SELECT IFNULL((SELECT IFNULL(dailyStepGoal, 10000) as dailyStepGoal FROM garmin_daily_stats WHERE calendarDate = CURDATE() LIMIT 1), 0) AS dailyStepGoal;
+      column: dailyStepGoal
+      value_template: "{{ value | round }}"
+      unit_of_measurement: steps
