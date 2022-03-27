@@ -1,8 +1,8 @@
 type: entities
 title: Living Room
 entities:
-  - type: buttons
-    entities:
+  - type: custom:paper-buttons-row
+    buttons:
       - entity: media_player.livingroom_media
         icon: mdi:cast
         show_name: false

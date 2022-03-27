@@ -1,3 +1,15 @@
+everything:
+  entities:
+    - group.basement
+    - group.bedroom
+    - group.diningroom
+    - group.gameroom
+    - group.livingroom
+    - group.office
+    - group.patio
+    - group.upstairsbathroom
+
+############### ROOMS ###############
 basement:
   entities:
     - input_boolean.workout_mode
@@ -15,6 +27,31 @@ bedroom:
 diningroom:
   entities:
     - light.diningroom
+gameroom:
+  entities:
+    - light.gameroom_lamp
+    - light.gameroom_overhead
+    - media_player.gameroom_receiver
+    - media_player.gameroom_tv
+livingroom:
+  entities:
+    - light.livingroom_lamp
+    - media_player.livingroom_receiver
+    - media_player.livingroom_tv
+    - media_player.playstation_4_livingroom
+    - switch.entry_light
+office:
+  entities:
+    - light.office
+patio:
+  entities:
+    - light.patio
+upstairsbathroom:
+  entities:
+    - light.upstairsbathroom
+    - switch.upstairsbathroom_vent
+
+
 echos:
   entities:
     - media_player.basement_echo_dot
@@ -22,6 +59,7 @@ echos:
     - media_player.gameroom_echo_dot
     - media_player.livingroom_echo
     - media_player.office_echo_dot
+
 exercise_goals:
   all: true
   entities:
@@ -30,6 +68,7 @@ exercise_goals:
     - binary_sensor.run_goal_met_today
     - binary_sensor.steps_goal_met_today
     - binary_sensor.walk_goal_met_today
+
 exterior_doors_and_windows:
   entities:
     - binary_sensor.bedroom_window_back
@@ -43,28 +82,7 @@ exterior_doors_and_windows:
     - binary_sensor.kitchen_window
     - binary_sensor.office_window
     - binary_sensor.sliding_side_door
-everything:
-  entities:
-    - group.basement
-    - group.bedroom
-    - group.diningroom
-    - group.gameroom
-    - group.livingroom
-    - group.office
-    - group.patio
-gameroom:
-  entities:
-    - light.gameroom_lamp
-    - light.gameroom_overhead
-    - media_player.gameroom_receiver
-    - media_player.gameroom_tv
-office:
-  entities:
-    - light.office
-upstairsbathroom:
-  entities:
-    - light.upstairsbathroom
-    - switch.upstairsbathroom_vent
+
 garmin_watch:
   entities:
     - cover.garage_door
@@ -80,11 +98,9 @@ garmin_watch:
     - light.patio
     - light.upstairsbathroom
     - switch.basement_stereo
-patio:
-  entities:
-    - light.patio
 
-# LED Notification Groups
+
+############ LED NOTIFICATION GROUPS ##############
 led_red:
   entities:
     - binary_sensor.garage_door
@@ -126,76 +142,67 @@ led_solid:
     - group.exterior_doors_and_windows
     - input_boolean.phone_text_notification
 
-# Motion
+######## OCCUPANCY ########
 basement_occupancy:
   name: Basement
   icon: hass:walk
   entities:
     - binary_sensor.basement_motion_1
-
 bedroom_occupancy:
   name: Bedroom
   icon: hass:walk
   entities:
     - binary_sensor.bedroom_motion_2
-
 diningroom_occupancy:
   name: Dining Room
   icon: hass:walk
   entities:
     - binary_sensor.diningroom_motion_1
     - binary_sensor.diningroom_motion_2
-
 gameroom_occupancy:
   name: Game Room
   icon: hass:walk
   entities:
     - binary_sensor.gameroom_motion_1
     - binary_sensor.gameroom_motion_2
-
 garage_occupancy:
   name: Garage
   icon: hass:walk
   entities:
     - binary_sensor.garage_motion_1
-
 kitchen_occupancy:
   name: Kitchen
   icon: hass:walk
   entities:
     - binary_sensor.kitchen_motion_1
-
 laundryroom_occupancy:
   name: Laundry Room
   icon: hass:walk
   entities:
     - binary_sensor.laundryroom_motion_1
-
 livingroom_occupancy:
   name: Living Room
   icon: hass:walk
   entities:
     - binary_sensor.livingroom_motion_1
-
 office_occupancy:
   name: Office
   icon: hass:walk
   entities:
     - binary_sensor.office_motion_2
     - binary_sensor.office_motion_3
-
 patio_occupancy:
   name: Patio
   icon: hass:walk
   entities:
     - binary_sensor.patio_motion_1
-
 upstairsbathroom_occupancy:
   name: Upstairs Bathroom
   icon: hass:walk
   entities:
     - binary_sensor.upstairsbathroom_motion_1
     - binary_sensor.upstairsbathroom_motion_2
+
 
 guest_devices:
   name: Guest Devices
