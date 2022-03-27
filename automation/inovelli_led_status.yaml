@@ -13,15 +13,14 @@
       - group.led_solid
   action:
     service: zwave_js.bulk_set_partial_config_parameters
-    target:
-      entity_id:
-        - light.basement
-        - light.diningroom
-        - light.gameroom_overhead
-        - light.laundryroom
-        - light.livingroom_wall_switch_1
-        - light.livingroom_wall_switch_2
-        - light.patio
+    entity_id: >-
+      {% set entities = namespace(ids=[]) %}
+      {% for state in states.light %}
+        {% if is_device_attr(state.entity_id, 'model', 'LZW31-SN') %}
+          {% set entities.ids = entities.ids + [state.entity_id] %}
+        {% endif %}
+      {% endfor %}
+      {{ entities.ids }}
     data:
       parameter: 16
       value:
@@ -61,3 +60,26 @@
           {% else %}
             0
           {% endif %}
+
+- alias: Inovelli Switches - Set base color from HVAC status
+  id: inovelli_switches_set_base_color_from_hvac_status
+  trigger:
+    platform: state
+    entity_id: sensor.last_hvac_state
+    to:
+      - heating
+      - cooling
+  action:
+    service: zwave_js.multicast_set_value
+    entity_id: >-
+      {% set entities = namespace(ids=[]) %}
+      {% for state in states.light %}
+        {% if is_device_attr(state.entity_id, 'model', 'LZW31-SN') %}
+          {% set entities.ids = entities.ids + [state.entity_id] %}
+        {% endif %}
+      {% endfor %}
+      {{ entities.ids }}
+    data:
+      command_class: "112"
+      property: "13"
+      value: "{{ trigger.to_state.state == 'heating' | iif('21', '170')}}"
