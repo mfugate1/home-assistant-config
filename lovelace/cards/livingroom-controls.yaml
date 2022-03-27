@@ -5,7 +5,7 @@ entities:
     buttons:
       - entity: media_player.livingroom_media
         icon: mdi:cast
-        show_name: false
+        name: false
         tap_action:
           action: toggle
       - entity: light.diningroom
