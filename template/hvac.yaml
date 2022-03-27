@@ -1,3 +1,14 @@
+- trigger:
+    platform: state
+    entity_id: climate.thermostat
+    attribute: hvac_action
+    to:
+      - heating
+      - cooling
+  sensor:
+    - name: last_hvac_state
+      state: "{{ trigger.to_state.attributes.hvac_action }}"
+
 - sensor:
     - name: target_temp_heating
       state: >-
