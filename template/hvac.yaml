@@ -14,6 +14,8 @@
       state: >-
         {% if not is_state('person.mike', 'home') %}
           {{ states('input_number.climate_heat_away_temp') }}
+        {% elif is_state('input_boolean.workout_mode', 'on') %}
+          {{ states('input_number.climate_heat_workout_temp') }}
         {% elif is_state('input_boolean.sleep_mode', 'on') %}
           {{ states('input_number.climate_heat_asleep_temp') }}
         {% else %}
@@ -23,6 +25,8 @@
       state: >-
         {% if not is_state('person.mike', 'home') %}
           {{ states('input_number.climate_cool_away_temp') }}
+        {% elif is_state('input_boolean.workout_mode', 'on') %}
+          {{ states('input_number.climate_cool_workout_temp') }}
         {% elif is_state('input_boolean.sleep_mode', 'on') %}
           {{ states('input_number.climate_cool_asleep_temp') }}
         {% else %}
