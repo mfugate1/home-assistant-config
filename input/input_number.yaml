@@ -210,3 +210,38 @@ upstairsbathroom_light_transition:
   min: 1
   max: 10
   mode: box
+
+
+########### CLIMATE #############
+climate_cool_away_temp:
+  name: Away
+  min: 50
+  max: 80
+climate_cool_asleep_temp:
+  name: Asleep
+  min: 50
+  max: 80
+climate_cool_home_temp:
+  name: Home
+  min: 50
+  max: 80
+climate_cool_workout_temp:
+  name: Workout
+  min: 50
+  max: 80
+climate_heat_away_temp:
+  name: Away
+  min: 50
+  max: 80
+climate_heat_asleep_temp:
+  name: Asleep
+  min: 50
+  max: 80
+climate_heat_home_temp:
+  name: Home
+  min: 50
+  max: 80
+climate_heat_workout_temp:
+  name: Workout
+  min: 50
+  max: 80
