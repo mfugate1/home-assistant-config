@@ -203,10 +203,16 @@ upstairsbathroom_occupancy:
     - binary_sensor.upstairsbathroom_motion_1
     - binary_sensor.upstairsbathroom_motion_2
 
-
 guest_devices:
   name: Guest Devices
   entities:
     - device_tracker.pixel_3a
     - device_tracker.space_invader
     - device_tracker.dummy_guest
+
+update_available:
+  icon: mdi:update
+  entities:
+    - binary_sensor.updater
+    - binary_sensor.certbot_updater
+    - binary_sensor.zwavejs2mqtt_updater

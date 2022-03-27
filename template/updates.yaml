@@ -1,0 +1,14 @@
+- sensor:
+    - name: certbot_latest_version
+      state: "{{ state_attr('sensor.certbot_certbot_latest_release', 'tag') }}"
+    - name: zwavejs2mqtt_latest_version
+      state: "{{ state_attr('sensor.zwave_js_zwavejs2mqtt_latest_release', 'tag')[1:] }}"
+- binary_sensor:
+    - name: certbot_updater
+      state: "{{ states('sensor.certbot_latest_version') != state_attr('sensor.docker_certbot', 'image').split(':')[1] and is_state('binary_sensor.latest_certbot_image_available_on_docker_hub', 'on') }}"
+      attributes:
+        newest_version: "{{ states('sensor.certbot_latest_version') }}"
+    - name: zwavejs2mqtt_updater
+      state: "{{ states('sensor.zwavejs2mqtt_latest_version') != state_attr('sensor.office_raspi4_zwavejs', 'image').split(':')[1] and is_state('binary_sensor.latest_zwavejs2mqtt_image_available_on_docker_hub', 'on') }}"
+      attributes:
+        newest_version: "{{ states('sensor.zwavejs2mqtt_latest_version') }}"
