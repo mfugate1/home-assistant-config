@@ -151,7 +151,7 @@ List getReloadServices(String file) {
     if (file.startsWith('packages/')) return parseYaml(readYaml(file: file))
 
     List reload = []
-    List reloadablePlatforms = ['history_stats', 'mqtt', 'ping', 'rest', 'time_date', 'universal']
+    List reloadablePlatforms = ['history_stats', 'mqtt', 'ping', 'rest', 'template', 'time_date', 'universal']
     for (String line in contents.tokenize('\n').findAll{it.contains('- platform:')}) {
         for (String platform in reloadablePlatforms) {
             if (line.contains(platform) && platform != 'time_date') {
