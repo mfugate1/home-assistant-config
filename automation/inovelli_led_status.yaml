@@ -13,14 +13,15 @@
       - group.led_solid
   action:
     service: zwave_js.bulk_set_partial_config_parameters
-    entity_id: >-
-      {% set entities = namespace(ids=[]) %}
-      {% for state in states.light %}
-        {% if is_device_attr(state.entity_id, 'model', 'LZW31-SN') %}
-          {% set entities.ids = entities.ids + [state.entity_id] %}
-        {% endif %}
-      {% endfor %}
-      {{ entities.ids }}
+    target:
+      entity_id: >-
+        {% set entities = namespace(ids=[]) %}
+        {% for state in states.light %}
+          {% if is_device_attr(state.entity_id, 'model', 'LZW31-SN') %}
+            {% set entities.ids = entities.ids + [state.entity_id] %}
+          {% endif %}
+        {% endfor %}
+        {{ entities.ids }}
     data:
       parameter: 16
       value:
@@ -71,15 +72,16 @@
       - cooling
   action:
     service: zwave_js.multicast_set_value
-    entity_id: >-
-      {% set entities = namespace(ids=[]) %}
-      {% for state in states.light %}
-        {% if is_device_attr(state.entity_id, 'model', 'LZW31-SN') %}
-          {% set entities.ids = entities.ids + [state.entity_id] %}
-        {% endif %}
-      {% endfor %}
-      {{ entities.ids }}
+    target:
+      entity_id: >-
+        {% set entities = namespace(ids=[]) %}
+        {% for state in states.light %}
+          {% if is_device_attr(state.entity_id, 'model', 'LZW31-SN') %}
+            {% set entities.ids = entities.ids + [state.entity_id] %}
+          {% endif %}
+        {% endfor %}
+        {{ entities.ids }}
     data:
       command_class: "112"
       property: "13"
-      value: "{{ trigger.to_state.state == 'heating' | iif('21', '170')}}"
+      value: "{{ trigger.to_state.state == 'heating' | iif('21', '170') }}"
