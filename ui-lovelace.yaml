@@ -98,7 +98,7 @@ views:
             title: Basement
             entities:
               - type: custom:paper-buttons-row
-                entities:
+                buttons:
                   - entity: light.basement
                     name: false
                   - entity: switch.basement_stereo
