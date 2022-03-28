@@ -247,8 +247,9 @@ views:
             name: Kitchen Window
           - entity: binary_sensor.office_window
             name: Office Window
-      - type: entities
-        title: Motion
+      - type: glance
+        title: Occupancy
+        show_state: false
         entities:
           - sensor.last_occupied_room
           - group.basement_occupancy
