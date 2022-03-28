@@ -247,11 +247,13 @@ views:
             name: Kitchen Window
           - entity: binary_sensor.office_window
             name: Office Window
-      - type: entities
-        entities:
-          - sensor.last_occupied_room
+      - type: custom:stack-in-card
+        title: Occupancy
+        cards:
+          - type: entities
+            entities:
+              - sensor.last_occupied_room
           - type: glance
-            title: Occupancy
             columns: 3
             show_state: false
             entities:
