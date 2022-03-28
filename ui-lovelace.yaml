@@ -247,19 +247,23 @@ views:
             name: Kitchen Window
           - entity: binary_sensor.office_window
             name: Office Window
-      - type: glance
-        title: Occupancy
-        show_state: false
+      - type: entities
         entities:
           - sensor.last_occupied_room
-          - group.basement_occupancy
-          - group.bedroom_occupancy
-          - group.diningroom_occupancy
-          - group.gameroom_occupancy
-          - group.garage_occupancy
-          - group.kitchen_occupancy
-          - group.laundryroom_occupancy
-          - group.livingroom_occupancy
-          - group.office_occupancy
-          - group.patio_occupancy
-          - group.upstairsbathroom_occupancy
+          - type: glance
+            title: Occupancy
+            columns: 3
+            show_state: false
+            entities:
+              - group.basement_occupancy
+              - group.bedroom_occupancy
+              - group.diningroom_occupancy
+              - group.gameroom_occupancy
+              - group.garage_occupancy
+              - group.kitchen_occupancy
+              - group.laundryroom_occupancy
+              - group.livingroom_occupancy
+              - group.office_occupancy
+              - group.patio_occupancy
+              - entity: group.upstairsbathroom_occupancy
+                name: Upstairs Bath
