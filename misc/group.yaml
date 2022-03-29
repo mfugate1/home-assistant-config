@@ -191,7 +191,7 @@ office_occupancy:
   entities:
     - binary_sensor.office_motion_2
     - binary_sensor.office_motion_3
-    - input_boolean.laptop_in_use
+    - binary_sensor.laptop_in_use
 patio_occupancy:
   name: Patio
   icon: hass:walk
