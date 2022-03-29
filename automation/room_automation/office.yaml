@@ -23,3 +23,21 @@
               source: T480S-10-12813
           - service: media_player.media_play
             entity_id: media_player.spotify_stukabombr1
+
+- alias: Office - Pause Spotify
+  id: office_pause_spotify
+  trigger:
+    platform: state
+    entity_id:
+      - media_player.gameroom_tv
+      - media_player.livingroom_tv
+    to: 'on'
+  condition: 
+    condition: and
+    conditions:
+      - "{{ is_state('binary_sensor.laptop', 'on') }}"
+      - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
+      - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+  action:
+    service: media_player.media_pause
+    entity_id: media_player.spotify_stukabombr1
