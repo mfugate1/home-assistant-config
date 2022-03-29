@@ -1,0 +1,22 @@
+- alias: Office - Play/Pause Spotify
+  id: office_play_pause_spotify
+  trigger:
+    platform: state
+    entity_id: 
+      - input_boolean.laptop_in_use
+      - sensor.last_occupied_room
+  condition: "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+  action:
+    choose:
+      - conditions:
+          - "{{ is_state('binary_sensor.laptop_in_use', 'off') }}"
+          - "{{ not is_state('sensor.last_occupied_room', 'office') }}"
+        sequence:
+          - service: media_player.media_pause
+            entity_id: media_player.spotify_stukabombr1
+      - conditions:
+          - "{{ is_state('binary_sensor.laptop_in_use', 'on') }}"
+          - "{{ is_state('sensor.last_occupied_room', 'office') }}"
+        sequence:
+          - service: media_player.media_play
+            entity_id: media_player.spotify_stukabombr1
