@@ -37,4 +37,4 @@
     - name: bed_occupied
       state: "{{ is_state('binary_sensor.sleepnumber_master_bed_mike_is_in_bed', 'on') or is_state('binary_sensor.binary_sensor.sleepnumber_master_bed_guest_is_in_bed', 'on') }}"
     - name: laptop_in_use
-      state: "{{ is_state('binary_sensor.laptop', 'on') and is_state('input_boolean.laptop_in_use') }}"
+      state: "{{ is_state('binary_sensor.laptop', 'on') and is_state('input_boolean.laptop_in_use', 'on') }}"
