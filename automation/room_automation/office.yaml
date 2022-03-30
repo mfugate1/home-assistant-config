@@ -9,6 +9,7 @@
     choose:
       - conditions:
           - "{{ is_state('binary_sensor.laptop_in_use', 'off') }}"
+          - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
           - "{{ not is_state('sensor.last_occupied_room', 'office') }}"
         sequence:
           - service: media_player.media_pause
@@ -16,6 +17,7 @@
       - conditions:
           - "{{ is_state('binary_sensor.laptop_in_use', 'on') }}"
           - "{{ is_state('sensor.last_occupied_room', 'office') }}"
+          - "{{ not is_state('media_player.spotify_stukabombr1', 'playing') }}"
         sequence:
           - service: media_player.select_source
             entity_id: media_player.spotify_stukabombr1
