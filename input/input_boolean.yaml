@@ -18,9 +18,11 @@ take_out_garbage_bins:
 single_occupancy_mode:
 single_occupancy_mode_lock:
 dummy_guest:
+  name: Dummy Guest
 laptop_in_use:
 
 katy_garage_access:
+  name: Katy
 
 workout_mode:
   name: Workout Mode

@@ -49,8 +49,7 @@ views:
             title: Garage
             entities:
               - cover.garage_door
-              - entity: input_boolean.katy_garage_access
-                name: Katy
+              - input_boolean.katy_garage_access
           - type: entities
             title: Bedroom
             entities:
