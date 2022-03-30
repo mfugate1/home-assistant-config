@@ -4,19 +4,19 @@
     platform: state
     entity_id: 
       - input_boolean.laptop_in_use
-      - sensor.last_occupied_room
+      - group.office_occupancy
   action:
     choose:
       - conditions:
           - "{{ is_state('binary_sensor.laptop_in_use', 'off') }}"
           - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
-          - "{{ not is_state('sensor.last_occupied_room', 'office') }}"
+          - "{{ is_state('group.office_occupancy', 'off') }}"
         sequence:
           - service: media_player.media_pause
             entity_id: media_player.spotify_stukabombr1
       - conditions:
           - "{{ is_state('binary_sensor.laptop_in_use', 'on') }}"
-          - "{{ is_state('sensor.last_occupied_room', 'office') }}"
+          - "{{ is_state('group.office_occupancy', 'on') }}"
           - "{{ not is_state('media_player.spotify_stukabombr1', 'playing') }}"
         sequence:
           - service: media_player.select_source
