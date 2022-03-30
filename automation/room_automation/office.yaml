@@ -1,45 +1,55 @@
-- alias: Office - Play/Pause Spotify
-  id: office_play_pause_spotify
+- alias: Office - Play Spotify
+  id: office_play_spotify
   trigger:
     platform: state
-    entity_id: 
-      - input_boolean.laptop_in_use
+    entity_id:
+      - binary_sensor.laptop
+      - binary_sensor.laptop_in_use
       - group.office_occupancy
+      - sensor.last_occupied_room
+  condition:
+    condition: and
+    conditions:
+      - "{{ is_state('binary_sensor.laptop', 'on') }}"
+      - "{{ is_state('group.office_occupancy', 'on') }}"
+      - "{{ not is_state('media_player.spotify_stukabombr1', 'playing') }}"
   action:
-    choose:
-      - conditions:
-          - "{{ is_state('binary_sensor.laptop_in_use', 'off') }}"
-          - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
-          - "{{ is_state('group.office_occupancy', 'off') }}"
-        sequence:
-          - service: media_player.media_pause
-            entity_id: media_player.spotify_stukabombr1
-      - conditions:
-          - "{{ is_state('binary_sensor.laptop_in_use', 'on') }}"
-          - "{{ is_state('group.office_occupancy', 'on') }}"
-          - "{{ not is_state('media_player.spotify_stukabombr1', 'playing') }}"
-        sequence:
-          - service: media_player.select_source
-            entity_id: media_player.spotify_stukabombr1
-            data:
-              source: T480S-10-12813
-          - service: media_player.media_play
-            entity_id: media_player.spotify_stukabombr1
+    - choose:
+        - conditions: "{{ not is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+          sequence:
+            - service: media_player.select_source
+              entity_id: media_player.spotify_stukabombr1
+              data:
+                source: T480S-10-12813
+            - delay: 2
+    - service: media_player.media_play
+      entity_id: media_player.spotify_stukabombr1
 
 - alias: Office - Pause Spotify
   id: office_pause_spotify
   trigger:
-    platform: state
-    entity_id:
-      - media_player.gameroom_tv
-      - media_player.livingroom_tv
-    to: 'on'
+    - platform: state
+      entity_id:
+        - media_player.gameroom_tv
+        - media_player.livingroom_tv
+      to: 'on'
+    - platform: state
+      entity_id:
+        - binary_sensor.laptop
+        - binary_sensor.laptop_in_use
+        - group.office_occupancy
+        - sensor.last_occupied_room
   condition: 
-    condition: and
+    condition: or
     conditions:
-      - "{{ is_state('binary_sensor.laptop', 'on') }}"
-      - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
-      - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+      - condition: and
+        conditions:
+          - "{{ is_state('binary_sensor.laptop', 'on') }}"
+          - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
+          - "{{ is_state('group.office_occupancy', 'off') }}"
+          - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+          - "{{ not is_state('sensor.last_occupied_room', 'office') }}"
+      - "{{ trigger.entity_id.startswith('media_player') }}"
   action:
     service: media_player.media_pause
     entity_id: media_player.spotify_stukabombr1
