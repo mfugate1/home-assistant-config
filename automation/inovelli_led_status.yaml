@@ -6,7 +6,6 @@
     entity_id:
       - group.led_red
       - group.led_yellow
-      - group.led_green
       - group.led_purple
       - group.led_chase
       - group.led_blink
@@ -31,8 +30,6 @@
             0
           {% elif is_state('group.led_purple', 'on') %}
             212
-          {% elif is_state('group.led_green', 'on') %}
-            85
           {% elif is_state('group.led_yellow', 'on') %}
             42
           {% else %}

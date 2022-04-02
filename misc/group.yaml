@@ -119,10 +119,6 @@ led_yellow:
   entities:
     - group.exterior_doors_and_windows
 
-led_green:
-  entities:
-    - input_boolean.phone_text_notification
-
 led_chase:
   entities:
     - binary_sensor.garage_door
@@ -142,7 +138,6 @@ led_blink:
 led_solid:
   entities:
     - group.exterior_doors_and_windows
-    - input_boolean.phone_text_notification
 
 ######## OCCUPANCY ########
 basement_occupancy:
