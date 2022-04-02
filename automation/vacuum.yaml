@@ -39,7 +39,7 @@
       entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
       to: "0.0"
   condition:
-    - condition: "{{ states('sensor.vacuum_next_rooms_to_clean_list') | from_json | length > 0}}"
+    - "{{ states('sensor.vacuum_next_rooms_to_clean') | from_json | length > 0 }}"
     - condition: state
       entity_id: vacuum.roborock_s6_pure
       state: docked
