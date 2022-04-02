@@ -130,11 +130,13 @@ led_chase:
 led_blink:
   entities:
     - binary_sensor.mousetrap_triggered
+    - input_boolean.change_contacts
     - input_boolean.empty_dehumidifier
     - input_boolean.empty_vacuum
     - input_boolean.add_salt_to_hot_tub
     - input_boolean.add_spa_complete_to_hot_tub
     - input_boolean.replace_sediment_filter
+    - input_boolean.take_medication
     - input_boolean.take_out_garbage_bins
 
 led_solid:

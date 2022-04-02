@@ -11,6 +11,9 @@ add_salt_to_hot_tub:
 add_spa_complete_to_hot_tub:
   name: Add Spa Complete to Hot Tub
   icon: mdi:hot-tub
+change_contacts:
+  name: Change Contacts
+  icon: mdi:eye
 clean_hot_tub_filter:
   name: Clean Hot Tub Filter
   icon: mdi:hot-tub

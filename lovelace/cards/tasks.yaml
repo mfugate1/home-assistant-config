@@ -3,6 +3,7 @@ title: Tasks
 entities:
   - input_boolean.add_salt_to_hot_tub
   - input_boolean.add_spa_complete_to_hot_tub
+  - input_boolean.change_contacts
   - input_boolean.clean_hot_tub_filter
   - input_boolean.empty_dehumidifier
   - input_boolean.empty_vacuum

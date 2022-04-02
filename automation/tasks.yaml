@@ -5,6 +5,7 @@
     entity_id:
       - input_boolean.add_salt_to_hot_tub
       - input_boolean.add_spa_complete_to_hot_tub
+      - input_boolean.change_contacts
       - input_boolean.empty_dehumidifier
       - input_boolean.empty_vacuum
       - input_boolean.clean_hot_tub_filter
@@ -84,6 +85,17 @@
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.replace_sediment_filter
+
+- alias: Reset change contacts task
+  id: reset_replace_sediment_filter_task
+  trigger:
+    platform: time
+    at: 06:00:00
+  condition: >-
+    {{ as_timestamp(now()) | timestamp_custom('%d') == '01' }}
+  action:
+    service: input_boolean.turn_on
+    entity_id: input_boolean.change_contacts
 
 - alias: Reset garbage bin task
   id: reset_garbage_bin_task
