@@ -1,6 +1,6 @@
 - platform: snmp
   name: truenas_uptime
-  host: ${TRUENAS_DOCKER_IP}
+  host: ${TRUENAS_IP}
   baseoid: 1.3.6.1.2.1.1.3.0
   accept_errors: true
   unit_of_measurement: "minutes"
