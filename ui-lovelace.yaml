@@ -199,6 +199,7 @@ views:
   - icon: mdi:auto-fix
     cards:
       - !include lovelace/cards/automation_config/vacuum.yaml
+      - !include lovelace/cards/tasks.yaml
       - !include lovelace/cards/automation_config/single_occupancy_mode.yaml
       - !include lovelace/cards/automation_config/climate.yaml
       - !include lovelace/cards/room_config/upstairsbathroom.yaml

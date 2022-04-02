@@ -1,0 +1,12 @@
+type: entities
+title: Tasks
+entities:
+  - add_salt_to_hot_tub
+  - add_spa_complete_to_hot_tub
+  - clean_hot_tub_filter
+  - empty_dehumidifier
+  - empty_vacuum
+  - replace_furnace_filter
+  - replace_sediment_filter
+  - take_medication
+  - take_out_garbage_bins

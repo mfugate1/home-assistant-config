@@ -6,14 +6,32 @@ sleep_mode:
 
 # Tasks
 add_salt_to_hot_tub:
+  name: Add Salt to Hot Tub
+  icon: mdi:hot-tub
 add_spa_complete_to_hot_tub:
+  name: Add Spa Complete to Hot Tub
+  icon: mdi:hot-tub
 clean_hot_tub_filter:
+  name: Clean Hot Tub Filter
+  icon: mdi:hot-tub
 empty_dehumidifier:
+  name: Empty Dehumidifier
+  icon: mdi:air-humidifier
 empty_vacuum:
+  name: Empty Vacuum
+  icon: mdi:robot-vacuum
 replace_furnace_filter:
+  name: Replace Furnace Filter
+  icon: mdi:heat-wave
 replace_sediment_filter:
+  name: Replace Sediment Filter
+  icon: mdi:filter
 take_medication:
+  name: Take Medication
+  icon: mdi:pill
 take_out_garbage_bins:
+  name: Take Out Garbage Bins
+  icon: mdi:delete
 
 single_occupancy_mode:
 single_occupancy_mode_lock:
