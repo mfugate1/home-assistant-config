@@ -1,4 +1,3 @@
-music_database_updater:
 phone_text_notification:
 sleep_mode:
 
@@ -64,12 +63,3 @@ vacuum_kitchen_day_enable:
 vacuum_diningroom_day_enable:
 vacuum_office_day_enable:
 vacuum_upstairsbathroom_day_enable:
-
-vacuum_gameroom_cleaned_today:
-vacuum_hallway_cleaned_today:
-vacuum_bedroom_cleaned_today:
-vacuum_livingroom_cleaned_today:
-vacuum_kitchen_cleaned_today:
-vacuum_diningroom_cleaned_today:
-vacuum_office_cleaned_today:
-vacuum_upstairsbathroom_cleaned_today:

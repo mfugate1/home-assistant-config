@@ -38,26 +38,11 @@
     - platform: state
       entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
       to: "0.0"
-    - platform: state
-      entity_id:
-        - input_boolean.vacuum_gameroom_23_cleaned_today
-        - input_boolean.vacuum_hallway_20_cleaned_today
-        - input_boolean.vacuum_bedroom_22_cleaned_today
-        - input_boolean.vacuum_livingroom_16_cleaned_today
-        - input_boolean.vacuum_kitchen_18_cleaned_today
-        - input_boolean.vacuum_diningroom_17_cleaned_today
-        - input_boolean.vacuum_office_19_cleaned_today
-        - input_boolean.vacuum_upstairsbathroom_21_cleaned_today
-      to: "off"
   condition:
+    - condition: "{{ states('sensor.vacuum_next_rooms_to_clean_list') | from_json | length > 0}}"
     - condition: state
       entity_id: vacuum.roborock_s6_pure
       state: docked
-    - condition: not
-      conditions:
-        - condition: state
-          entity_id: sensor.vacuum_next_room_to_clean
-          state: none
     - condition: or
       conditions:
         - condition: state
@@ -76,48 +61,27 @@
             - condition: state
               entity_id: binary_sensor.bedroom_door
               state: "off"
-            - condition: time
-              before: input_datetime.vacuum_night_cleaning_end_time
-              after: input_datetime.sleep_mode_last_start_time
   action:
     - service: xiaomi_miio.vacuum_clean_segment
       target:
         entity_id: vacuum.roborock_s6_pure
       data:
-        segments: "{{ states('input_number.vacuum_' + states('sensor.vacuum_next_room_to_clean') + '_id') }}"
-    - service: input_text.set_value
-      target:
-        entity_id: input_text.vacuum_last_room_cleaned
-      data:
-        value: "{{ states('sensor.vacuum_next_room_to_clean') }}"
-    - service: input_number.increment
-      target:
-        entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
-    - service: input_datetime.set_datetime
-      target:
-        entity_id: input_datetime.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_last_cleaned
-      data:
-        timestamp: "{{ now().timestamp() }}"
-    - service: input_boolean.turn_on
-      target:
-        entity_id: input_boolean.vacuum_{{ states('input_text.vacuum_last_room_cleaned') }}_cleaned_today
-
-- alias: Vacuum - Reset room cleaned today input booleans
-  id: vacuum_reset_room_cleaned_today_input_booleans
-  trigger:
-    platform: time
-    at: input_datetime.vacuum_room_cleaned_today_reset_time
-  action:
-    service: input_boolean.turn_off
-    target:
-      entity_id: >-
-        {% set entities = namespace(ids=[]) %}
-        {% for state in states.input_boolean %}
-          {% if state.entity_id.startswith('input_boolean.vacuum') and state.entity_id.endswith('_cleaned_today') %}
-            {% set entities.ids = entities.ids + [state.entity_id] %}
-          {% endif %}
-        {% endfor %}
-        {{ entities.ids }}
+        segments: "{{ states('sensor.vacuum_next_rooms_to_clean') }}"
+    - repeat:
+      while: "{{ states('sensor.vacuum_next_rooms_to_clean') | from_json | length > 0 }}"
+      sequence:
+        - service: input_number.increment
+          entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+        - service: input_datetime.set_datetime
+          entity_id: >-
+            {% set id = (states('sensor.vacuum_next_rooms_to_clean') | from_json)[0] | int(0) %}
+            {% for state in states.input_number %}
+              {% if state.entity_id.endswith('_id') and (state.state | int(0)) == id %}
+                input_datetime.vacuum_{{ state.entity_id.split('_')[2] }}_last_cleaned
+              {% endif %}
+            {% endfor %}
+          data:
+            timestamp: "{{ now().timestamp() }}"
 
 - alias: Vacuum - Empty bin notification
   id: vacuum_empty_bin_notification
@@ -178,25 +142,9 @@
         - input_boolean.sleep_mode
         - input_select.vacuum_fan_speed_day
         - input_select.vacuum_fan_speed_night
-  condition:
-    condition: or
-    conditions:
-      - condition: and
-        conditions:
-          - condition: state
-            entity_id: input_boolean.sleep_mode
-            state: "off"
-          - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_day') }}"
-      - condition: and
-        conditions:
-          - condition: state
-            entity_id: input_boolean.sleep_mode
-            state: "on"
-          - "{{ state_attr('vacuum.roborock_s6_pure', 'fan_speed') != states('input_select.vacuum_fan_speed_night') }}"
   action:
     service: vacuum.set_fan_speed
-    target:
-      entity_id: vacuum.roborock_s6_pure
+    entity_id: vacuum.roborock_s6_pure
     data:
       fan_speed: >-
         {% if is_state('input_boolean.sleep_mode', 'on') %}
