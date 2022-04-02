@@ -68,20 +68,20 @@
       data:
         segments: "{{ states('sensor.vacuum_next_rooms_to_clean') }}"
     - repeat:
-      while: "{{ states('sensor.vacuum_next_rooms_to_clean') | from_json | length > 0 }}"
-      sequence:
-        - service: input_number.increment
-          entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
-        - service: input_datetime.set_datetime
-          entity_id: >-
-            {% set id = (states('sensor.vacuum_next_rooms_to_clean') | from_json)[0] | int(0) %}
-            {% for state in states.input_number %}
-              {% if state.entity_id.endswith('_id') and (state.state | int(0)) == id %}
-                input_datetime.vacuum_{{ state.entity_id.split('_')[2] }}_last_cleaned
-              {% endif %}
-            {% endfor %}
-          data:
-            timestamp: "{{ now().timestamp() }}"
+        while: "{{ states('sensor.vacuum_next_rooms_to_clean') | from_json | length > 0 }}"
+        sequence:
+          - service: input_number.increment
+            entity_id: input_number.vacuum_rooms_cleaned_since_being_emptied
+          - service: input_datetime.set_datetime
+            entity_id: >-
+              {% set id = (states('sensor.vacuum_next_rooms_to_clean') | from_json)[0] | int(0) %}
+              {% for state in states.input_number %}
+                {% if state.entity_id.endswith('_id') and (state.state | int(0)) == id %}
+                  input_datetime.vacuum_{{ state.entity_id.split('_')[2] }}_last_cleaned
+                {% endif %}
+              {% endfor %}
+            data:
+              timestamp: "{{ now().timestamp() }}"
 
 - alias: Vacuum - Empty bin notification
   id: vacuum_empty_bin_notification
