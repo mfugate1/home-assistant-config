@@ -245,3 +245,41 @@ climate_heat_workout_temp:
   name: Workout
   min: 50
   max: 80
+
+vacuum_rooms_cleaned_since_being_emptied:
+  min: 0
+  max: 30
+  mode: box
+vacuum_max_rooms_cleaned_before_emptying:
+  min: 1
+  max: 30
+run_vacuum_after_away_min:
+  min: 1
+  max: 30
+run_vacuum_after_asleep_min:
+  min: 15
+  max: 120
+vacuum_bedroom_id:
+  min: 1
+  max: 25
+vacuum_diningroom_id:
+  min: 1
+  max: 25
+vacuum_gameroom_id:
+  min: 1
+  max: 25
+vacuum_hallway_id:
+  min: 1
+  max: 25
+vacuum_kitchen_id:
+  min: 1
+  max: 25
+vacuum_livingroom_id:
+  min: 1
+  max: 25
+vacuum_office_id:
+  min: 1
+  max: 25
+vacuum_upstairsbathroom_id:
+  min: 1
+  max: 25

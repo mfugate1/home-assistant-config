@@ -231,3 +231,26 @@ hvac_off:
     - binary_sensor.kitchen_window
     - binary_sensor.office_window
     - binary_sensor.sliding_side_door
+
+vacuum_enable_all_rooms_day:
+  entities:
+    - input_boolean.vacuum_gameroom_day_enable
+    - input_boolean.vacuum_hallway_day_enable
+    - input_boolean.vacuum_bedroom_day_enable
+    - input_boolean.vacuum_livingroom_day_enable
+    - input_boolean.vacuum_kitchen_day_enable
+    - input_boolean.vacuum_diningroom_day_enable
+    - input_boolean.vacuum_office_day_enable
+    - input_boolean.vacuum_upstairsbathroom_day_enable
+
+vacuum_enable_all_rooms_night:
+  icon: mdi:robot-vacuum
+  entities:
+    - input_boolean.vacuum_gameroom_night_enable
+    - input_boolean.vacuum_hallway_night_enable
+    - input_boolean.vacuum_bedroom_night_enable
+    - input_boolean.vacuum_livingroom_night_enable
+    - input_boolean.vacuum_kitchen_night_enable
+    - input_boolean.vacuum_diningroom_night_enable
+    - input_boolean.vacuum_office_night_enable
+    - input_boolean.vacuum_upstairsbathroom_night_enable

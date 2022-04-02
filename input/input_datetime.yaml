@@ -31,3 +31,33 @@ battery_last_replaced_upstairsbathroom_door_sensor:
 battery_last_replaced_upstairsbathroom_sensor:
   has_date: true
   has_time: true
+
+####### VACUUM ########
+vacuum_room_cleaned_today_reset_time:
+  has_time: true
+vacuum_night_cleaning_end_time:
+  has_time: true
+vacuum_gameroom_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_hallway_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_bedroom_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_livingroom_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_kitchen_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_diningroom_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_office_last_cleaned:
+  has_date: true
+  has_time: true
+vacuum_upstairsbathroom_last_cleaned:
+  has_date: true
+  has_time: true

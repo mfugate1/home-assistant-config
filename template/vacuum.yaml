@@ -1,0 +1,48 @@
+- sensor:
+    - name: vacuum_next_rooms_to_clean
+      state: >-
+        {% set time = 'day' if is_state('input_boolean.sleep_mode', 'off') else 'night' %}
+        {% for state in states.input_datetime %}
+          {% if state.entity_id.endswith('_last_cleaned') %}
+            {% set room_enabled = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', time + '_enable'), 'on') %}
+            {% set state_date = strptime(state.state, '%Y-%m-%d %H:%M:%S') %}
+            {% if room_enabled and as_local(state_date) < now() - timedelta(days=1) %}
+              {{ states(state.entity_id.replace('datetime', 'number').replace('last_cleaned', 'id')) | int }},
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+    - name: vacuum_next_rooms_to_clean_list
+      state: >-
+        {% set ns = namespace(ids=[]) %}
+        {% set time = 'day' if is_state('input_boolean.sleep_mode', 'off') else 'night' %}
+        {% for state in states.input_datetime %}
+          {% if state.entity_id.endswith('_last_cleaned') %}
+            {% set room_enabled = is_state(state.entity_id.replace('datetime', 'boolean').replace('last_cleaned', time + '_enable'), 'on') %}
+            {% set state_date = strptime(state.state, '%Y-%m-%d %H:%M:%S') %}
+            {% if room_enabled and as_local(state_date) < now() - timedelta(days=1) %}
+              {% set id = states(state.entity_id.replace('datetime', 'number').replace('last_cleaned', 'id')) | int %}
+              {% set ns.ids = ns.ids + [id] %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        {{ ns.ids }}
+- trigger:
+    platform: time_pattern
+    minutes: /1
+  sensor:
+    - name: vacuum_gameroom_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_gameroom_last_cleaned'))) }} ago"
+    - name: vacuum_hallway_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_hallway_last_cleaned'))) }} ago"
+    - name: vacuum_bedroom_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_bedroom_last_cleaned'))) }} ago"
+    - name: vacuum_livingroom_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_livingroom_last_cleaned'))) }} ago"
+    - name: vacuum_kitchen_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_kitchen_last_cleaned'))) }} ago"
+    - name: vacuum_diningroom_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_diningroom_last_cleaned'))) }} ago"
+    - name: vacuum_office_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_office_last_cleaned'))) }} ago"
+    - name: vacuum_upstairsbathroom_last_cleaned
+      state: "{{ relative_time(as_datetime(states('input_datetime.vacuum_upstairsbathroom_last_cleaned'))) }} ago"

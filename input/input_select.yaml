@@ -66,3 +66,16 @@ hass_deployment_status:
     - Deploying Configuration
     - Restarting Server
     - Error
+
+vacuum_fan_speed_day:
+  options:
+    - Silent
+    - Standard
+    - Medium
+    - Turbo
+vacuum_fan_speed_night:
+  options:
+    - Silent
+    - Standard
+    - Medium
+    - Turbo

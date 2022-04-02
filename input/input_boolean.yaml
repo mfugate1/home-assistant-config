@@ -1,7 +1,5 @@
 music_database_updater:
 phone_text_notification:
-run_vacuum:
-  name: Run Vacuum
 sleep_mode:
 
 # Tasks
@@ -48,3 +46,30 @@ katy_garage_access:
 workout_mode:
   name: Workout Mode
   icon: mdi:weight-lifter
+
+vacuum_gameroom_night_enable:
+vacuum_hallway_night_enable:
+vacuum_bedroom_night_enable:
+vacuum_livingroom_night_enable:
+vacuum_kitchen_night_enable:
+vacuum_diningroom_night_enable:
+vacuum_office_night_enable:
+vacuum_upstairsbathroom_night_enable:
+
+vacuum_gameroom_day_enable:
+vacuum_hallway_day_enable:
+vacuum_bedroom_day_enable:
+vacuum_livingroom_day_enable:
+vacuum_kitchen_day_enable:
+vacuum_diningroom_day_enable:
+vacuum_office_day_enable:
+vacuum_upstairsbathroom_day_enable:
+
+vacuum_gameroom_cleaned_today:
+vacuum_hallway_cleaned_today:
+vacuum_bedroom_cleaned_today:
+vacuum_livingroom_cleaned_today:
+vacuum_kitchen_cleaned_today:
+vacuum_diningroom_cleaned_today:
+vacuum_office_cleaned_today:
+vacuum_upstairsbathroom_cleaned_today:
