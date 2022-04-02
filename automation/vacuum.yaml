@@ -83,6 +83,7 @@
                 {% endfor %}
             data:
               timestamp: "{{ now().timestamp() }}"
+          - delay: 2
 
 - alias: Vacuum - Empty bin notification
   id: vacuum_empty_bin_notification
