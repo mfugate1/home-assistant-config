@@ -1,7 +1,7 @@
 - platform: snmp
   name: truenas_uptime
   host: ${TRUENAS_IP}
-  baseoid: 1.3.6.1.2.1.1.3.0
+  baseoid: 1.3.6.1.2.1.25.1.1.0
   accept_errors: true
   unit_of_measurement: "minutes"
   value_template: "{{ ((value | int(0)) / 6000) | int(0) }}"
@@ -23,3 +23,28 @@
   baseoid: 1.3.6.1.4.1.2021.10.1.3.3
   accept_errors: true
   unit_of_measurement: "%"
+- platform: snmp
+  name: truenas_database_zpool_health
+  host: ${TRUENAS_IP}
+  baseoid: 1.3.6.1.4.1.50536.1.1.1.1.7.1
+  accept_errors: true
+  value_template: &zpool_health_template >-
+    {% if value == "0" %}
+      Online
+    {% elif value == "1" %}
+      Degraded
+    {% elif value == "1" %}
+      Faulted
+    {% elif value == "1" %}
+      Offline
+    {% elif value == "1" %}
+      Unavailable
+    {% else %}
+      Removed
+    {% endif %}
+- platform: snmp
+  name: truenas_docker_zpool_health
+  host: ${TRUENAS_IP}
+  baseoid: 1.3.6.1.4.1.50536.1.1.1.1.7.2
+  accept_errors: true
+  value_template: *zpool_health_template
