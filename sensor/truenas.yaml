@@ -1,7 +1,7 @@
 - platform: snmp
   name: truenas_uptime
   host: ${TRUENAS_IP}
-  baseoid: 1.3.6.1.2.1.1.3.0
+  baseoid: hrSystemUptime.0
   accept_errors: true
   unit_of_measurement: "minutes"
   value_template: "{{ ((value | int(0)) / 6000) | int(0) }}"
