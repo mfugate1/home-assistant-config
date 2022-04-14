@@ -82,9 +82,17 @@
         - binary_sensor.upstairsbathroom_door
         - sensor.upstairsbathroom_humidity
         - input_number.upstairsbathroom_vent_humidity_threshold
+  condition:
+    condition: not
+    conditions:
+      - condition: or
+        conditions:
+          - "{{ is_state('binary_sensor.upstairsbathroom_door', 'unavailable') }}"
+          - "{{ is_state('sensor.upstairsbathroom_humidity', 'unavailable') }}"
   action:
     service: >-
-      {% if is_state('binary_sensor.upstairsbathroom_door', 'on') and (states('sensor.upstairsbathroom_humidity') | int(0)) < (states('input_number.upstairsbathroom_vent_humidity_threshold') | int(0)) %}
+      {% if (is_state('binary_sensor.upstairsbathroom_door', 'on') 
+          and (states('sensor.upstairsbathroom_humidity') | int(0)) < (states('input_number.upstairsbathroom_vent_humidity_threshold') | int(0))) %}
         switch.turn_off
       {% else %}
         switch.turn_on
