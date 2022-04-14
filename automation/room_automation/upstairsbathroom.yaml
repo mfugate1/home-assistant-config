@@ -82,6 +82,10 @@
         - binary_sensor.upstairsbathroom_door
         - sensor.upstairsbathroom_humidity
         - input_number.upstairsbathroom_vent_humidity_threshold
+    - platform: event
+      event_type: automation_reloaded
+    - platform: homeassistant
+      event: start
   condition:
     condition: not
     conditions:
