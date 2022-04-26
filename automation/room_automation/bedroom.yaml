@@ -176,3 +176,14 @@
         {% else %}
           Flat
         {% endif %}
+
+- alias: Set bed firmness for Katy
+  id: set_bed_firmness_for_katy
+  trigger:
+    platform: state
+    entity_id: device_tracker.pixel_3a
+  action:
+    service: number.set_value
+    entity_id: number.sleepnumber_master_bed_guest_firmness
+    data:
+      value: "{{ 50 if trigger.to_state.state == 'home' else 100 }}"
