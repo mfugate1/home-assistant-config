@@ -4,8 +4,7 @@ automation:
     mode: restart
     trigger:
       platform: state
-      entity_id: group.office_occupancy
-      to: "on"
+      entity_id: binary_sensor.pico_mmwave
     condition:
       - condition: state
         entity_id: person.mike
@@ -14,7 +13,7 @@ automation:
         entity_id: input_boolean.sleep_mode
         state: "off"
     action:
-      service: light.turn_on
+      service: light.turn_{{ trigger.to_state.state }}
       target:
         entity_id: light.office
 
