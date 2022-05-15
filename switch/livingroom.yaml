@@ -19,8 +19,8 @@
     livingroom_music:
       friendly_name: Music
       icon_template: mdi:music
-      value_template: "{{ is_state('media_player.livingroom_squeezelite', 'playing') and is_state('media_player.livingroom_receiver', 'on') and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 2') }}"
-      availability_template: "{{ not is_state('media_player.livingroom_receiver', 'unavailable') and not is_state('media_player.livingroom_squeezelite', 'unavailable') }}"
+      value_template: "{{ is_state('media_player.livingroom', 'playing') and is_state('media_player.livingroom_receiver', 'on') and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 2') }}"
+      availability_template: "{{ not is_state('media_player.livingroom_receiver', 'unavailable') and not is_state('media_player.livingroom', 'unavailable') }}"
       turn_on:
         - service: script.turn_on
           target:
