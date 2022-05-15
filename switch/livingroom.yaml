@@ -30,7 +30,7 @@
               media_type: music
         - service: shell_command.curl
           data:
-            url: ${LMS_URL}/plugins/spotty/index.html?action=playall&index=8.1&player=b8%3A27%3Aeb%3Ad3%3A90%3A9b&sess=&start=
+            url: ${LMS_URL}/plugins/spotty/index.html?action=playall&index=8.1&player=11%3A22%3A33%3A44%3A55%3A66&sess=&start=
       turn_off:
         - service: media_player.clear_playlist
           target:
