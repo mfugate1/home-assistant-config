@@ -182,6 +182,7 @@
   trigger:
     platform: state
     entity_id: device_tracker.pixel_3a
+    for: 00:30:00
   action:
     service: number.set_value
     entity_id: number.sleepnumber_master_bed_guest_firmness
