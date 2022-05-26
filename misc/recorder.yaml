@@ -1,4 +1,4 @@
-db_url: mysql://homeassistant:${HASS_DB_PASSWORD}@192.168.1.150/homeassistant?charset=utf8
+db_url: mysql://homeassistant:${HASS_DB_PASSWORD}@192.168.1.87/homeassistant?charset=utf8
 purge_keep_days: 90
 exclude:
   domains:
