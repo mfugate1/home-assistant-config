@@ -14,7 +14,7 @@ camera:
     host: 192.168.1.47
     token: ${XIAOMI_VACUUM_TOKEN}
     username: ${XIAOMI_VACUUM_USERNAME}
-    password: ${XIAOMI_VACUUM_PASSWORD}
+    password: '${XIAOMI_VACUUM_PASSWORD}'
     draw: ['all']
     attributes:
       - calibration_points
