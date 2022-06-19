@@ -18,5 +18,5 @@
     - locationAltitude
     - startUrl
     - currentPage
-  resource: ${LIVINGROOM_TABLET_STATS_URL}
+  resource: !secret LIVINGROOM_TABLET_STATS_URL
   value_template: "{{ value_json.isScreenOn if 'isScreenOn' in value_json else 'off' }}"
