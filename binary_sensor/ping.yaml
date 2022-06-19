@@ -1,5 +1,5 @@
 - platform: ping
-  host: ${LAPTOP_IP}
+  host: 192.168.1.162
   name: laptop
   count: 2
   scan_interval: 60

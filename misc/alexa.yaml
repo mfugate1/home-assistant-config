@@ -1,7 +1,7 @@
 smart_home:
   endpoint: https://api.amazonalexa.com/v3/events
-  client_id: ${HASS_ALEXA_CLIENT_ID}
-  client_secret: ${HASS_ALEXA_CLIENT_SECRET}
+  client_id: !secret HASS_ALEXA_CLIENT_ID
+  client_secret: !secret HASS_ALEXA_CLIENT_SECRET
   filter:
     include_domains:
       - climate

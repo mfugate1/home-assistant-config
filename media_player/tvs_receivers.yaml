@@ -1,16 +1,16 @@
 - platform: onkyo
-  host: ${LIVINGROOM_RECEIVER_IP}
+  host: 192.168.1.43
   name: livingroom_receiver
   receiver_max_volume: 78
 - platform: onkyo
-  host: ${GAMEROOM_RECEIVER_IP}
+  host: 192.168.1.45
   name: gameroom_receiver
   receiver_max_volume: 100
 - platform: aquostv
-  host: ${LIVINGROOM_TV_IP}
+  host: 192.168.1.42
   name: livingroom_tv
   power_on_enabled: true
 - platform: aquostv
-  host: ${BASEMENT_TV_IP}
+  host: 192.168.1.46
   name: basement_tv
   power_on_enabled: true
