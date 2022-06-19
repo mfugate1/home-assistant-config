@@ -12,9 +12,9 @@ wake_on_lan:
 camera:
   - platform: xiaomi_cloud_map_extractor
     host: 192.168.1.47
-    token: ${XIAOMI_VACUUM_TOKEN}
-    username: ${XIAOMI_VACUUM_USERNAME}
-    password: '${XIAOMI_VACUUM_PASSWORD}'
+    token: !secret XIAOMI_VACUUM_TOKEN
+    username: !secret XIAOMI_VACUUM_USERNAME
+    password: !secret XIAOMI_VACUUM_PASSWORD
     draw: ['all']
     attributes:
       - calibration_points
@@ -25,23 +25,21 @@ frontend:
   themes: !include_dir_merge_named themes
 
 google:
-  client_id: ${GOOGLE_CALENDAR_CLIENT_ID}
-  client_secret: ${GOOGLE_CALENDAR_CLIENT_SECRET}
+  client_id: !secret GOOGLE_CALENDAR_CLIENT_ID
+  client_secret: !secret GOOGLE_CALENDAR_CLIENT_SECRET
 
 homeassistant:
   packages: !include_dir_named packages
 
 http:
   use_x_forwarded_for: true
-  trusted_proxies: ${HASS_TRUSTED_PROXIES}
+  trusted_proxies:
+    - 192.168.1.0/24
+    - 172.0.0.0/8
 
 sleepiq:
-  username: ${SLEEPIQ_USERNAME}
-  password: ${SLEEPIQ_PASSWORD}
-
-spotify:
-  client_id: ${SPOTIFY_CLIENT_ID}
-  client_secret: ${SPOTIFY_CLIENT_SECRET}
+  username: !secret SLEEPIQ_USERNAME
+  password: !secret SLEEPIQ_PASSWORD
 
 alexa: !include misc/alexa.yaml
 automation: !include_dir_merge_list automation/
