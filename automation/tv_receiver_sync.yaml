@@ -47,4 +47,4 @@
   action:
     service: wake_on_lan.send_magic_packet
     data:
-      mac: ${GAMEROOM_TV_MAC}
+      mac: 78:5D:C8:12:91:49
