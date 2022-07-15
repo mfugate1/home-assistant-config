@@ -5,38 +5,43 @@ fields:
     example: roku
 mode: restart
 sequence:
-  - service: media_player.turn_on
-    entity_id: media_player.livingroom_receiver
-  - choose:
-      - conditions: "{{ media_type == 'music' }}"
-        sequence:
-          - service: media_player.turn_off
-            entity_id: media_player.livingroom_tv
-    default:
+  - parallel:
+    - sequence:
       - service: media_player.turn_on
-        entity_id: media_player.livingroom_tv
-  - wait_template: "{{ is_state('media_player.livingroom_receiver', 'on') and (media_type == 'music' or is_state('media_player.livingroom_tv', 'on'))}}"
-    timeout:
-      seconds: 6
-  - service: media_player.select_source
-    entity_id: media_player.livingroom_receiver
-    data:
-      source: >-
-        {% if media_type == 'music' %}
-          Video 2
-        {% else %}
-          tv/cd
-        {% endif %}
-  - condition: template
-    value_template: "{{ media_type != 'music' }}"
-  - service: media_player.select_source
-    entity_id: media_player.livingroom_tv
-    data:
-      source: >-
-        {% if media_type == 'steam' %}
-          HDMI_IN_2
-        {% elif media_type == 'roku' %}
-          HDMI_IN_3
-        {% else %}
-          HDMI_IN_4
-        {% endif %}
+        entity_id: media_player.livingroom_receiver
+      - delay: 3
+      - service: media_player.select_source
+        entity_id: media_player.livingroom_receiver
+        data:
+          source: >-
+            {% if media_type == 'music' %}
+              Video 2
+            {% elif media_type == 'ps3' %}
+              Video 3
+            {% elif media_type == 'steam' %}
+              Bluray
+            {% else %}
+              tv/cd
+            {% endif %}
+    - choose:
+        - conditions: "{{ media_type == 'music' }}"
+          sequence:
+            - service: media_player.turn_off
+              entity_id: media_player.livingroom_tv
+      default:
+        - service: media_player.turn_on
+          entity_id: media_player.livingroom_tv
+        - delay: 3
+        - service: media_player.select_source
+          entity_id: media_player.livingroom_tv
+          data:
+            source: >-
+              {% if media_type == 'ps4' %}
+                HDMI_IN_4
+              {% elif media_type == 'roku' %}
+                HDMI_IN_2
+              {% elif media_type == 'switch' %}
+                HDMI_IN_3
+              {% else %}
+                HDMI_IN_1
+              {% endif %}
