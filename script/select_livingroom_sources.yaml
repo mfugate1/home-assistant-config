@@ -7,9 +7,14 @@ mode: restart
 sequence:
   - parallel:
     - sequence:
-      - service: media_player.turn_on
-        entity_id: media_player.livingroom_receiver
-      - delay: 3
+      - if:
+          - condition: state
+            entity_id: media_player.livingroom_receiver
+            state: 'off'
+        then:
+          - service: media_player.turn_on
+            entity_id: media_player.livingroom_receiver
+          - delay: 3
       - service: media_player.select_source
         entity_id: media_player.livingroom_receiver
         data:
@@ -29,9 +34,14 @@ sequence:
             - service: media_player.turn_off
               entity_id: media_player.livingroom_tv
       default:
-        - service: media_player.turn_on
-          entity_id: media_player.livingroom_tv
-        - delay: 3
+        - if:
+            - condition: state
+              entity_id: media_player.livingroom_tv
+              state: 'off'
+          then:
+            - service: media_player.turn_on
+              entity_id: media_player.livingroom_tv
+            - delay: 3
         - service: media_player.select_source
           entity_id: media_player.livingroom_tv
           data:
