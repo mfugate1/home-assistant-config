@@ -1,88 +1,170 @@
 - platform: template
   switches:
+    livingroom_disneyplus:
+      friendly_name: Disney+
+      icon_template: phu:disney-plus
+      value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Disney Plus') }}"
+      availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
+      turn_on:
+        - parallel:
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: Disney Plus
+      turn_off:
+        - parallel:
+          - service: remote.send_command
+            entity_id: remote.livingroom_roku
+            data:
+              command:
+                - home
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
+
     livingroom_hulu:
       friendly_name: Hulu
       icon_template: mdi:hulu
       value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Hulu') }}"
       availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
       turn_on:
-        - service: script.select_livingroom_sources
-          data:
-            media_type: roku
-        - service: media_player.select_source
-          entity_id: media_player.livingroom_roku
-          data:
-            source: Hulu
+        - parallel:
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: Hulu
       turn_off:
-        service: media_player.turn_off
-        entity_id: media_player.livingroom_media
+        - parallel:
+          - service: remote.send_command
+            entity_id: remote.livingroom_roku
+            data:
+              command:
+                - home
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
+
     livingroom_music:
       friendly_name: Music
       icon_template: mdi:music
       value_template: "{{ is_state('media_player.livingroom', 'playing') and is_state('media_player.livingroom_receiver', 'on') and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 2') }}"
       availability_template: "{{ not is_state('media_player.livingroom_receiver', 'unavailable') and not is_state('media_player.livingroom', 'unavailable') }}"
       turn_on:
-        - service: script.turn_on
-          target:
-            entity_id: script.select_livingroom_sources
-          data:
-            variables:
+        - parallel:
+          - service: script.select_livingroom_sources
+            data:
               media_type: music
-        - service: shell_command.curl
-          data:
-            url: ${LMS_URL}/plugins/spotty/index.html?action=playall&index=8.1&player=11%3A22%3A33%3A44%3A55%3A66&sess=&start=
-      turn_off:
-        - service: media_player.clear_playlist
-          target:
+          - service: media_player.play_media
             entity_id: media_player.livingroom_squeezelite
-        - service: media_player.turn_off
-          target:
+            data:
+              media_content_id: '6372'
+              media_content_type: 'playlist'
+              enqueue: replace
+      turn_off:
+        - parallel:
+          - service: media_player.clear_playlist
+            entity_id: media_player.livingroom_squeezelite
+          - service: media_player.turn_off
             entity_id: media_player.livingroom_receiver
+
     livingroom_netflix:
       friendly_name: Netflix
       icon_template: mdi:netflix
       value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'Netflix') }}"
       availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
       turn_on:
-        - service: media_player.select_source
-          entity_id: media_player.livingroom_roku
-          data:
-            source: Netflix
-        - service: script.select_livingroom_sources
-          data:
-            media_type: roku
+        - parallel:
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: Netflix
       turn_off:
-        service: media_player.turn_off
-        entity_id: media_player.livingroom_media
+        - parallel:
+          - service: remote.send_command
+            entity_id: remote.livingroom_roku
+            data:
+              command:
+                - home
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
+
     livingroom_ps4:
       friendly_name: PS4
       icon_template: mdi:sony-playstation
-      value_template: "{{ not is_state('media_player.playstation_4_livingroom', 'standby') and not is_state('media_player.playstation_4_livingroom', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
+      value_template: "{{ not is_state('media_player.livingroom_ps4', 'standby') and not is_state('media_player.livingroom_ps4', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_4') }}"
       availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_livingroom', 'unavailable') and not is_state('media_player.playstation_4_livingroom', 'unknown') }}"
       turn_on:
-        - service: media_player.turn_on
-          entity_id: media_player.playstation_4_livingroom
-        - service: script.select_livingroom_sources
-          data:
-            media_type: ps4
+        - parallel:
+          - service: media_player.turn_on
+            entity_id: media_player.livingroom_ps4
+          - service: script.select_livingroom_sources
+            data:
+              media_type: ps4
       turn_off:
-        service: media_player.turn_off
-        entity_id:
-          - media_player.playstation_4_livingroom
-          - media_player.livingroom_media
+        - parallel:
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_ps4
+
     livingroom_steam:
       friendly_name: Steam
       icon_template: mdi:steam
       value_template: "{{ is_state('switch.pc', 'on') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_1') }}"
       availability_template: "{{ not is_state('switch.pc', 'unavailable') and not is_state('media_player.livingroom_tv', 'unavailable') }}"
       turn_on:
-        - service: switch.turn_on
-          entity_id: switch.pc
-        - service: script.select_livingroom_sources
-          data:
-            media_type: steam
+        - parallel:
+          - service: switch.turn_on
+            entity_id: switch.pc
+          - service: script.select_livingroom_sources
+            data:
+              media_type: steam
       turn_off:
-        service: homeassistant.turn_off
-        entity_id:
-          - switch.pc
-          - media_player.livingroom_media
+        - parallel:
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
+          - service: switch.turn_off
+            entity_id: switch.pc
+
+  livingroom_youtube:
+      friendly_name: YouTube
+      icon_template: mdi:youtube
+      value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'YouTube') }}"
+      availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
+      turn_on:
+        - parallel:
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: YouTube
+      turn_off:
+        - parallel:
+          - service: remote.send_command
+            entity_id: remote.livingroom_roku
+            data:
+              command:
+                - home
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
