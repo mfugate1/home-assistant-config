@@ -190,7 +190,7 @@ office_occupancy:
     - binary_sensor.office_motion_2
     - binary_sensor.office_motion_3
     - binary_sensor.laptop_in_use
-    - binary_sensor.pico_mmwave
+    - binary_sensor.office_aqara_fp1_presence
 patio_occupancy:
   name: Patio
   icon: hass:walk
