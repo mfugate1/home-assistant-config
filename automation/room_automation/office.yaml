@@ -53,3 +53,17 @@
   action:
     service: media_player.media_pause
     entity_id: media_player.spotify_stukabombr1
+    
+- alias: Office Light Test
+  trigger:
+    platform: state
+    entity_id:
+      - sensor.office_aqara_fp1_presence_event
+    to:
+      - enter
+      - left_enter
+      - right_enter
+      - approach
+  action:
+    service: light.turn_on
+    entity_id: light.office
