@@ -39,7 +39,8 @@ sleepiq:
   password: !secret SLEEPIQ_PASSWORD
 
 alexa: !include misc/alexa.yaml
-automation: !include_dir_merge_list automation/
+automation: !include automations.yaml
+automation manual: !include_dir_merge_list automation/
 binary_sensor: !include_dir_merge_list binary_sensor/
 cover: !include misc/garage_door_cover.yaml
 device_tracker: !include misc/device_tracker.yaml
