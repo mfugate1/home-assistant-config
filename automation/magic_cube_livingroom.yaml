@@ -23,17 +23,17 @@
       - service: switch.toggle
         target:
           entity_id: >-
-            {% if is_state('input_number.magic_cube_livingroom_last_known_side', 0) %}
+            {% if states('input_number.magic_cube_livingroom_last_known_side') | int == 0 %}
               switch.livingroom_netflix
-            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 1) %}
+            {% elif states('input_number.magic_cube_livingroom_last_known_side') | int == 1 %}
               switch.livingroom_displayplus
-            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 2) %}
+            {% elif states('input_number.magic_cube_livingroom_last_known_side') | int == 2 %}
               switch.livingroom_plex
-            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 3) %}
+            {% elif states('input_number.magic_cube_livingroom_last_known_side') | int == 3 %}
               switch.livingroom_hulu
-            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 4) %}
+            {% elif states('input_number.magic_cube_livingroom_last_known_side') | int == 4 %}
               switch.livingroom_youtube
-            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 5) %}
+            {% elif states('input_number.magic_cube_livingroom_last_known_side') | int == 5 %}
               switch.livingroom_ps4
             {% endif %}
       - service: notify.alexa_media_livingroom_echo
@@ -42,5 +42,5 @@
             <audio src="soundbank://soundlibrary/alarms/beeps_and_bloops/bell_06"/>
           data:
             type: tts
-            
+
       # Failure sound <audio src="soundbank://soundlibrary/alarms/beeps_and_bloops/buzz_02"/>
