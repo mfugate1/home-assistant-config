@@ -1,0 +1,46 @@
+- alias: Magic Cube - Living Room - Set Last Known Side
+  id: magic_cube_livingroom_set_last_known_side
+  trigger:
+    platform: state
+    entity_id: sensor.magic_cube_action_side
+  action:
+    service: input_number.set_value
+    entity_id: input_number.magic_cube_livingroom_last_known_side
+    data:
+      value: "{{ trigger.to_state.state }}"
+
+- alias: Magic Cube - Living Room - Tap
+  id: magic_cube_livingroom_tap
+  trigger:
+    platform: device
+    domain: mqtt
+    device_id: a17597ba38cebb7a54cc0271c367dfc8
+    type: action
+    subtype: tap
+    discovery_id: 0x00158d000802ad48 action_tap
+  action:
+    parallel:
+      - service: switch.toggle
+        target:
+          entity_id: >-
+            {% if is_state('input_number.magic_cube_livingroom_last_known_side', 0) %}
+              switch.livingroom_netflix
+            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 1) %}
+              switch.livingroom_displayplus
+            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 2) %}
+              switch.livingroom_plex
+            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 3) %}
+              switch.livingroom_hulu
+            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 4) %}
+              switch.livingroom_youtube
+            {% elif is_state('input_number.magic_cube_livingroom_last_known_side', 5) %}
+              switch.livingroom_ps4
+            {% endif %}
+      - service: notify.alexa_media_livingroom_echo
+        data:
+          message: |
+            <audio src="soundbank://soundlibrary/alarms/beeps_and_bloops/bell_06"/>
+          data:
+            type: tts
+            
+      # Failure sound <audio src="soundbank://soundlibrary/alarms/beeps_and_bloops/buzz_02"/>
