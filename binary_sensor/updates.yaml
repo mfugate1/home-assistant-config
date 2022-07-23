@@ -1,8 +1,0 @@
-- platform: rest
-  name: latest_certbot_image_available_on_docker_hub
-  resource_template: https://hub.docker.com/v2/repositories/certbot/certbot/tags/{{ states('sensor.certbot_latest_version') }}
-  value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"
-- platform: rest
-  name: latest_zwavejs2mqtt_image_available_on_docker_hub
-  resource_template: https://hub.docker.com/v2/repositories/zwavejs/zwavejs2mqtt/tags/{{ states('sensor.zwavejs2mqtt_latest_version') }}
-  value_template: "{% if value_json.tag_status == 'active' %} on {% else %} off {% endif %}"

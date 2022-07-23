@@ -210,13 +210,6 @@ guest_devices:
     - device_tracker.space_invader
     - device_tracker.dummy_guest
 
-update_available:
-  icon: mdi:update
-  entities:
-    - binary_sensor.updater
-    - binary_sensor.certbot_updater
-    - binary_sensor.zwavejs2mqtt_updater
-
 hvac_off:
   entities:
     - binary_sensor.bedroom_window_back
