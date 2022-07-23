@@ -1,15 +1,3 @@
-bed_position_foot:
-  min: 0
-  max: 100
-bed_position_head:
-  min: 0
-  max: 100
-bed_sleep_number_left:
-  min: 0
-  max: 100
-bed_sleep_number_right:
-  min: 0
-  max: 100
 dehumidifier_off_threshold:
   name: Off Threshold
   min: 0
@@ -18,12 +6,6 @@ dehumidifier_on_threshold:
   name: On Threshold
   min: 0
   max: 100
-inovelli_light_level:
-  min: 0
-  max: 10
-inovelli_light_duration:
-  min: 0
-  max: 120
 
 # Bedroom automation config
 bedroom_occupancy_timeout_minutes:
@@ -57,117 +39,6 @@ bedroom_wake_up_lamp_transition:
   max: 10
   mode: box
 
-# Occupancy timeouts
-occupancy_basement_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_basement_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_basement_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_diningroom_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_diningroom_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_diningroom_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_garage_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_garage_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_garage_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_gameroom_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_gameroom_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_gameroom_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_kitchen_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_kitchen_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_kitchen_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_laundryroom_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_laundryroom_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_laundryroom_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_livingroom_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_livingroom_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_livingroom_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-occupancy_patio_motion_timeout_minutes:
-  min: 0
-  max: 120
-  mode: box
-occupancy_patio_motion_timeout_seconds:
-  min: 0
-  max: 120
-  mode: box
-occupancy_patio_single_occupancy_timeout_seconds:
-  min: 0
-  max: 240
-  mode: box
-
-upstairsbathroom_vent_humidity_threshold:
-  name: Humidity Threshold
-  icon: mdi:water-percent
-  min: 50
-  max: 100
-  mode: box
 upstairsbathroom_occupancy_timeout_seconds:
   name: Occupancy Timeout
   icon: mdi:clock-outline
