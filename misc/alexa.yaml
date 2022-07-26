@@ -5,13 +5,13 @@ smart_home:
   filter:
     include_domains:
       - climate
-      - cover
       - light
       - script
     include_entity_globs:
       - media_player.*_receiver
       - media_player.*_tv
     include_entities:
+      - cover.blinds_gameroom_alexa
       - input_boolean.workout_mode
       - switch.dehumidifier
       - switch.basement_stereo
