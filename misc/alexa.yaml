@@ -8,10 +8,10 @@ smart_home:
       - light
       - script
     include_entity_globs:
+      - cover.*_alexa
       - media_player.*_receiver
       - media_player.*_tv
     include_entities:
-      - cover.blinds_gameroom_alexa
       - input_boolean.workout_mode
       - switch.dehumidifier
       - switch.basement_stereo

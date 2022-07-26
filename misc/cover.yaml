@@ -43,3 +43,23 @@
         entity_id: cover.blinds_gameroom
         data:
           position: "{{ 100 - position }}"
+    blinds_office_alexa:
+      friendly_name: Office Blinds
+      unique_id: blinds_office_alexa
+      device_class: blind
+      availability_template: "{{ not is_state('cover.blinds_office', 'unavailable') }}"
+      position_template: "{{ 100 - state_attr('cover.blinds_office', 'current_position') }}"
+      open_cover:
+        service: cover.close_cover
+        entity_id: cover.blinds_office
+      close_cover:
+        service: cover.open_cover
+        entity_id: cover.blinds_office
+      stop_cover:
+        service: cover.stop_cover
+        entity_id: cover.blinds_office
+      set_cover_position:
+        service: cover.set_cover_position
+        entity_id: cover.blinds_office
+        data:
+          position: "{{ 100 - position }}"
