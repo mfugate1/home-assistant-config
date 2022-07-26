@@ -63,7 +63,7 @@
             data:
               media_type: music
           - service: media_player.play_media
-            entity_id: media_player.livingroom_squeezelite
+            entity_id: media_player.livingroom_squeezebox
             data:
               media_content_id: '6372'
               media_content_type: 'playlist'
@@ -71,7 +71,7 @@
       turn_off:
         - parallel:
           - service: media_player.clear_playlist
-            entity_id: media_player.livingroom_squeezelite
+            entity_id: media_player.livingroom_squeezebox
           - service: media_player.turn_off
             entity_id: media_player.livingroom_receiver
 
