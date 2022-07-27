@@ -10,28 +10,6 @@
       state: "{{ trigger.to_state.attributes.hvac_action }}"
 
 - sensor:
-    - name: target_temp_heating
-      state: >-
-        {% if not is_state('person.mike', 'home') %}
-          {{ states('input_number.climate_heat_away_temp') }}
-        {% elif is_state('input_boolean.workout_mode', 'on') %}
-          {{ states('input_number.climate_heat_workout_temp') }}
-        {% elif is_state('input_boolean.sleep_mode', 'on') %}
-          {{ states('input_number.climate_heat_asleep_temp') }}
-        {% else %}
-          {{ states('input_number.climate_heat_home_temp') }}
-        {% endif %}
-    - name: target_temp_cooling
-      state: >-
-        {% if not is_state('person.mike', 'home') %}
-          {{ states('input_number.climate_cool_away_temp') }}
-        {% elif is_state('input_boolean.workout_mode', 'on') %}
-          {{ states('input_number.climate_cool_workout_temp') }}
-        {% elif is_state('input_boolean.sleep_mode', 'on') %}
-          {{ states('input_number.climate_cool_asleep_temp') }}
-        {% else %}
-          {{ states('input_number.climate_cool_home_temp') }}
-        {% endif %}
     - name: hvac_current_temperature
       state: "{{ state_attr('climate.thermostat', 'current_temperature') }}"
 - binary_sensor:

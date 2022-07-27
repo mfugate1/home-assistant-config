@@ -96,6 +96,10 @@ climate_cool_home_temp:
   name: Home
   min: 50
   max: 80
+climate_cool_target_temp:
+  name: Target
+  min: 50
+  max: 80
 climate_cool_workout_temp:
   name: Workout
   min: 50
@@ -112,10 +116,15 @@ climate_heat_home_temp:
   name: Home
   min: 50
   max: 80
+climate_heat_target_temp:
+  name: Target
+  min: 50
+  max: 80
 climate_heat_workout_temp:
   name: Workout
   min: 50
   max: 80
+
 
 vacuum_rooms_cleaned_since_being_emptied:
   min: 0
