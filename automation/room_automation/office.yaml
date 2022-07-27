@@ -15,7 +15,7 @@
       - "{{ not is_state('media_player.spotify_stukabombr1', 'playing') }}"
   action:
     - choose:
-        - conditions: "{{ not is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+        - conditions: "{{ not is_state_attr('media_player.spotify_stukabombr1', 'source', '13204-MFUGATE') }}"
           sequence:
             - service: media_player.select_source
               entity_id: media_player.spotify_stukabombr1
@@ -47,7 +47,7 @@
           - "{{ is_state('binary_sensor.laptop', 'on') }}"
           - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
           - "{{ is_state('group.office_occupancy', 'off') }}"
-          - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', 'T480S-10-12813') }}"
+          - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', '13204-MFUGATE') }}"
           - "{{ not is_state('sensor.last_occupied_room', 'office') }}"
       - "{{ trigger.entity_id.startswith('media_player') }}"
   action:
