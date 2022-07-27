@@ -25,6 +25,14 @@
   trigger:
     platform: state
     entity_id:
+      - input_number.climate_cool_asleep_temp
+      - input_number.climate_cool_away_temp
+      - input_number.climate_cool_home_temp
+      - input_number.climate_cool_workout_temp
+      - input_number.climate_heat_asleep_temp
+      - input_number.climate_heat_away_temp
+      - input_number.climate_heat_home_temp
+      - input_number.climate_heat_workout_temp
       - input_boolean.sleep_mode
       - input_boolean.workout_mode
       - person.mike
