@@ -1,4 +1,9 @@
 - platform: wake_on_lan
   name: PC
-  host: ${PC_IP}
-  mac: ${PC_MAC}
+  host: 192.168.1.21
+  mac: e0:d5:5e:6d:e6:1b
+
+- platform: wake_on_lan
+  name: Laptop
+  host: 192.168.1.20
+  mac: 04:7b:cb:5a:9f:f7
