@@ -38,50 +38,39 @@ views:
         "btn5 btn10 col2 col3"
     cards:
       - type: custom:button-card
-        entity: switch.entry_light
-        icon: mdi:ceiling-light
-        name: Entry
+        entity: switch.livingroom_hulu
         template: left_col_buttons
         view_layout:
           grid-area: btn1
+      - type: custom:button-card
+        entity: switch.livingroom_disneyplus
+        template: left_col_buttons
+        view_layout:
+          grid-area: btn2
+      - type: custom:button-card
+        entity: switch.livingroom_plex
+        template: left_col_buttons
+        view_layout:
+          grid-area: btn3
+      - type: custom:button-card
+        entity: switch.livingroom_ps4
+        template: left_col_buttons
+        view_layout:
+          grid-area: btn4
       - type: custom:button-card
         entity: light.diningroom
         icon: mdi:ceiling-light
         name: Dining Room
         template: left_col_buttons
         view_layout:
-          grid-area: btn2
-      - type: custom:button-card
-        entity: light.livingroom_lamp
-        name: Lamp
-        icon: mdi:lamp
-        template: left_col_buttons
-        view_layout:
-          grid-area: btn3
-      - type: custom:button-card
-        entity: cover.garage_door
-        template: warning_flash
-        view_layout:
-          grid-area: btn4
-        styles:
-          icon:
-            - color: var(--paper-item-icon-color)
-      - type: custom:button-card
-        entity: group.update_available
-        name: >-
-          [[[if (entity.state == "on") return "Updates"; else return "No Updates"]]]
-        template: warning_flash
-        view_layout:
           grid-area: btn5
-        tap_action:
-          action: more-info
       - type: custom:button-card
         entity: switch.livingroom_netflix
         template: left_col_buttons
         view_layout:
           grid-area: btn6
       - type: custom:button-card
-        entity: switch.livingroom_hulu
+        entity: switch.livingroom_youtube
         template: left_col_buttons
         view_layout:
           grid-area: btn7
