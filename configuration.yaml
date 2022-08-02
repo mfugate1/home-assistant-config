@@ -56,6 +56,7 @@ monitor_docker: !include misc/monitor_docker.yaml
 mqtt: !include_dir_named mqtt/
 person: !include misc/person.yaml
 recorder: !include misc/recorder.yaml
+rest_command: !include misc/rest_command.yaml
 script: !include_dir_named script/
 sensor: !include_dir_merge_list sensor/
 shell_command: !include misc/shell_command.yaml
