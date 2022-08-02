@@ -7,24 +7,13 @@
   action:
     - service: light.turn_on
       entity_id: light.basement
-    - service: shell_command.curl
-      data:
-        url: http://192.168.1.32:9000/plugins/spotty/index.html?action=playall&index=8.1&player=b8%3A27%3Aeb%3Ad3%3A90%3A9b&sess=&start=
+    - service: rest_command.basement_squeezebox_liked_songs_playlist
     - service: input_boolean.turn_off
       target:
         entity_id: input_boolean.workout_mode_available
     - service: switch.turn_on
       target:
         entity_id: switch.basement_stereo
-    - condition: state
-      entity_id: climate.thermostat
-      state: heat
-    - service: climate.set_temperature
-      target:
-        entity_id: climate.thermostat
-      data:
-        temperature: >-
-          {{ states('input_number.climate_heat_away_temp') }}
 
 - alias: Workout mode off
   id: workout_mode_off
@@ -34,20 +23,9 @@
     to: "off"
   action:
     - service: homeassistant.turn_off
-      target:
-        entity_id: group.basement
+      entity_id: group.basement
     - service: media_player.clear_playlist
-      target:
-        entity_id: media_player.picoreplayer
-    - condition: state
-      entity_id: climate.thermostat
-      state: heat
-    - service: climate.set_temperature
-      target:
-        entity_id: climate.thermostat
-      data:
-        temperature: >-
-          {{ states('input_number.climate_heat_home_temp') }}
+      entity_id: media_player.basement_squeezebox
 
 - alias: Workout mode - Turn off everything else when motion detected
   id: workout_mode_turn_off_everything_else_when_motion_detected

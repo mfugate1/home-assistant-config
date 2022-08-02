@@ -62,12 +62,7 @@
           - service: script.select_livingroom_sources
             data:
               media_type: music
-          - service: media_player.play_media
-            entity_id: media_player.livingroom_squeezebox
-            data:
-              media_content_id: '6372'
-              media_content_type: 'playlist'
-              enqueue: replace
+          - service: rest_command.livingroom_squeezebox_liked_songs_playlist
       turn_off:
         - parallel:
           - service: media_player.clear_playlist
