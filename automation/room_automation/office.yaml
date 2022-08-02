@@ -3,14 +3,14 @@
   trigger:
     platform: state
     entity_id:
-      - binary_sensor.laptop
+      - switch.laptop
       - binary_sensor.laptop_in_use
       - group.office_occupancy
       - sensor.last_occupied_room
   condition:
     condition: and
     conditions:
-      - "{{ is_state('binary_sensor.laptop', 'on') }}"
+      - "{{ is_state('switch.laptop', 'on') }}"
       - "{{ is_state('group.office_occupancy', 'on') }}"
       - "{{ not is_state('media_player.spotify_stukabombr1', 'playing') }}"
   action:
@@ -35,7 +35,7 @@
       to: 'on'
     - platform: state
       entity_id:
-        - binary_sensor.laptop
+        - switch.laptop
         - binary_sensor.laptop_in_use
         - group.office_occupancy
         - sensor.last_occupied_room
@@ -44,7 +44,7 @@
     conditions:
       - condition: and
         conditions:
-          - "{{ is_state('binary_sensor.laptop', 'on') }}"
+          - "{{ is_state('switch.laptop', 'on') }}"
           - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
           - "{{ is_state('group.office_occupancy', 'off') }}"
           - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', '13204-MFUGATE') }}"
