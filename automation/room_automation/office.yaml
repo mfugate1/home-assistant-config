@@ -115,7 +115,7 @@
   max_exceeded: silent
   trigger:
     platform: state
-    entity: input_boolean.occupancy_office
+    entity_id: input_boolean.occupancy_office
     to: 'on'
   action:
     service: light.turn_on
