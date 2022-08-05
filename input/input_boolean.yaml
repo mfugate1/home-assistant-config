@@ -64,5 +64,3 @@ vacuum_office_day_enable:
 vacuum_upstairsbathroom_day_enable:
 
 building_jenkins_agent_images:
-
-occupancy_office:
