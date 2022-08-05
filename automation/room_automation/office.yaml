@@ -79,7 +79,8 @@
 
 - alias: Office - Lights Off
   id: office_lights_off
-  mode: restart
+  mode: single
+  max_exceeded: silent
   trigger:
     platform: state
     entity_id:

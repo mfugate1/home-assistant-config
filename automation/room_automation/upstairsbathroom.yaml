@@ -13,7 +13,6 @@
     - platform: state
       entity_id:
         - binary_sensor.upstairsbathroom_motion_1
-        - binary_sensor.upstairsbathroom_motion_2
         - binary_sensor.upstairsbathroom_aqara_fp1_presence
       to: 'on'
   condition:
