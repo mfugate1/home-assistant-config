@@ -1,10 +1,18 @@
-- alias: Bedroom light on
-  id: bedroom_light_on
-  mode: restart
+- alias: Bedroom - Overhead Light On
+  id: bedroom_overhead_light_on
+  mode: single
+  max_exceeded: silent
   trigger:
-    platform: state
-    entity_id: group.bedroom_occupancy
-    to: "on"
+    - platform: state
+      entity_id: sensor.bedroom_aqara_fp1_presence_event
+      to:
+        - enter
+        - left_enter
+        - right_enter
+        - approach
+    - platform: state
+      entity_id: binary_sensor.bedroom_aqara_fp1_presence
+      to: 'on'
   condition:
     - condition: state
       entity_id:
@@ -12,48 +20,27 @@
         - input_boolean.sleep_mode
       state: "off"
     - condition: state
-      entity_id: binary_sensor.bedroom_door
-      state: "on"
-    - condition: state
-      entity_id: person.mike
-      state: home
+      entity_id: 
+        - binary_sensor.bedroom_door
+        - binary_sensor.someone_is_home
+      state: 'on'
   action:
     service: light.turn_on
     target:
       entity_id: light.bedroom_overhead
 
-- alias: Bedroom lights off
+- alias: Bedroom - Lights Off
   id: bedroom_lights_off
-  mode: restart
+  mode: single
+  max_exceeded: silent
   trigger:
-    - platform: state
-      entity_id: group.bedroom_occupancy
-      to: "off"
-      for:
-        minutes: >-
-          {{ (states('input_number.bedroom_quick_timeout_minutes') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_minutes')) | int(0) }}
-        seconds: >-
-          {{ (states('input_number.bedroom_quick_timeout_seconds') if is_state('input_boolean.single_occupancy_mode', 'on') else states('input_number.bedroom_occupancy_timeout_seconds')) | int(0) }}
-    - platform: state
-      entity_id: sensor.last_occupied_room
-  condition:
-    - condition: template
-      value_template: >-
-        {% set type = 'quick' if is_state('input_boolean.single_occupancy_mode', 'on') else 'occupancy' %}
-        {% set timeout = (states('input_number.bedroom_' + type + '_timeout_minutes') | int(0)) * 60 + (states('input_number.bedroom_' + type + '_timeout_seconds') | int(0)) %}
-        {{ (now() - states.group.bedroom_occupancy.last_updated).total_seconds() > timeout }}
-    - condition: state
-      entity_id: group.bedroom_occupancy
-      state: "off"
-    - condition: not
-      conditions:
-        - condition: state
-          entity_id: sensor.last_occupied_room
-          state: bedroom
+    platform: state
+    entity_id: binary_sensor.bedroom_aqara_fp1_presence
+    to: 'off'
   action:
     service: light.turn_off
     target:
-      entity_id: &allLights
+      entity_id:
         - light.bedroom_lamps
         - light.bedroom_overhead
 
