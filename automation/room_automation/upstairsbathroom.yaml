@@ -42,7 +42,7 @@
     - condition: state
       entity_id: binary_sensor.upstairsbathroom_door
       state: 'on'
-    - platform: state
+    - condition: state
       entity_id:
         - binary_sensor.upstairsbathroom_motion_1
         - binary_sensor.upstairsbathroom_motion_2
