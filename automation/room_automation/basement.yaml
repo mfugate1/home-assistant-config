@@ -1,0 +1,36 @@
+- alias: Basement - Lights On
+  id: basement_lights_on
+  mode: single
+  max_exceeded: silent
+  trigger:
+    - platform: state
+      entity_id: sensor.basement_aqara_fp1_presence_event
+      to:
+        - enter
+        - left_enter
+        - right_enter
+        - approach
+    - platform: state
+      entity_id: binary_sensor.basement_aqara_fp1_presence
+      to: 'on'
+  condition:
+    - condition: state
+      entity_id: binary_sensor.someone_is_home
+      state: 'on'
+  action:
+    service: light.turn_on
+    target:
+      entity_id: light.basement
+
+- alias: Basement - Lights Off
+  id: basement_lights_off
+  mode: single
+  max_exceeded: silent
+  trigger:
+    platform: state
+    entity_id: binary_sensor.basement_aqara_fp1_presence
+    to: 'off'
+  action:
+    service: light.turn_off
+    target:
+      entity_id: light.basement
