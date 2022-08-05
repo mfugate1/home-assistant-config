@@ -18,12 +18,15 @@
       entity_id:
         - binary_sensor.bed_occupied
         - input_boolean.sleep_mode
-      state: "off"
+      state: 'off'
     - condition: state
-      entity_id: 
-        - binary_sensor.bedroom_door
-        - binary_sensor.someone_is_home
+      entity_id: binary_sensor.someone_is_home
       state: 'on'
+    - condition: state
+      entity_id: binary_sensor.bedroom_door
+      state: 
+        - 'on'
+        - unknown
   action:
     service: light.turn_on
     target:
