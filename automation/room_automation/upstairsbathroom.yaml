@@ -18,7 +18,7 @@
       to: 'on'
   condition:
     condition: state
-    entity_id: someone_is_home
+    entity_id: binary_sensor.someone_is_home
     state: 'on'
   action:
     service: light.turn_on
@@ -29,6 +29,8 @@
 
 - alias: Upstairs Bathroom - Lights Off
   id: upstairs_bathroom_lights_off
+  mode: single
+  max_exceeded: silent
   trigger:
     platform: state
     entity_id:
