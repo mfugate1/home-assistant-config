@@ -63,6 +63,10 @@
             data:
               media_type: music
           - service: rest_command.livingroom_squeezebox_liked_songs_playlist
+        - service: media_player.volume_set
+          entity_id: media_player.livingroom_receiver
+          data:
+            volume_level: 0.39
       turn_off:
         - parallel:
           - service: media_player.clear_playlist
