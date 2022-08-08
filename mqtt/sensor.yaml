@@ -1,0 +1,5 @@
+- name: outside_temp
+  unit_of_measurement: °F
+  device_class: temperature
+  state_topic: rtl_433/+/devices/WG-PB12V1/6/temperature_C
+  value_template: "{{ (value | float(0) * 9 / 5) + 32 | round(1) }}"
