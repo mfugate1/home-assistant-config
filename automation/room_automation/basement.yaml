@@ -27,9 +27,17 @@
   mode: single
   max_exceeded: silent
   trigger:
-    platform: state
+    - platform: state
+      entity_id: binary_sensor.basement_aqara_fp1_presence
+      to: 'off'
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reloaded
+  condition:
+    condition: state
     entity_id: binary_sensor.basement_aqara_fp1_presence
-    to: 'off'
+    state: 'off'
   action:
     service: light.turn_off
     target:

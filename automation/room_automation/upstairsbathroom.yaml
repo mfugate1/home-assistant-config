@@ -31,11 +31,15 @@
   mode: single
   max_exceeded: silent
   trigger:
-    platform: state
-    entity_id:
-      - binary_sensor.upstairsbathroom_motion_1
-      - binary_sensor.upstairsbathroom_aqara_fp1_presence
-    to: 'off'
+    - platform: state
+      entity_id:
+        - binary_sensor.upstairsbathroom_motion_1
+        - binary_sensor.upstairsbathroom_aqara_fp1_presence
+      to: 'off'
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reloaded
   condition:
     - condition: state
       entity_id: binary_sensor.upstairsbathroom_door
