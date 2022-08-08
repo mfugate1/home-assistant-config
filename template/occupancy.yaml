@@ -1,42 +1,7 @@
-- sensor:
-    - name: last_occupied_room
-      state: >-
-        {% set ns = namespace(last_updated_entity='', last_updated_date='') %}
-        {% for state in states.group %}
-          {% if state.entity_id.endswith('_occupancy') and state.state == 'on' %}
-            {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
-              {% set ns.last_updated_entity = state.entity_id %}
-              {% set ns.last_updated_date = state.last_updated %}
-            {% endif %}
-          {% endif %}
-        {% endfor %}
-        {% if ns.last_updated_entity == '' %}
-          {% for state in states.group %}
-            {% if state.entity_id.endswith('_occupancy') %}
-              {% if ns.last_updated_entity == '' or state.last_updated > ns.last_updated_date %}
-                {% set ns.last_updated_entity = state.entity_id %}
-                {% set ns.last_updated_date = state.last_updated %}
-              {% endif %}
-            {% endif %}
-          {% endfor %}
-        {% endif %}
-        {% if ns.last_updated_entity.split('.') | length == 2 %}
-          {{ ns.last_updated_entity.split('.')[1].split('_')[0] }}
-        {% else %}
-          {% if ns.last_updated_entity == '' %}
-            blank
-          {% else %}
-            {{ ns.last_updated_entity }}
-          {% endif %}
-        {% endif %}
 - binary_sensor:
-    - name: bedroom_motion_2
-      state: "{{ states('binary_sensor.bedroom_motion_1') }}"
-      delay_off:
-        seconds: 10
-    - name: bed_occupied
-      state: "{{ is_state('binary_sensor.sleepnumber_master_bed_mike_is_in_bed', 'on') or is_state('binary_sensor.binary_sensor.sleepnumber_master_bed_guest_is_in_bed', 'on') }}"
-    - name: laptop_in_use
-      state: "{{ is_state('switch.laptop', 'on') and is_state('input_boolean.laptop_in_use', 'on') }}"
-    - name: someone_is_home
-      state: "{{ is_state('person.mike', 'home') or is_state('group.guest_devices', 'home') }}"
+  - name: bed_occupied
+    state: "{{ is_state('binary_sensor.sleepnumber_master_bed_mike_is_in_bed', 'on') or is_state('binary_sensor.binary_sensor.sleepnumber_master_bed_guest_is_in_bed', 'on') }}"
+  - name: laptop_in_use
+    state: "{{ is_state('switch.laptop', 'on') and is_state('input_boolean.laptop_in_use', 'on') }}"
+  - name: someone_is_home
+    state: "{{ is_state('person.mike', 'home') or is_state('group.guest_devices', 'home') }}"

@@ -250,22 +250,12 @@ views:
       - type: custom:stack-in-card
         title: Occupancy
         cards:
-          - type: entities
-            entities:
-              - sensor.last_occupied_room
           - type: glance
             columns: 3
             show_state: false
             entities:
-              - group.basement_occupancy
-              - group.bedroom_occupancy
-              - group.diningroom_occupancy
-              - group.gameroom_occupancy
-              - group.garage_occupancy
-              - group.kitchen_occupancy
-              - group.laundryroom_occupancy
-              - group.livingroom_occupancy
-              - group.office_occupancy
-              - group.patio_occupancy
-              - entity: group.upstairsbathroom_occupancy
-                name: Upstairs Bath
+              - binary_sensor.basement_aqara_fp1_presence
+              - binary_sensor.bedroom_aqara_fp1_presence
+              - binary_sensor.office_aqara_fp1_presence
+              - binary_sensor.office_aqara_fp1_2_presence
+              - binary_sensor.upstairsbathroom_aqara_fp1_presence

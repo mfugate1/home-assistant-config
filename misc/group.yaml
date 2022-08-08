@@ -141,64 +141,12 @@ led_solid:
     - group.exterior_doors_and_windows
 
 ######## OCCUPANCY ########
-basement_occupancy:
-  name: Basement
-  icon: hass:walk
-  entities:
-    - binary_sensor.basement_motion_1
-bedroom_occupancy:
-  name: Bedroom
-  icon: hass:walk
-  entities:
-    - binary_sensor.bedroom_motion_2
-diningroom_occupancy:
-  name: Dining Room
-  icon: hass:walk
-  entities:
-    - binary_sensor.diningroom_motion_1
-    - binary_sensor.diningroom_motion_2
 gameroom_occupancy:
   name: Game Room
   icon: hass:walk
   entities:
     - binary_sensor.gameroom_motion_1
     - binary_sensor.gameroom_motion_2
-garage_occupancy:
-  name: Garage
-  icon: hass:walk
-  entities:
-    - binary_sensor.garage_motion_1
-kitchen_occupancy:
-  name: Kitchen
-  icon: hass:walk
-  entities:
-    - binary_sensor.kitchen_motion_1
-laundryroom_occupancy:
-  name: Laundry Room
-  icon: hass:walk
-  entities:
-    - binary_sensor.laundryroom_motion_1
-livingroom_occupancy:
-  name: Living Room
-  icon: hass:walk
-  entities:
-    - binary_sensor.livingroom_motion_1
-office_occupancy:
-  name: Office
-  icon: hass:walk
-  entities:
-    - input_boolean.occupancy_office
-patio_occupancy:
-  name: Patio
-  icon: hass:walk
-  entities:
-    - binary_sensor.patio_motion_1
-upstairsbathroom_occupancy:
-  name: Upstairs Bathroom
-  icon: hass:walk
-  entities:
-    - binary_sensor.upstairsbathroom_motion_1
-    - binary_sensor.upstairsbathroom_motion_2
 
 guest_devices:
   name: Guest Devices

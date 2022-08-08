@@ -6,7 +6,6 @@
       - switch.laptop
       - binary_sensor.laptop_in_use
       - group.office_occupancy
-      - sensor.last_occupied_room
   condition:
     condition: and
     conditions:
@@ -38,7 +37,6 @@
         - switch.laptop
         - binary_sensor.laptop_in_use
         - group.office_occupancy
-        - sensor.last_occupied_room
   condition: 
     condition: or
     conditions:
@@ -48,7 +46,6 @@
           - "{{ is_state('media_player.spotify_stukabombr1', 'playing') }}"
           - "{{ is_state('group.office_occupancy', 'off') }}"
           - "{{ is_state_attr('media_player.spotify_stukabombr1', 'source', '13204-MFUGATE') }}"
-          - "{{ not is_state('sensor.last_occupied_room', 'office') }}"
       - "{{ trigger.entity_id.startswith('media_player') }}"
   action:
     service: media_player.media_pause

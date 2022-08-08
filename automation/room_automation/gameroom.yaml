@@ -30,8 +30,8 @@
         - media_player.gameroom_tv
       state: "off"
     - condition: state
-      entity_id: person.mike
-      state: home
+      entity_id: binary_sensor.someone_is_home
+      state: "on"
   action:
     service: light.turn_on
     target:
@@ -40,23 +40,9 @@
 - alias: Game room lights off
   id: game_room_lights_off
   trigger:
-    - platform: state
-      entity_id: group.gameroom_occupancy
-      to: "off"
-    - platform: state
-      entity_id: sensor.last_occupied_room
-  condition:
-    - condition: state
-      entity_id: light.gameroom_overhead
-      state: "on"
-    - condition: state
-      entity_id: group.gameroom_occupancy
-      state: "off"
-    - condition: not
-      conditions:
-        - condition: state
-          entity_id: sensor.last_occupied_room
-          state: gameroom
+    platform: state
+    entity_id: group.gameroom_occupancy
+    to: "off"
   action:
     service: light.turn_off
     target:
