@@ -27,8 +27,8 @@
       friendly_name: Game Room Blinds
       unique_id: blinds_gameroom_alexa
       device_class: blind
-      availability_template: "{{ not is_state('cover.blinds_gameroom', 'unavailable') }}"
-      position_template: "{{ 100 - state_attr('cover.blinds_gameroom', 'current_position') }}"
+      availability_template: "{{ states('cover.blinds_gameroom') not in ['unavailable', 'unknown'] }}"
+      position_template: "{{ 100 - (state_attr('cover.blinds_gameroom', 'current_position') | int(0)) }}"
       open_cover:
         service: cover.close_cover
         entity_id: cover.blinds_gameroom
@@ -47,8 +47,8 @@
       friendly_name: Office Blinds
       unique_id: blinds_office_alexa
       device_class: blind
-      availability_template: "{{ not is_state('cover.blinds_office', 'unavailable') }}"
-      position_template: "{{ 100 - state_attr('cover.blinds_office', 'current_position') }}"
+      availability_template: "{{ states('cover.blinds_office') not in ['unavailable', 'unknown'] }}"
+      position_template: "{{ 100 - (state_attr('cover.blinds_office', 'current_position') | int(0)) }}"
       open_cover:
         service: cover.close_cover
         entity_id: cover.blinds_office
