@@ -3,6 +3,7 @@
   trigger:
     platform: state
     entity_id: sensor.magic_cube_action_side
+    not_to: 'None'
   action:
     service: input_number.set_value
     entity_id: input_number.magic_cube_livingroom_last_known_side
