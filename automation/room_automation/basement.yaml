@@ -92,6 +92,8 @@
           - input_boolean.workout_mode
           - media_player.basement_tv
           - switch.basement_stereo
+        state: "on"
+        match: any
   action:
     service: switch.turn_off
     entity_id: switch.dehumidifier
