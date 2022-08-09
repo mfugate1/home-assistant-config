@@ -8,9 +8,6 @@
     - service: light.turn_on
       entity_id: light.basement
     - service: rest_command.basement_squeezebox_liked_songs_playlist
-    - service: input_boolean.turn_off
-      target:
-        entity_id: input_boolean.workout_mode_available
     - service: switch.turn_on
       target:
         entity_id: switch.basement_stereo
@@ -44,14 +41,9 @@
     service: light.turn_off
     target:
       entity_id:
-        - light.bedroom_lamps
-        - light.bedroom_overhead
         - light.diningroom
         - light.entry_light
         - light.gameroom_lamp
         - light.gameroom_overhead
-        - light.laundryroom
         - light.livingroom_lamp
-        - light.office
         - light.patio
-        - light.upstairsbathroom
