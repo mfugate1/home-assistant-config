@@ -1,6 +1,5 @@
 - alias: Upstairs Bathroom - Lights On
   id: upstairs_bathroom_lights_on
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: state
@@ -28,7 +27,6 @@
 
 - alias: Upstairs Bathroom - Lights Off
   id: upstairs_bathroom_lights_off
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: state
@@ -55,6 +53,7 @@
 
 - alias: Upstairs Bathroom - Vent Control
   id: upstairs_bathroom_vent_control
+  max_exceeded: silent
   trigger:
     - platform: state
       entity_id: binary_sensor.upstairsbathroom_door
@@ -69,10 +68,5 @@
         conditions:
           - "{{ is_state('binary_sensor.upstairsbathroom_door', 'unavailable') }}"
   action:
-    service: >-
-      {% if is_state('binary_sensor.upstairsbathroom_door', 'on') %}
-        switch.turn_off
-      {% else %}
-        switch.turn_on
-      {% endif %}
+    service: "switch.turn_{{ 'off' if is_state('binary_sensor.upstairsbathroom_door', 'on') else 'on' }}"
     entity_id: switch.upstairsbathroom_vent

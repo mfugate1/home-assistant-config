@@ -1,6 +1,5 @@
 - alias: Bedroom - Overhead Light On
   id: bedroom_overhead_light_on
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: state
@@ -34,7 +33,6 @@
 
 - alias: Bedroom - Lights Off
   id: bedroom_lights_off
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: state
@@ -77,7 +75,6 @@
 
 - alias: Sleep Mode - Zwave Remote Button Toggle
   id: sleep_mode_zwave_remote_button_toggle
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: event
@@ -133,7 +130,6 @@
 
 - alias: Bedroom Remote - Toggle Buttons
   id: bedroom_remote_toggle_buttons
-  mode: single
   max_exceeded: silent
   trigger:
     platform: event
@@ -155,7 +151,6 @@
 
 - alias: Bedroom Remote - Bed Presets
   id: bedroom_remote_bed_presets
-  mode: single
   max_exceeded: silent
   trigger:
     platform: event

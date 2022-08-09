@@ -21,7 +21,7 @@
   id: game_room_lights_on
   trigger:
     platform: state
-    entity_id: group.gameroom_occupancy
+    entity_id: binary_sensor.gameroom_motion_1
     to: "on"
   condition:
     - condition: state
@@ -41,8 +41,9 @@
   id: game_room_lights_off
   trigger:
     platform: state
-    entity_id: group.gameroom_occupancy
+    entity_id: binary_sensor.gameroom_motion_1
     to: "off"
+    for: 00:00:30
   action:
     service: light.turn_off
     target:

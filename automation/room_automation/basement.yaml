@@ -1,6 +1,5 @@
 - alias: Basement - Lights On
   id: basement_lights_on
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: state
@@ -24,7 +23,6 @@
 
 - alias: Basement - Lights Off
   id: basement_lights_off
-  mode: single
   max_exceeded: silent
   trigger:
     - platform: state

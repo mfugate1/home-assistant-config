@@ -140,14 +140,6 @@ led_solid:
   entities:
     - group.exterior_doors_and_windows
 
-######## OCCUPANCY ########
-gameroom_occupancy:
-  name: Game Room
-  icon: hass:walk
-  entities:
-    - binary_sensor.gameroom_motion_1
-    - binary_sensor.gameroom_motion_2
-
 guest_devices:
   name: Guest Devices
   entities:
