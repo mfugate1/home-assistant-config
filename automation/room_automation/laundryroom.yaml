@@ -1,0 +1,24 @@
+- alias: Laundry room light on
+  id: laundry_room_light_on
+  max_exceeded: silent
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundryroom_door
+    to: "on"
+  action:
+    service: light.turn_on
+    entity_id: light.laundryroom
+
+- alias: Laundry room light off
+  id: laundry_room_light_off
+  trigger:
+    platform: state
+    entity_id: binary_sensor.laundryroom_door
+    to: "off"
+  condition:
+    condition: state
+    entity_id: binary_sensor.laundryroom_door
+    state: "off"
+  action:
+    service: light.turn_off
+    entity_id: light.laundryroom
