@@ -1,0 +1,26 @@
+- alias: Dining Room - Lights Off
+  id: diningroom_lights_off
+  max_exceeded: silent
+  trigger:
+    - platform: state
+      entity_id: sensor.diningroom_aqara_fp1_presence_event
+      to:
+        - leave
+        - left_leave
+        - right_leave
+        - away
+    - platform: state
+      entity_id: binary_sensor.diningroom_aqara_fp1_presence
+      to: 'off'
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reloaded
+  condition:
+    condition: state
+    entity_id: binary_sensor.diningroom_aqara_fp1_presence
+    state: 'off'
+  action:
+    service: light.turn_off
+    target:
+      entity_id: light.diningroom
