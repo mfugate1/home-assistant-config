@@ -48,11 +48,6 @@
   device_class: door
   payload_off: 14
   payload_on: 10
-- name: gameroom_motion_1
-  state_topic: rtl_433/+/devices/Kerui-Security/235841/motion
-  device_class: motion
-  payload_on: 1
-  off_delay: 10
 - name: office_window
   state_topic: rtl_433/+/devices/Generic-Remote/29544/cmd
   device_class: door
