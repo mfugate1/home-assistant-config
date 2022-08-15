@@ -254,8 +254,16 @@ views:
             columns: 3
             show_state: false
             entities:
+              - person.mike
+              - group.guest_devices
+              - binary_sensor.someone_is_home
               - binary_sensor.basement_aqara_fp1_presence
               - binary_sensor.bedroom_aqara_fp1_presence
               - binary_sensor.office_aqara_fp1_presence
               - binary_sensor.office_aqara_fp1_2_presence
               - binary_sensor.upstairsbathroom_aqara_fp1_presence
+              - sensor.basement_aqara_fp1_presence_event
+              - sensor.bedroom_aqara_fp1_presence_event
+              - sensor.office_aqara_fp1_2_presence_event
+              - sensor.office_aqara_fp1_presence_event
+              - sensor.upstairsbathroom_aqara_fp1_presence_event
