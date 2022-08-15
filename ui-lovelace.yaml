@@ -274,4 +274,7 @@ views:
           - sensor.gameroom_aqara_fp1_presence_event
           - entity: binary_sensor.diningroom_aqara_fp1_presence
             show_state: false
+          - entity: binary_sensor.laundryroom_aqara_fp1_presence
+            show_state: false
+          - sensor.laundryroom_aqara_fp1_presence_event
           - sensor.diningroom_aqara_fp1_presence_event

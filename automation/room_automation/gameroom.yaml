@@ -8,14 +8,10 @@
       property_key: "003"
       value: KeyPressed
   action:
-    - service: media_player.toggle
-      entity_id:
-        - media_player.gameroom_tv
-        - media_player.gameroom_receiver
-    - delay: 10
-    - service: light.turn_off
-      target:
-        entity_id: light.gameroom_overhead
+    service: media_player.toggle
+    entity_id:
+      - media_player.gameroom_tv
+      - media_player.gameroom_receiver
 
 - alias: Game Room - Lights On
   id: game_room_lights_on
@@ -29,7 +25,7 @@
         - approach
     - platform: state
       entity_id: binary_sensor.gameroom_aqara_fp1_presence
-      to: 'on'
+      to: "on"
   condition:
     - condition: state
       entity_id: media_player.gameroom_tv
@@ -54,15 +50,23 @@
         - away
     - platform: state
       entity_id: binary_sensor.gameroom_aqara_fp1_presence
-      to: 'off'
+      to: "off"
+    - platform: state
+      entity_id: media_player.gameroom_tv
+      to: "on"
     - platform: homeassistant
       event: start
     - platform: event
       event_type: automation_reloaded
   condition:
-    condition: state
-    entity_id: binary_sensor.gameroom_aqara_fp1_presence
-    state: 'off'
+    condition: or
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.gameroom_aqara_fp1_presence
+        state: "off"
+      - condition: state
+        entity_id: media_player.gameroom_tv
+        state: "on"
   action:
     service: light.turn_off
     target:
