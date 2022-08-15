@@ -247,27 +247,25 @@ views:
             name: Kitchen Window
           - entity: binary_sensor.office_window
             name: Office Window
-      - type: custom:stack-in-card
+      - type: glance
         title: Occupancy
-        cards:
-          - type: glance
-            columns: 3
-            entities:
-              - entity: binary_sensor.basement_aqara_fp1_presence
-                show_state: false
-              - sensor.basement_aqara_fp1_presence_event
-              - person.mike
-              - entity: binary_sensor.bedroom_aqara_fp1_presence
-                show_state: false
-              - sensor.bedroom_aqara_fp1_presence_event
-              - group.guest_devices
-              - entity: binary_sensor.office_aqara_fp1_presence
-                show_state: false
-              - sensor.office_aqara_fp1_presence_event
-              - binary_sensor.someone_is_home
-              - entity: binary_sensor.office_aqara_fp1_2_presence
-                show_state: false
-              - sensor.office_aqara_fp1_2_presence_event
-              - entity: binary_sensor.upstairsbathroom_aqara_fp1_presence
-                show_state: false
-              - sensor.upstairsbathroom_aqara_fp1_presence_event
+        columns: 3
+        entities:
+          - person.mike
+          - group.guest_devices
+          - binary_sensor.someone_is_home
+          - entity: binary_sensor.basement_aqara_fp1_presence
+            show_state: false
+          - entity: binary_sensor.bedroom_aqara_fp1_presence
+            show_state: false
+          - entity: binary_sensor.upstairsbathroom_aqara_fp1_presence
+            show_state: false
+          - sensor.basement_aqara_fp1_presence_event
+          - sensor.bedroom_aqara_fp1_presence_event
+          - sensor.upstairsbathroom_aqara_fp1_presence_event
+          - entity: binary_sensor.office_aqara_fp1_presence
+            show_state: false
+          - entity: binary_sensor.office_aqara_fp1_2_presence
+            show_state: false
+          - sensor.office_aqara_fp1_2_presence_event
+          - sensor.office_aqara_fp1_presence_event
