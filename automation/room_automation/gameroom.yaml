@@ -17,17 +17,22 @@
       target:
         entity_id: light.gameroom_overhead
 
-- alias: Game room lights on
+- alias: Game Room - Lights On
   id: game_room_lights_on
   trigger:
-    platform: state
-    entity_id: binary_sensor.gameroom_motion_1
-    to: "on"
+    - platform: state
+      entity_id: sensor.gameroom_aqara_fp1_presence_event
+      to:
+        - enter
+        - left_enter
+        - right_enter
+        - approach
+    - platform: state
+      entity_id: binary_sensor.gameroom_aqara_fp1_presence
+      to: 'on'
   condition:
     - condition: state
-      entity_id:
-        - light.gameroom_overhead
-        - media_player.gameroom_tv
+      entity_id: media_player.gameroom_tv
       state: "off"
     - condition: state
       entity_id: binary_sensor.someone_is_home
@@ -37,13 +42,27 @@
     target:
       entity_id: light.gameroom_overhead
 
-- alias: Game room lights off
+- alias: Game Room - Lights Off
   id: game_room_lights_off
   trigger:
-    platform: state
-    entity_id: binary_sensor.gameroom_motion_1
-    to: "off"
-    for: 00:00:30
+    - platform: state
+      entity_id: sensor.gameroom_aqara_fp1_presence_event
+      to:
+        - leave
+        - left_leave
+        - right_leave
+        - away
+    - platform: state
+      entity_id: binary_sensor.gameroom_aqara_fp1_presence
+      to: 'off'
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reloaded
+  condition:
+    condition: state
+    entity_id: binary_sensor.gameroom_aqara_fp1_presence
+    state: 'off'
   action:
     service: light.turn_off
     target:
