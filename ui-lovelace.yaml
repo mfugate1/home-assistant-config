@@ -250,7 +250,7 @@ views:
       - type: custom:stack-in-card
         title: Occupancy
         cards:
-          - type: glances
+          - type: glance
             columns: 3
             entities:
               - person.mike
