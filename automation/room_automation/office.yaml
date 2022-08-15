@@ -25,6 +25,13 @@
   max_exceeded: silent
   trigger:
     - platform: state
+      entity_id: sensor.upstairsbathroom_aqara_fp1_presence_event
+      to:
+        - leave
+        - left_leave
+        - right_leave
+        - away
+    - platform: state
       entity_id:
         - binary_sensor.office_aqara_fp1_presence
         - binary_sensor.office_aqara_fp1_2_presence
