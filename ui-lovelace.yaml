@@ -263,6 +263,8 @@ views:
               - type: entities
                 entities:
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Office 1
                     entity: binary_sensor.office_aqara_fp1_presence
                     state_color: true
@@ -271,6 +273,8 @@ views:
                       entity: sensor.office_aqara_fp1_presence_event
                       name: false
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Office 2
                     entity: binary_sensor.office_aqara_fp1_2_presence
                     state_color: true
@@ -279,6 +283,8 @@ views:
                       entity: sensor.office_aqara_fp1_2_presence_event
                       name: false
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Game Room
                     entity: binary_sensor.gameroom_aqara_fp1_presence
                     state_color: true
@@ -287,6 +293,8 @@ views:
                       entity: sensor.gameroom_aqara_fp1_presence_event
                       name: false
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Dining Room
                     entity: binary_sensor.diningroom_aqara_fp1_presence
                     state_color: true
@@ -297,6 +305,8 @@ views:
               - type: entities
                 entities:
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Bedroom
                     entity: binary_sensor.bedroom_aqara_fp1_presence
                     state_color: true
@@ -305,6 +315,8 @@ views:
                       entity: sensor.bedroom_aqara_fp1_presence_event
                       name: false
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Upstairs Bathroom
                     entity: binary_sensor.upstairsbathroom_aqara_fp1_presence
                     state_color: true
@@ -313,6 +325,8 @@ views:
                       entity: sensor.upstairsbathroom_aqara_fp1_presence_event
                       name: false
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Basement
                     entity: binary_sensor.basement_aqara_fp1_presence
                     state_color: true
@@ -321,6 +335,8 @@ views:
                       entity: sensor.basement_aqara_fp1_presence_event
                       name: false
                   - type: custom:multiple-entity-row
+                    canary_style:
+                      margin: 0px -15px
                     name: Laundry Room
                     entity: binary_sensor.laundryroom_aqara_fp1_presence
                     state_color: true
