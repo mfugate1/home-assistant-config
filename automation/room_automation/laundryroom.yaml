@@ -16,7 +16,9 @@
       to: "on"
   condition:
     condition: state
-    entity_id: binary_sensor.someone_is_home
+    entity_id: 
+      - binary_sensor.someone_is_home
+      - binary_sensor.laundryroom_door
     state: "on"
   action:
     service: light.turn_on
@@ -26,7 +28,7 @@
   id: laundry_room_light_off
   trigger:
     - platform: state
-      entity_id: sensor.basement_aqara_fp1_presence_event
+      entity_id: sensor.laundryroom_aqara_fp1_presence_event
       to:
         - leave
         - left_leave
@@ -34,7 +36,7 @@
         - away
     - platform: state
       entity_id: 
-        - binary_sensor.basement_aqara_fp1_presence
+        - binary_sensor.laundryroom_aqara_fp1_presence
         - binary_sensor.laundryroom_door
       to: "off"
     - platform: homeassistant
@@ -43,7 +45,7 @@
       event_type: automation_reloaded
   condition:
     condition: state
-    entity_id: binary_sensor.basement_aqara_fp1_presence
+    entity_id: binary_sensor.laundryroom_aqara_fp1_presence
     state: "off"
   action:
     service: light.turn_off
