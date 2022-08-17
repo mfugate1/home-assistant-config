@@ -51,26 +51,21 @@
 - alias: Basement - Dehumidifier - On if above threshold
   id: basement_dehumidifier_on_if_above_threshold
   trigger:
-    - platform: state
-      entity_id: sensor.basement_humidity
-    - platform: state
-      entity_id:
-        - binary_sensor.basement_aqara_fp1_presence
-        - input_boolean.workout_mode
-        - media_player.basement_tv
-        - switch.basement_stereo
-      to: "off"
+    platform: state
+    entity_id:
+      - binary_sensor.basement_aqara_fp1_presence
+      - input_boolean.workout_mode
+      - media_player.basement_tv
+      - switch.basement_stereo
+    to: "off"
   condition:
-    - condition: numeric_state
-      entity_id: sensor.basement_humidity
-      above: input_number.dehumidifier_on_threshold
-    - condition: state
-      entity_id:
-        - binary_sensor.basement_aqara_fp1_presence
-        - input_boolean.workout_mode
-        - media_player.basement_tv
-        - switch.basement_stereo
-      state: "off"
+    condition: state
+    entity_id:
+      - binary_sensor.basement_aqara_fp1_presence
+      - input_boolean.workout_mode
+      - media_player.basement_tv
+      - switch.basement_stereo
+    state: "off"
   action:
     service: switch.turn_on
     entity_id: switch.dehumidifier
@@ -78,29 +73,22 @@
 - alias: Basement - Dehumidifier - Off if below threshold or basement occupied
   id: basement_dehumidifier_off_if_below_threshold_or_basement_occupied
   trigger:
-    - platform: state
-      entity_id: sensor.basement_humidity
-    - platform: state
-      entity_id:
-        - binary_sensor.basement_aqara_fp1_presence
-        - input_boolean.workout_mode
-        - media_player.basement_tv
-        - switch.basement_stereo
-      to: "on"
+    platform: state
+    entity_id:
+      - binary_sensor.basement_aqara_fp1_presence
+      - input_boolean.workout_mode
+      - media_player.basement_tv
+      - switch.basement_stereo
+    to: "on"
   condition:
-    condition: or
-    conditions:
-      - condition: numeric_state
-        entity_id: sensor.basement_humidity
-        below: input_number.dehumidifier_off_threshold
-      - condition: state
-        entity_id:
-          - binary_sensor.basement_aqara_fp1_presence
-          - input_boolean.workout_mode
-          - media_player.basement_tv
-          - switch.basement_stereo
-        state: "on"
-        match: any
+    condition: state
+    entity_id:
+      - binary_sensor.basement_aqara_fp1_presence
+      - input_boolean.workout_mode
+      - media_player.basement_tv
+      - switch.basement_stereo
+    state: "on"
+    match: any
   action:
     service: switch.turn_off
     entity_id: switch.dehumidifier
