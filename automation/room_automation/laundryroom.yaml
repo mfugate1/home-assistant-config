@@ -26,6 +26,7 @@
 
 - alias: Laundry Room - Lights Off
   id: laundry_room_light_off
+  max_exceeded: silent
   trigger:
     - platform: state
       entity_id: sensor.laundryroom_aqara_fp1_presence_event

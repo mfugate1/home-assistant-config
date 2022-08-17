@@ -15,6 +15,7 @@
 
 - alias: Game Room - Lights On
   id: game_room_lights_on
+  max_exceeded: silent
   trigger:
     - platform: state
       entity_id: sensor.gameroom_aqara_fp1_presence_event
@@ -40,6 +41,7 @@
 
 - alias: Game Room - Lights Off
   id: game_room_lights_off
+  max_exceeded: silent
   trigger:
     - platform: state
       entity_id: sensor.gameroom_aqara_fp1_presence_event
