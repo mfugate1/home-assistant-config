@@ -34,7 +34,6 @@
         - leave
         - left_leave
         - right_leave
-        - away
     - platform: state
       entity_id: 
         - binary_sensor.laundryroom_aqara_fp1_presence

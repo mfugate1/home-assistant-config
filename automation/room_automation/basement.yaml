@@ -31,7 +31,6 @@
         - leave
         - left_leave
         - right_leave
-        - away
     - platform: state
       entity_id: binary_sensor.basement_aqara_fp1_presence
       to: 'off'
