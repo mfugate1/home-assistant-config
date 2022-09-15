@@ -34,10 +34,6 @@ http:
     - 192.168.1.0/24
     - 172.0.0.0/8
 
-sleepiq:
-  username: !secret SLEEPIQ_USERNAME
-  password: !secret SLEEPIQ_PASSWORD
-
 alexa: !include misc/alexa.yaml
 automation: !include automations.yaml
 automation manual: !include_dir_merge_list automation/
