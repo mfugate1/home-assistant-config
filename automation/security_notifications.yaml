@@ -44,8 +44,8 @@
   trigger:
     platform: state
     entity_id:
-      - binary_sensor.driveway_car_motion
-      - binary_sensor.driveway_person_motion
+      - binary_sensor.driveway_car_occupancy
+      - binary_sensor.driveway_person_occupancy
     to: "on"
   action:
     service: notify.mobile_app_sm_g981u1
@@ -54,4 +54,4 @@
         {{ trigger.entity_id.split('_')[2].capitalize() }} detected in driveway
       data:
         image: >-
-          /api/camera_proxy/{{ trigger.entity_id.replace('binary_sensor', 'camera').replace('_motion', '') }}
+          /api/camera_proxy/{{ trigger.entity_id.replace('binary_sensor', 'camera').replace('_occupancy', '') }}
