@@ -30,3 +30,19 @@
       entity_id: media_player.patio_squeezelite
     data:
       volume_level: 0
+
+- alias: LMS next track fix
+  id: lms_next_track_fix
+  trigger:
+    platform: state
+    entity_id: media_player.livingroom_squeezebox
+    attribute: media_position
+    for: "00:00:15"
+  condition:
+    - condition: state
+      entity_id: media_player.livingroom_squeezebox
+      state: playing
+    - "{{ (state_attr('media_player.livingroom_squeezebox', 'media_position') | int) >= (state_attr('media_player.livingroom_squeezebox', 'media_duration'))}}"
+  action:
+    service: media_player.media_next_track
+    entity_id: media_player.livingroom_squeezebox
