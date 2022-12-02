@@ -93,11 +93,11 @@ views:
         view_layout:
           grid-area: col2
         cards:
-          - !include ../cards/thermostat.yaml
-          - type: weather-forecast
-            entity: weather.home
+          - type: thermostat
+            entity: climate.thermostat
       - type: vertical-stack
         view_layout:
           grid-area: col3
         cards:
-          - !include ../cards/exercise.yaml
+          - type: weather-forecast
+            entity: weather.home
