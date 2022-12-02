@@ -12,7 +12,7 @@
     above: 85
   action:
     service: switch.turn_off
-    entity_id: switch.tablet_power
+    entity_id: switch.kitchen_tablet
 
 - alias: Living Room Tablet Charging - On
   id: livingroom_tablet_charging_on
@@ -25,38 +25,6 @@
   condition:
     condition: numeric_state
     entity_id: sensor.livingroom_tablet_battery
-    below: 20
-  action:
-    service: switch.turn_on
-    entity_id: switch.tablet_power
-
-- alias: Kitchen Tablet Charging - Off
-  id: kitchen_tablet_charging_off
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.kitchen_tablet_battery_level
-      above: 85
-    - platform: homeassistant
-      event: start
-  condition:
-    condition: numeric_state
-    entity_id: sensor.kitchen_tablet_battery_level
-    above: 85
-  action:
-    service: switch.turn_off
-    entity_id: switch.kitchen_tablet
-
-- alias: Kitchen Tablet Charging - On
-  id: kitchen_tablet_charging_on
-  trigger:
-    - platform: numeric_state
-      entity_id: sensor.kitchen_tablet_battery_level
-      below: 20
-    - platform: homeassistant
-      event: start
-  condition:
-    condition: numeric_state
-    entity_id: sensor.kitchen_tablet_battery_level
     below: 20
   action:
     service: switch.turn_on
