@@ -13,6 +13,32 @@
       - media_player.gameroom_tv
       - media_player.gameroom_receiver
 
+- alias: Game Room - Open Blinds
+  id: game_room_open_blinds
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 6
+      property_key: "002"
+      value: KeyPressed2x
+  action:
+    service: cover.open_cover
+    entity_id: cover.blinds_gameroom_alexa
+
+- alias: Game Room - Close Blinds
+  id: game_room_close_blinds
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 6
+      property_key: "001"
+      value: KeyPressed2x
+  action:
+    service: cover.close_cover
+    entity_id: cover.blinds_gameroom_alexa
+
 - alias: Game Room - Lights On
   id: game_room_lights_on
   max_exceeded: silent
