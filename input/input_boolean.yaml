@@ -38,9 +38,6 @@ dummy_guest:
   name: Dummy Guest
 laptop_in_use:
 
-katy_garage_access:
-  name: Katy
-
 workout_mode:
   name: Workout Mode
   icon: mdi:weight-lifter
