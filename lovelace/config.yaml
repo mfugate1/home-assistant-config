@@ -48,6 +48,14 @@ resources:
     type: module
   - url: /hacsfiles/swiss-army-knife-card/swiss-army-knife-card.js
     type: module
+  - url: /hacsfiles/clock-weather-card/clock-weather-card.js
+    type: module
+  - url: /hacsfiles/room-card/room-card.js
+    type: module
+  - url: /hacsfiles/lovelace-shutter-row/shutter-row.js
+    type: module
+  - url: /hacsfiles/lovelace-mushroom/mushroom.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
