@@ -22,7 +22,7 @@
   id: open_garage_door_when_arriving_then_close
   trigger:
     platform: state
-    entity_id: person.mikedevice_tracker.pixel_3a
+    entity_id: person.mike
     to: home
   condition:
     - condition: state
