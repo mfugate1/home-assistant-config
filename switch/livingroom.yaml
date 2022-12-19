@@ -25,6 +25,32 @@
             entity_id: media_player.livingroom_tv
           - service: media_player.turn_off
             entity_id: media_player.livingroom_receiver
+    
+    livingroom_hbomax:
+      friendly_name: HBO Max
+      icon_template: phu:hbo-max
+      value_template: "{{ is_state('binary_sensor.livingroom_roku_media_active', 'on') and is_state_attr('media_player.livingroom_roku', 'source', 'HBO Max') }}"
+      availability_template: "{{ is_state('binary_sensor.livingroom_roku_available', 'on') }}"
+      turn_on:
+        - parallel:
+          - service: script.select_livingroom_sources
+            data:
+              media_type: roku
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_roku
+            data:
+              source: HBO Max
+      turn_off:
+        - parallel:
+          - service: remote.send_command
+            entity_id: remote.livingroom_roku
+            data:
+              command:
+                - home
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          - service: media_player.turn_off
+            entity_id: media_player.livingroom_receiver
 
     livingroom_hulu:
       friendly_name: Hulu
