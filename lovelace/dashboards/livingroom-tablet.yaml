@@ -98,5 +98,6 @@ views:
         view_layout:
           grid-area: col3
         cards:
-          - type: weather-forecast
+          - type: custom:clock-weather-card
             entity: weather.home
+            date_pattern: MM/dd/yyyy
