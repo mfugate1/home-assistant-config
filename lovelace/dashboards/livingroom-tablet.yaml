@@ -93,8 +93,7 @@ views:
         view_layout:
           grid-area: col2
         cards:
-          - type: thermostat
-            entity: climate.thermostat
+          - !include ../cards/thermostat.yaml
       - type: vertical-stack
         view_layout:
           grid-area: col3
