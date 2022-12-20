@@ -46,11 +46,11 @@ sequence:
           entity_id: media_player.livingroom_tv
           data:
             source: >-
-              {% if media_type == 'ps4' %}
+              {% if media_type == 'switch' %}
                 HDMI_IN_4
               {% elif media_type == 'roku' %}
                 HDMI_IN_2
-              {% elif media_type == 'switch' %}
+              {% elif media_type == 'ps5' %}
                 HDMI_IN_3
               {% else %}
                 HDMI_IN_1

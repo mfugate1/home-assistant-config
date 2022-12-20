@@ -152,26 +152,26 @@
           - service: media_player.turn_off
             entity_id: media_player.livingroom_receiver
 
-    livingroom_ps4:
-      friendly_name: PS4
+    livingroom_ps5:
+      friendly_name: PS5
       icon_template: mdi:sony-playstation
-      value_template: "{{ not is_state('media_player.livingroom_ps4', 'standby') and not is_state('media_player.livingroom_ps4', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_4') }}"
-      availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('media_player.playstation_4_livingroom', 'unavailable') and not is_state('media_player.playstation_4_livingroom', 'unknown') }}"
+      value_template: "{{ not is_state('switch.livingroom_ps5', 'off') and is_state('media_player.livingroom_tv', 'on') and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI_IN_3') }}"
+      availability_template: "{{ not is_state('media_player.livingroom_tv', 'unavailable') and not is_state('switch.livingroom_ps5', 'unavailable') }}"
       turn_on:
         - parallel:
-          - service: media_player.turn_on
-            entity_id: media_player.livingroom_ps4
+          - service: switch.turn_on
+            entity_id: switch.livingroom_ps5
           - service: script.select_livingroom_sources
             data:
-              media_type: ps4
+              media_type: ps5
       turn_off:
         - parallel:
           - service: media_player.turn_off
             entity_id: media_player.livingroom_tv
           - service: media_player.turn_off
             entity_id: media_player.livingroom_receiver
-          - service: media_player.turn_off
-            entity_id: media_player.livingroom_ps4
+          - service: switch.turn_off
+            entity_id: switch.livingroom_ps5
 
     livingroom_steam:
       friendly_name: Steam

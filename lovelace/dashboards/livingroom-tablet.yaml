@@ -53,7 +53,7 @@ views:
         view_layout:
           grid-area: btn3
       - type: custom:button-card
-        entity: switch.livingroom_ps4
+        entity: switch.livingroom_ps5
         template: left_col_buttons
         view_layout:
           grid-area: btn4
