@@ -56,6 +56,8 @@ resources:
     type: module
   - url: /hacsfiles/lovelace-mushroom/mushroom.js
     type: module
+  - url: /hacsfiles/spotify-card/spotify-card.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
