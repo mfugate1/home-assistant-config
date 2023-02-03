@@ -66,30 +66,30 @@ views:
                   - icon: mdi:bed-empty
                     tap_action:
                       action: call-service
-                      service: input_select.select_option
+                      service: select.select_option
                       service_data:
-                        entity_id: input_select.bed_presets
+                        entity_id: select.sleepnumber_master_bed_foundation_preset
                         option: Flat
                   - icon: mdi:television
                     tap_action:
                       action: call-service
-                      service: input_select.select_option
+                      service: select.select_option
                       service_data:
-                        entity_id: input_select.bed_presets
+                        entity_id: select.sleepnumber_master_bed_foundation_preset
                         option: Watch TV
                   - icon: mdi:book-open
                     tap_action:
                       action: call-service
-                      service: input_select.select_option
+                      service: select.select_option
                       service_data:
-                        entity_id: input_select.bed_presets
+                        entity_id: select.sleepnumber_master_bed_foundation_preset
                         option: Read
               - type: custom:slider-entity-row
-                entity: input_number.bed_sleep_number_left
+                entity: number.sleepnumber_master_bed_guest_firmness
                 hide_state: false
                 name: Left
               - type: custom:slider-entity-row
-                entity: input_number.bed_sleep_number_right
+                entity: number.sleepnumber_master_bed_mike_firmness
                 hide_state: false
                 name: Right
           - type: entities
