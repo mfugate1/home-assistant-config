@@ -1,5 +1,6 @@
 auth:
 config:
+conversation:
 discovery:
 history:
 logbook:
