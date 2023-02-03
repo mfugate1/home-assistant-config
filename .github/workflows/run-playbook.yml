@@ -23,4 +23,4 @@ jobs:
             OVERLORD-URL,
             RUN-ANSIBLE-PLAYBOOK-TOKEN
         id: az
-      - run: "curl '${{ steps.az.outputs.OVERLORD-URL }}/jenkins-webhook?token=${{ steps.az.outputs.RUN-ANSIBLE-PLAYBOOK-TOKEN }}&playbook=home-assistant.yml' -X POST -d '{}'"
+      - run: "curl '${{ steps.az.outputs.OVERLORD-URL }}/generic-webhook-trigger/invoke?token=${{ steps.az.outputs.RUN-ANSIBLE-PLAYBOOK-TOKEN }}&playbook=home-assistant.yml' -X POST -d '{}'"
