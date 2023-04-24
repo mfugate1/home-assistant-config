@@ -10,6 +10,10 @@ sun:
 system_health:
 wake_on_lan:
 
+calendar:
+  - platform: todoist
+    token: !secret TODOIST_API_TOKEN
+
 camera:
   - platform: xiaomi_cloud_map_extractor
     host: 192.168.1.47
