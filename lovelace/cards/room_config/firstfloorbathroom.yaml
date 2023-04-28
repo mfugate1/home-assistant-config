@@ -1,0 +1,25 @@
+title: First Floor Bathroom
+type: entities
+entities:
+  - type: buttons
+    entities:
+      - entity: binary_sensor.firstfloorbathroom_presence_sensor_presence
+        show_name: false
+      - entity: light.firstfloorbathroom
+        show_name: false
+  - name: Automations
+    type: custom:multiple-entity-row
+    entity: automation.upstairs_bathroom_lights_on
+    toggle: true
+    state_header: "On"
+    entities:
+      - entity: automation.first_floor_bathroom_lights_off
+        name: "Off"
+        toggle: true
+      - entity: automation.first_floor_bathroom_lights_on
+        name: "On"
+        toggle: true
+  - input_number.firstfloorbathroom_light_day_brightness
+  - input_number.firstfloorbathroom_light_night_brightness
+  - input_number.firstfloorbathroom_light_day_transition
+  - input_number.firstfloorbathroom_light_night_transition

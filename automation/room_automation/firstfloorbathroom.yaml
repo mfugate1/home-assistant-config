@@ -15,6 +15,9 @@
   action:
     service: light.turn_on
     entity_id: light.firstfloorbathroom
+    data:
+      brightness: "{{ states('sensor.firstfloorbathroom_light_brightness')}}"
+      transition: "{{ states('sensor.firstfloorbathroom_light_transition')}}"
 
 - alias: First Floor Bathroom - Lights Off
   id: first_floor_bathroom_lights_off
@@ -39,5 +42,6 @@
     state: 'off'
   action:
     service: light.turn_off
-    target:
-      entity_id: light.firstfloorbathroom
+    entity_id: light.firstfloorbathroom
+    data:
+      transition: "{{ states('sensor.firstfloorbathroom_light_transition')}}"
