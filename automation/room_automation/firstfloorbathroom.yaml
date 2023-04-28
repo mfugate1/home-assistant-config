@@ -1,0 +1,43 @@
+- alias: First Floor Bathroom - Lights On
+  id: first_floor_bathroom_lights_on
+  max_exceeded: silent
+  trigger:
+    - platform: state
+      entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
+      to:
+        - enter
+        - left_enter
+        - right_enter
+        - approach
+    - platform: state
+      entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+      to: 'on'
+  action:
+    service: light.turn_on
+    entity_id: light.firstfloorbathroom
+
+- alias: First Floor Bathroom - Lights Off
+  id: first_floor_bathroom_lights_off
+  max_exceeded: silent
+  trigger:
+    - platform: state
+      entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
+      to:
+        - leave
+        - left_leave
+        - right_leave
+    - platform: state
+      entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+      to: 'off'
+    - platform: homeassistant
+      event: start
+    - platform: event
+      event_type: automation_reloaded
+  condition:
+    condition: state
+    entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+    state: 'off'
+  action:
+    service: light.turn_off
+    target:
+      entity_id: light.firstfloorbathroom
