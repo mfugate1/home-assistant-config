@@ -67,13 +67,13 @@ firstfloorbathroom_light_night_brightness:
 firstfloorbathroom_light_day_transition:
   name: Daytime Transition
   icon: mdi:arrow-right
-  min: 1
+  min: 0
   max: 10
   mode: box
 firstfloorbathroom_light_night_transition:
   name: Nighttime Transition
   icon: mdi:arrow-right
-  min: 1
+  min: 0
   max: 10
   mode: box
 
