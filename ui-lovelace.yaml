@@ -201,7 +201,7 @@ views:
       - !include lovelace/cards/tasks.yaml
       - !include lovelace/cards/automation_config/single_occupancy_mode.yaml
       - !include lovelace/cards/automation_config/climate.yaml
-      - !include lovelace/cards/room_config/upstairsbathroom.yaml
+      - !include lovelace/cards/room_config/firstfloorbathroom.yaml
       - !include lovelace/cards/automation_config/dehumidifier.yaml
       - !include lovelace/cards/recent_automations.yaml
   - icon: mdi:cctv
