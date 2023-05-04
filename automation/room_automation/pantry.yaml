@@ -1,0 +1,9 @@
+- alias: Pantry Light On Off
+  id: pantry_light_on_off
+  max_exceeded: silent
+  trigger:
+    platform: state
+    entity_id: binary_sensor.pantry_motion
+  action:
+    service: light.turn_{{ trigger.to_state.state }}
+    entity_id: light.pantry
