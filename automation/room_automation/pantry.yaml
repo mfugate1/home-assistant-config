@@ -4,6 +4,9 @@
   trigger:
     platform: state
     entity_id: binary_sensor.pantry_motion
+    to:
+      - "off"
+      - "on"
   action:
     service: light.turn_{{ trigger.to_state.state }}
     entity_id: light.pantry
