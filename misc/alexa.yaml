@@ -8,7 +8,7 @@ smart_home:
       - light
       - script
     include_entity_globs:
-      - cover.*_alexa
+      - cover.office_blinds
       - media_player.*_receiver
       - media_player.*_tv
     include_entities:
