@@ -3,15 +3,9 @@
   trigger:
     platform: state
     entity_id:
-      - input_boolean.add_salt_to_hot_tub
-      - input_boolean.add_spa_complete_to_hot_tub
       - input_boolean.change_contacts
-      - input_boolean.empty_dehumidifier
       - input_boolean.empty_vacuum
-      - input_boolean.clean_hot_tub_filter
       - input_boolean.replace_furnace_filter
-      - input_boolean.replace_sediment_filter
-      - input_boolean.take_medication
       - input_boolean.take_out_garbage_bins
   action:
     service: notify.mobile_app_sm_g981u1
@@ -40,61 +34,6 @@
       entity_id: >-
         {{ trigger.event.data.action }}
 
-- alias: Task - Medication On
-  id: task_medication_on
-  trigger:
-    platform: time
-    at: 07:00:00
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.take_medication
-
-- alias: Task - Medication Reset
-  id: task_medication_reset
-  trigger:
-    platform: time
-    at: 00:00:00
-  action:
-    service: input_boolean.turn_off
-    entity_id: input_boolean.take_medication
-
-- alias: Reset add salt to hot tub task
-  id: reset_add_salt_to_hot_tub_task
-  trigger:
-    platform: time
-    at: 08:00:00
-  condition:
-    condition: time
-    weekday:
-      - sat
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.add_salt_to_hot_tub
-
-- alias: Reset add spa complete to hot tub task
-  id: reset_add_spa_complete_to_hot_tub_task
-  trigger:
-    platform: time
-    at: 09:00:00
-  condition:
-    condition: time
-    weekday:
-      - sat
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.add_spa_complete_to_hot_tub
-
-- alias: Reset replace sediment filter task
-  id: reset_replace_sediment_filter_task
-  trigger:
-    platform: time
-    at: 08:05:00
-  condition: >-
-    {{ as_timestamp(now()) | timestamp_custom('%d') == '01' }}
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.replace_sediment_filter
-
 - alias: Reset change contacts task
   id: reset_change_contacts_task
   trigger:
@@ -110,11 +49,11 @@
   id: reset_garbage_bin_task
   trigger:
     platform: time
-    at: "17:00:00"
+    at: "06:00:00"
   condition:
     condition: time
     weekday:
-      - sun
+      - thu
   action:
     service: input_boolean.turn_on
     entity_id: input_boolean.take_out_garbage_bins
