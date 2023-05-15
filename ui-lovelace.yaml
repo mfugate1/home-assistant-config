@@ -45,6 +45,14 @@ views:
       - type: vertical-stack
         cards:
           - !include lovelace/cards/thermostat.yaml
+          - type: history-graph
+            entities:
+              - sensor.diningroom_temperature
+              - sensor.masterbedroom_temperature
+              - sensor.office_temperature
+              - sensor.pantry_temperature
+            hours_to_show: 36
+            title: Room Temperatures
           - type: entities
             title: Garage
             entities:
