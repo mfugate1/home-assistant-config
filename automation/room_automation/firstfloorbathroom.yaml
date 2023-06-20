@@ -2,16 +2,18 @@
   id: first_floor_bathroom_lights_on
   max_exceeded: silent
   trigger:
-    - platform: state
-      entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
-      to:
-        - enter
-        - left_enter
-        - right_enter
-        - approach
-    - platform: state
-      entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
-      to: 'on'
+    - platform: device
+      type: action
+      subtype: region_1_enter
+      domain: mqtt
+      device_id: 29db958fa5c12c5ef7f9fe1133565c5b
+      discovery_id: 0x54ef44100053c7af action_region_1_enter
+    - platform: device
+      type: action
+      subtype: region_1_occupied
+      domain: mqtt
+      device_id: 29db958fa5c12c5ef7f9fe1133565c5b
+      discovery_id: 0x54ef44100053c7af action_region_1_occupied
   action:
     service: light.turn_on
     entity_id: light.firstfloorbathroom
@@ -23,20 +25,18 @@
   id: first_floor_bathroom_lights_off
   max_exceeded: silent
   trigger:
-    - platform: state
-      entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
-      to:
-        - leave
-        - left_leave
-        - right_leave
-    - platform: state
-      entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
-      to: 'off'
-    - platform: homeassistant
-      event: start
-    - platform: event
-      event_type: automation_reloaded
-  condition: "{{ is_state('binary_sensor.firstfloorbathroom_presence_sensor_presence', 'off') }}"
+    - platform: device
+      type: action
+      subtype: region_1_leave
+      domain: mqtt
+      device_id: 29db958fa5c12c5ef7f9fe1133565c5b
+      discovery_id: 0x54ef44100053c7af action_region_1_leave
+    - platform: device
+      type: action
+      subtype: region_1_unoccupied
+      domain: mqtt
+      device_id: 29db958fa5c12c5ef7f9fe1133565c5b
+      discovery_id: 0x54ef44100053c7af action_region_1_unoccupied
   action:
     service: light.turn_off
     entity_id: light.firstfloorbathroom
