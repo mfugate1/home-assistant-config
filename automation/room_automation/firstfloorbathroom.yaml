@@ -14,6 +14,14 @@
       domain: mqtt
       device_id: 29db958fa5c12c5ef7f9fe1133565c5b
       discovery_id: 0x54ef44100053c7af action_region_1_occupied
+    - platform: state
+      entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+      to: 'on'
+    - platform: state
+      entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
+      to:
+        - enter
+        - approach
   action:
     service: light.turn_on
     entity_id: light.firstfloorbathroom
@@ -37,6 +45,9 @@
       domain: mqtt
       device_id: 29db958fa5c12c5ef7f9fe1133565c5b
       discovery_id: 0x54ef44100053c7af action_region_1_unoccupied
+    - platform: state
+      entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+      to: 'off'
   action:
     service: light.turn_off
     entity_id: light.firstfloorbathroom
