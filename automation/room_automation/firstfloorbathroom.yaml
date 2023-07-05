@@ -31,7 +31,7 @@
 
 - alias: First Floor Bathroom - Lights Off
   id: first_floor_bathroom_lights_off
-  max_exceeded: silent
+  mode: restart
   trigger:
     - platform: device
       type: action
@@ -49,7 +49,14 @@
       entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
       to: 'off'
   action:
-    service: light.turn_off
-    entity_id: light.firstfloorbathroom
-    data:
-      transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(default=0) }}"
+    - if:
+        - condition: state
+          entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+          state: 'on'
+      then:
+        - delay: 
+            minutes: 5
+    - service: light.turn_off
+      entity_id: light.firstfloorbathroom
+      data:
+        transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(default=0) }}"
