@@ -42,7 +42,7 @@
       entity_id: cover.garage_door_left
     - wait_for_trigger:
         - platform: state
-          entity_id: binary_sensor.garage_inner_door
+          entity_id: binary_sensor.garage_inner_door_left
           to: "on"
       timeout:
         minutes: 15
