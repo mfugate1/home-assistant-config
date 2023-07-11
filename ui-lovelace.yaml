@@ -159,5 +159,5 @@ views:
                     state_color: true
                     show_state: false
                     secondary_info:
-                      entity: sensor.gameroom_aqara_fp1_presence_event
+                      entity: sensor.office_presence_sensor_presence_event
                       name: false
