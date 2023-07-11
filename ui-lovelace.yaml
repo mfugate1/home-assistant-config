@@ -14,6 +14,11 @@ views:
             hours_to_show: 36
             title: Room Temperatures
           - type: entities
+            title: Garage
+            entities:
+              - cover.garage_door_left
+              - cover.garage_door_right
+          - type: entities
             title: Bedroom
             entities:
               - type: custom:paper-buttons-row
@@ -109,37 +114,8 @@ views:
       - type: entities
         title: Doors
         entities:
-          - entity: binary_sensor.basement_door
-          - entity: binary_sensor.bedroom_door
-            name: Bedroom Door
-          - entity: binary_sensor.front_door
-          - entity: binary_sensor.garage_door
-          - entity: binary_sensor.garage_inner_door
-          - entity: binary_sensor.garage_outer_door
-          - entity: binary_sensor.laundryroom_door
-            name: Laundry Room Door
-          - entity: binary_sensor.patio_door
-            name: Patio Door
-          - entity: binary_sensor.sliding_side_door
-            name: Sliding Side Door
-          - entity: binary_sensor.upstairsbathroom_door
-      - type: entities
-        title: Windows
-        entities:
-          - entity: binary_sensor.bedroom_window_back
-            name: Bedroom Window (Back)
-          - entity: binary_sensor.bedroom_window_side
-            name: Bedroom Window (Side)
-          - entity: binary_sensor.front_bay_window_left
-            name: Front Bay Window (Left)
-          - entity: binary_sensor.front_bay_window_right
-            name: Front Bay Window (Right)
-          - entity: binary_sensor.gameroom_window_side
-            name: Game Room Window (Side)
-          - entity: binary_sensor.kitchen_window
-            name: Kitchen Window
-          - entity: binary_sensor.office_window
-            name: Office Window
+          - binary_sensor.back_sliding_door
+          - binary_sensor.garage_inner_door_left
       - type: custom:stack-in-card
         title: Occupancy
         cards:
@@ -158,82 +134,30 @@ views:
                   - type: custom:multiple-entity-row
                     canary_style:
                       margin: 0px -15px
-                    name: Office 1
-                    entity: binary_sensor.office_aqara_fp1_presence
+                    name: First Floor Bathroom
+                    entity: binary_sensor.firstfloorbathroom_presence_sensor_presence
                     state_color: true
                     show_state: false
                     secondary_info:
-                      entity: sensor.office_aqara_fp1_presence_event
+                      entity: sensor.firstfloorbathroom_presence_sensor_presence_event
                       name: false
                   - type: custom:multiple-entity-row
                     canary_style:
                       margin: 0px -15px
-                    name: Office 2
-                    entity: binary_sensor.office_aqara_fp1_2_presence
+                    name: Master Bedroom
+                    entity: binary_sensor.master_bedroom_aqara_fp1_presence
                     state_color: true
                     show_state: false
                     secondary_info:
-                      entity: sensor.office_aqara_fp1_2_presence_event
+                      entity: sensor.master_bedroom_aqara_fp1_presence_event
                       name: false
                   - type: custom:multiple-entity-row
                     canary_style:
                       margin: 0px -15px
-                    name: Game Room
-                    entity: binary_sensor.gameroom_aqara_fp1_presence
+                    name: Office
+                    entity: sensor.office_presence_sensor_presence_event
                     state_color: true
                     show_state: false
                     secondary_info:
                       entity: sensor.gameroom_aqara_fp1_presence_event
-                      name: false
-                  - type: custom:multiple-entity-row
-                    canary_style:
-                      margin: 0px -15px
-                    name: Dining Room
-                    entity: binary_sensor.diningroom_aqara_fp1_presence
-                    state_color: true
-                    show_state: false
-                    secondary_info:
-                      entity: sensor.diningroom_aqara_fp1_presence_event
-                      name: false
-              - type: entities
-                entities:
-                  - type: custom:multiple-entity-row
-                    canary_style:
-                      margin: 0px -15px
-                    name: Bedroom
-                    entity: binary_sensor.bedroom_aqara_fp1_presence
-                    state_color: true
-                    show_state: false
-                    secondary_info:
-                      entity: sensor.bedroom_aqara_fp1_presence_event
-                      name: false
-                  - type: custom:multiple-entity-row
-                    canary_style:
-                      margin: 0px -15px
-                    name: Upstairs Bathroom
-                    entity: binary_sensor.upstairsbathroom_aqara_fp1_presence
-                    state_color: true
-                    show_state: false
-                    secondary_info:
-                      entity: sensor.upstairsbathroom_aqara_fp1_presence_event
-                      name: false
-                  - type: custom:multiple-entity-row
-                    canary_style:
-                      margin: 0px -15px
-                    name: Basement
-                    entity: binary_sensor.basement_aqara_fp1_presence
-                    state_color: true
-                    show_state: false
-                    secondary_info:
-                      entity: sensor.basement_aqara_fp1_presence_event
-                      name: false
-                  - type: custom:multiple-entity-row
-                    canary_style:
-                      margin: 0px -15px
-                    name: Laundry Room
-                    entity: binary_sensor.laundryroom_aqara_fp1_presence
-                    state_color: true
-                    show_state: false
-                    secondary_info:
-                      entity: sensor.laundryroom_aqara_fp1_presence_event
                       name: false
