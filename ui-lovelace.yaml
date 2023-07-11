@@ -116,6 +116,8 @@ views:
         entities:
           - binary_sensor.back_sliding_door
           - binary_sensor.garage_inner_door_left
+          - cover.garage_door_left
+          - cover.garage_door_right
       - type: custom:stack-in-card
         title: Occupancy
         cards:
