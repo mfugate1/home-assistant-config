@@ -155,7 +155,7 @@ views:
                     canary_style:
                       margin: 0px -15px
                     name: Office
-                    entity: sensor.office_presence_sensor_presence_event
+                    entity: binary_sensor.office_presence_sensor_presence
                     state_color: true
                     show_state: false
                     secondary_info:
