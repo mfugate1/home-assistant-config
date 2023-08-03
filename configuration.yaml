@@ -1,7 +1,6 @@
 auth:
 config:
 conversation:
-discovery:
 history:
 logbook:
 media_source:
