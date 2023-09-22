@@ -14,6 +14,14 @@ views:
             hours_to_show: 36
             title: Room Temperatures
           - type: entities
+            entities:
+              - entity: switch.arcade_cabinet_computer
+              - entity: switch.arcade_cabinet_monitor
+              - entity: switch.arcade_cabinet_audio
+              - entity: switch.arcade_cabinet_marquee_light
+              - entity: switch.pinball_machine
+            title: Game Room
+          - type: entities
             title: Garage
             entities:
               - cover.garage_door_left
