@@ -5,6 +5,8 @@ entities:
     entities:
       - entity: binary_sensor.firstfloorbathroom_presence_sensor_presence
         show_name: false
+      - entity: binary_sensor.first_floor_bathroom_door_sensor_window_door_is_open
+        show_name: false
       - entity: light.firstfloorbathroom
         show_name: false
   - name: Automations
