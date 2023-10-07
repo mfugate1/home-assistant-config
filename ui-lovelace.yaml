@@ -20,6 +20,7 @@ views:
               - entity: switch.arcade_cabinet_audio
               - entity: switch.arcade_cabinet_marquee_light
               - entity: switch.pinball_machine
+              - entity: switch.air_hockey_fan
             title: Game Room
           - type: entities
             title: Garage
