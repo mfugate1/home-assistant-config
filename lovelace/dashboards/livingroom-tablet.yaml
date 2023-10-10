@@ -91,11 +91,6 @@ views:
           grid-area: btn10
       - type: vertical-stack
         view_layout:
-          grid-area: col2
-        cards:
-          - !include ../cards/thermostat.yaml
-      - type: vertical-stack
-        view_layout:
           grid-area: col3
         cards:
           - type: custom:clock-weather-card
