@@ -1,3 +1,0 @@
-views:
-  - cards:
-      - !include lovelace/thermostat.yaml

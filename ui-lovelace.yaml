@@ -3,7 +3,17 @@ views:
     cards:
       - type: vertical-stack
         cards:
-          - !include lovelace/cards/thermostat.yaml
+          - type: tile
+            entity: climate.thermostat
+            name: Climate
+            features:
+              - type: target-temperature
+              - type: climate-hvac-modes
+                hvac_modes:
+                  - 'off'
+                  - heat
+                  - cool
+                  - heat_cool
           - type: history-graph
             entities:
               - sensor.diningroom_temperature
