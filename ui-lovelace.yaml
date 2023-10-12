@@ -33,6 +33,13 @@ views:
               - entity: switch.air_hockey_fan
             title: Game Room
           - type: entities
+            title: Office
+            entities:
+              - type: custom:slider-entity-row
+                entity: cover.office_blind_front_inverted
+              - type: custom:slider-entity-row
+                entity: cover.office_blind_side_inverted
+          - type: entities
             title: Garage
             entities:
               - cover.garage_door_left
