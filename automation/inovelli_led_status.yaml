@@ -1,3 +1,8 @@
+- alias: Set inovelli notifications for tasks
+  id: set_inovelli_notifications_for_tasks
+  mode: restart
+  
+
 - alias: Set inovelli light switch led effect
   id: set_inovelli_light_switch_led_effect
   mode: restart
