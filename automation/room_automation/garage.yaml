@@ -1,0 +1,12 @@
+- alias: Garage outer config button x1 - toggle air hockey
+  id: garage_outer_config_button_x1_toggle_air_hockey
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 37
+      property_key: "003"
+      value: KeyPressed
+  action:
+    service: switch.toggle
+    entity_id: switch.air_hockey
