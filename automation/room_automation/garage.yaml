@@ -41,26 +41,26 @@
     service: switch.toggle
     entity_id: switch.air_hockey
 
-- alias: Garage inner switch up 4x - open garage door
-  id: garage_inner_switch_up_4x_open_garage_door
+- alias: Garage outer switch up 4x - open garage door
+  id: garage_outer_switch_up_4x_open_garage_door
   trigger:
     platform: event
     event_type: zwave_js_value_notification
     event_data:
-      node_id: 35
+      node_id: 37
       property_key: "002"
       value: KeyPressed4x
   action:
     service: cover.open_cover
     entity_id: cover.garage_door_left
 
-- alias: Garage inner switch down 4x - close garage door
-  id: garage_inner_switch_down_4x_close_garage_door
+- alias: Garage outer switch down 4x - close garage door
+  id: garage_outer_switch_down_4x_close_garage_door
   trigger:
     platform: event
     event_type: zwave_js_value_notification
     event_data:
-      node_id: 35
+      node_id: 37
       property_key: "002"
       value: KeyPressed4x
   action:
