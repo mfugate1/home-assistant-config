@@ -61,7 +61,7 @@
     event_type: zwave_js_value_notification
     event_data:
       node_id: 37
-      property_key: "002"
+      property_key: "001"
       value: KeyPressed4x
   action:
     service: cover.close_cover
