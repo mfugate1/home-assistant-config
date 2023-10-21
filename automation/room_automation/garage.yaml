@@ -18,7 +18,7 @@
     event_type: zwave_js_value_notification
     event_data:
       node_id: 40
-      label: "Scene 005"
+      property_key: "005"
       value: KeyPressed
   action:
     service: switch.toggle
@@ -27,3 +27,16 @@
       - switch.arcade_cabinet_monitor
       - switch.arcade_cabinet_audio
       - switch.arcade_cabinet_marquee_light
+
+- alias: Garage inner scene button 2 - toggle air hockey fan
+  id: garage_inner_scene_button_2_toggle_air_hockey_fan
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 40
+      property_key: "002"
+      value: KeyPressed
+  action:
+    service: switch.toggle
+    entity_id: switch.air_hockey
