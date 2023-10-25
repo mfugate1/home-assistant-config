@@ -66,3 +66,29 @@
   action:
     service: cover.close_cover
     entity_id: cover.garage_door_left
+
+- alias: Garage inner switch up 1x - light on
+  id: garage_inner_switch_up_1x_light_on
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 43
+      property_key: "002"
+      value: KeyPressed
+  action:
+    service: switch.turn_on
+    entity_id: switch.700_series_dry_contact_relay
+
+- alias: Garage inner switch down 1x - light off
+  id: garage_inner_switch_down_1x_light_off
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      node_id: 43
+      property_key: "001"
+      value: KeyPressed
+  action:
+    service: switch.turn_off
+    entity_id: switch.700_series_dry_contact_relay
