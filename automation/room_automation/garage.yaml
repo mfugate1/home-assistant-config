@@ -118,9 +118,11 @@
         - conditions: "{{ trigger.to_state.state == 'on' }}"
           sequence:
             - service: light.turn_on
-              entity_id: "{{ entities }}"
+              target:
+                entity_id: "{{ entities }}"
               data:
                 brightness_pct: 100
       default:
         - service: light.turn_off
-          entity_id: "{{ entities }}"
+          target:
+            entity_id: "{{ entities }}"
