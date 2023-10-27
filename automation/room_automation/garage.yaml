@@ -1,16 +1,3 @@
-- alias: Garage outer config button x1 - toggle air hockey
-  id: garage_outer_config_button_x1_toggle_air_hockey
-  trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 37
-      property_key: "003"
-      value: KeyPressed
-  action:
-    service: switch.toggle
-    entity_id: switch.air_hockey
-
 - alias: Garage inner scene main button - toggle arcade
   id: garage_inner_scene_main_button_toggle_arcade
   trigger:
@@ -28,67 +15,97 @@
       - switch.arcade_cabinet_audio
       - switch.arcade_cabinet_marquee_light
 
-- alias: Garage inner scene button 2 - toggle air hockey fan
-  id: garage_inner_scene_button_2_toggle_air_hockey_fan
+- alias: Garage switches - toggle air hockey fan
+  id: garage_switches_toggle_air_hockey_fan
   trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 40
-      property_key: "002"
-      value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 40
+        property_key: "002"
+        value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 37
+        property_key: "003"
+        value: KeyPressed
   action:
     service: switch.toggle
     entity_id: switch.air_hockey
 
-- alias: Garage outer switch up 4x - open garage door
-  id: garage_outer_switch_up_4x_open_garage_door
+- alias: Garage switches - open garage door
+  id: garage_switches_open_garage_door
   trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 37
-      property_key: "002"
-      value: KeyPressed4x
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 37
+        property_key: "002"
+        value: KeyPressed3x
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 43
+        property_key: "002"
+        value: KeyPressed3x
   action:
     service: cover.open_cover
     entity_id: cover.garage_door_left
 
-- alias: Garage outer switch down 4x - close garage door
-  id: garage_outer_switch_down_4x_close_garage_door
+- alias: Garage switches - close garage door
+  id: garage_switches_close_garage_door
   trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 37
-      property_key: "001"
-      value: KeyPressed4x
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 37
+        property_key: "002"
+        value: KeyPressed3x
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 43
+        property_key: "002"
+        value: KeyPressed3x
   action:
     service: cover.close_cover
     entity_id: cover.garage_door_left
 
-- alias: Garage inner switch up 1x - light on
-  id: garage_inner_switch_up_1x_light_on
+- alias: Garage switches up 1x - light on
+  id: garage_switches_up_1x_light_on
   trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 43
-      property_key: "002"
-      value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 37
+        property_key: "002"
+        value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 43
+        property_key: "002"
+        value: KeyPressed
   action:
-    service: switch.turn_on
-    entity_id: switch.700_series_dry_contact_relay
+    service: light.turn_on
+    entity_id: light.garage
 
-- alias: Garage inner switch down 1x - light off
-  id: garage_inner_switch_down_1x_light_off
+- alias: Garage switches down 1x - light off
+  id: garage_switches_down_1x_light_off
   trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 43
-      property_key: "001"
-      value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 37
+        property_key: "002"
+        value: KeyPressed
+    - platform: event
+      event_type: zwave_js_value_notification
+      event_data:
+        node_id: 43
+        property_key: "002"
+        value: KeyPressed
   action:
-    service: switch.turn_off
-    entity_id: switch.700_series_dry_contact_relay
+    service: light.turn_on
+    entity_id: light.garage
