@@ -107,5 +107,5 @@
         property_key: "001"
         value: KeyPressed
   action:
-    service: light.turn_on
+    service: light.turn_off
     entity_id: light.garage
