@@ -1,36 +1,3 @@
-- alias: Turn up patio volume when motion is detected
-  id: turn_on_patio_music_when_motion_is_detected
-  trigger:
-    platform: state
-    entity_id: group.patio_occupancy
-    to: "on"
-  condition:
-    condition: state
-    entity_id: media_player.patio_squeezelite
-    state: playing
-  action:
-    service: media_player.volume_set
-    target:
-      entity_id: media_player.patio_squeezelite
-    data:
-      volume_level: 0.27
-
-- alias: Patio config button x1 - Turn off patio volume
-  id: turn_off_patio_volume_when_not_in_use
-  trigger:
-    platform: event
-    event_type: zwave_js_value_notification
-    event_data:
-      node_id: 22
-      property_key: "003"
-      value: KeyPressed
-  action:
-    service: media_player.volume_set
-    target:
-      entity_id: media_player.patio_squeezelite
-    data:
-      volume_level: 0
-
 - alias: LMS next track fix
   id: lms_next_track_fix
   trigger:
@@ -46,3 +13,15 @@
   action:
     service: media_player.media_next_track
     entity_id: media_player.livingroom_squeezebox
+
+- alias: Music - Skip track with config buttons
+  id: music_skip_track_with_config_buttons
+  trigger:
+    platform: event
+    event_type: zwave_js_value_notification
+    event_data:
+      property_key: "003"
+      value: KeyPressed
+  action:
+    service: media_player.media_next_track
+    entity_id: media_player.spotify_stukabombr1
