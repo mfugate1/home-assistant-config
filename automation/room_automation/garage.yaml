@@ -103,3 +103,16 @@
   action:
     service: light.turn_off
     entity_id: light.garage
+
+- alias: Garage - Keep light switches in sync with relays
+  id: garage_keep_light_switches_in_sync_with_relays
+  trigger:
+    platform: state
+    entity_id: light.garage
+  action:
+    service: light.turn_{{ trigger.to_state.state }}
+    entity_id:
+      - light.garage_outer_switch
+      - light.garage_inner_switch
+    data:
+      brightness_pct: 100
