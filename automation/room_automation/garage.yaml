@@ -122,7 +122,10 @@
                 entity_id: "{{ entities }}"
               data:
                 brightness_pct: 100
+                transition: 0
       default:
         - service: light.turn_off
           target:
             entity_id: "{{ entities }}"
+          data:
+            transition: 0
