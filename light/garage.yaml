@@ -1,0 +1,27 @@
+- platform: template
+  lights:
+    garage:
+      friendly_name: Garage Lights
+      level_template: >-
+        {% if is_state('switch.garage_light_relay_left', 'on') or is_state('switch.garage_light_relay_right', 'on') %}
+          100
+        {% else %}
+          0
+        {% endif %}
+      value_template: >-
+        {{ is_state('switch.garage_light_relay_left', 'on') or is_state('switch.garage_light_relay_right', 'on') }}
+      turn_on:
+        service: switch.turn_on
+        entity_id:
+          - switch.garage_light_relay_left
+          - switch.garage_light_relay_right
+      turn_off:
+        service: switch.turn_off
+        entity_id:
+          - switch.garage_light_relay_left
+          - switch.garage_light_relay_right
+      set_level:
+        service: switch.turn_on
+        entity_id:
+          - switch.garage_light_relay_left
+          - switch.garage_light_relay_right
