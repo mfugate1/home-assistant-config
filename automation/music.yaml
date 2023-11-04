@@ -22,6 +22,7 @@
     event_data:
       property_key: "003"
       value: KeyPressed
+  condition: "{{ trigger.event.data.node_id != 40 }}"
   action:
     service: media_player.media_next_track
     entity_id: media_player.spotify_stukabombr1
