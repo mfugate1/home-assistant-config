@@ -1,6 +1,6 @@
 - platform: onkyo
   host: 192.168.1.43
-  name: familyroom_receiver
+  name: garage_receiver
   receiver_max_volume: 78
 - platform: onkyo
   host: 192.168.1.45
