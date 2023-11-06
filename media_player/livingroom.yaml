@@ -1,0 +1,21 @@
+- platform: universal
+  name: livingroom_universal_media_player
+  unique_id: livingroom_universal_media_player
+  commands:
+    turn_on:
+      service: media_player.turn_on
+      target:
+        entity_id:
+          - media_player.livingroom_tv
+          - media_player.livingroom_receiver
+    turn_off:
+      service: media_player.turn_off
+      target:
+        entity_id:
+          - media_player.livingroom_tv
+          - media_player.livingroom_receiver
+  attributes:
+    source_list:
+      - PS5
+      - Hulu
+      - Netflix
