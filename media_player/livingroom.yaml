@@ -15,7 +15,4 @@
           - media_player.livingroom_tv
           - media_player.livingroom_receiver
   attributes:
-    source_list:
-      - PS5
-      - Hulu
-      - Netflix
+    source_list: PS5,Hulu,Netflix
