@@ -1,9 +1,10 @@
 - platform: universal
   name: livingroom_universal_media_player
   unique_id: livingroom_universal_media_player
+  state_template: "{{ is_state('media_player.livingroom_tv', 'on') or is_state('media_player.livingroom_receiver', 'on') }}"
   commands:
     turn_on:
-      parallel:
+      - parallel:
         - service: media_player.turn_on
           target:
             entity_id: media_player.livingroom_receiver
@@ -17,4 +18,4 @@
           - media_player.livingroom_tv
           - media_player.livingroom_receiver
   attributes:
-    source_list: PS5,Hulu,Netflix
+    source_list: sensor.livingroom_universal_media_player_source_list|source_list
