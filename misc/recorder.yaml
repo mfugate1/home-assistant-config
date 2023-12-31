@@ -1,11 +1,1 @@
 db_url: !secret RECORDER_DB_URL
-purge_keep_days: 90
-exclude:
-  domains:
-    - automation
-    - calendar
-    - camera
-    - remote
-    - script
-    - weather
-    - zone
