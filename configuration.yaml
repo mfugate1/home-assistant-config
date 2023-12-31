@@ -46,6 +46,9 @@ proximity:
     zone: sarah_remote_home
     devices: person.mike
 
+recorder:
+  db_url: !secret RECORDER_DB_URL
+
 spotcast:
   sp_dc: !secret SPOTIFY_SP_DC
   sp_key: !secret SPOTIFY_SP_KEY
@@ -67,7 +70,6 @@ media_player: !include_dir_merge_list media_player/
 monitor_docker: !include misc/monitor_docker.yaml
 mqtt: !include_dir_named mqtt/
 person: !include misc/person.yaml
-recorder: !include misc/recorder.yaml
 rest_command: !include misc/rest_command.yaml
 script: !include_dir_named script/
 sensor: !include_dir_merge_list sensor/
