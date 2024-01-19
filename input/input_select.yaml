@@ -79,3 +79,8 @@ vacuum_fan_speed_night:
     - Standard
     - Medium
     - Turbo
+
+room_config_select:
+  options:
+    - First Floor Bathroom
+    - Master Bedroom
