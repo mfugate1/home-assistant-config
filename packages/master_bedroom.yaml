@@ -87,16 +87,12 @@ automation:
         percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
 
   - alias: Master Bedroom - Turn Off Fan For Sleep Mode
-    id: master_bedroom_turn_on_fan_for_sleep_mode
+    id: master_bedroom_turn_off_fan_for_sleep_mode
     max_exceeded: silent
     trigger:
       platform: state
       entity_id: input_boolean.sleep_mode
       to: "off"
-    condition:
-      condition: state
-      entity_id: binary_sensor.someone_is_home
-      state: 'on'
     action:
       service: fan.turn_off
       entity_id: fan.masterbedroom_ceiling_fan
