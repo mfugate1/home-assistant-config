@@ -1,5 +1,3 @@
-sleep_mode:
-
 # Tasks
 add_salt_to_hot_tub:
   name: Add Salt to Hot Tub

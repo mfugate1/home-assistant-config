@@ -1,0 +1,207 @@
+automation:
+  - alias: Master Bedroom - Overhead Light On
+    id: master_bedroom_overhead_light_on
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: binary_sensor.presence_master_bedroom_zone_1
+      to: 'on'
+    condition:
+      - condition: state
+        entity_id: group.masterbedroom_bed_occupied
+        state: 'off'
+        for:
+          minutes: "{{ states('input_number.masterbedroom_overhead_light_bed_not_occupied_delay') | int }}"
+      - condition: state
+        entity_id: binary_sensor.someone_is_home
+        state: 'on'
+      - condition: numeric_state
+        entity_id: sensor.master_bedroom_light_level_1
+        below: input_number.masterbedroom_overhead_light_on_threshold
+      - condition: state
+        entity_id: input_boolean.sleep_mode
+        state: 'off'
+    action:
+      service: light.turn_on
+      entity_id: light.masterbedroom_ceiling_light_yellow
+
+  - alias: Master Bedroom - Lights Off
+    id: master_bedroom_lights_off
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: binary_sensor.masterbedroom_bed_occupied
+      to: 'off'
+      for:
+        seconds: "{{ states('input_number.masterbedroom_lights_off_timeout') | int }}"
+    action:
+      service: light.turn_off
+      entity_id:
+        - light.masterbedroom_ceiling_light_yellow
+        - light.bedroom_lamps
+
+  - alias: Master Bedroom - Switch To Lamps For Sleep Mode
+    id: master_bedroom_switch_to_lamps_for_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "on"
+    condition:
+      - condition: state
+        entity_id:
+          - light.masterbedroom_ceiling_light_yellow
+          - light.masterbedroom_ceiling_light_white
+        state: "on"
+        match: any
+      - condition: state
+        entity_id: binary_sensor.someone_is_home
+        state: 'on'
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom_lamps
+      - delay: 2
+      - service: light.turn_off
+        entity_id:
+          - light.masterbedroom_ceiling_light_yellow
+          - light.masterbedroom_ceiling_light_white
+      - delay: "{{ states('input_number.masterbedroom_lamps_off_sleep_mode_delay') | int }}"
+      - service: light.turn_off
+        entity_id: light.bedroom_lamps
+
+  - alias: Master Bedroom - Turn On Fan For Sleep Mode
+    id: master_bedroom_turn_on_fan_for_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "on"
+    condition:
+      condition: state
+      entity_id: binary_sensor.someone_is_home
+      state: 'on'
+    action:
+      service: fan.turn_on
+      entity_id: fan.masterbedroom_ceiling_fan
+      data:
+        percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
+
+  - alias: Master Bedroom - Turn Off Fan For Sleep Mode
+    id: master_bedroom_turn_on_fan_for_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "off"
+    condition:
+      condition: state
+      entity_id: binary_sensor.someone_is_home
+      state: 'on'
+    action:
+      service: fan.turn_off
+      entity_id: fan.masterbedroom_ceiling_fan
+
+  - alias: Master Bedroom - Turn On Sleep Mode
+    id: master_bedroom_turn_on_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: group.masterbedroom_bed_occupied
+      to: "on"
+      for:
+        seconds: "{{ states('input_number.masterbedroom_sleep_mode_on_delay') | int }}"
+    action:
+      service: input_boolean.turn_on
+      entity_id: input_boolean.sleep_mode
+
+  - alias: Master Bedroom - Turn Off Sleep Mode
+    id: master_bedroom_turn_off_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: group.masterbedroom_bed_occupied
+      to: "off"
+      for:
+        seconds: "{{ states('input_number.masterbedroom_sleep_mode_off_delay') | int }}"
+    action:
+      service: input_boolean.turn_off
+      entity_id: input_boolean.sleep_mode
+
+  - alias: Master Bedroom - Turn Lights Off For Sleep Mode
+    id: master_bedroom_turn_lights_off_for_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: input_boolean.sleep_mode
+      to: "on"
+    condition:
+      condition: state
+      entity_id: binary_sensor.someone_is_home
+      state: 'on'
+    action:
+      service: light.turn_off
+      entity_id:
+        - light.masterbedroom_ceiling_light_yellow
+        - light.bedroom_lamps
+
+group:
+  masterbedroom_occupied:
+    entities:
+      - binary_sensor.presence_master_bedroom_zone_1
+      - binary_sensor.presence_master_bedroom_bed_zone_1
+      - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
+      - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
+  masterbedroom_bed_occupied:
+    entities:
+      - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
+      - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
+      - binary_sensor.presence_master_bedroom_bed_zone_1
+
+input_boolean:
+  sleep_mode:
+
+input_number:
+
+  # The speed (as a percentage) to set the fan to when sleep mode turns on
+  masterbedroom_fan_speed_for_sleep_mode:
+    min: 10
+    max: 100
+    step: 10
+    unit_of_measurement: "%"
+
+  # How long the lamps stay on after sleep mode turns on
+  masterbedroom_lamps_off_sleep_mode_delay:
+    min: 1
+    max: 500
+    unit_of_measurement: seconds
+    
+  # The amount of time the bedroom must be unoccupied before lights turn off
+  masterbedroom_lights_off_timeout:
+    min: 1
+    max: 100
+    unit_of_measurement: seconds
+  
+  # The amount of time the bed must be unoccupied before the overhead light can be turned on
+  masterbedroom_overhead_light_bed_not_occupied_delay:
+    min: 1
+    max: 50
+    unit_of_measurement: minutes
+
+  # The light level in the room must be under this threshold for lights to turn on
+  masterbedroom_overhead_light_on_threshold:
+    min: 0
+    max: 100
+    unit_of_measurement: lux
+
+  # The amount of time the bed must be unoccupied for sleep mode to turn off
+  masterbedroom_sleep_mode_off_delay:
+    min: 1
+    max: 500
+    unit_of_measurement: seconds
+
+  # The amount of time the bed must be occupied for sleep mode to turn on
+  masterbedroom_sleep_mode_on_delay:
+    min: 1
+    max: 500
+    unit_of_measurement: seconds
+  
