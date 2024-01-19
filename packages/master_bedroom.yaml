@@ -186,7 +186,7 @@ input_number:
   # The light level in the room must be under this threshold for lights to turn on
   masterbedroom_overhead_light_on_threshold:
     min: 0
-    max: 100
+    max: 500
     unit_of_measurement: lux
 
   # The amount of time the bed must be unoccupied for sleep mode to turn off
