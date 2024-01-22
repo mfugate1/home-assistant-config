@@ -171,41 +171,48 @@ input_number:
     min: 10
     max: 100
     step: 10
+    mode: box
     unit_of_measurement: "%"
 
   # How long the lamps stay on after sleep mode turns on
   masterbedroom_lamps_off_sleep_mode_delay:
     min: 1
     max: 500
+    mode: box
     unit_of_measurement: seconds
     
   # The amount of time the bedroom must be unoccupied before lights turn off
   masterbedroom_lights_off_timeout:
     min: 1
     max: 100
+    mode: box
     unit_of_measurement: seconds
   
   # The amount of time the bed must be unoccupied before the ceiling light can be turned on
   masterbedroom_ceiling_light_bed_not_occupied_delay:
     min: 1
     max: 50
+    mode: box
     unit_of_measurement: minutes
 
   # The light level in the room must be under this threshold for lights to turn on
   masterbedroom_ceiling_light_on_threshold:
     min: 0
     max: 500
+    mode: box
     unit_of_measurement: lux
 
   # The amount of time the bed must be unoccupied for sleep mode to turn off
   masterbedroom_sleep_mode_off_delay:
     min: 1
     max: 500
+    mode: box
     unit_of_measurement: seconds
 
   # The amount of time the bed must be occupied for sleep mode to turn on
   masterbedroom_sleep_mode_on_delay:
     min: 1
     max: 500
+    mode: box
     unit_of_measurement: seconds
   
