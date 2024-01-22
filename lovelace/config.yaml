@@ -32,8 +32,6 @@ resources:
     type: module
   - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
     type: module
-  - url: /hacsfiles/lovelace-auto-entities/auto-entities.js
-    type: module
   - url: /hacsfiles/lovelace-state-switch/state-switch.js
     type: module
   - url: /hacsfiles/lovelace-swipe-navigation/swipe-navigation.js
@@ -57,6 +55,10 @@ resources:
   - url: /hacsfiles/lovelace-mushroom/mushroom.js
     type: module
   - url: /hacsfiles/spotify-card/spotify-card.js
+    type: module
+  - url: /hacsfiles/lovelace-card-tools/card-tools.js
+    type: module
+  - url: /hacsfiles/secondaryinfo-entity-row.js
     type: module
 dashboards:
   livingroom-tablet:
