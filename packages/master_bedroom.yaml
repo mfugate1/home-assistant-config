@@ -1,6 +1,7 @@
 automation:
-  - alias: Master Bedroom - Overhead Light On
-    id: master_bedroom_overhead_light_on
+  - alias: Master Bedroom - Ceiling Light On
+    description: Turn the ceiling light on when someone enters the bedroom.
+    id: master_bedroom_ceiling_light_on
     max_exceeded: silent
     trigger:
       platform: state
@@ -11,13 +12,13 @@ automation:
         entity_id: group.masterbedroom_bed_occupied
         state: 'off'
         for:
-          minutes: "{{ states('input_number.masterbedroom_overhead_light_bed_not_occupied_delay') | int }}"
+          minutes: "{{ states('input_number.masterbedroom_ceiling_light_bed_not_occupied_delay') | int }}"
       - condition: state
         entity_id: binary_sensor.someone_is_home
         state: 'on'
       - condition: numeric_state
         entity_id: sensor.master_bedroom_light_level_1
-        below: input_number.masterbedroom_overhead_light_on_threshold
+        below: input_number.masterbedroom_ceiling_light_on_threshold
       - condition: state
         entity_id: input_boolean.sleep_mode
         state: 'off'
@@ -26,11 +27,12 @@ automation:
       entity_id: light.masterbedroom_ceiling_light_yellow
 
   - alias: Master Bedroom - Lights Off
+    description: Turn all the bedroom lights off if the room is unoccupied.
     id: master_bedroom_lights_off
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: binary_sensor.masterbedroom_bed_occupied
+      entity_id: group.masterbedroom_occupied
       to: 'off'
       for:
         seconds: "{{ states('input_number.masterbedroom_lights_off_timeout') | int }}"
@@ -41,6 +43,7 @@ automation:
         - light.bedroom_lamps
 
   - alias: Master Bedroom - Switch To Lamps For Sleep Mode
+    description: When sleep mode activates and the ceiling light is on, turn the lamps on and turn the ceiling light off.
     id: master_bedroom_switch_to_lamps_for_sleep_mode
     max_exceeded: silent
     trigger:
@@ -70,6 +73,7 @@ automation:
         entity_id: light.bedroom_lamps
 
   - alias: Master Bedroom - Turn On Fan For Sleep Mode
+    description: Turns on the ceiling fan when sleep mode is activated.
     id: master_bedroom_turn_on_fan_for_sleep_mode
     max_exceeded: silent
     trigger:
@@ -87,6 +91,7 @@ automation:
         percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
 
   - alias: Master Bedroom - Turn Off Fan For Sleep Mode
+    description: Turns off the ceiling fan when sleep mode is activated.
     id: master_bedroom_turn_off_fan_for_sleep_mode
     max_exceeded: silent
     trigger:
@@ -98,6 +103,7 @@ automation:
       entity_id: fan.masterbedroom_ceiling_fan
 
   - alias: Master Bedroom - Turn On Sleep Mode
+    description: Turns on sleep mode when the bed has been occupied for certain number of seconds.
     id: master_bedroom_turn_on_sleep_mode
     max_exceeded: silent
     trigger:
@@ -111,6 +117,7 @@ automation:
       entity_id: input_boolean.sleep_mode
 
   - alias: Master Bedroom - Turn Off Sleep Mode
+    description: Turns off sleep mode when the bed has been unoccupied for certain number of seconds.
     id: master_bedroom_turn_off_sleep_mode
     max_exceeded: silent
     trigger:
@@ -124,6 +131,7 @@ automation:
       entity_id: input_boolean.sleep_mode
 
   - alias: Master Bedroom - Turn Lights Off For Sleep Mode
+    description: Turns all the lights off after sleep mode has been active for a certain number of seconds.
     id: master_bedroom_turn_lights_off_for_sleep_mode
     max_exceeded: silent
     trigger:
@@ -177,14 +185,14 @@ input_number:
     max: 100
     unit_of_measurement: seconds
   
-  # The amount of time the bed must be unoccupied before the overhead light can be turned on
-  masterbedroom_overhead_light_bed_not_occupied_delay:
+  # The amount of time the bed must be unoccupied before the ceiling light can be turned on
+  masterbedroom_ceiling_light_bed_not_occupied_delay:
     min: 1
     max: 50
     unit_of_measurement: minutes
 
   # The light level in the room must be under this threshold for lights to turn on
-  masterbedroom_overhead_light_on_threshold:
+  masterbedroom_ceiling_light_on_threshold:
     min: 0
     max: 500
     unit_of_measurement: lux
