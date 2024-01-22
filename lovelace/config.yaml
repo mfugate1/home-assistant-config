@@ -60,6 +60,8 @@ resources:
     type: module
   - url: /hacsfiles/secondaryinfo-entity-row.js
     type: module
+  - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
