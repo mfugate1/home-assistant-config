@@ -13,16 +13,6 @@ calendar:
   - platform: todoist
     token: !secret TODOIST_API_TOKEN
 
-camera:
-  - platform: xiaomi_cloud_map_extractor
-    host: 192.168.1.47
-    token: !secret XIAOMI_VACUUM_TOKEN
-    username: !secret XIAOMI_VACUUM_USERNAME
-    password: !secret XIAOMI_VACUUM_PASSWORD
-    draw: ['all']
-    attributes:
-      - calibration_points
-
 frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
