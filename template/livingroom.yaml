@@ -1,5 +1,0 @@
-- sensor:
-    - name: livingroom_universal_media_player_source_list
-      state: who_cares
-      attributes:
-        source_list: PS5,Hulu,Netflix
