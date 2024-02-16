@@ -1,0 +1,40 @@
+automation:
+
+  - alias: Workout Room - Lights On
+    description: Turn the workout room lights on when the room is occupied.
+    id: workout_room_lights_on
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: binary_sensor.presence_workout_room_zone_1
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: binary_sensor.someone_is_home
+      state: 'on'
+    action:
+      service: light.turn_on
+      entity_id: light.workout_room_lights
+
+  - alias: Workout Room - Lights Off
+    description: Turn the workout room lights off when the room is unoccupied.
+    id: workout_room_lights_off
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: binary_sensor.presence_workout_room_zone_1
+      to: 'off'
+      for:
+        minutes: "{{ states('input_number.workoutroom_lights_off_timeout') | int }}"
+    action:
+      service: light.turn_off
+      entity_id: light.workout_room_lights
+
+input_number:
+
+  # The amount of time the bedroom must be unoccupied before lights turn off
+  workoutroom_lights_off_timeout:
+    min: 1
+    max: 15
+    mode: box
+    unit_of_measurement: m
