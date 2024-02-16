@@ -29,14 +29,6 @@ http:
     - 192.168.1.0/24
     - 172.0.0.0/8
 
-proximity:
-  mikes_house:
-    zone: home
-    devices: person.mike
-  sarahs_house:
-    zone: sarah_remote_home
-    devices: person.mike
-
 recorder:
   db_url: !secret RECORDER_DB_URL
 
