@@ -10,10 +10,6 @@ sun:
 system_health:
 wake_on_lan:
 
-calendar:
-  - platform: todoist
-    token: !secret TODOIST_API_TOKEN
-
 frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
