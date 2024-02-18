@@ -81,9 +81,12 @@ automation:
       entity_id: input_boolean.sleep_mode
       to: "on"
     condition:
-      condition: state
-      entity_id: binary_sensor.someone_is_home
-      state: 'on'
+      - condition: state
+        entity_id: binary_sensor.someone_is_home
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.disable_fan_during_sleep_mode
+        state: 'off'
     action:
       service: fan.turn_on
       entity_id: fan.masterbedroom_ceiling_fan
@@ -91,7 +94,7 @@ automation:
         percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
 
   - alias: Master Bedroom - Turn Off Fan For Sleep Mode
-    description: Turns off the ceiling fan when sleep mode is activated.
+    description: Turns off the ceiling fan when sleep mode is deactivated.
     id: master_bedroom_turn_off_fan_for_sleep_mode
     max_exceeded: silent
     trigger:
@@ -148,6 +151,26 @@ automation:
         - light.masterbedroom_ceiling_light_yellow
         - light.bedroom_lamps
 
+  - alias: Master Bedroom - Enable/Disable Fan During Sleep Mode
+    description: If the fan is turned on or off manually during sleep mode, preserve that choice.
+    id: master_bedroom_enable_disable_fan_during_sleep_mode
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: fan.masterbedroom_ceiling_fan
+    condition:
+      condition: state
+      entity_id: input_boolean.sleep_mode
+      state: 'on'
+    action:
+      service: >
+        {% if trigger.to_state.state == 'off' %}
+          input_boolean.turn_on
+        {% else %}
+          input_boolean.turn_off
+        {% endif %}
+      entity_id: input_boolean.disable_fan_during_sleep_mode
+
 group:
   masterbedroom_occupied:
     entities:
@@ -162,6 +185,7 @@ group:
       - binary_sensor.presence_master_bedroom_bed_zone_1
 
 input_boolean:
+  disable_fan_during_sleep_mode:
   sleep_mode:
 
 input_number:
