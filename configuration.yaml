@@ -33,8 +33,7 @@ spotcast:
   sp_key: !secret SPOTIFY_SP_KEY
   country: US
 
-automation: !include automations.yaml
-automation manual: !include_dir_merge_list automation/
+automation: !include_dir_merge_list automation/
 binary_sensor: !include_dir_merge_list binary_sensor/
 cover: !include misc/cover.yaml
 group: !include misc/group.yaml
