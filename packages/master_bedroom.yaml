@@ -172,18 +172,16 @@ automation:
       entity_id: input_boolean.disable_fan_during_sleep_mode
 
 group:
-  masterbedroom_occupied:
-    entities:
-      - binary_sensor.presence_master_bedroom_zone_1
-      - binary_sensor.presence_master_bedroom_bed_zone_1
-      - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-      - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
   masterbedroom_bed_occupied:
     entities:
       - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
       - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
       - binary_sensor.presence_master_bedroom_bed_zone_1
-
+  masterbedroom_occupied:
+    entities:
+      - binary_sensor.presence_master_bedroom_zone_1
+      - group.masterbedroom_bed_occupied
+  
 input_boolean:
   disable_fan_during_sleep_mode:
   sleep_mode:
