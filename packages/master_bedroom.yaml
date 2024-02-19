@@ -115,6 +115,10 @@ automation:
       to: "on"
       for:
         seconds: "{{ states('input_number.masterbedroom_sleep_mode_on_delay') | int }}"
+    condition:
+      condition: state
+      entity_id: input_boolean.masterbedroom_disable_sleep_mode
+      state: 'off'
     action:
       service: input_boolean.turn_on
       entity_id: input_boolean.masterbedroom_sleep_mode
@@ -184,7 +188,16 @@ group:
   
 input_boolean:
   masterbedroom_disable_fan_during_sleep_mode:
+  masterbedroom_disable_sleep_mode:
   masterbedroom_sleep_mode:
+
+input_datetime:
+  masterbedroom_sleep_mode_disable_time:
+    has_date: false
+    has_time: true
+  masterbedroom_sleep_mode_enable_time:
+    has_date: false
+    has_time: true
 
 input_number:
 
