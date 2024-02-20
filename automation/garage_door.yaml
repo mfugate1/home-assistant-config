@@ -30,7 +30,6 @@
     entity_id: 
       - binary_sensor.garage_door_left
       - binary_sensor.garage_door_right
-      - input_boolean.sleep_mode
     state: "off"
   action:
     - service: notify.mobile_app_sm_g981u1
