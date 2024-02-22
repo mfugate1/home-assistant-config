@@ -20,8 +20,6 @@ resources:
     type: module
   - url: /hacsfiles/stack-in-card/stack-in-card.js
     type: module
-  - url: /hacsfiles/bar-card/bar-card.js
-    type: module
   - url: /hacsfiles/lovelace-card-templater/lovelace-card-templater.js
     type: module
   - url: /hacsfiles/config-template-card/config-template-card.js
@@ -32,29 +30,15 @@ resources:
     type: module
   - url: /hacsfiles/mini-graph-card/mini-graph-card-bundle.js
     type: module
-  - url: /hacsfiles/lovelace-state-switch/state-switch.js
-    type: module
-  - url: /hacsfiles/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
-    type: module
   - url: /hacsfiles/text-divider-row/text-divider-row.js
     type: module
   - url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
     type: module
-  - url: /hacsfiles/swiss-army-knife-card/swiss-army-knife-card.js
-    type: module
   - url: /hacsfiles/clock-weather-card/clock-weather-card.js
-    type: module
-  - url: /hacsfiles/room-card/room-card.js
     type: module
   - url: /hacsfiles/lovelace-shutter-row/shutter-row.js
     type: module
-  - url: /hacsfiles/lovelace-mushroom/mushroom.js
-    type: module
   - url: /hacsfiles/spotify-card/spotify-card.js
-    type: module
-  - url: /hacsfiles/lovelace-card-tools/card-tools.js
-    type: module
-  - url: /hacsfiles/secondaryinfo-entity-row/secondaryinfo-entity-row.js
     type: module
   - url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
     type: module
