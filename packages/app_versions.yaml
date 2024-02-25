@@ -4,3 +4,10 @@ sensor:
     unique_id: homebox_version
     resource: http://192.168.1.17:7745/api/v1/status
     value_template: "{{ value_json.build.version }}"
+  - platform: rest
+    name: paperless_version
+    unique_id: paperless_version
+    resource: http://192.168.1.17:8000/api/remote_version/
+    value_template: "{{ value_json.version }}"
+    json_attributes:
+      - update_available
