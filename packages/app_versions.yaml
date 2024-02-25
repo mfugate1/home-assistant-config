@@ -1,0 +1,6 @@
+sensor:
+  - platform: rest
+    name: homebox_version
+    unique_id: homebox_version
+    resource: http://192.168.1.17:7745/api/v1/status
+    value_template: "{{ value_json.build.version }}"
