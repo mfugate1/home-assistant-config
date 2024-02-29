@@ -50,7 +50,11 @@ script:
     mode: queued
     fields:
       tv_source:
+        description: Source to set the TV to.
+        example: HDMI2
       receiver_source:
+        description: Source to set the receiver to.
+        example: Video 3
     sequence:
       - variables:
           delay_seconds: >
