@@ -1,6 +1,24 @@
 switch:
   - platform: template
     switches:
+      livingroom_netflix:
+        friendly_name: Netflix
+        icon_template: mdi:netflix
+        value_template: >
+          {{     is_state('media_player.livingroom_tv', 'on')
+             and is_state('media_player.livingroom_receiver', 'on')
+             and is_state_attr('media_player.livingroom_tv', 'source', 'Netflix')
+             and is_state_attr('media_player.livingroom_receiver', 'source', 'TV') }}
+        availability_template: >
+          {{     not is_state('media_player.livingroom_tv', 'unavailable')
+             and not is_state('media_player.livingroom_receiver', 'unavailable') }}
+        turn_on:
+          service: script.turn_on_livingroom_tv_and_receiver
+          data:
+            tv_source: Netflix
+            receiver_source: TV
+        turn_off:
+          service: script.turn_off_livingroom_tv_and_receiver
       livingroom_ps5:
         friendly_name: PS5
         icon_template: mdi:sony-playstation
@@ -18,24 +36,54 @@ switch:
           - parallel:
               - service: switch.turn_on
                 entity_id: switch.livingroom_ps5
-              - service: media_player.turn_on
-                entity_id:
-                  - media_player.livingroom_tv
-                  - media_player.livingroom_receiver
-          - delay: 5
-          - parallel:
-            - service: media_player.select_source
-              entity_id: media_player.livingroom_tv
-              data:
-                source: HDMI2
-            - service: media_player.select_source
-              entity_id: media_player.livingroom_receiver
-              data:
-                source: Video 3
+              - service: script.turn_on_livingroom_tv_and_receiver
+                data:
+                  tv_source: HDMI2
+                  receiver_source: Video 3
         turn_off:
           - service: switch.turn_off
             entity_id: switch.livingroom_ps5
-          - service: media_player.turn_off
-            entity_id: 
-              - media_player.livingroom_tv
-              - media_player.livingroom_receiver
+          - service: script.turn_off_livingroom_tv_and_receiver
+
+script:
+  turn_on_livingroom_tv_and_receiver:
+    mode: queued
+    fields:
+      tv_source:
+      receiver_source:
+    sequence:
+      - variables:
+          delay_seconds: >
+            {% if is_state('media_player.livingroom_tv', 'off') %}
+              10
+            {% elif is_state('media_player.livingroom_receiver', 'off') %}
+              5
+            {% else %}
+              0
+            {% endif %}
+      - service: media_player.turn_on
+        entity_id:
+          - media_player.livingroom_tv
+          - media_player.livingroom_receiver
+      - delay: "{{ delay_seconds }}"
+      - if:
+          - "{{ tv_source is defined and tv_source != none }}"
+        then:
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_tv
+            data:
+              source: "{{ tv_source }}"
+      - if:
+          - "{{ receiver_source is defined and tv_source != none }}"
+        then:
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_receiver
+            data:
+              source: "{{ receiver_source }}"
+  turn_off_livingroom_tv_and_receiver:
+    mode: queued
+    sequence:
+      - service: media_player.turn_off
+        entity_id: 
+          - media_player.livingroom_tv
+          - media_player.livingroom_receiver
