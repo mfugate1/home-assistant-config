@@ -41,6 +41,7 @@ template:
         options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
         select_option:
           service: input_text.set_value
+          entity_id: input_text.livingroom_receiver_music_source
           data:
             value: "{{ option }}"
 
