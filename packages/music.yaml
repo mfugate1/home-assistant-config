@@ -23,20 +23,29 @@ template:
           rooms: >
             {% set ns = namespace(rooms=[]) %}
             {% if is_state('media_player.livingroom_receiver', 'on') 
-              and is_state_attr('media_player.livingroom_receiver', 'source', states('input_select.livingroom_receiver_music_source')) 
+              and is_state_attr('media_player.livingroom_receiver', 'source', states('select.livingroom_receiver_music_source'))
               and is_state('media_player.livingroom_squeezebox', 'playing') %}
                 {% set ns.rooms = ns.rooms + ['livingroom'] %}
             {% endif %}
             {% if is_state('media_player.garage_receiver', 'on') 
-              and is_state_attr('media_player.garage_receiver', 'source', states('input_select.garage_receiver_music_source')) 
+              and is_state_attr('media_player.garage_receiver', 'source', states('select.garage_receiver_music_source'))
               and is_state('media_player.garage_squeezebox', 'playing') %}
                 {% set ns.rooms = ns.rooms + ['garage'] %}
             {% endif %}
             {{ ns.rooms }}
 
   - select:
-      - name: livingroom_receiver_music_source_2
-        unique_id: livingroom_receiver_music_source_2
+      - name: garage_receiver_music_source
+        unique_id: garage_receiver_music_source
+        state: "{{ states('input_text.garage_receiver_music_source') }}"
+        options: "{{ state_attr('media_player.garage_receiver', 'source_list') }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.garage_receiver_music_source
+          data:
+            value: "{{ option }}"
+      - name: livingroom_receiver_music_source
+        unique_id: livingroom_receiver_music_source
         state: "{{ states('input_text.livingroom_receiver_music_source') }}"
         options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
         select_option:
@@ -46,4 +55,5 @@ template:
             value: "{{ option }}"
 
 input_text:
+  garage_receiver_music_source:
   livingroom_receiver_music_source:
