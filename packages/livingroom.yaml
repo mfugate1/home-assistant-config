@@ -59,7 +59,7 @@ script:
       - variables:
           delay_seconds: >
             {% if is_state('media_player.livingroom_tv', 'off') %}
-              10
+              8
             {% elif is_state('media_player.livingroom_receiver', 'off') %}
               5
             {% else %}
