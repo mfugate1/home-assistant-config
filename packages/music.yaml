@@ -16,6 +16,23 @@ automation:
       entity_id: input_select.garage_receiver_music_source
       data:
         options: "{{ state_attr('media_player.garage_receiver', 'source_list') }}"
+  - alias: Set input select options for livingroom receiver music source
+    id: set_input_select_options_for_livingroom_receiver_music_source
+    trigger:
+      - platform: state
+        entity_id: media_player.livingroom_receiver
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: call_service
+        event_data:
+          domain: homeassistant
+          service: reload_all
+    action:
+      service: input_select.set_options
+      entity_id: input_select.livingroom_receiver_music_source
+      data:
+        options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
 
 template:
   - sensor:
@@ -42,12 +59,12 @@ template:
           rooms: >
             {% set ns = namespace(rooms=[]) %}
             {% if is_state('media_player.livingroom_receiver', 'on') 
-              and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 2') 
+              and is_state_attr('media_player.livingroom_receiver', 'source', states('input_select.livingroom_receiver_music_source')) 
               and is_state('media_player.livingroom_squeezebox', 'playing') %}
                 {% set ns.rooms = ns.rooms + ['livingroom'] %}
             {% endif %}
             {% if is_state('media_player.garage_receiver', 'on') 
-              and is_state_attr('media_player.garage_receiver', 'source', 'Bluray') 
+              and is_state_attr('media_player.garage_receiver', 'source', states('input_select.garage_receiver_music_source')) 
               and is_state('media_player.garage_squeezebox', 'playing') %}
                 {% set ns.rooms = ns.rooms + ['garage'] %}
             {% endif %}
@@ -57,5 +74,8 @@ input_select:
 
   # Music source input selects get their options set with an automation above, so no real options are set here
   garage_receiver_music_source:
+    options:
+      - dummy_value
+  livingroom_receiver_music_source:
     options:
       - dummy_value
