@@ -4,9 +4,7 @@ automation:
     mode: queued
     trigger:
       - platform: state
-        entity_id: 
-          - media_player.garage_receiver
-          - input_select.garage_receiver_music_source
+        entity_id: media_player.garage_receiver
       - platform: homeassistant
         event: start
       - platform: event
@@ -15,18 +13,17 @@ automation:
           domain: homeassistant
           service: reload_all
     action:
-      service: input_select.set_options
-      entity_id: input_select.garage_receiver_music_source
-      data:
-        options: "{{ state_attr('media_player.garage_receiver', 'source_list') }}"
+      - delay: 5  # When everything is reloaded, selects get set back to default lists. This waits for that to happen, and then sets the options
+      - service: input_select.set_options
+        entity_id: input_select.garage_receiver_music_source
+        data:
+          options: "{{ state_attr('media_player.garage_receiver', 'source_list') }}"
   - alias: Set input select options for livingroom receiver music source
     id: set_input_select_options_for_livingroom_receiver_music_source
     mode: queued
     trigger:
       - platform: state
-        entity_id: 
-          - media_player.livingroom_receiver
-          - input_select.livingroom_receiver_music_source
+        entity_id: media_player.livingroom_receiver
       - platform: homeassistant
         event: start
       - platform: event
@@ -35,10 +32,11 @@ automation:
           domain: homeassistant
           service: reload_all
     action:
-      service: input_select.set_options
-      entity_id: input_select.livingroom_receiver_music_source
-      data:
-        options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
+      - delay: 5  # When everything is reloaded, selects get set back to default lists. This waits for that to happen, and then sets the options
+      - service: input_select.set_options
+        entity_id: input_select.livingroom_receiver_music_source
+        data:
+          options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
 
 template:
   - sensor:
