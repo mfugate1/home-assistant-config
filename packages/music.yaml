@@ -1,0 +1,14 @@
+template:
+  - sensor:
+      - name: spotify_whole_house_source_name
+        state: >
+          {% set ns = namespace(found=False) %}
+          {% for i in state_attr('media_player.spotify_stukabombr1', 'source_list') %}
+            {% if '&' in i and ',' in i %}
+              {{ i }}
+              {% set ns.found = True %}
+            {% endif %}
+          {% endfor %}
+          {% if not ns.found %}
+            unavailable
+          {% endif %}
