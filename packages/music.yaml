@@ -51,6 +51,8 @@ template:
         state: >
           {% if trigger.to_state.state in state_attr('media_player.livingroom_receiver', 'source_list') %}
             {{ trigger.to_state.state }}
+          {% elif is_state('sensor.last_livingroom_receiver_music_source', 'unknown') %}
+            {{ }}
           {% else %}
             {{ states('sensor.last_livingroom_receiver_music_source') }}
           {% endif %}
@@ -90,6 +92,19 @@ template:
                 {% set ns.rooms = ns.rooms + ['garage'] %}
             {% endif %}
             {{ ns.rooms }}
+
+  - select:
+      - name: livingroom_receiver_music_source_2
+        unique_id: livingroom_receiver_music_source_2
+        state: "{{ states('input_text.livingroom_receiver_music_source') }}"
+        options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
+        select_option:
+          service: input_text.set_value
+          data:
+            value: "{{ option }}"
+
+input_text:
+  livingroom_receiver_music_source:
 
 input_select:
 
