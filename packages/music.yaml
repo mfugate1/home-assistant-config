@@ -1,5 +1,27 @@
+automation:
+  - alias: Set input select options for garage receiver music source
+    id: set_input_select_options_for_garage_receiver_music_source
+    trigger:
+      - platform: state
+        entity_id: media_player.garage_receiver
+      - platform: homeassistant
+        event: start
+      - platform: event
+        event_type: call_service
+        event_data:
+          domain: homeassistant
+          service: reload_all
+    action:
+      service: input_select.set_options
+      entity_id: input_select.garage_receiver_music_source
+      data:
+        options: "{{ state_attr('media_player.garage_receiver', 'source_list') }}"
+
 template:
   - sensor:
+      # Since the name of the Squeezebox group can change in spotify, this sensor
+      # is used to always return the current name of it (or unavailable if the source
+      # is missing)
       - name: spotify_whole_house_source_name
         state: >
           {% set ns = namespace(found=False) %}
@@ -12,3 +34,28 @@ template:
           {% if not ns.found %}
             unavailable
           {% endif %}
+
+      # A list of rooms that synced music is currently playing in
+      - name: active_music_rooms
+        state: use_the_attribute
+        attributes:
+          rooms: >
+            {% set ns = namespace(rooms=[]) %}
+            {% if is_state('media_player.livingroom_receiver', 'on') 
+              and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 2') 
+              and is_state('media_player.livingroom_squeezebox', 'playing') %}
+                {% set ns.rooms = ns.rooms + ['livingroom'] %}
+            {% endif %}
+            {% if is_state('media_player.garage_receiver', 'on') 
+              and is_state_attr('media_player.garage_receiver', 'source', 'Bluray') 
+              and is_state('media_player.garage_squeezebox', 'playing') %}
+                {% set ns.rooms = ns.rooms + ['garage'] %}
+            {% endif %}
+            {{ ns.rooms }}
+
+input_select:
+
+  # Music source input selects get their options set with an automation above, so no real options are set here
+  garage_receiver_music_source:
+    options:
+      - dummy_value
