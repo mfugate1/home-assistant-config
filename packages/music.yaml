@@ -1,9 +1,12 @@
 automation:
   - alias: Set input select options for garage receiver music source
     id: set_input_select_options_for_garage_receiver_music_source
+    mode: queued
     trigger:
       - platform: state
-        entity_id: media_player.garage_receiver
+        entity_id: 
+          - media_player.garage_receiver
+          - input_select.garage_receiver_music_source
       - platform: homeassistant
         event: start
       - platform: event
@@ -18,9 +21,12 @@ automation:
         options: "{{ state_attr('media_player.garage_receiver', 'source_list') }}"
   - alias: Set input select options for livingroom receiver music source
     id: set_input_select_options_for_livingroom_receiver_music_source
+    mode: queued
     trigger:
       - platform: state
-        entity_id: media_player.livingroom_receiver
+        entity_id: 
+          - media_player.livingroom_receiver
+          - input_select.livingroom_receiver_music_source
       - platform: homeassistant
         event: start
       - platform: event
