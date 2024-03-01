@@ -37,9 +37,26 @@ automation:
         entity_id: input_select.livingroom_receiver_music_source
         data:
           options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
+      - service: input_select.select_option
+        entity_id: input_select.livingroom_receiver_music_source
+        data:
+          option: "{{ states('sensor.last_livingroom_receiver_music_source') }}"
 
 template:
+  - trigger:
+      platform: state
+      entity_id: input_select.livingroom_receiver_music_source
+    sensor:
+      - name: last_livingroom_receiver_music_source
+        state: >
+          {% if trigger.to_state.state in state_attr('media_player.livingroom_receiver', 'source_list') %}
+            {{ trigger.to_state.state }}
+          {% else %}
+            {{ states('sensor.last_livingroom_receiver_music_source') }}
+          {% endif %}
+
   - sensor:
+      
       # Since the name of the Squeezebox group can change in spotify, this sensor
       # is used to always return the current name of it (or unavailable if the source
       # is missing)
