@@ -1,0 +1,59 @@
+input_number:
+  livingroom_netflix_receiver_volume:
+    min: 0
+    max: 80
+    mode: box
+
+input_text:
+  livingroom_netflix_tv_source:
+  livingroom_netflix_receiver_source:
+
+switch:
+  - platform: template
+    switches:
+      livingroom_netflix:
+        friendly_name: Netflix
+        icon_template: mdi:netflix
+        value_template: >
+          {{     is_state('media_player.livingroom_tv', 'on')
+             and is_state('media_player.livingroom_receiver', 'on')
+             and is_state_attr('media_player.livingroom_tv', 'source', 'Netflix')
+             and is_state_attr('media_player.livingroom_receiver', 'source', 'TV') }}
+        availability_template: >
+          {{     not is_state('media_player.livingroom_tv', 'unavailable')
+             and not is_state('media_player.livingroom_receiver', 'unavailable') }}
+        turn_on:
+          - parallel:
+              - service: script.livingroom_tv_turn_on
+                data:
+                  source: "{{ states('input_text.livingroom_netflix_tv_source') }}"
+              - service: script.livingroom_receiver_turn_on
+                data:
+                  source: "{{ states('input_text.livingroom_netflix_receiver_source') }}"
+                  volume: "{{ states('input_number.livingroom_netflix_receiver_volume') }}"
+              - service: script.livingroom_ps5_turn_off
+        turn_off:
+          service: script.turn_off_livingroom_tv_and_receiver
+
+# Dynamic select entities to configure which sources should be used for various media players
+# based on the activity the user has started.
+template:
+  - select:
+      - name: livingroom_netflix_tv_source
+        unique_id: livingroom_netflix_tv_source
+        state: "{{ states('input_text.livingroom_netflix_tv_source') }}"
+        options: "{{ state_attr('media_player.livingroom_tv', 'source_list') }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.livingroom_netflix_tv_source
+          data:
+            value: "{{ option }}"
+      - name: livingroom_netflix_receiver_source
+        unique_id: livingroom_netflix_receiver_source
+        state: "{{ states('input_text.livingroom_netflix_receiver_source') }}"
+        options: "{{ state_attr('media_player.livingroom_tv', 'source_list') }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.livingroom_netflix_receiver_source
+          data:
+            value: "{{ option }}"

@@ -1,0 +1,45 @@
+input_number:
+  livingroom_receiver_delay_for_source_select:
+    min: 0
+    max: 15
+    unit_of_measurement: s
+
+script:
+  livingroom_receiver_turn_on:
+    alias: Living Room - Receiver - Turn on
+    description: >
+      Turns on the living room receiver and optionally sets it to a specifc source and volume
+      level, if those fields are set. Automatically adds a delay if the receiver is off when
+      the script is run, to allow time for the receiver to start before attempting to send
+      more commands.
+    mode: queued
+    fields:
+      source:
+        description: Source to set the receiver to.
+        example: Video 3
+      volume:
+        description: Volume to set the receiver to.
+        example: "50"
+    sequence:
+      - variables:
+          delay_seconds: >
+            {% if is_state('media_player.livingroom_receiver', 'off') %}
+              {{ states('input_number.livingroom_receiver_delay_for_source_select') | int }}
+            {% else %}
+              0
+            {% endif %}
+      - service: media_player.turn_on
+        entity_id: media_player.livingroom_receiver
+      - delay: "{{ delay_seconds }}"
+      - if: "{{ source is defined and source != none }}"
+        then:
+          service: media_player.select_source
+          entity_id: media_player.livingroom_receiver
+          data:
+            source: "{{ source }}"
+      - if: "{{ volume is defined and volume != none }}"
+        then:
+          service: media_player.volume_set
+          entity_id: media_player.livingroom_receiver
+          data:
+            volume_level: "{{ (volume | int) / 100 }}"

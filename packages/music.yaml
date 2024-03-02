@@ -1,3 +1,37 @@
+input_text:
+  garage_receiver_music_source:
+
+input_number:
+  spotify_source_change_delay:
+    min: 0
+    max: 15
+    unit_of_measurement: s
+
+input_select:
+  spotify_playlists:
+    options:
+      - Liked Songs
+      - Sarah
+
+script:
+  spotify_play_playlist:
+    alias: Spotify - Play playlist
+    description: Plays the selected spotify playlist
+    mode: queued
+    sequence:
+      - variables:
+          playlist_id: >
+            {% if is_state('input_select.spotify_playlists', 'Liked Songs') %}
+              7e2eaM4Ux8Fq7iWWaR5kHC
+            {% elif is_state('input_select.spotify_playlists', 'Sarah') %}
+              2teQZuFcZrPRCuKCrGLQTP
+            {% endif %}
+      - service: media_player.play_media
+        entity_id: media_player.spotify_stukabombr1
+        data:
+          media_content_id: "spotify:playlist:{{ playlist_id }}"
+          media_content_type: playlist
+
 template:
   - sensor:
       # Since the name of the Squeezebox group can change in spotify, this sensor
@@ -44,16 +78,3 @@ template:
           entity_id: input_text.garage_receiver_music_source
           data:
             value: "{{ option }}"
-      - name: livingroom_receiver_music_source
-        unique_id: livingroom_receiver_music_source
-        state: "{{ states('input_text.livingroom_receiver_music_source') }}"
-        options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
-        select_option:
-          service: input_text.set_value
-          entity_id: input_text.livingroom_receiver_music_source
-          data:
-            value: "{{ option }}"
-
-input_text:
-  garage_receiver_music_source:
-  livingroom_receiver_music_source:

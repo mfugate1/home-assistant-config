@@ -1,0 +1,40 @@
+input_number:
+  livingroom_tv_receiver_volume:
+    min: 0
+    max: 80
+    mode: box
+  livingroom_tv_delay_for_source_select:
+    min: 0
+    max: 15
+    unit_of_measurement: s
+
+script:
+  livingroom_tv_turn_on:
+    alias: Living Room - TV - Turn on
+    description: >
+      Turns on the living room TV and optionally sets it to a specific source if
+      that field is set. Automatically adds a delay between turning it on and
+      setting the source if the TV is off when the script is run, to allow time for
+      the TV to start before attempting to send another command.
+    mode: queued
+    fields:
+      source:
+        description: Source to set the TV to.
+        example: HDMI2
+    sequence:
+      - variables:
+          delay_seconds: >
+            {% if is_state('media_player.livingroom_tv', 'off') %}
+              {{ states('input_number.livingroom_tv_delay_for_source_select') | int }}
+            {% else %}
+              0
+            {% endif %}
+      - service: media_player.turn_on
+        entity_id: media_player.livingroom_tv
+      - delay: "{{ delay_seconds }}"
+      - if: "{{ source is defined and source != none }}"
+        then:
+          - service: media_player.select_source
+            entity_id: media_player.livingroom_tv
+            data:
+              source: "{{ source }}"
