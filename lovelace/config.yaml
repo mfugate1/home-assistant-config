@@ -34,6 +34,8 @@ resources:
     type: module
   - url: /hacsfiles/decluttering-card/decluttering-card.js
     type: module
+  - url: /hacsfiles/honeycomb-menu/honeycomb-menu.js
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
