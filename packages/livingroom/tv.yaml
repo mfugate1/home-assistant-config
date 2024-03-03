@@ -11,10 +11,6 @@ automation:
         mac: 78:5D:C8:12:91:49
 
 input_number:
-  livingroom_tv_receiver_volume:
-    min: 0
-    max: 80
-    mode: box
   livingroom_tv_delay_for_source_select:
     min: 0
     max: 15
