@@ -137,24 +137,6 @@ automation:
       service: input_boolean.turn_off
       entity_id: input_boolean.masterbedroom_sleep_mode
 
-  - alias: Master Bedroom - Turn Lights Off For Sleep Mode
-    description: Turns all the lights off after sleep mode has been active for a certain number of seconds.
-    id: master_bedroom_turn_lights_off_for_sleep_mode
-    max_exceeded: silent
-    trigger:
-      platform: state
-      entity_id: input_boolean.masterbedroom_sleep_mode
-      to: "on"
-    condition:
-      condition: state
-      entity_id: binary_sensor.someone_is_home
-      state: 'on'
-    action:
-      service: light.turn_off
-      entity_id:
-        - light.masterbedroom_ceiling_light_yellow
-        - light.bedroom_lamps
-
   - alias: Master Bedroom - Enable/Disable Fan During Sleep Mode
     description: If the fan is turned on or off manually during sleep mode, preserve that choice.
     id: master_bedroom_enable_masterbedroom_disable_fan_during_sleep_mode

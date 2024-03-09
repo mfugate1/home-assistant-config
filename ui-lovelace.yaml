@@ -121,9 +121,15 @@ views:
         
   - icon: mdi:auto-fix
     cards:
+      - type: entities
+        entities:
+          - entity: input_select.room_config_select
+            name: Config Selection
+            icon: mdi:cog
+      - !include lovelace/cards/room_config/master_bedroom.yaml
+      - !include lovelace/cards/room_config/firstfloorbathroom.yaml
       - !include lovelace/cards/tasks.yaml
       - !include lovelace/cards/automation_config/climate.yaml
-      - !include lovelace/cards/room_config/firstfloorbathroom.yaml
   - icon: mdi:cctv
     panel: true
     cards:
