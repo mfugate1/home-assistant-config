@@ -63,6 +63,6 @@ template:
         options: "{{ state_attr('input_select.spotify_playlists', 'options') }}"
         select_option:
           service: input_text.set_value
-          entity_id: input_text.livingroom_receiver_music_source
+          entity_id: input_text.livingroom_spotify_playlist
           data:
             value: "{{ option }}"
