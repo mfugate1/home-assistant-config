@@ -18,5 +18,6 @@ sequence:
       while: "{{ is_state(entity_id, 'on') and repeat.index <= max_retries }}"
       sequence:
         - service: homeassistant.turn_off
-          entity_id: "{{ entity_id }}"
+          target:
+            entity_id: "{{ entity_id }}"
         - delay: "{{ repeat_delay | int }}"
