@@ -123,7 +123,7 @@ views:
     cards:
       - type: entities
         entities:
-          - entity: input_select.room_config_select
+          - entity: input_select.config_card_select
             name: Config Selection
             icon: mdi:cog
       - !include lovelace/cards/room_config/master_bedroom.yaml
