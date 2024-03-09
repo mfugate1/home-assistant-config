@@ -143,10 +143,10 @@ card:
             This input boolean automatically toggles if a user manually turns the fan on or off
             while sleep mode is active, to remember the state the user wants during sleep mode.
             You can customize the speed the fan is set to here.
-        - entity: masterbedroom_disable_fan_during_sleep_mode
+        - entity: input_boolean.masterbedroom_disable_fan_during_sleep_mode
           name: Disable Fan For Sleep Mode
           icon: mdi:fan-off
-        - entity: masterbedroom_fan_speed_for_sleep_mode
+        - entity: input_number.masterbedroom_fan_speed_for_sleep_mode
           name: Fan Speed
           icon: mdi:fan
     - entity: automation.master_bedroom_turn_off_fan_for_sleep_mode
