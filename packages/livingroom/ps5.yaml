@@ -51,26 +51,15 @@ switch:
               - service: media_player.media_pause
                 entity_id: media_player.spotify_stukabombr1
         turn_off:
-          - service: script.livingroom_ps5_turn_off
+          - service: script.turn_off_with_repeat
+            data:
+              entity_id: switch.livingroom_ps5
+              repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int }}"
+              max_retries: 20
           - service: media_player.turn_off
             entity_id:
               - media_player.livingroom_tv
               - media_player.livingroom_receiver
-
-script:
-  livingroom_ps5_turn_off:
-    alias: Living Room - PS5 - Turn off
-    description: >
-      Runs a loop to continuously try to turn off the PS5 until it's actually off. 
-      Sometimes the switch fails to do anything if the service is temporarily unavailable.
-    mode: queued
-    sequence:
-      - repeat:
-          while: "{{ is_state('switch.livingroom_ps5', 'on') }}"
-          sequence:
-            - service: switch.turn_off
-              entity_id: switch.livingroom_ps5
-            - delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int }}"
 
 # Dynamic select entities to configure which sources should be used to use the PS5 with the 
 # living room TV and receiver.

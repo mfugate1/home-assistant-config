@@ -30,9 +30,11 @@ switch:
                   source: "{{ states('sensor.spotify_whole_house_source_name') }}"
               - delay: "{{ states('input_number.spotify_source_change_delay') | int }}"
               - service: script.spotify_play_playlist
-            - if: "{{ is_state('switch.livingroom_ps5', 'on') }}"
-              then:
-                service: script.livingroom_ps5_turn_off
+            - service: script.turn_off_with_repeat
+              data:
+                entity_id: switch.livingroom_ps5
+                repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int }}"
+                max_retries: 20
         turn_off:
           - variables:
               number_of_rooms_music_is_playing_in: "{{ state_attr('active_music_rooms', 'rooms') | length }}"

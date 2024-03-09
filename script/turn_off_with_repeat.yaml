@@ -1,4 +1,4 @@
-alias: Turn off
+alias: Turn off with repeat
 description: >
   Runs a loop to continuously try to turn off the PS5 until it's actually off. 
   Sometimes the switch fails to do anything if the service is temporarily unavailable.
