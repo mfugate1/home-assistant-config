@@ -58,9 +58,6 @@ card:
     - entity: input_boolean.masterbedroom_sleep_mode
       name: Sleep Mode
       icon: mdi:sleep
-    - entity: input_boolean.masterbedroom_disable_fan_during_sleep_mode
-      name: Disable Fan For Sleep Mode
-      
     - type: section
       label: Automation Configuration
     - entity: automation.master_bedroom_ceiling_light_on
