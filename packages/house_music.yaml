@@ -1,3 +1,16 @@
+automation:
+  - alias: Spotify - Next Track if Stuck
+    id: spotify_next_track_if_stuck
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: media_player.spotify_stukabombr1
+      attribute: media_position
+    condition: "{{ state_attr('media_player.spotify_stukabombr1', 'media_duration') == state_attr('media_player.spotify_stukabombr1', 'media_position') }}"
+    action:
+      service: media_player.media_next_track
+      entity_id: media_player.spotify_stukabombr1
+
 input_text:
   garage_receiver_music_source:
 
