@@ -6,7 +6,9 @@ automation:
       platform: state
       entity_id: media_player.spotify_stukabombr1
       attribute: media_position
-    condition: "{{ state_attr('media_player.spotify_stukabombr1', 'media_duration') == state_attr('media_player.spotify_stukabombr1', 'media_position') }}"
+    condition: >
+      {{ state_attr('media_player.spotify_stukabombr1', 'media_duration') == state_attr('media_player.spotify_stukabombr1', 'media_position') 
+         and is_state('media_player.spotify_stukabombr1', 'playing') }}"
     action:
       service: media_player.media_next_track
       entity_id: media_player.spotify_stukabombr1
