@@ -40,7 +40,35 @@ automation:
       service: light.turn_off
       entity_id:
         - light.masterbedroom_ceiling_light_yellow
+        - light.masterbedroom_ceiling_light_white
         - light.bedroom_lamps
+
+  - alias: Master Bedroom - Ensure Nothing is On After Power Outage
+    description: >
+      Sometimes after a power outage, one of the overhead lights turns on. This automation checks that there is
+      someone in the room if a light or fan turns on, and if not, turns them back off.
+    id: master_bedroom_ensure_nothing_is_on_after_power_outage
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id:
+        - light.masterbedroom_ceiling_light_yellow
+        - light.masterbedroom_ceiling_light_white
+        - light.bedroom_lamps
+        - fan.masterbedroom_ceiling_fan
+      to: 'on'
+    condition:
+      condition: state
+      entity_id: group.masterbedroom_occupied
+      state: 'off'
+    action:
+      - service: light.turn_off
+        entity_id:
+          - light.masterbedroom_ceiling_light_yellow
+          - light.masterbedroom_ceiling_light_white
+          - light.bedroom_lamps
+      - service: fan.turn_off
+        entity_id: fan.masterbedroom_ceiling_fan
 
   - alias: Master Bedroom - Switch To Lamps For Sleep Mode
     description: When sleep mode activates and the ceiling light is on, turn the lamps on and turn the ceiling light off.
