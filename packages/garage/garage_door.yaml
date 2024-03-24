@@ -1,0 +1,112 @@
+automation:
+  - alias: Close garage door after leaving
+    id: close_garage_door_after_leaving
+    trigger:
+      platform: state
+      entity_id: person.mike
+      to: not_home
+    condition:
+      condition: state
+      entity_id: binary_sensor.garage_door
+      state: "on"
+    action:
+      - service: notify.mobile_app_sm_g981u1
+        data:
+          message: Closing garage door because you left {{ states.sensor.date.state }} {{ states.sensor.time.state}}
+          data:
+            tag: garage
+      - service: cover.close_cover
+        entity_id: 
+          - cover.garage_door_left
+          - cover.garage_door_right
+
+  - alias: Open garage door when arriving then close
+    id: open_garage_door_when_arriving_then_close
+    trigger:
+      platform: state
+      entity_id: person.mike
+      to: home
+    condition:
+      condition: state
+      entity_id: 
+        - binary_sensor.garage_door_left
+        - binary_sensor.garage_door_right
+      state: "off"
+    action:
+      - service: notify.mobile_app_sm_g981u1
+        data:
+          message: Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}
+          data:
+            tag: garage
+      - service: cover.open_cover
+        entity_id: cover.garage_door_left
+      - wait_for_trigger:
+          - platform: state
+            entity_id: binary_sensor.garage_inner_door_left
+            to: "on"
+        timeout:
+          minutes: 15
+      - service: cover.close_cover
+        entity_id: cover.garage_door_left
+      - service: notify.mobile_app_sm_g981u1
+        data:
+          message: clear_notification
+          data:
+            tag: garage
+      - condition: state
+        entity_id: sun.sun
+        state: below_horizon
+      - service: switch.turn_on
+        entity_id: switch.entry_light
+
+  - alias: Left garage door relay shut off
+    id: left_garage_door_relay_shut_off
+    trigger:
+      platform: state
+      entity_id: switch.garage_door_relay_left
+      to: "on"
+      for: 00:00:02
+    action:
+      service: switch.turn_off
+      entity_id: switch.garage_door_relay_left
+
+  - alias: Right garage door relay shut off
+    id: right_garage_door_relay_shut_off
+    trigger:
+      platform: state
+      entity_id: switch.garage_door_relay_right
+      to: "on"
+      for: 00:00:13
+    action:
+      service: switch.turn_off
+      entity_id: switch.garage_door_relay_right
+
+cover:
+  - platform: template
+    covers:
+      garage_door_left:
+        friendly_name: Left Garage Door
+        device_class: garage
+        value_template: "{{ is_state('binary_sensor.garage_door_left', 'on') }}"
+        open_cover:
+          service: switch.turn_on
+          entity_id: switch.garage_door_relay_left
+        close_cover:
+          service: switch.turn_on
+          entity_id: switch.garage_door_relay_left
+        stop_cover:
+          service: switch.turn_on
+          entity_id: switch.garage_door_relay_left
+      garage_door_right:
+        friendly_name: Right Garage Door
+        device_class: garage
+        value_template: "{{ is_state('binary_sensor.garage_door_right', 'on') }}"
+        open_cover:
+          service: switch.turn_on
+          entity_id: switch.garage_door_relay_right
+        close_cover:
+          service: switch.turn_on
+          entity_id: switch.garage_door_relay_right
+        stop_cover:
+          service: switch.turn_off
+          entity_id: switch.garage_door_relay_right
