@@ -90,13 +90,13 @@
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 37
+        node_id: 3
         property_key: "001"
         value: KeyPressed
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 43
+        node_id: 5
         property_key: "001"
         value: KeyPressed
   action:
