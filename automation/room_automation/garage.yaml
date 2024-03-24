@@ -4,7 +4,7 @@
     platform: event
     event_type: zwave_js_value_notification
     event_data:
-      node_id: 40
+      node_id: 4
       property_key: "005"
       value: KeyPressed
   action:
@@ -20,7 +20,7 @@
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 40
+        node_id: 4
         property_key: "002"
         value: KeyPressed
   action:
@@ -33,15 +33,15 @@
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 37
+        node_id: 3
         property_key: "002"
-        value: KeyPressed3x
+        value: KeyPressed2x
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 43
+        node_id: 5
         property_key: "002"
-        value: KeyPressed3x
+        value: KeyPressed2x
   action:
     service: cover.open_cover
     entity_id: cover.garage_door_left
@@ -52,15 +52,15 @@
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 37
+        node_id: 3
         property_key: "001"
-        value: KeyPressed3x
+        value: KeyPressed2x
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 43
+        node_id: 5
         property_key: "001"
-        value: KeyPressed3x
+        value: KeyPressed2x
   action:
     service: cover.close_cover
     entity_id: cover.garage_door_left
@@ -71,13 +71,13 @@
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 37
+        node_id: 3
         property_key: "002"
         value: KeyPressed
     - platform: event
       event_type: zwave_js_value_notification
       event_data:
-        node_id: 43
+        node_id: 5
         property_key: "002"
         value: KeyPressed
   action:
