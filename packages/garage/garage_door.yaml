@@ -7,7 +7,7 @@ automation:
       to: not_home
     condition:
       condition: state
-      entity_id: binary_sensor.garage_door
+      entity_id: binary_sensor.garage_door_left
       state: "on"
     action:
       - service: notify.mobile_app_sm_g981u1
@@ -16,9 +16,7 @@ automation:
           data:
             tag: garage
       - service: cover.close_cover
-        entity_id: 
-          - cover.garage_door_left
-          - cover.garage_door_right
+        entity_id: cover.garage_door_left
 
   - alias: Open garage door when arriving then close
     id: open_garage_door_when_arriving_then_close
@@ -28,9 +26,7 @@ automation:
       to: home
     condition:
       condition: state
-      entity_id: 
-        - binary_sensor.garage_door_left
-        - binary_sensor.garage_door_right
+      entity_id: binary_sensor.garage_door_left
       state: "off"
     action:
       - service: notify.mobile_app_sm_g981u1
@@ -53,11 +49,6 @@ automation:
           message: clear_notification
           data:
             tag: garage
-      - condition: state
-        entity_id: sun.sun
-        state: below_horizon
-      - service: switch.turn_on
-        entity_id: switch.entry_light
 
   - alias: Left garage door relay shut off
     id: left_garage_door_relay_shut_off
