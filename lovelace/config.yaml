@@ -36,6 +36,8 @@ resources:
     type: module
   - url: /hacsfiles/honeycomb-menu/honeycomb-menu.js
     type: module
+  - url: /hacsfiles/webrtc/webrtc-camera.ja
+    type: module
 dashboards:
   livingroom-tablet:
     mode: yaml
