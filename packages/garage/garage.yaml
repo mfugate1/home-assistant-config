@@ -127,15 +127,38 @@ automation:
             data:
               transition: 0
 
-  - alias: Garage - Light On Off With Presence
-    id: garage_light_on_off_with_presence
+  - alias: Garage - Lights On
+    id: garage_lights_on
     mode: restart
     trigger:
       platform: state
       entity_id: binary_sensor.presence_garage_zone_1
+      to: "on"
     action:
-      service: light.turn_{{ trigger.to_state.state }}
+      service: light.turn_on
       entity_id: light.garage
+
+  - alias: Garage - Lights Off
+    id: garage_lights_off
+    mode: restart
+    trigger:
+      platform: state
+      entity_id: binary_sensor.presence_garage_zone_1
+      to: "off"
+      for:
+        seconds: "{{ states('input_number.garage_lights_off_timeout') | int }}"
+    action:
+      service: light.turn_off
+      entity_id: light.garage
+
+input_number:
+
+  # The amount of time the garage must be unoccupied before lights turn off
+  garage_lights_off_timeout:
+    min: 1
+    max: 600
+    mode: box
+    unit_of_measurement: s
 
 light:
   - platform: template
