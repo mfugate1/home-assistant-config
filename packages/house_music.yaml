@@ -45,11 +45,12 @@ script:
             {% endif %}
       - if: "{{ not is_state(spotify_entity, 'playing') or not is_state_attr(spotify_entity, 'media_playlist', playlist)}}"
         then:
-          service: media_player.play_media
-          entity_id: "{{ spotify_entity }}"
-          data:
-            media_content_id: "spotify:playlist:{{ playlist_id }}"
-            media_content_type: playlist
+          - service: media_player.play_media
+            target:
+              entity_id: "{{ spotify_entity }}"
+            data:
+              media_content_id: "spotify:playlist:{{ playlist_id }}"
+              media_content_type: playlist
 
 template:
   - sensor:
