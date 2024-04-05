@@ -80,11 +80,15 @@ cover:
         device_class: garage
         value_template: "{{ is_state('binary_sensor.garage_door_left', 'on') }}"
         open_cover:
-          service: switch.turn_on
-          entity_id: switch.garage_door_relay_left
+          - if: "{{ is_state('binary_sensor.garage_door_left', 'off') }}"
+            then:
+              service: switch.turn_on
+              entity_id: switch.garage_door_relay_left
         close_cover:
-          service: switch.turn_on
-          entity_id: switch.garage_door_relay_left
+          - if: "{{ is_state('binary_sensor.garage_door_left', 'on') }}"
+            then:
+              service: switch.turn_on
+              entity_id: switch.garage_door_relay_left
         stop_cover:
           service: switch.turn_on
           entity_id: switch.garage_door_relay_left
@@ -93,11 +97,15 @@ cover:
         device_class: garage
         value_template: "{{ is_state('binary_sensor.garage_door_right', 'on') }}"
         open_cover:
-          service: switch.turn_on
-          entity_id: switch.garage_door_relay_right
+          - if: "{{ is_state('binary_sensor.garage_door_right', 'off') }}"
+            then:
+              service: switch.turn_on
+              entity_id: switch.garage_door_relay_right
         close_cover:
-          service: switch.turn_on
-          entity_id: switch.garage_door_relay_right
+          - if: "{{ is_state('binary_sensor.garage_door_right', 'on') }}"
+            then:
+              service: switch.turn_on
+              entity_id: switch.garage_door_relay_right
         stop_cover:
           service: switch.turn_off
           entity_id: switch.garage_door_relay_right
