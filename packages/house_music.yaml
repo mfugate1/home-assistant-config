@@ -35,17 +35,21 @@ script:
     mode: queued
     sequence:
       - variables:
+          spotify_entity: media_player.spotify_stukabombr1
+          playlist: "{{ states('input_select.spotify_playlists') }}"
           playlist_id: >
-            {% if is_state('input_select.spotify_playlists', 'Liked Songs') %}
+            {% if playlist == 'Liked Songs' %}
               7e2eaM4Ux8Fq7iWWaR5kHC
-            {% elif is_state('input_select.spotify_playlists', 'Sarah') %}
+            {% elif playlist == 'Sarah' %}
               2teQZuFcZrPRCuKCrGLQTP
             {% endif %}
-      - service: media_player.play_media
-        entity_id: media_player.spotify_stukabombr1
-        data:
-          media_content_id: "spotify:playlist:{{ playlist_id }}"
-          media_content_type: playlist
+      - if: "{{ not is_state(spotify_entity, 'playing') or not is_state_attr(spotify_entity, 'media_playlist', playlist)}}"
+        then:
+          service: media_player.play_media
+          entity_id: spotify_entity
+          data:
+            media_content_id: "spotify:playlist:{{ playlist_id }}"
+            media_content_type: playlist
 
 template:
   - sensor:
