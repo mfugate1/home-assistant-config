@@ -1,0 +1,65 @@
+automation:
+
+  - alias: Kitchen Tablet - Turn On Charging
+    id: kitchen_tablet_turn_on_charging
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.kitchen_tablet_battery
+      below: input_number.kitchen_tablet_charging_threshold_low
+    action:
+      service: switch.turn_on
+      entity_id: switch.kitchen_tablet_charging_switch
+
+  - alias: Kitchen Tablet - Turn Off Charging
+    id: kitchen_tablet_turn_off_charging
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.kitchen_tablet_battery
+      above: input_number.kitchen_tablet_charging_threshold_high
+    action:
+      service: switch.turn_off
+      entity_id: switch.kitchen_tablet_charging_switch
+
+  - alias: Kitchen Tablet - Screen
+    id: kitchen_tablet_screen
+    trigger:
+      - platform: state
+        entity_id: group.tablet_screen_presence
+        to: 'on'
+      - platform: state
+        entity_id: group.tablet_screen_presence
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.kitchen_tablet_screen_timeout') | int }}"
+    action:
+      service: switch.turn_{{ trigger.to_state.state }}
+      entity_id: switch.kitchen_tablet_screen
+
+group:
+  tablet_screen_presence:
+    entities:
+      - binary_sensor.basement_steps_zone_1
+      - binary_sensor.first_floor_hallway_zone_1
+      - binary_sensor.kitchen_zone_1
+      - binary_sensor.kitchen_zone_2
+      - binary_sensor.pantry_zone_1
+
+input_number:
+
+  kitchen_tablet_charging_threshold_high:
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
+
+  kitchen_tablet_charging_threshold_low:
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
+
+  kitchen_tablet_screen_timeout:
+    min: 0
+    max: 600
+    mode: box
+    unit_of_measurement: s
