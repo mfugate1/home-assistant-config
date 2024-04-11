@@ -1,6 +1,6 @@
 automation:
   - alias: Pantry - Light
-    id: pantry_light_on
+    id: pantry_light
     mode: restart
     trigger:
       - platform: state
