@@ -1,0 +1,23 @@
+automation:
+  - alias: Pantry - Light
+    id: pantry_light_on
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.pantry_zone_1
+        to: "on"
+      - platform: state
+        entity_id: binary_sensor.pantry_zone_1
+        to: "off"
+        for:
+          seconds: "{{ states('input_number.pantry_light_timeout') | int }}"
+    action:
+      service: light.turn_{{ trigger.to_state.state }}
+      entity_id: light.pantry
+
+input_number:
+  pantry_light_timeout:
+    min: 0
+    max: 600
+    mode: box
+    unit_of_measurement: s
