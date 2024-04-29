@@ -1,6 +1,0 @@
-basement_squeezebox_liked_songs_playlist:
-  url: http://192.168.1.32:9000/plugins/spotty/index.html?action=playall&index=8.2&player=22%3A33%3A44%3A55%3A66%3A77
-livingroom_squeezebox_liked_songs_playlist:
-  url: http://192.168.1.32:9000/plugins/spotty/index.html?action=playall&index=8.2&player=11%3A22%3A33%3A44%3A55%3A66
-patio_squeezebox_liked_songs_playlist:
-  url: http://192.168.1.32:9000/plugins/spotty/index.html?action=playall&index=8.2&player=00%3A11%3A22%3A33%3A44%3A55
