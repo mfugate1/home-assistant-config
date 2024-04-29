@@ -1,5 +1,0 @@
-- platform: group
-  name: Bedroom Lamps
-  entities:
-    - light.masterbedroom_left_lamp
-    - light.masterbedroom_right_lamp

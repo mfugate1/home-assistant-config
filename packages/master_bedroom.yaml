@@ -265,3 +265,9 @@ input_number:
     mode: box
     unit_of_measurement: s
   
+light:
+  - platform: group
+    name: Bedroom Lamps
+    entities:
+      - light.masterbedroom_left_lamp
+      - light.masterbedroom_right_lamp
