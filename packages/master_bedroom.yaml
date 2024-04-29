@@ -116,10 +116,14 @@ automation:
         entity_id: input_boolean.masterbedroom_disable_fan_during_sleep_mode
         state: 'off'
     action:
-      service: fan.turn_on
-      entity_id: fan.masterbedroom_ceiling_fan
-      data:
-        percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
+      - service: fan.turn_on
+        entity_id: fan.masterbedroom_ceiling_fan
+        data:
+          percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
+      - service: fan.set_percentage
+        entity_id: fan.masterbedroom_ceiling_fan
+        data:
+          percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
 
   - alias: Master Bedroom - Turn Off Fan For Sleep Mode
     description: Turns off the ceiling fan when sleep mode is deactivated.
