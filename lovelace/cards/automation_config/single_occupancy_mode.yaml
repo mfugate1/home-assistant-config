@@ -1,9 +1,0 @@
-title: Single Occupancy Mode
-type: entities
-entities:
-  - input_boolean.dummy_guest
-  - group.guest_devices
-  - input_boolean.single_occupancy_mode
-  - input_boolean.single_occupancy_mode_lock
-  - automation.single_occupancy_mode_with_guests
-  - automation.single_occupancy_mode_lock_unlock
