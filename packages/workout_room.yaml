@@ -4,6 +4,7 @@ automation:
     description: Turn the workout room lights on when the room is occupied.
     id: workout_room_lights_on
     max_exceeded: silent
+    mode: queued
     trigger:
       platform: state
       entity_id: 
@@ -18,6 +19,7 @@ automation:
     description: Turn the workout room lights off when the room is unoccupied.
     id: workout_room_lights_off
     max_exceeded: silent
+    mode: queued
     trigger:
       platform: state
       entity_id: 
