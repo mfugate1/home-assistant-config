@@ -1,9 +1,0 @@
-alias: Youtube
-icon: mdi:youtube
-description: Start the YouTube app based on the last alexa device that was called
-sequence:
-  - delay:
-      seconds: 2
-  - event: MEDIA_CONTROLLER_COMMAND
-    event_data:
-      source: youtube

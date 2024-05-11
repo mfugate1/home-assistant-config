@@ -1,9 +1,0 @@
-alias: Steam
-icon: mdi:steam
-description: Start Steam based on the last alexa device that was called
-sequence:
-  - delay:
-      seconds: 2
-  - service: switch.turn_on
-    target:
-      entity_id: switch.{{ states('sensor.alexa_last_called_room') }}_steam
