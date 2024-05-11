@@ -1,0 +1,65 @@
+automation:
+
+  - alias: Living Room - Steve French Lamp On
+    id: living_room_lamp_on
+    mode: queued
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: binary_sensor.living_room_presence
+      to: 'on'
+    condition:
+      - condition: state
+        entity_id: 
+          - input_boolean.masterbedroom_sleep_mode
+          - light.steve_french
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.living_room_light_level
+        below: input_number.livingroom_steve_french_lamp_light_on_threshold
+    action:
+      service: light.turn_on
+      entity_id: light.steve_french
+
+  - alias: Living Room - Steve French Lamp Off
+    id: living_room_lamp_off
+    mode: queued
+    max_exceeded: silent
+    trigger:
+      platform: state
+      entity_id: 
+        - binary_sensor.living_room_presence
+        - binary_sensor.kitchen_zone_2
+      to: 'off'
+      for:
+        seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int }}"
+    condition:
+      - condition: state
+        entity_id:
+          - binary_sensor.living_room_presence
+          - binary_sensor.kitchen_zone_2
+        state: 'off'
+        for:
+          seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int }}"
+      - condition: state
+        entity_id: light.steve_french
+        state: 'on'
+    action:
+      service: light.turn_on
+      entity_id: light.steve_french
+
+input_number:
+
+  # The amount of time the Steve French lamp area must be unoccupied before it is turned off
+  livingroom_steve_french_lamp_off_timeout:
+    min: 0
+    max: 1200
+    mode: box
+    unit_of_measurement: s
+
+  # The level of light the living room must be under before the Steve French lamp will turn on
+  livingroom_steve_french_lamp_light_on_threshold:
+    min: 0
+    max: 150
+    mode: box
+    unit_of_measurement: lx
