@@ -1,0 +1,35 @@
+automation:
+
+  - alias: Vacuum - Basement (Remus)
+    id: vacuum_basement
+    trigger:
+      platform: time
+      at: input_datetime.vacuum_basement_time
+    action:
+      - wait_template: >
+          {{ is_state('binary_sensor.entire_laundry_room_zone', 'off') and
+             is_state('binary_sensor.presence_workout_room_zone_1', 'off') }}
+        timeout: '01:00:00'
+        continue_on_timeout: false
+      - service: vacuum.start
+        entity_id: vacuum.remus
+
+  - alias: Vacuum - Garage (Chester)
+    id: vacuum_garage
+    trigger:
+      platform: time
+      at: input_datetime.vacuum_garage_time
+    action:
+      - wait_template: "{{ is_state('binary_sensor.presence_garage_zone_1', 'off') }}"
+        timeout: '01:00:00'
+        continue_on_timeout: false
+      - service: vacuum.start
+        entity_id: vacuum.roborock_s6_pure
+
+input_datetime:
+  vacuum_basement_time:
+    has_date: false
+    has_time: true
+  vacuum_garage_time:
+    has_date: false
+    has_time: true
