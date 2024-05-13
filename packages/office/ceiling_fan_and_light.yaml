@@ -1,0 +1,82 @@
+automation:
+
+  - alias: Office - Ceiling Fan On
+    id: office_ceiling_fan_on
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_zone_1
+        to: 'on'
+      - platform: numeric_state
+        entity_id: sensor.office_temperature
+        above: input_number.office_ceiling_fan_min_temperature
+    condition:
+      - condition: state
+        entity_id: fan.office_ceiling_fan
+        state: 'off'
+      - condition: numeric_state
+        entity_id: sensor.office_temperature
+        above: input_number.office_ceiling_fan_min_temperature
+      - condition: state
+        entity_id: binary_sensor.office_zone_1
+        state: 'on'
+    action:
+      - service: fan.turn_on
+        entity_id: fan.office_ceiling_fan
+      - service: fan.set_percentage
+        entity_id: fan.office_ceiling_fan
+        data:
+          percentage: "{{ states('input_number.office_ceiling_fan_speed') | int }}"
+
+  - alias: Office - Ceiling Fan Off
+    id: office_ceiling_fan_off
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.office_zone_1
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.office_ceiling_fan_off_timeout') | int }}"
+      - platform: numeric_state
+        entity_id: sensor.office_temperature
+        below: input_number.office_ceiling_fan_min_temperature
+    condition:
+      - condition: state
+        entity_id: fan.office_ceiling_fan
+        state: 'on'
+      - condition: numeric_state
+        entity_id: sensor.office_temperature
+        below: input_number.office_ceiling_fan_min_temperature
+      - condition: state
+        entity_id: binary_sensor.office_zone_1
+        state: 'off'
+        for:
+          seconds: "{{ states('input_number.office_ceiling_fan_off_timeout') | int }}"
+    action:
+      service: fan.turn_off
+      entity_id: fan.office_ceiling_fan
+
+
+input_number:
+
+  # The speed (as a percentage) to set the office ceiling fan to when turned on.
+  office_ceiling_fan_speed:
+    min: 10
+    max: 100
+    step: 10
+    mode: box
+    unit_of_measurement: '%'
+
+  # The temperature in the office must be above this value for the ceiling fan to turn on.
+  office_ceiling_fan_min_temperature:
+    min: 60
+    max: 90
+    mode: box
+    unit_of_measurement: °F
+
+  # Amount of time (in seconds) the office must be unoccpied before the ceiling fan turns off
+  office_ceiling_fan_off_timeout:
+    min: 0
+    max: 1800
+    mode: box
+    unit_of_measurement: s
