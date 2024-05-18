@@ -8,14 +8,14 @@ automation:
         entity_id: binary_sensor.office_zone_1
         to: 'on'
       - platform: numeric_state
-        entity_id: sensor.office_temperature
+        entity_id: sensor.office_sensor_air_temperature
         above: input_number.office_ceiling_fan_min_temperature
     condition:
       - condition: state
         entity_id: fan.office_ceiling_fan
         state: 'off'
       - condition: numeric_state
-        entity_id: sensor.office_temperature
+        entity_id: sensor.office_sensor_air_temperature
         above: input_number.office_ceiling_fan_min_temperature
       - condition: state
         entity_id: binary_sensor.office_zone_1
@@ -33,7 +33,7 @@ automation:
     mode: queued
     trigger:
       platform: numeric_state
-      entity_id: sensor.office_temperature
+      entity_id: sensor.office_sensor_air_temperature
       below: input_number.office_ceiling_fan_min_temperature
     condition:
       condition: state
