@@ -1,61 +1,12 @@
 # Tasks
-add_salt_to_hot_tub:
-  name: Add Salt to Hot Tub
-  icon: mdi:hot-tub
-add_spa_complete_to_hot_tub:
-  name: Add Spa Complete to Hot Tub
-  icon: mdi:hot-tub
 change_contacts:
   name: Change Contacts
   icon: mdi:eye
-clean_hot_tub_filter:
-  name: Clean Hot Tub Filter
-  icon: mdi:hot-tub
-empty_dehumidifier:
-  name: Empty Dehumidifier
-  icon: mdi:air-humidifier
-empty_vacuum:
-  name: Empty Vacuum
-  icon: mdi:robot-vacuum
 replace_furnace_filter:
   name: Replace Furnace Filter
   icon: mdi:heat-wave
-replace_sediment_filter:
-  name: Replace Sediment Filter
-  icon: mdi:filter
-take_medication:
-  name: Take Medication
-  icon: mdi:pill
 take_out_garbage_bins:
   name: Take Out Garbage Bins
   icon: mdi:delete
 
-single_occupancy_mode:
-single_occupancy_mode_lock:
-dummy_guest:
-  name: Dummy Guest
 laptop_in_use:
-
-workout_mode:
-  name: Workout Mode
-  icon: mdi:weight-lifter
-
-vacuum_gameroom_night_enable:
-vacuum_hallway_night_enable:
-vacuum_bedroom_night_enable:
-vacuum_livingroom_night_enable:
-vacuum_kitchen_night_enable:
-vacuum_diningroom_night_enable:
-vacuum_office_night_enable:
-vacuum_upstairsbathroom_night_enable:
-
-vacuum_gameroom_day_enable:
-vacuum_hallway_day_enable:
-vacuum_bedroom_day_enable:
-vacuum_livingroom_day_enable:
-vacuum_kitchen_day_enable:
-vacuum_diningroom_day_enable:
-vacuum_office_day_enable:
-vacuum_upstairsbathroom_day_enable:
-
-building_jenkins_agent_images:
