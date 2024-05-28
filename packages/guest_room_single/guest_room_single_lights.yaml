@@ -1,6 +1,10 @@
 input_number:
   guest_room_single_ceiling_fan_light_brightness:
+    min: 0
+    max: 255
   guest_room_single_ceiling_fan_light_temperature:
+    min: 153
+    max: 500
 
 light:
   - platform: template
