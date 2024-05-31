@@ -72,6 +72,44 @@ automation:
       service: switch.turn_off
       entity_id: switch.garage_door_relay_right
 
+  - alias: Garage switches - open garage door
+    id: garage_switches_open_garage_door
+    trigger:
+      - platform: event
+        event_type: zwave_js_value_notification
+        event_data:
+          node_id: 3
+          property_key: "002"
+          value: KeyPressed2x
+      - platform: event
+        event_type: zwave_js_value_notification
+        event_data:
+          node_id: 5
+          property_key: "002"
+          value: KeyPressed2x
+    action:
+      service: cover.open_cover
+      entity_id: cover.garage_door_left
+
+  - alias: Garage switches - close garage door
+    id: garage_switches_close_garage_door
+    trigger:
+      - platform: event
+        event_type: zwave_js_value_notification
+        event_data:
+          node_id: 3
+          property_key: "001"
+          value: KeyPressed2x
+      - platform: event
+        event_type: zwave_js_value_notification
+        event_data:
+          node_id: 5
+          property_key: "001"
+          value: KeyPressed2x
+    action:
+      service: cover.close_cover
+      entity_id: cover.garage_door_left
+
 cover:
   - platform: template
     covers:
