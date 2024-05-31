@@ -1,0 +1,24 @@
+automation:
+
+  - alias: Guest Room (Single) Tablet - Screen
+    id: guest_room_single_tablet_screen
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_presence_tablet_zone
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_presence_tablet_zone
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.guest_room_single_tablet_screen_timeout') | int }}"
+    action:
+      service: switch.turn_{{ trigger.to_state.state }}
+      entity_id: switch.guest_room_single_tablet_screen
+
+input_number:
+
+  guest_room_single_tablet_screen_timeout:
+    min: 0
+    max: 600
+    mode: box
+    unit_of_measurement: s
