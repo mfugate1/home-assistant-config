@@ -4,10 +4,10 @@ automation:
     mode: restart
     trigger:
       - platform: state
-        entity_id: binary_sensor.pantry_zone_1
+        entity_id: binary_sensor.kitchen_back_presence_pantry_zone
         to: "on"
       - platform: state
-        entity_id: binary_sensor.pantry_zone_1
+        entity_id: binary_sensor.kitchen_back_presence_pantry_zone
         to: "off"
         for:
           seconds: "{{ states('input_number.pantry_light_timeout') | int }}"

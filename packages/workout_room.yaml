@@ -7,9 +7,9 @@ automation:
     mode: queued
     trigger:
       platform: state
-      entity_id: 
-        - binary_sensor.presence_workout_room_zone_1
-        - binary_sensor.workout_room_entrance_zone
+      entity_id:
+        - binary_sensor.laundry_room_presence_workout_room_entrance_zone
+        - binary_sensor.workout_room_presence_all_zones
       to: 'on'
     action:
       service: light.turn_on
@@ -22,18 +22,10 @@ automation:
     mode: queued
     trigger:
       platform: state
-      entity_id: 
-        - binary_sensor.presence_workout_room_zone_1
-        - binary_sensor.entire_laundry_room_zone
+      entity_id: group.presence_basement
       to: 'off'
       for:
         seconds: "{{ states('input_number.workoutroom_lights_off_timeout') | int }}"
-    condition:
-      condition: state
-      entity_id: 
-        - binary_sensor.presence_workout_room_zone_1
-        - binary_sensor.entire_laundry_room_zone
-      state: 'off'
     action:
       service: light.turn_off
       entity_id: light.workout_room_lights

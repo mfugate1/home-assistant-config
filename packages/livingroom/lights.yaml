@@ -6,7 +6,7 @@ automation:
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: binary_sensor.living_room_presence
+      entity_id: binary_sensor.living_room_presence_all_zones
       to: 'on'
     condition:
       - condition: state
@@ -27,23 +27,14 @@ automation:
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: 
-        - binary_sensor.living_room_presence
-        - binary_sensor.kitchen_zone_2
+      entity_id: group.presence_first_floor
       to: 'off'
       for:
         seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int }}"
     condition:
-      - condition: state
-        entity_id:
-          - binary_sensor.living_room_presence
-          - binary_sensor.kitchen_zone_2
-        state: 'off'
-        for:
-          seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int }}"
-      - condition: state
-        entity_id: light.steve_french
-        state: 'on'
+      condition: state
+      entity_id: light.steve_french
+      state: 'on'
     action:
       service: light.turn_off
       entity_id: light.steve_french

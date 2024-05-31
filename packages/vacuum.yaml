@@ -6,9 +6,7 @@ automation:
       platform: time
       at: input_datetime.vacuum_basement_time
     action:
-      - wait_template: >
-          {{ is_state('binary_sensor.entire_laundry_room_zone', 'off') and
-             is_state('binary_sensor.presence_workout_room_zone_1', 'off') }}
+      - wait_template: "{{ is_state('group.presence_basement', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
       - service: vacuum.start
@@ -20,7 +18,7 @@ automation:
       platform: time
       at: input_datetime.vacuum_garage_time
     action:
-      - wait_template: "{{ is_state('binary_sensor.presence_garage_zone_1', 'off') }}"
+      - wait_template: "{{ is_state('binary_sensor.garage_presence_all_zones', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
       - service: vacuum.start
@@ -32,14 +30,14 @@ automation:
       platform: time
       at: input_datetime.vacuum_first_floor_unoccupied_time
     condition:
-      condition: state
-      entity_id: input_boolean.sarah_remote_week_with_kids
-      state: 'on'
+      - condition: state
+        entity_id: input_boolean.sarah_remote_week_with_kids
+        state: 'on'
+      - condition: state
+        entity_id: person.mike
+        state: not_home
     action:
-      - wait_template: >
-          {{ is_state('binary_sensor.living_room_presence', 'off') and
-             is_state('binary_sensor.kitchen_back_presence_sensor_all_zones', 'off') and
-             is_state('binary_sensor.kitchen_zone_1', 'off') }}
+      - wait_template: "{{ is_state('group.presence_first_floor', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
       - service: vacuum.start
@@ -51,13 +49,14 @@ automation:
       platform: time
       at: input_datetime.vacuum_second_floor_unoccupied_time
     condition:
-      condition: state
-      entity_id: input_boolean.sarah_remote_week_with_kids
-      state: 'on'
+      - condition: state
+        entity_id: input_boolean.sarah_remote_week_with_kids
+        state: 'on'
+      - condition: state
+        entity_id: person.mike
+        state: not_home
     action:
-      - wait_template: >
-          {{ is_state('binary_sensor.office_zone_1', 'off') and
-             is_state('group.masterbedroom_occupied', 'off') }}
+      - wait_template: "{{ is_state('group.presence_second_floor', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
       - service: vacuum.start

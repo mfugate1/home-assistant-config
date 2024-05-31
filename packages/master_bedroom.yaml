@@ -5,11 +5,11 @@ automation:
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: binary_sensor.presence_master_bedroom_zone_1
+      entity_id: group.presence_master_bedroom
       to: 'on'
     condition:
       - condition: state
-        entity_id: group.masterbedroom_bed_occupied
+        entity_id: group.presence_master_bedroom_bed
         state: 'off'
         for:
           minutes: "{{ states('input_number.masterbedroom_ceiling_light_bed_not_occupied_delay') | int }}"
@@ -32,7 +32,7 @@ automation:
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: group.masterbedroom_occupied
+      entity_id: group.presence_master_bedroom
       to: 'off'
       for:
         seconds: "{{ states('input_number.masterbedroom_lights_off_timeout') | int }}"
@@ -59,7 +59,7 @@ automation:
       to: 'on'
     condition:
       condition: state
-      entity_id: group.masterbedroom_occupied
+      entity_id: group.presence_master_bedroom
       state: 'off'
     action:
       - service: light.turn_off
@@ -143,7 +143,7 @@ automation:
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: group.masterbedroom_bed_occupied
+      entity_id: group.presence_master_bedroom_bed
       to: "on"
       for:
         seconds: "{{ states('input_number.masterbedroom_sleep_mode_on_delay') | int }}"
@@ -161,7 +161,7 @@ automation:
     max_exceeded: silent
     trigger:
       platform: state
-      entity_id: group.masterbedroom_bed_occupied
+      entity_id: group.presence_master_bedroom_bed
       to: "off"
       for:
         seconds: "{{ states('input_number.masterbedroom_sleep_mode_off_delay') | int }}"
@@ -188,17 +188,6 @@ automation:
           input_boolean.turn_off
         {% endif %}
       entity_id: input_boolean.masterbedroom_disable_fan_during_sleep_mode
-
-group:
-  masterbedroom_bed_occupied:
-    entities:
-      - binary_sensor.sleepnumber_master_bed_mike_is_in_bed
-      - binary_sensor.sleepnumber_master_bed_guest_is_in_bed
-      - binary_sensor.presence_master_bedroom_bed_zone_1
-  masterbedroom_occupied:
-    entities:
-      - binary_sensor.presence_master_bedroom_zone_1
-      - group.masterbedroom_bed_occupied
   
 input_boolean:
   masterbedroom_disable_fan_during_sleep_mode:

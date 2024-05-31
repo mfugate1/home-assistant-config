@@ -132,7 +132,7 @@ automation:
     mode: restart
     trigger:
       platform: state
-      entity_id: binary_sensor.presence_garage_zone_1
+      entity_id: binary_sensor.garage_presence_all_zones
       to: "on"
     action:
       service: light.turn_on
@@ -143,7 +143,7 @@ automation:
     mode: restart
     trigger:
       platform: state
-      entity_id: binary_sensor.presence_garage_zone_1
+      entity_id: binary_sensor.garage_presence_all_zones
       to: "off"
       for:
         seconds: "{{ states('input_number.garage_lights_off_timeout') | int }}"

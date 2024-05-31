@@ -24,25 +24,16 @@ automation:
     id: kitchen_tablet_screen
     trigger:
       - platform: state
-        entity_id: group.tablet_screen_presence
+        entity_id: group.presence_kitchen
         to: 'on'
       - platform: state
-        entity_id: group.tablet_screen_presence
+        entity_id: group.presence_kitchen
         to: 'off'
         for:
           seconds: "{{ states('input_number.kitchen_tablet_screen_timeout') | int }}"
     action:
       service: switch.turn_{{ trigger.to_state.state }}
       entity_id: switch.kitchen_tablet_screen
-
-group:
-  tablet_screen_presence:
-    entities:
-      - binary_sensor.basement_steps_zone_1
-      - binary_sensor.first_floor_hallway_zone_1
-      - binary_sensor.kitchen_zone_1
-      - binary_sensor.kitchen_zone_2
-      - binary_sensor.pantry_zone_1
 
 input_number:
 
