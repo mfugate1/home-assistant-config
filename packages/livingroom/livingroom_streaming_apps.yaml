@@ -34,7 +34,7 @@ switch:
             - service: script.turn_off_with_repeat
               data:
                 entity_id: switch.livingroom_ps5
-                repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int }}"
+                repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
                 max_retries: 20
         turn_off:
           service: script.turn_off_livingroom_tv_and_receiver

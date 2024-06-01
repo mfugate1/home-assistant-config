@@ -26,7 +26,7 @@ automation:
       - service: fan.set_percentage
         entity_id: fan.office_ceiling_fan
         data:
-          percentage: "{{ states('input_number.office_ceiling_fan_speed') | int }}"
+          percentage: "{{ states('input_number.office_ceiling_fan_speed') | int(100) }}"
 
   - alias: Office - Ceiling Fan Off
     id: office_ceiling_fan_off
@@ -39,7 +39,7 @@ automation:
         entity_id: binary_sensor.office_presence_all_zones
         to: 'off'
         for:
-          seconds: "{{ states('input_number.office_ceiling_fan_off_timeout') | int }}"
+          seconds: "{{ states('input_number.office_ceiling_fan_off_timeout') | int(30) }}"
     condition:
       condition: state
       entity_id: fan.office_ceiling_fan

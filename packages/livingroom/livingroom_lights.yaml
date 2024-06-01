@@ -30,7 +30,7 @@ automation:
       entity_id: group.presence_first_floor
       to: 'off'
       for:
-        seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int }}"
+        seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int(30) }}"
     condition:
       condition: state
       entity_id: light.steve_french

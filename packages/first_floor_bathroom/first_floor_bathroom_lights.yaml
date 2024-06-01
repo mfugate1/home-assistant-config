@@ -16,8 +16,8 @@ automation:
       - service: light.turn_on
         entity_id: light.firstfloorbathroom
         data:
-          brightness: "{{ states('sensor.firstfloorbathroom_light_brightness') | int(default=255) }}"
-          transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(default=0) }}"
+          brightness: "{{ states('sensor.firstfloorbathroom_light_brightness') | int(255) }}"
+          transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(0) }}"
       - delay: 10
       - if:
           - condition: state
@@ -38,7 +38,7 @@ automation:
       - service: light.turn_off
         entity_id: light.firstfloorbathroom
         data:
-          transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(default=0) }}"
+          transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(0) }}"
 
 template:
   - sensor:

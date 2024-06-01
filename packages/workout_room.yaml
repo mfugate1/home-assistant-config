@@ -25,7 +25,7 @@ automation:
       entity_id: group.presence_basement
       to: 'off'
       for:
-        seconds: "{{ states('input_number.workoutroom_lights_off_timeout') | int }}"
+        seconds: "{{ states('input_number.workoutroom_lights_off_timeout') | int(60) }}"
     action:
       service: light.turn_off
       entity_id: light.workout_room_lights

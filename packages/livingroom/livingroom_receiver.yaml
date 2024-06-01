@@ -24,7 +24,7 @@ script:
       - variables:
           delay_seconds: >
             {% if is_state('media_player.livingroom_receiver', 'off') %}
-              {{ states('input_number.livingroom_receiver_delay_for_source_select') | int }}
+              {{ states('input_number.livingroom_receiver_delay_for_source_select') | int(5) }}
             {% else %}
               0
             {% endif %}

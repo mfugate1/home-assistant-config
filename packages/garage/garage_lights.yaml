@@ -83,7 +83,7 @@ automation:
       entity_id: binary_sensor.garage_presence_all_zones
       to: "off"
       for:
-        seconds: "{{ states('input_number.garage_lights_off_timeout') | int }}"
+        seconds: "{{ states('input_number.garage_lights_off_timeout') | int(60) }}"
     action:
       service: light.turn_off
       entity_id: light.garage

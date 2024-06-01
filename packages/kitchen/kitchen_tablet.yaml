@@ -30,7 +30,7 @@ automation:
         entity_id: group.presence_kitchen
         to: 'off'
         for:
-          seconds: "{{ states('input_number.kitchen_tablet_screen_timeout') | int }}"
+          seconds: "{{ states('input_number.kitchen_tablet_screen_timeout') | int(5) }}"
     action:
       service: switch.turn_{{ trigger.to_state.state }}
       entity_id: switch.kitchen_tablet_screen

@@ -10,7 +10,7 @@ automation:
         entity_id: binary_sensor.guest_room_single_presence_tablet_zone
         to: 'off'
         for:
-          seconds: "{{ states('input_number.guest_room_single_tablet_screen_timeout') | int }}"
+          seconds: "{{ states('input_number.guest_room_single_tablet_screen_timeout') | int(5) }}"
     action:
       service: switch.turn_{{ trigger.to_state.state }}
       entity_id: switch.guest_room_single_tablet_screen

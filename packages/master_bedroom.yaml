@@ -12,7 +12,7 @@ automation:
         entity_id: group.presence_master_bedroom_bed
         state: 'off'
         for:
-          minutes: "{{ states('input_number.masterbedroom_ceiling_light_bed_not_occupied_delay') | int }}"
+          minutes: "{{ states('input_number.masterbedroom_ceiling_light_bed_not_occupied_delay') | int(15) }}"
       - condition: state
         entity_id: binary_sensor.someone_is_home
         state: 'on'
@@ -35,7 +35,7 @@ automation:
       entity_id: group.presence_master_bedroom
       to: 'off'
       for:
-        seconds: "{{ states('input_number.masterbedroom_lights_off_timeout') | int }}"
+        seconds: "{{ states('input_number.masterbedroom_lights_off_timeout') | int(60) }}"
     action:
       service: light.turn_off
       entity_id:
@@ -96,7 +96,7 @@ automation:
         entity_id:
           - light.masterbedroom_ceiling_light_yellow
           - light.masterbedroom_ceiling_light_white
-      - delay: "{{ states('input_number.masterbedroom_lamps_off_sleep_mode_delay') | int }}"
+      - delay: "{{ states('input_number.masterbedroom_lamps_off_sleep_mode_delay') | int(20) }}"
       - service: light.turn_off
         entity_id: light.bedroom_lamps
 
@@ -119,11 +119,11 @@ automation:
       - service: fan.turn_on
         entity_id: fan.masterbedroom_ceiling_fan
         data:
-          percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
+          percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int(100) }}"
       - service: fan.set_percentage
         entity_id: fan.masterbedroom_ceiling_fan
         data:
-          percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int }}"
+          percentage: "{{ states('input_number.masterbedroom_fan_speed_for_sleep_mode') | int(100) }}"
 
   - alias: Master Bedroom - Turn Off Fan For Sleep Mode
     description: Turns off the ceiling fan when sleep mode is deactivated.
@@ -146,7 +146,7 @@ automation:
       entity_id: group.presence_master_bedroom_bed
       to: "on"
       for:
-        seconds: "{{ states('input_number.masterbedroom_sleep_mode_on_delay') | int }}"
+        seconds: "{{ states('input_number.masterbedroom_sleep_mode_on_delay') | int(10) }}"
     condition:
       condition: state
       entity_id: input_boolean.masterbedroom_disable_sleep_mode
@@ -164,7 +164,7 @@ automation:
       entity_id: group.presence_master_bedroom_bed
       to: "off"
       for:
-        seconds: "{{ states('input_number.masterbedroom_sleep_mode_off_delay') | int }}"
+        seconds: "{{ states('input_number.masterbedroom_sleep_mode_off_delay') | int(60) }}"
     action:
       service: input_boolean.turn_off
       entity_id: input_boolean.masterbedroom_sleep_mode

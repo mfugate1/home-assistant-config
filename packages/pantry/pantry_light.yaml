@@ -10,7 +10,7 @@ automation:
         entity_id: binary_sensor.kitchen_back_presence_pantry_zone
         to: "off"
         for:
-          seconds: "{{ states('input_number.pantry_light_timeout') | int }}"
+          seconds: "{{ states('input_number.pantry_light_timeout') | int(10) }}"
     action:
       service: light.turn_{{ trigger.to_state.state }}
       entity_id: light.pantry
