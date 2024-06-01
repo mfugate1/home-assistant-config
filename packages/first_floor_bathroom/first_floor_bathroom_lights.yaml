@@ -1,0 +1,84 @@
+automation:
+
+  - alias: First Floor Bathroom - Lights On
+    id: first_floor_bathroom_lights_on
+    max_exceeded: silent
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+        to: 'on'
+      - platform: state
+        entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
+        to:
+          - enter
+          - approach
+    action:
+      - service: light.turn_on
+        entity_id: light.firstfloorbathroom
+        data:
+          brightness: "{{ states('sensor.firstfloorbathroom_light_brightness') | int(default=255) }}"
+          transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(default=0) }}"
+      - delay: 10
+      - if:
+          - condition: state
+            entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+            state: 'off'
+        then:
+          - service: automation.trigger
+            entity_id: automation.first_floor_bathroom_lights_off
+
+  - alias: First Floor Bathroom - Lights Off
+    id: first_floor_bathroom_lights_off
+    mode: restart
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.firstfloorbathroom_presence_sensor_presence
+        to: 'off'
+    action:
+      - service: light.turn_off
+        entity_id: light.firstfloorbathroom
+        data:
+          transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(default=0) }}"
+
+template:
+  - sensor:
+    - name: firstfloorbathroom_light_brightness
+      state: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          {{ states('input_number.firstfloorbathroom_light_day_brightness') }}
+        {% else %}
+          {{ states('input_number.firstfloorbathroom_light_night_brightness') }}
+        {% endif %}
+    - name: firstfloorbathroom_light_transition
+      state: >-
+        {% if is_state('sun.sun', 'above_horizon') %}
+          {{ states('input_number.firstfloorbathroom_light_day_transition') }}
+        {% else %}
+          {{ states('input_number.firstfloorbathroom_light_night_transition') }}
+        {% endif %}
+
+input_number:
+  firstfloorbathroom_light_day_brightness:
+    name: Daytime Brightness
+    icon: mdi:brightness-5
+    min: 1
+    max: 255
+    mode: box
+  firstfloorbathroom_light_night_brightness:
+    name: Nighttime Brightness
+    icon: mdi:brightness-4
+    min: 1
+    max: 255
+    mode: box
+  firstfloorbathroom_light_day_transition:
+    name: Daytime Transition
+    icon: mdi:arrow-right
+    min: 0
+    max: 10
+    mode: box
+  firstfloorbathroom_light_night_transition:
+    name: Nighttime Transition
+    icon: mdi:arrow-right
+    min: 0
+    max: 10
+    mode: box

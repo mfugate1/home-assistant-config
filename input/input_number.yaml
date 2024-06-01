@@ -1,28 +1,3 @@
-firstfloorbathroom_light_day_brightness:
-  name: Daytime Brightness
-  icon: mdi:brightness-5
-  min: 1
-  max: 255
-  mode: box
-firstfloorbathroom_light_night_brightness:
-  name: Nighttime Brightness
-  icon: mdi:brightness-4
-  min: 1
-  max: 255
-  mode: box
-firstfloorbathroom_light_day_transition:
-  name: Daytime Transition
-  icon: mdi:arrow-right
-  min: 0
-  max: 10
-  mode: box
-firstfloorbathroom_light_night_transition:
-  name: Nighttime Transition
-  icon: mdi:arrow-right
-  min: 0
-  max: 10
-  mode: box
-
 ########### CLIMATE #############
 climate_cool_away_temp:
   name: Away
