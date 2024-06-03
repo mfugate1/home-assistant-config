@@ -15,6 +15,16 @@ automation:
       service: switch.turn_{{ trigger.to_state.state }}
       entity_id: switch.guest_room_single_tablet_screen
 
+  - alias: Guest Room (Single) Tablet - Keep Fully Kiosk in Foreground
+    id: guest_room_single_tablet_keep_fully_foreground
+    trigger:
+      platform: state
+      entity_id: sensor.guest_room_single_tablet_foreground_app
+      not_to: de.ozerov.fully
+    action:
+      service: button.press
+      entity_id: button.guest_room_single_tablet_bring_to_foreground
+
 input_number:
 
   guest_room_single_tablet_screen_timeout:
