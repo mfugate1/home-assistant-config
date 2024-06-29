@@ -1,6 +1,6 @@
 automation:
-  - alias: Garage inner scene main button - toggle arcade
-    id: garage_inner_scene_main_button_toggle_arcade
+  - alias: Hall of Holes - Toggle Arcade Cabinet
+    id: hall_of_holes_toggle_arcade_cabinet
     trigger:
       platform: event
       event_type: zwave_js_value_notification
@@ -10,10 +10,10 @@ automation:
         value: KeyPressed
     action:
       service: switch.toggle
-      entity_id: switch.arcade_cabinet_power_strip
+      entity_id: switch.arcade_cabinet
 
-  - alias: Garage switches - toggle air hockey fan
-    id: garage_switches_toggle_air_hockey_fan
+  - alias: Hall of Holes - Toggle Air Hockey Fan
+    id: hall_of_holes_toggle_air_hockey_fan
     trigger:
       - platform: event
         event_type: zwave_js_value_notification
@@ -24,3 +24,16 @@ automation:
     action:
       service: switch.toggle
       entity_id: switch.air_hockey_table_fan
+
+  - alias: Hall of Holes - Toggle Pinball
+    id: hall_of_holes_toggle_pinball
+    trigger:
+      - platform: event
+        event_type: zwave_js_value_notification
+        event_data:
+          node_id: 4
+          property_key: "001"
+          value: KeyPressed
+    action:
+      service: switch.toggle
+      entity_id: switch.pinball
