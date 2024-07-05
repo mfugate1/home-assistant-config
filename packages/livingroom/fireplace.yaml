@@ -1,0 +1,10 @@
+automation:
+  - alias: Living Room - Fireplace Nightlight
+    id: living_room_fireplace_nightlight
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.living_room_presence_all_zones
+    action:
+      - service: light.turn_{{ trigger.to_state.state }}
+        entity_id: light.fireplace_night_light
