@@ -1,0 +1,118 @@
+automation:
+
+  - alias: Master Bedroom - Lamps On
+    id: master_bedroom_lamps_on
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: group.presence_master_bedroom
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamps
+        state: 'off'
+      - or:
+        - and:
+          - condition: state
+            entity_id: input_boolean.master_bedroom_lamps_on_after_time_enabled
+            state: 'on'
+          - condition: time
+            after: input_datetime.master_bedroom_lamps_on_after
+        - and:
+          - condition: state
+            entity_id: input_boolean.master_bedroom_lamps_on_after_sunset_enabled
+            state: 'on'
+          - condition: numeric_state
+            entity_id: sun.sun 
+            attribute: elevation
+            below: input_number.master_bedroom_lamps_on_after_sunset_below_elevation
+        - and:
+          - condition: state
+            entity_id: input_boolean.master_bedroom_lamps_on_below_light_level
+            state: 'on'
+          - condition: numeric_state
+            entity_id: sensor.master_bedroom_light_level
+            below: input_number.master_bedroom_lamps_on_below_light_level
+        - condition: state
+          entity_id: input_boolean.master_bedroom_lamps_on_for_any_presence
+          state: 'on'
+    action:
+      - service: light.turn_on
+        entity_id: light.bedroom_lamps
+
+  - alias: Master Bedroom - Lamps Off (No Presence)
+    id: master_bedroom_lamps_off_no_presence
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: group.master_bedroom_lamps_off_no_presence
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.master_bedroom_lamps_off_no_presence_timeout') | int(10) }}"
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamps
+        state: 'on'
+    action:
+      - service: light.turn_off
+        entity_id: light.bedroom_lamps
+
+  - alias: Master Bedroom - Lamps Off (Sleep Mode)
+    id: master_bedroom_lamps_off_sleep_mode
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: input_boolean.master_bedroom_sleep_mode
+        to: 'on'
+        for:
+          seconds: "{{ states('input_number.master_bedroom_lamps_off_for_sleep_mode_delay') | int(10) }}"
+    condition:
+      - condition: state
+        entity_id: light.bedroom_lamps
+        state: 'on'
+    action:
+      - service: light.turn_off
+        entity_id: light.bedroom_lamps
+
+group:
+  master_bedroom_lamps_off_no_presence:
+    entities:
+      - group.presence_master_bedroom
+      - binary_sensor.master_bathroom_presence_all_zones
+
+input_boolean:
+  master_bedroom_lamps_on_for_any_presence:
+  master_bedroom_lamps_on_after_time_enabled:
+  master_bedroom_lamps_on_after_sunset_enabled:
+  master_bedroom_lamps_on_below_light_level:
+
+input_datetime:
+  master_bedroom_lamps_on_after:
+    has_date: false
+    has_time: true
+
+input_number:
+  master_bedroom_lamps_on_after_sunset_below_elevation:
+    min: -10
+    max: 10
+    unit_of_measurement: °
+  master_bedroom_lamps_on_below_light_level:
+    min: 0
+    max: 200
+    mode: box
+    unit_of_measurement: lx
+  master_bedroom_lamps_off_no_presence_timeout:
+    min: 0
+    max: 30
+    unit_of_measurement: m
+  master_bedroom_lamps_off_for_sleep_mode_delay:
+    min: 0
+    max: 600
+    unit_of_measurement: s
+
+light:
+  - platform: group
+    name: Bedroom Lamps
+    entities:
+      - light.masterbedroom_left_lamp
+      - light.masterbedroom_right_lamp

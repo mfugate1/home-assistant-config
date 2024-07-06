@@ -1,0 +1,77 @@
+automation:
+  - alias: Master Bedroom - Turn On Sleep Mode
+    id: master_bedroom_turn_on_sleep_mode
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: group.presence_master_bedroom_bed
+        to: 'on'
+        for:
+          seconds: "{{ states('input_number.master_bedroom_sleep_mode_on_delay') | int(10) }}"
+    condition:
+      - condition: state
+        entity_id: input_boolean.master_bedroom_disable_sleep_mode
+        state: 'off'
+      - or:
+        - condition: state
+          entity_id: input_boolean.master_bedroom_disable_sleep_mode_time_window
+          state: 'on'
+        - condition: time
+          before: input_datetime.master_bedroom_sleep_mode_disable_time
+        - condition: time
+          after: input_datetime.master_bedroom_sleep_mode_enable_time
+    action:
+      - service: input_boolean.turn_on
+        entity_id: input_boolean.master_bedroom_sleep_mode
+
+  - alias: Master Bedroom - Turn Off Sleep Mode
+    id: master_bedroom_turn_off_sleep_mode
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: group.master_bedroom_sleep_mode_off
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.master_bedroom_sleep_mode_off_delay') | int(60) }}"
+      - platform: state
+        entity_id: input_boolean.master_bedroom_disable_sleep_mode
+        to: 'on'
+    action:
+      - service: input_boolean.turn_off
+        entity_id: input_boolean.master_bedroom_sleep_mode
+
+input_boolean:
+  master_bedroom_disable_sleep_mode:
+  master_bedroom_disable_sleep_mode_time_window:
+  master_bedroom_sleep_mode:
+
+input_datetime:
+  master_bedroom_sleep_mode_disable_time:
+    has_date: false
+    has_time: true
+  master_bedroom_sleep_mode_enable_time:
+    has_date: false
+    has_time: true
+
+input_number:
+
+  # The amount of time the bed must be unoccupied for sleep mode to turn off
+  master_bedroom_sleep_mode_off_delay:
+    min: 1
+    max: 500
+    mode: box
+    unit_of_measurement: s
+
+  # The amount of time the bed must be occupied for sleep mode to turn on
+  master_bedroom_sleep_mode_on_delay:
+    min: 1
+    max: 500
+    mode: box
+    unit_of_measurement: s
+
+group:
+  master_bedroom_sleep_mode_off:
+    entities:
+      - group.presence_master_bedroom_bed
+      - group.presence_master_bedroom
+      - binary_sensor.master_bathroom_presence_all_zones
