@@ -1,0 +1,10 @@
+- platform: linkplay
+  host: 192.168.1.113
+  name: Living Room Wiim
+  uuid: FF98F09C0B65C0CBD5F555FC
+  protocol: https
+- platform: linkplay
+  host: 192.168.1.89
+  name: Office Wiim
+  uuid: FF98F09CE3949B8ED38E3033
+  protocol: https
