@@ -114,5 +114,5 @@ light:
   - platform: group
     name: Bedroom Lamps
     entities:
-      - light.masterbedroom_left_lamp
-      - light.masterbedroom_right_lamp
+      - light.master_bedroom_left_lamp
+      - light.master_bedroom_right_lamp
