@@ -9,7 +9,9 @@ automation:
         to: 'on'
     condition:
       - condition: state
-        entity_id: light.bedroom_lamps
+        entity_id: 
+          - light.bedroom_lamps
+          - input_boolean.master_bedroom_sleep_mode
         state: 'off'
       - or:
         - and:
