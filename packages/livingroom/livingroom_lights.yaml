@@ -11,7 +11,7 @@ automation:
     condition:
       - condition: state
         entity_id: 
-          - input_boolean.masterbedroom_sleep_mode
+          - input_boolean.master_bedroom_sleep_mode
           - light.steve_french
         state: 'off'
       - condition: numeric_state
