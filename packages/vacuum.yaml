@@ -43,24 +43,44 @@ automation:
       - service: vacuum.start
         entity_id: vacuum.romulus
 
-template:
-  - trigger:
+  - alias: Vacuum - Second Floor (Ricky)
+    id: vacuum_second_floor
+    variables:
+      hours_since_last_clean: "{{ ((now() | as_timestamp) - (states('sensor.ricky_last_clean_begin') | as_timestamp)) / 3600 }}"
+      minutes_since_floor_occupied: "{{ ((now() | as_timestamp) - (states('sensor.time_second_floor_was_last_occupied') | as_timestamp)) / 60 }}"
+    trigger:
+      - platform: time_pattern
+        minutes: "/30"
       - platform: state
+        entity_id: person.mike
+        from: home
+        to: not_home
+        for:
+          minutes: 1
+    condition:
+      - condition: state
         entity_id: vacuum.ricky
-        to: cleaning
-    sensor:
-      - name: ricky_last_cleaned
-        device_class: timestamp
-        state: "{{ now() }}"
-  - trigger:
-      - platform: state
-        entity_id: vacuum.romulus
-        to: cleaning
-    sensor:
-      - name: romulus_last_cleaned
-        device_class: timestamp
-        state: "{{ now() }}"
-
+        state: docked
+      - "{{ hours_since_last_clean > states('input_number.vacuum_second_floor_minimum_time_between_cleaning') | int(24) }}"
+      - or:
+        - condition: state
+          entity_id: person.mike
+          state: not_home
+        - and:
+          - condition: state
+            entity_id: group.presence_second_floor
+            state: 'off'
+          - "{{ minutes_since_floor_occupied > states('input_number.vacuum_second_floor_minimum_unoccupied_time_before_cleaning') | int(24) }}"
+          - or:
+            - condition: time
+              after: input_datetime.vacuum_second_floor_run_after_on_weekdays
+            - condition: time
+              weekday:
+                - sat
+                - sun
+    action:
+      - service: vacuum.start
+        entity_id: vacuum.ricky
 
 input_datetime:
   vacuum_basement_time:
@@ -72,9 +92,15 @@ input_datetime:
   vacuum_first_floor_unoccupied_time:
     has_date: false
     has_time: true
-  vacuum_second_floor_unoccupied_time:
-    has_date: false
-    has_time: true
-  vacuum_second_floor_occupied_time:
-    has_date: false
-    has_time: true
+
+input_number:
+  vacuum_second_floor_minimum_time_between_cleaning:
+    min: 1
+    max: 96
+    mode: box
+    unit_of_measurement: hr
+  vacuum_second_floor_minimum_unoccupied_time_before_cleaning:
+    min: 1
+    max: 120
+    mode: box
+    unit_of_measurement: min
