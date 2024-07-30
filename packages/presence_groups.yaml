@@ -30,3 +30,21 @@ group:
       - binary_sensor.master_bathroom_presence_all_zones
       - binary_sensor.office_presence_all_zones
       - group.presence_master_bedroom
+
+template:
+  - trigger:
+      - platform: state
+        entity_id: group.presence_second_floor
+        to: 'off'
+    sensor:
+      - name: time_second_floor_was_last_occupied
+        device_class: timestamp
+        state: "{{ now() }}"
+  - trigger:
+      - platform: state
+        entity_id: group.presence_first_floor
+        to: 'off'
+    sensor:
+      - name: time_first_floor_was_last_occupied
+        device_class: timestamp
+        state: "{{ now() }}"
