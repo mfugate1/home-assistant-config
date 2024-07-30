@@ -43,24 +43,24 @@ automation:
       - service: vacuum.start
         entity_id: vacuum.romulus
 
-  - alias: Vacuum - Second Floor Unoccupied (Ricky)
-    id: vacuum_second_floor_unoccupied
-    trigger:
-      platform: time
-      at: input_datetime.vacuum_second_floor_unoccupied_time
-    condition:
-      - condition: state
-        entity_id: input_boolean.sarah_remote_week_with_kids
-        state: 'on'
-      - condition: state
-        entity_id: person.mike
-        state: not_home
-    action:
-      - wait_template: "{{ is_state('group.presence_second_floor', 'off') }}"
-        timeout: '01:00:00'
-        continue_on_timeout: false
-      - service: vacuum.start
+template:
+  - trigger:
+      - platform: state
         entity_id: vacuum.ricky
+        to: cleaning
+    sensor:
+      - name: ricky_last_cleaned
+        device_class: timestamp
+        state: "{{ now() }}"
+  - trigger:
+      - platform: state
+        entity_id: vacuum.romulus
+        to: cleaning
+    sensor:
+      - name: romulus_last_cleaned
+        device_class: timestamp
+        state: "{{ now() }}"
+
 
 input_datetime:
   vacuum_basement_time:
@@ -73,5 +73,8 @@ input_datetime:
     has_date: false
     has_time: true
   vacuum_second_floor_unoccupied_time:
+    has_date: false
+    has_time: true
+  vacuum_second_floor_occupied_time:
     has_date: false
     has_time: true
