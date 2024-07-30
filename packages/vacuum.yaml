@@ -92,6 +92,9 @@ input_datetime:
   vacuum_first_floor_unoccupied_time:
     has_date: false
     has_time: true
+  vacuum_second_floor_run_after_on_weekdays:
+    has_date: false
+    has_time: true
 
 input_number:
   vacuum_second_floor_minimum_time_between_cleaning:
