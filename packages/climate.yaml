@@ -1,0 +1,60 @@
+automation:
+  - alias: Climate - Lower Temperature Before Bed
+    id: climate_lower_temperature_before_bed
+    trigger:
+      - platform: time
+        at: input_datetime.climate_lower_temperature_before_bed
+    condition:
+      - condition: state
+        entity_id: person.mike
+        state: home
+      - condition: state
+        entity_id: sensor.last_hvac_state
+        state: cooling
+      - condition: numeric_state
+        entity_id: sensor.master_bedroom_sensor_air_temperature
+        above: input_number.climate_lower_temperature_before_bed_bedroom_temperature_min
+    action:
+      - service: climate.set_temperature
+        entity_id: climate.thermostat
+        data:
+          target_temp_low: "{{ states('input_number.climate_temperature_before_bed') | int(72) }}"
+
+  - alias: Climate - Raise Temperature After Waking Up
+    id: climate_raise_temperature_after_waking_up
+    trigger:
+      - platform: state
+        entity_id: input_boolean.master_bedroom_sleep_mode
+        from: 'on'
+        to: 'off'
+    condition:
+      - condition: state
+        entity_id: sensor.last_hvac_state
+        state: cooling
+    action:
+      - service: climate.set_temperature
+        entity_id: climate.thermostat
+        data:
+          target_temp_low: "{{ states('input_number.climate_temperature_after_waking_up') | int(74) }}"
+
+input_datetime:
+  climate_lower_temperature_before_bed:
+    has_date: false
+    has_time: true
+
+input_number:
+  climate_lower_temperature_before_bed_bedroom_temperature_min:
+    min: 60
+    max: 90
+    mode: box
+    unit_of_measurement: °F
+  climate_temperature_before_bed:
+    min: 60
+    max: 90
+    mode: box
+    unit_of_measurement: °F
+  climate_temperature_after_waking_up:
+    min: 60
+    max: 90
+    mode: box
+    unit_of_measurement: °F
