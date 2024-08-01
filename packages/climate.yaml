@@ -18,7 +18,8 @@ automation:
       - service: climate.set_temperature
         entity_id: climate.thermostat
         data:
-          target_temp_low: "{{ states('input_number.climate_temperature_before_bed') | int(72) }}"
+          target_temp_high: "{{ states('input_number.climate_temperature_before_bed') | int(72) }}"
+          target_temp_low: "{{ state_attr('climate.thermostat', 'target_temp_low') | int(60) }}"
 
   - alias: Climate - Raise Temperature After Waking Up
     id: climate_raise_temperature_after_waking_up
@@ -35,7 +36,8 @@ automation:
       - service: climate.set_temperature
         entity_id: climate.thermostat
         data:
-          target_temp_low: "{{ states('input_number.climate_temperature_after_waking_up') | int(74) }}"
+          target_temp_high: "{{ states('input_number.climate_temperature_after_waking_up') | int(74) }}"
+          target_temp_low: "{{ state_attr('climate.thermostat', 'target_temp_low') | int(60) }}"
 
 input_datetime:
   climate_lower_temperature_before_bed:
