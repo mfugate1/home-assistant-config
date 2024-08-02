@@ -60,3 +60,29 @@ input_number:
     max: 90
     mode: box
     unit_of_measurement: °F
+
+sensor:
+  - platform: history_stats
+    name: hvac_cooling_time_today
+    unique_id: hvac_cooling_time_today
+    entity_id: sensor.hvac_action
+    state: cooling
+    type: time
+    start: "{{ today_at() }}"
+    end: "{{ now() }}"
+
+template:
+  - trigger:
+      platform: state
+      entity_id: climate.thermostat
+      attribute: hvac_action
+      to:
+        - heating
+        - cooling
+    sensor:
+      - name: last_hvac_state
+        state: "{{ trigger.to_state.attributes.hvac_action }}"
+
+  - sensor:
+    - name: hvac_action
+      state: "{{ state_attr('climate.thermostat', 'hvac_action') }}"

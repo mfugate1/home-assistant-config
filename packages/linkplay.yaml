@@ -1,0 +1,25 @@
+input_text:
+  linkplay_group_master:
+
+template:
+  - select:
+    - name: linkplay_group_master
+      unique_id: linkplay_group_master
+      state: "{{ states('input_text.linkplay_group_master') }}"
+      options: "{{ states('sensor.linkplay_media_players') | from_json }}"
+      select_option:
+        service: input_text.set_value
+        entity_id: input_text.linkplay_group_master
+        data:
+          value: "{{ option }}"
+
+  - sensor:
+    - name: linkplay_media_players
+      state: >
+        {% set entities = namespace(ids=[]) %}
+        {% for player in states.media_player  %}
+          {% if 'firmware' in player.attributes and player.attributes.firmware.startswith('Linkplay') %}
+            {% set entities.ids = entities.ids + [player.entity_id] %}
+          {% endif %}
+        {% endfor %}
+        {{ entities.ids | to_json }}
