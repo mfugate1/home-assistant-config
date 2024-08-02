@@ -21,6 +21,7 @@ automation:
 input_text:
   linkplay_group_master:
   linkplay_last_spotify_playlist:
+  spotify_playlist_uri_prefix:
 
 template:
   - select:
