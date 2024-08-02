@@ -28,11 +28,13 @@ script:
             entity_id: "{{ linkplay_office }}"
       - if:
         - alias: If master linkplay is not playing
-          condition: "{{ not is_state(linkplay_master, 'playing') }}"
+          condition: template
+          value_template: "{{ not is_state(linkplay_master, 'playing') }}"
         then:
         - if:
           - alias: If stream_uri is a spotify playlist
-            condition: "{{ state_attr(linkplay_master, 'stream_uri').startswith(playlist_prefix)}}"
+            condition: template
+            value_template: "{{ state_attr(linkplay_master, 'stream_uri').startswith(playlist_prefix)}}"
           then:
           - alias: Play current stream
             service: media_player.media_play
@@ -48,7 +50,8 @@ script:
               media_content_id: "{{ last_playlist }}"
         - if:
           - alias: If shuffle is off
-            condition: "{{ is_state_attr(linkplay_master, 'shuffle', True) }}"
+            condition: template
+            value_template: "{{ is_state_attr(linkplay_master, 'shuffle', True) }}"
           then:
           - alias: Turn shuffle on
             service: media_player.shuffle_set
