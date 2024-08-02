@@ -63,25 +63,124 @@ input_number:
 
 sensor:
   - platform: history_stats
-    name: hvac_cooling_time_today
-    unique_id: hvac_cooling_time_today
+    name: hvac_cooling_time_daily
+    unique_id: hvac_cooling_time_daily
     entity_id: sensor.hvac_action
     state: cooling
     type: time
     start: "{{ today_at() }}"
     end: "{{ now() }}"
 
+  - platform: history_stats
+    name: hvac_cooling_sessions_daily
+    unique_id: hvac_cooling_sessions_daily
+    entity_id: sensor.hvac_action
+    state: cooling
+    type: count
+    start: "{{ today_at() }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_heating_time_daily
+    unique_id: hvac_heating_time_daily
+    entity_id: sensor.hvac_action
+    state: heating
+    type: time
+    start: "{{ today_at() }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_heating_sessions_daily
+    unique_id: hvac_heating_sessions_daily
+    entity_id: sensor.hvac_action
+    state: heating
+    type: count
+    start: "{{ today_at() }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_cooling_time_weekly
+    unique_id: hvac_cooling_time_weekly
+    entity_id: sensor.hvac_action
+    state: cooling
+    type: time
+    start: "{{ today_at() - timedelta(days=now().weekday()) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_cooling_sessions_weekly
+    unique_id: hvac_cooling_sessions_weekly
+    entity_id: sensor.hvac_action
+    state: cooling
+    type: count
+    start: "{{ today_at() - timedelta(days=now().weekday()) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_heating_time_weekly
+    unique_id: hvac_heating_time_weekly
+    entity_id: sensor.hvac_action
+    state: heating
+    type: time
+    start: "{{ today_at() - timedelta(days=now().weekday()) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_heating_sessions_weekly
+    unique_id: hvac_heating_sessions_weekly
+    entity_id: sensor.hvac_action
+    state: heating
+    type: count
+    start: "{{ today_at() - timedelta(days=now().weekday()) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_cooling_time_monthly
+    unique_id: hvac_cooling_time_monthly
+    entity_id: sensor.hvac_action
+    state: cooling
+    type: time
+    start: "{{ today_at().replace(day=1) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_cooling_sessions_monthly
+    unique_id: hvac_cooling_sessions_monthly
+    entity_id: sensor.hvac_action
+    state: cooling
+    type: count
+    start: "{{ today_at().replace(day=1) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_heating_time_monthly
+    unique_id: hvac_heating_time_monthly
+    entity_id: sensor.hvac_action
+    state: heating
+    type: time
+    start: "{{ today_at().replace(day=1) }}"
+    end: "{{ now() }}"
+
+  - platform: history_stats
+    name: hvac_heating_sessions_monthly
+    unique_id: hvac_heating_sessions_monthly
+    entity_id: sensor.hvac_action
+    state: heating
+    type: count
+    start: "{{ today_at().replace(day=1) }}"
+    end: "{{ now() }}"
+
 template:
   - trigger:
-      platform: state
+    - platform: state
       entity_id: climate.thermostat
       attribute: hvac_action
       to:
         - heating
         - cooling
     sensor:
-      - name: last_hvac_state
-        state: "{{ trigger.to_state.attributes.hvac_action }}"
+    - name: last_hvac_state
+      state: "{{ trigger.to_state.attributes.hvac_action }}"
 
   - sensor:
     - name: hvac_action
