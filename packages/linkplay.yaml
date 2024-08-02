@@ -1,5 +1,26 @@
+automation:
+  - alias: Linkplay - Remember Last Spotify Playlist
+    id: linkplay_remember_last_spotify_playlist
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: sensor.linkplay_stream_uri_values
+    action:
+      - service: input_text.set_value
+        entity_id: input_text.linkplay_last_spotify_playlist
+        data:
+          value: >
+            {% set value = states('input_text.linkplay_last_spotify_playlist') %}
+            {% for player, stream_uri in (states('sensor.linkplay_stream_uri_values') | from_json).items() %}
+              {% if player == states('select.linkplay_group_master') %}
+                {% set value = stream_uri %}
+              {% endif %}
+            {% endfor %}
+            {{ value }}
+
 input_text:
   linkplay_group_master:
+  linkplay_last_spotify_playlist:
 
 template:
   - select:
