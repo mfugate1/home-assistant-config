@@ -10,13 +10,13 @@ automation:
         entity_id: input_text.linkplay_last_spotify_playlist
         data:
           value: >
-            {% set value = states('input_text.linkplay_last_spotify_playlist') %}
+            {% set ns = namespace(value = states('input_text.linkplay_last_spotify_playlist')) %}
             {% for player, stream_uri in (states('sensor.linkplay_stream_uri_values') | from_json).items() %}
               {% if player == states('select.linkplay_group_master') %}
-                {% set value = stream_uri %}
+                {% set ns.value = stream_uri %}
               {% endif %}
             {% endfor %}
-            {{ value }}
+            {{ ns.value }}
 
 input_text:
   linkplay_group_master:
