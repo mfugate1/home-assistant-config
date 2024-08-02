@@ -4,3 +4,9 @@
 - platform: linkplay
   host: 192.168.1.89
   name: Office Wiim
+- platform: linkplay
+  host: 192.168.1.168
+  name: Workout Room Wiim Amp
+- platform: linkplay
+  host: 192.168.1.80
+  name: Hall Of Holes Wiim
