@@ -1,0 +1,109 @@
+groups:
+  office_music_presence:
+    entities:
+      - binary_sensor.master_bathroom_presence_all_zones
+      - binary_sensor.master_bedroom_presence_all_zones
+      - binary_sensor.office_presence_all_zones
+
+script:
+  office_audio_spotify:
+    alias: Office Audio - Spotify
+    mode: queued
+    sequence:
+      - variables:
+          linkplay_master: "{{ states('select.linkplay_group_master') }}"
+          linkplay_office: "{{ states('select.office_linkplay_entity') }}"
+          playlist_prefix: "{{ states('input_text.spotify_playlist_uri_prefix') }}"
+          last_playlist: "{{ states('input_text.linkplay_last_spotify_playlist') }}"
+      - if:
+        - alias: If office linkplay is not in a group
+          condition: state
+          entity_id: binary_sensor.office_linkplay_in_group
+          state: 'off'
+        then:
+        - alias: Add office linkplay to master
+          service: linkplay.join
+          data:
+            master: "{{ linkplay_master }}"
+            entity_id: "{{ linkplay_office }}"
+      - if:
+        - alias: If master linkplay is not playing
+          condition: "{{ not is_state(linkplay_master, 'playing') }}"
+        then:
+        - if:
+          - alias: If stream_uri is a spotify playlist
+            condition: "{{ state_attr(linkplay_master, 'stream_uri').startswith(playlist_prefix)}}"
+          then:
+          - alias: Play current stream
+            service: media_player.media_play
+            target:
+              entity_id: "{{ linkplay_master }}"
+          else:
+          - alias: Play last known spotify playlist
+            service: media_player.play_media
+            target:
+              entity_id: "{{ linkplay_master }}"
+            data:
+              media_content_type: playlist
+              media_content_id: "{{ last_playlist }}"
+        - if:
+          - alias: If shuffle is off
+            condition: "{{ }}"
+          then:
+          - alias: Turn shuffle on
+            service: media_player.shuffle_set
+            target:
+              entity_id: "{{ linkplay_master }}"
+            data:
+              shuffle: true
+
+  office_audio_pc:
+    alias: Office Audio - PC
+    mode: queued
+    sequence:
+      - if:
+        - alias: If office linkplay is in a group
+          condition: state
+          entity_id: binary_sensor.office_linkplay_in_group
+          state: 'on'
+        then:
+        - alias: Ungroup it
+          service: linkplay.unjoin
+          data:
+            entity_id: "{{ states('input_text.office_linkplay_entity') }}"
+      - alias: Switch office linkplay source to Line In
+        service: media_player.select_source
+        target:
+          entity_id: "{{ states('input_text.office_linkplay_entity') }}"
+        data:
+          source: "{{ states('input_text.office_linkplay_pc_source') }}"
+
+input_text:
+  office_linkplay_entity:
+  office_linkplay_pc_source:
+
+template:
+  - binary_sensor:
+    - name: office_linkplay_in_group
+      state: "{{ state_attr(office_audio_entity, 'group_members') != None }}"
+
+  - select:
+    - name: office_linkplay_entity
+      unique_id: office_linkplay_entity
+      state: "{{ states('input_text.office_linkplay_entity') }}"
+      options: "{{ states('sensor.linkplay_media_players') | from_json }}"
+      select_option:
+        service: input_text.set_value
+        entity_id: input_text.office_linkplay_entity
+        data:
+          value: "{{ option }}"
+
+    - name: office_linkplay_pc_source
+      unique_id: office_linkplay_pc_source
+      state: "{{ states('input_text.office_linkplay_pc_source') }}"
+      options: "{{ state_attr(states('input_text.office_linkplay_entity'), 'source_list') }}"
+      select_option:
+        service: input_text.set_value
+        entity_id: input_text.office_linkplay_pc_source
+        data:
+          value: "{{ option }}"
