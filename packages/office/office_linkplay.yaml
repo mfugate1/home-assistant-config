@@ -15,7 +15,6 @@ script:
           linkplay_master: "{{ states('select.linkplay_group_master') }}"
           linkplay_office: "{{ states('select.office_linkplay_entity') }}"
           linkplay_spotify_source: "{{ states('select.linkplay_spotify_source') }}"
-          playlist_prefix: "{{ states('input_text.spotify_playlist_uri_prefix') }}"
           spotify_entity: "{{ states('select.spotify_entity') }}"
 
       - alias: Add office linkplay to master
@@ -35,19 +34,19 @@ script:
         delay: "{{ states('input_number.linkplay_delay_after_selecting_spotify_source') | int(1) }}"
 
       - if:
-        - alias: If master linkplay or spotify is not playing
+        - alias: If spotify is not playing
           condition: template
-          value_template: "{{ not is_state(linkplay_master, 'playing') or not is_state(spotify_entity, 'playing') }}"
+          value_template: "{{ not is_state(spotify_entity, 'playing') }}"
         then:
         - if:
-          - alias: If stream_uri is a spotify playlist
+          - alias: If spotify already has a playlist queued up
             condition: template
-            value_template: "{{ state_attr(linkplay_master, 'stream_uri') and state_attr(linkplay_master, 'stream_uri').startswith(playlist_prefix)}}"
+            value_template: "{{ state_attr(spotify_entity, 'media_playlist') }}"
           then:
-          - alias: Play current stream
+          - alias: Play it
             service: media_player.media_play
             target:
-              entity_id: "{{ linkplay_master }}"
+              entity_id: "{{ spotify_entity }}"
           else:
           - alias: Play last known spotify playlist
             service: media_player.play_media
