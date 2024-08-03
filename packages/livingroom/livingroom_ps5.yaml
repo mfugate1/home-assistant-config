@@ -33,9 +33,6 @@ switch:
              and not is_state('media_player.livingroom_tv', 'unavailable')
              and not is_state('media_player.livingroom_receiver', 'unavailable') }}
         turn_on:
-          - variables:
-              number_of_rooms_playing_music: "{{ state_attr('sensor.active_music_rooms', 'rooms') | length }}"
-              livingroom_is_playing_music: "{{ 'livingroom' in state_attr('sensor.active_music_rooms', 'rooms') }}"
           - parallel:
             - service: switch.turn_on
               entity_id: switch.livingroom_ps5
@@ -46,10 +43,6 @@ switch:
               data:
                 source: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
                 volume: "{{ states('input_number.livingroom_ps5_receiver_volume') }}"
-          - if: "{{ livingroom_is_playing_music and number_of_rooms_playing_music == 1 }}"
-            then:
-              - service: media_player.media_pause
-                entity_id: media_player.spotify_stukabombr1
         turn_off:
           - service: script.turn_off_with_repeat
             data:
