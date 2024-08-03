@@ -11,30 +11,35 @@ script:
     mode: queued
     sequence:
       - variables:
+          last_playlist: "{{ states('input_text.linkplay_last_spotify_playlist') }}"
           linkplay_master: "{{ states('select.linkplay_group_master') }}"
           linkplay_office: "{{ states('select.office_linkplay_entity') }}"
+          linkplay_spotify_source: "{{ states('select.linkplay_spotify_source') }}"
           playlist_prefix: "{{ states('input_text.spotify_playlist_uri_prefix') }}"
-          last_playlist: "{{ states('input_text.linkplay_last_spotify_playlist') }}"
+          spotify_entity: "{{ states('select.spotify_entity') }}"
+
+      - alias: Add office linkplay to master
+        service: linkplay.join
+        data:
+          master: "{{ linkplay_master }}"
+          entity_id: "{{ linkplay_office }}"
+
+      - alias: Select linkplay source for spotify
+        service: media_player.select_source
+        target:
+          entity_id: "{{ spotify_entity }}"
+        data:
+          source: "{{ linkplay_spotify_source }}"
+
       - if:
-        - alias: If office linkplay is not in a group
-          condition: state
-          entity_id: binary_sensor.office_linkplay_in_group
-          state: 'off'
-        then:
-        - alias: Add office linkplay to master
-          service: linkplay.join
-          data:
-            master: "{{ linkplay_master }}"
-            entity_id: "{{ linkplay_office }}"
-      - if:
-        - alias: If master linkplay is not playing
+        - alias: If master linkplay or spotify is not playing
           condition: template
-          value_template: "{{ not is_state(linkplay_master, 'playing') }}"
+          value_template: "{{ not is_state(linkplay_master, 'playing') or not is_state(spotify_entity, 'playing') }}"
         then:
         - if:
           - alias: If stream_uri is a spotify playlist
             condition: template
-            value_template: "{{ state_attr(linkplay_master, 'stream_uri').startswith(playlist_prefix)}}"
+            value_template: "{{ state_attr(linkplay_master, 'stream_uri') and state_attr(linkplay_master, 'stream_uri').startswith(playlist_prefix)}}"
           then:
           - alias: Play current stream
             service: media_player.media_play
@@ -44,36 +49,26 @@ script:
           - alias: Play last known spotify playlist
             service: media_player.play_media
             target:
-              entity_id: "{{ linkplay_master }}"
+              entity_id: "{{ spotify_entity }}"
             data:
               media_content_type: playlist
               media_content_id: "{{ last_playlist }}"
-        - if:
-          - alias: If shuffle is off
-            condition: template
-            value_template: "{{ is_state_attr(linkplay_master, 'shuffle', True) }}"
-          then:
-          - alias: Turn shuffle on
-            service: media_player.shuffle_set
-            target:
-              entity_id: "{{ linkplay_master }}"
-            data:
-              shuffle: true
+
+        - alias: Turn shuffle on
+          service: media_player.shuffle_set
+          target:
+            entity_id: "{{ spotify_entity }}"
+          data:
+            shuffle: true
 
   office_audio_pc:
     alias: Office Audio - PC
     mode: queued
     sequence:
-      - if:
-        - alias: If office linkplay is in a group
-          condition: state
-          entity_id: binary_sensor.office_linkplay_in_group
-          state: 'on'
-        then:
-        - alias: Ungroup it
-          service: linkplay.unjoin
-          data:
-            entity_id: "{{ states('input_text.office_linkplay_entity') }}"
+      - alias: Ungroup office linkplay
+        service: linkplay.unjoin
+        data:
+          entity_id: "{{ states('input_text.office_linkplay_entity') }}"
       - alias: Switch office linkplay source to Line In
         service: media_player.select_source
         target:
