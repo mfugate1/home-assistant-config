@@ -22,6 +22,7 @@ input_text:
   linkplay_group_master:
   linkplay_last_spotify_playlist:
   spotify_playlist_uri_prefix:
+  spotify_entity:
 
 template:
   - select:
@@ -32,6 +33,16 @@ template:
       select_option:
         service: input_text.set_value
         entity_id: input_text.linkplay_group_master
+        data:
+          value: "{{ option }}"
+
+    - name: spotify_entity
+      unique_id: spotify_entity
+      state: "{{ states('input_text.spotify_entity') }}"
+      options: "{{ states.media_player | map(attribute='entity_id') | list }}"
+      select_option:
+        service: input_text.set_value
+        entity_id: input_text.spotify_entity
         data:
           value: "{{ option }}"
 
