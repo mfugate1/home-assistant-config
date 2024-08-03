@@ -30,6 +30,9 @@ script:
           entity_id: "{{ spotify_entity }}"
         data:
           source: "{{ linkplay_spotify_source }}"
+      
+      - alias: Delay to let master linkplay sort itself out before trying to play anything
+        delay: "{{ states('input_number.linkplay_delay_after_selecting_spotify_source') | int(1) }}"
 
       - if:
         - alias: If master linkplay or spotify is not playing

@@ -18,6 +18,13 @@ automation:
             {% endfor %}
             {{ ns.value }}
 
+input_number:
+  linkplay_delay_after_selecting_spotify_source:
+    min: 0
+    max: 15
+    mode: box
+    unit_of_measurement: s
+
 input_text:
   linkplay_group_master:
   linkplay_last_spotify_playlist:
