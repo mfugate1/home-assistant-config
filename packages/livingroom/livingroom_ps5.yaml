@@ -76,3 +76,32 @@ template:
         entity_id: input_text.livingroom_ps5_receiver_source
         data:
           value: "{{ option }}"
+
+media_player:
+  - platform: media_player_template
+    media_players:
+      livingroom_ps5:
+        friendly_name: PS5
+        media_image_url_template: >
+          {% if is_state('sensor.livingroom_ps5', 'playing') %}
+            {{ state_attr('sensor.livingroom_ps5', 'title_image') }}
+          {% endif %}
+        turn_off:
+          service: switch.turn_off
+          data_template:
+            entity_id: switch.livingroom_ps5
+        turn_on:
+          service: switch.turn_on
+          data_template:
+            entity_id: switch.livingroom_ps5
+        volume_up:
+          service: media_player.volume_up
+          data_template:
+            entity_id: media_player.livingroom_receiver
+        volume_down:
+          service: media_player.volume_down
+          data_template:
+            entity_id: media_player.livingroom_receiver
+        current_source_template: "{{ state_attr('sensor.livingroom_ps5', 'title_name') }}"
+        value_template: "{{ states('switch.livingroom_ps5') }}"
+        title_template: "{{ state_attr('sensor.livingroom_ps5', 'title_name') }}"
