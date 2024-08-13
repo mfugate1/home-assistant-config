@@ -46,7 +46,6 @@ automation:
   - alias: Vacuum - Second Floor (Ricky)
     id: vacuum_second_floor
     variables:
-      hours_since_last_clean: "{{ ((now() | as_timestamp) - (states('sensor.ricky_last_clean_begin') | as_timestamp)) / 3600 }}"
       minutes_since_floor_occupied: "{{ ((now() | as_timestamp) - (states('sensor.time_second_floor_was_last_occupied') | as_timestamp)) / 60 }}"
     trigger:
       - platform: time_pattern
@@ -61,7 +60,9 @@ automation:
       - condition: state
         entity_id: vacuum.ricky
         state: docked
-      - "{{ hours_since_last_clean > states('input_number.vacuum_second_floor_minimum_time_between_cleaning') | int(24) }}"
+      - condition: state
+        entity_id: binary_sensor.vacuum_second_floor_ran_today
+        state: 'off'
       - or:
         - condition: state
           entity_id: person.mike
@@ -97,13 +98,13 @@ input_datetime:
     has_time: true
 
 input_number:
-  vacuum_second_floor_minimum_time_between_cleaning:
-    min: 1
-    max: 96
-    mode: box
-    unit_of_measurement: hr
   vacuum_second_floor_minimum_unoccupied_time_before_cleaning:
     min: 1
     max: 120
     mode: box
     unit_of_measurement: min
+
+template:
+  - binary_sensor:
+    - name: vacuum_second_floor_ran_today
+      state: "{{ (states('sensor.ricky_last_clean_begin') | as_timestamp | timestamp_custom('%Y-%m-%d')) == (now() | as_timestamp | timestamp_custom('%Y-%m-%d')) }}"
