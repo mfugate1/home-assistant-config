@@ -27,22 +27,29 @@ automation:
   - alias: Guest Room (Single) Tablet - Turn On Charging
     id: guest_room_single_tablet_turn_on_charging
     trigger:
-      platform: numeric_state
-      entity_id: sensor.guest_room_single_tablet_battery
-      below: input_number.guest_room_single_tablet_charging_threshold_low
+      - platform: numeric_state
+        entity_id: sensor.guest_room_single_tablet_battery
+        below: input_number.guest_room_single_tablet_charging_threshold_low
     action:
-      service: switch.turn_on
-      entity_id: switch.guest_room_single_tablet_charging_switch
+      - service: switch.turn_on
+        entity_id: switch.guest_room_single_tablet_charging_switch
 
   - alias: Guest Room (Single) Tablet - Turn Off Charging
     id: guest_room_single_tablet_turn_off_charging
+    mode: queued
     trigger:
-      platform: numeric_state
-      entity_id: sensor.guest_room_single_tablet_battery
-      above: input_number.guest_room_single_tablet_charging_threshold_high
+      - platform: numeric_state
+        entity_id: sensor.guest_room_single_tablet_battery
+        above: input_number.guest_room_single_tablet_charging_threshold_high
+      - platform: homeassistant
+        event: start
+    condition:
+      - condition: numeric_state
+        entity_id: sensor.guest_room_single_tablet_battery
+        above: input_number.guest_room_single_tablet_charging_threshold_high
     action:
-      service: switch.turn_off
-      entity_id: switch.guest_room_single_tablet_charging_switch
+      - service: switch.turn_off
+        entity_id: switch.guest_room_single_tablet_charging_switch
 
 input_number:
 
