@@ -22,6 +22,7 @@ automation:
 
   - alias: Kitchen Tablet - Screen
     id: kitchen_tablet_screen
+    mode: queued
     trigger:
       - platform: state
         entity_id: group.presence_kitchen
