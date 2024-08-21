@@ -2,28 +2,47 @@ automation:
 
   - alias: Guest Room (Single) Tablet - Screen
     id: guest_room_single_tablet_screen
+    mode: queued
     trigger:
-      - platform: state
+      - id: 'on'
+        platform: state
         entity_id: binary_sensor.guest_room_single_presence_tablet_zone
         to: 'on'
-      - platform: state
+      - id: 'off'
+        platform: state
         entity_id: binary_sensor.guest_room_single_presence_tablet_zone
         to: 'off'
         for:
-          seconds: "{{ states('input_number.guest_room_single_tablet_screen_timeout') | int(5) }}"
+          seconds: "{{ states('input_number.guest_room_single_tablet_screen_timeout') | int(30) }}"
+      - id: 'off'
+        platform: state
+        entity_id: binary_sensor.guest_room_single_presence_bed_zone
+        to: 'on'
+        for:
+          seconds: "{{ states('input_number.guest_room_single_tablet_screen_bed_timeout') | int(5) }}"
     action:
-      service: switch.turn_{{ trigger.to_state.state }}
-      entity_id: switch.guest_room_single_tablet_screen
+      - service: switch.turn_{{ trigger.id }}
+        entity_id: switch.guest_room_single_tablet_screen
 
-  - alias: Guest Room (Single) Tablet - Keep Fully Kiosk in Foreground
-    id: guest_room_single_tablet_keep_fully_foreground
+  - alias: Guest Room (Single) Tablet - Turn On Charging
+    id: guest_room_single_tablet_turn_on_charging
     trigger:
-      platform: state
-      entity_id: sensor.guest_room_single_tablet_foreground_app
-      not_to: de.ozerov.fully
+      platform: numeric_state
+      entity_id: sensor.guest_room_single_tablet_battery
+      below: input_number.guest_room_single_tablet_charging_threshold_low
     action:
-      service: button.press
-      entity_id: button.guest_room_single_tablet_bring_to_foreground
+      service: switch.turn_on
+      entity_id: switch.guest_room_single_tablet_charging_switch
+
+  - alias: Guest Room (Single) Tablet - Turn Off Charging
+    id: guest_room_single_tablet_turn_off_charging
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.guest_room_single_tablet_battery
+      above: input_number.guest_room_single_tablet_charging_threshold_high
+    action:
+      service: switch.turn_off
+      entity_id: switch.guest_room_single_tablet_charging_switch
 
 input_number:
 
@@ -32,3 +51,21 @@ input_number:
     max: 600
     mode: box
     unit_of_measurement: s
+
+  guest_room_single_tablet_screen_bed_timeout:
+    min: 0
+    max: 600
+    mode: box
+    unit_of_measurement: s
+
+  guest_room_single_tablet_charging_threshold_high:
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
+
+  guest_room_single_tablet_charging_threshold_low:
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
