@@ -51,6 +51,23 @@ automation:
       - service: switch.turn_off
         entity_id: switch.guest_room_single_tablet_charging_switch
 
+  - alias: Guest Room (Single) Tablet - Turn Off Screen When Charging Status Changes
+    id: guest_room_single_tablet_turn_off_screen_when_charging_status_changes
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_tablet_plugged_in
+    condition:
+      - condition: state
+        entity_id: switch.guest_room_single_tablet_screen
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.guest_room_single_presence_tablet_zone
+        state: 'off'
+    action:
+      - service: switch.turn_off
+        entity_id: switch.guest_room_single_tablet_screen
+
 input_number:
 
   guest_room_single_tablet_screen_timeout:
@@ -76,3 +93,9 @@ input_number:
     max: 100
     mode: box
     unit_of_measurement: "%"
+
+  guest_room_single_tablet_screen_fix_wait_timeout:
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: m
