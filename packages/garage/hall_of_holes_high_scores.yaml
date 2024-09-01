@@ -14,8 +14,7 @@ script:
           query: SELECT player FROM players
       - condition: template
         value_template: >
-          {% set existing_players = existing_players_query | map(attribute='player') %}
-          {{ new_name in existing_players }}
+          {{ new_name not in (existing_players_query | map(attribute='player')) }}
       - service: notify.hall_of_holes_db
         data:
           message: "INSERT INTO players (name) VALUES ('{{ new_name }}')"
