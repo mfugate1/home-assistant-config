@@ -11,7 +11,7 @@ script:
       - service: mysql_query.query
         response_variable: existing_players_query
         data:
-          query: SELECT player FROM players
+          query: SELECT name FROM players
       - condition: template
         value_template: >
           {{ new_name not in (existing_players_query | map(attribute='player')) }}
