@@ -1,12 +1,8 @@
-automation:
-
-  - alias: Hall of Holes - Add Player
-    id: hall_of_holes_add_player
+script:
+  hall_of_holes_add_player:
+    alias: Hall of Holes - Add Player
     mode: queued
-    trigger:
-      - platform: state
-        entity_id: input_button.hall_of_holes_add_player
-    action:
+    sequence:
       - variables:
           new_name: "{{ states('input_text.hall_of_holes_add_player_name') }}"
       - service: notify.hall_of_holes_db
@@ -23,11 +19,11 @@ automation:
       - service: notify.hall_of_holes_db
         data:
           message: "INSERT INTO players (name) VALUES ('{{ new_name }}')"
-
-input_button:
-  hall_of_holes_add_player:
-    name: Add Player
-    icon: mdi:handball
+      - service: input_text.set_value
+        entity_id: input_text.hall_of_holes_add_player_name
+        data:
+          value: ''
 
 input_text:
   hall_of_holes_add_player_name:
+    name: Enter new player name here
