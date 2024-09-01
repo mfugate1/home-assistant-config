@@ -26,17 +26,6 @@ http:
     - 192.168.1.0/24
     - 172.0.0.0/8
 
-notify:
-  - platform: mysql_command
-    name: docker1_mariadb_media
-    host: 192.168.1.86
-    username: homeassistant
-    password: !secret DOCKER1_MARIADB_HASS_PASSWORD
-    db: media
-
-recorder:
-  db_url: !secret RECORDER_DB_URL
-
 spotcast:
   sp_dc: !secret SPOTIFY_SP_DC
   sp_key: !secret SPOTIFY_SP_KEY
