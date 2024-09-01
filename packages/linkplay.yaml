@@ -30,6 +30,8 @@ input_text:
   linkplay_last_spotify_playlist:
   linkplay_spotify_source:
   spotify_playlist_uri_prefix:
+  spotify_device_name:
+  spotify_device_id:
   spotify_entity:
 
 template:

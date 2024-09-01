@@ -11,10 +11,10 @@ script:
     mode: queued
     sequence:
       - variables:
-          last_playlist: "{{ states('input_text.linkplay_last_spotify_playlist') }}"
           linkplay_master: "{{ states('select.linkplay_group_master') }}"
           linkplay_office: "{{ states('select.office_linkplay_entity') }}"
-          linkplay_spotify_source: "{{ states('select.linkplay_spotify_source') }}"
+          spotify_device_id: "{{ states('input_text.spotify_device_id') }}"
+          spotify_device_name: "{{ states('input_text.spotify_device_name') }}"
           spotify_entity: "{{ states('select.spotify_entity') }}"
 
       - alias: Add office linkplay to master
@@ -23,45 +23,19 @@ script:
           master: "{{ linkplay_master }}"
           entity_id: "{{ linkplay_office }}"
 
-      - alias: Select linkplay source for spotify
-        service: media_player.select_source
+      - if: "{{ not is_state(spotify_entity, 'playing') or not is_state_attr(spotify_entity, 'source', spotify_device_name)}}"
+        then:
+          - service: spotcast.start
+            data:
+              spotify_device_id: "{{ spotify_device_id }}"
+              force_playback: true
+        
+      - alias: Turn shuffle on
+        service: media_player.shuffle_set
         target:
           entity_id: "{{ spotify_entity }}"
         data:
-          source: "{{ linkplay_spotify_source }}"
-      
-      - alias: Delay to let master linkplay sort itself out before trying to play anything
-        delay: "{{ states('input_number.linkplay_delay_after_selecting_spotify_source') | int(1) }}"
-
-      - if:
-        - alias: If spotify is not playing
-          condition: template
-          value_template: "{{ not is_state(spotify_entity, 'playing') }}"
-        then:
-        - if:
-          - alias: If spotify already has a playlist queued up
-            condition: template
-            value_template: "{{ state_attr(spotify_entity, 'media_playlist') }}"
-          then:
-          - alias: Play it
-            service: media_player.media_play
-            target:
-              entity_id: "{{ spotify_entity }}"
-          else:
-          - alias: Play last known spotify playlist
-            service: media_player.play_media
-            target:
-              entity_id: "{{ spotify_entity }}"
-            data:
-              media_content_type: playlist
-              media_content_id: "{{ last_playlist }}"
-
-        - alias: Turn shuffle on
-          service: media_player.shuffle_set
-          target:
-            entity_id: "{{ spotify_entity }}"
-          data:
-            shuffle: true
+          shuffle: true
 
   office_audio_pc:
     alias: Office Audio - PC
