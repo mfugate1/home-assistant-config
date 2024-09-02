@@ -32,6 +32,14 @@ lovelace:
       mode: yaml
       filename: dashboards/guest-room-single.yaml
       title: Guest Room (Single)
+    guest-room-double:
+      mode: yaml
+      filename: dashboards/guest-room-double.yaml
+      title: Guest Room (Double)
+    kitchen-tablet:
+      mode: yaml
+      filename: dashboards/kitchen-tablet.yaml
+      title: Kitchen Tablet
 
 spotcast:
   sp_dc: !secret SPOTIFY_SP_DC
