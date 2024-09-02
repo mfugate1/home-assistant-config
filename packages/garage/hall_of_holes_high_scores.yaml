@@ -1,3 +1,13 @@
+automation:
+  - alias: Hall of Holes - Load Players
+    id: hall_of_holes_load_players
+    mode: queued
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      - event: reload_hall_of_holes_player_id_mapping
+
 script:
   hall_of_holes_add_player:
     alias: Hall of Holes - Add Player
@@ -30,25 +40,8 @@ script:
             entity_id: input_text.hall_of_holes_add_player_name
             data:
               value: ''
-          - service: script.hall_of_holes_load_players
-          - event: reload_hall_of_holes_player_id_mapping
-
-  hall_of_holes_load_players:
-    alias: Hall of Holes - Load Players
-    mode: queued
-    sequence:
-      - service: mysql_query.query
-        response_variable: existing_players_query
-        data:
-          query: SELECT name FROM players
-      - service: input_select.set_options
-        entity_id: 
-          - input_select.hall_of_holes_player_1
-          - input_select.hall_of_holes_player_2
-          - input_select.hall_of_holes_player_3
-          - input_select.hall_of_holes_player_4
-        data:
-          options: "{{ existing_players_query.result | map(attribute='name') | list }}"
+          - service: automation.trigger
+            entity_id: automation.hall_of_holes_load_players
 
 input_select:
   hall_of_holes_games:
@@ -66,30 +59,14 @@ input_select:
       - Standard
       - Teams
       - Cutthroat
-  hall_of_holes_player_1:
-    name: Player 1
-    icon: mdi:handball
-    options:
-      - "Reload Me!"
-  hall_of_holes_player_2:
-    name: Player 2
-    icon: mdi:handball
-    options:
-      - "Reload Me!"
-  hall_of_holes_player_3:
-    name: Player 3
-    icon: mdi:handball
-    options:
-      - "Reload Me!"
-  hall_of_holes_player_4:
-    name: Player 4
-    icon: mdi:handball
-    options:
-      - "Reload Me!"
   
 input_text:
   hall_of_holes_add_player_name:
     name: Enter new player name here
+  hall_of_holes_player_1:
+  hall_of_holes_player_2:
+  hall_of_holes_player_3:
+  hall_of_holes_player_4:
 
 template:
   - trigger:
@@ -106,3 +83,40 @@ template:
         state: no_state
         attributes:
           mapping: "{{ query.result }}"
+  - select:
+      - name: hall_of_holes_player_1
+        unique_id: hall_of_holes_player_1
+        state: "{{ states('input_text.hall_of_holes_player_1') }}"
+        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.hall_of_holes_player_1
+          data:
+            value: "{{ option }}"
+      - name: hall_of_holes_player_2
+        unique_id: hall_of_holes_player_2
+        state: "{{ states('input_text.hall_of_holes_player_2') }}"
+        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.hall_of_holes_player_2
+          data:
+            value: "{{ option }}"
+      - name: hall_of_holes_player_3
+        unique_id: hall_of_holes_player_3
+        state: "{{ states('input_text.hall_of_holes_player_3') }}"
+        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.hall_of_holes_player_3
+          data:
+            value: "{{ option }}"
+      - name: hall_of_holes_player_4
+        unique_id: hall_of_holes_player_4
+        state: "{{ states('input_text.hall_of_holes_player_4') }}"
+        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        select_option:
+          service: input_text.set_value
+          entity_id: input_text.hall_of_holes_player_4
+          data:
+            value: "{{ option }}"
