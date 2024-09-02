@@ -87,7 +87,9 @@ template:
       - name: hall_of_holes_player_1
         unique_id: hall_of_holes_player_1
         state: "{{ states('input_text.hall_of_holes_player_1') }}"
-        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        options: >
+          {% from 'hall_of_holes.jinja' import get_player_list %}
+          {{ get_player_list(1) }}
         select_option:
           service: input_text.set_value
           entity_id: input_text.hall_of_holes_player_1
@@ -96,7 +98,9 @@ template:
       - name: hall_of_holes_player_2
         unique_id: hall_of_holes_player_2
         state: "{{ states('input_text.hall_of_holes_player_2') }}"
-        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        options: >
+          {% from 'hall_of_holes.jinja' import get_player_list %}
+          {{ get_player_list(2) }}
         select_option:
           service: input_text.set_value
           entity_id: input_text.hall_of_holes_player_2
@@ -105,7 +109,9 @@ template:
       - name: hall_of_holes_player_3
         unique_id: hall_of_holes_player_3
         state: "{{ states('input_text.hall_of_holes_player_3') }}"
-        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        options: >
+          {% from 'hall_of_holes.jinja' import get_player_list %}
+          {{ get_player_list(3) }}
         select_option:
           service: input_text.set_value
           entity_id: input_text.hall_of_holes_player_3
@@ -114,7 +120,9 @@ template:
       - name: hall_of_holes_player_4
         unique_id: hall_of_holes_player_4
         state: "{{ states('input_text.hall_of_holes_player_4') }}"
-        options: "{{ [''] + state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list }}"
+        options: >
+          {% from 'hall_of_holes.jinja' import get_player_list %}
+          {{ get_player_list(4) }}
         select_option:
           service: input_text.set_value
           entity_id: input_text.hall_of_holes_player_4

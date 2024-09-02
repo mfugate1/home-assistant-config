@@ -1,0 +1,14 @@
+{% macro get_player_list(my_id) %}
+{% set ns = namespace(names=[''], in_use_names=[]) %}
+{% for i in range(1, 5) %}
+    {% if i != my_id %}
+        {% set ns.in_use_names = ns.in_use_names + [states('select.hall_of_holes_player_' + (i | string))] %}
+    {% endif %}
+{% endfor %}
+{% for name in (state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list) %}
+    {% if name not in ns.in_use_names %}
+        {% set ns.names = ns.names + [name] %}
+    {% endif %}
+{% endfor %}
+{{ ns.names }}
+{% endmacro %}
