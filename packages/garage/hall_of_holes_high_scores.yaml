@@ -2,6 +2,10 @@ script:
   hall_of_holes_add_player:
     alias: Hall of Holes - Add Player
     mode: queued
+    fields:
+      browser_id:
+        description: The browser ID this script is being called from
+        default: hall-of-holes-tablet
     sequence:
       - variables:
           new_name: "{{ states('input_text.hall_of_holes_add_player_name') }}"
@@ -12,16 +16,20 @@ script:
         response_variable: existing_players_query
         data:
           query: SELECT name FROM players
-      - condition: template
-        value_template: >
-          {{ new_name not in (existing_players_query.result | map(attribute='name') | list) }}
-      - service: notify.hall_of_holes_db
-        data:
-          message: "INSERT INTO players (name) VALUES ('{{ new_name }}')"
-      - service: input_text.set_value
-        entity_id: input_text.hall_of_holes_add_player_name
-        data:
-          value: ''
+      - if: "{{ new_name in (existing_players_query.result | map(attribute='name') | list) }}"
+        then:
+          - service: browser_mod.popup
+            data:
+              browser_id: "{{ browser_id }}"
+              content: Player already exists in database.
+        else:
+          - service: notify.hall_of_holes_db
+            data:
+              message: "INSERT INTO players (name) VALUES ('{{ new_name }}')"
+          - service: input_text.set_value
+            entity_id: input_text.hall_of_holes_add_player_name
+            data:
+              value: ''
 
 input_text:
   hall_of_holes_add_player_name:
