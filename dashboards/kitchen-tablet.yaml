@@ -345,10 +345,6 @@ views:
               title: Detected Presence
     cards: []
     max_columns: 4
-    visible:
-      - user: 426503a9e35a4e51a1ac62fa2a637af7
-      - user: 97a00a9dcee64fd7bb47d1ae58559838
-      - user: fa3974edb3774de890c3951ef4652290
     badges:
       - type: entity
         entity: switch.livingroom_ps5_2
