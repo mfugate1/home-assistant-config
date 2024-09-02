@@ -8,6 +8,29 @@ automation:
     action:
       - event: reload_hall_of_holes_player_id_mapping
 
+  - alias: Hall of Holes - Winner Selected
+    id: hall_of_holes_winner_selected
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id:
+          - input_boolean.hall_of_holes_winner_player_1
+          - input_boolean.hall_of_holes_winner_player_2
+          - input_boolean.hall_of_holes_winner_player_3
+          - input_boolean.hall_of_holes_winner_player_4
+        to: 'on'
+    action:
+      - service: input_boolean.turn_off
+        target:
+          entity_id: >
+            {% set my_id = trigger.entity_id.split('_')[-1] | int %}
+            {% set ns = namespace(entities=[]) %}
+            {% for i in range(1, 5) %}
+              {% if i != my_id %}
+                {% set ns.entities = ns.entities + ['input_boolean.hall_of_holes_winner_player_' + i | string] %}
+              {% endif %}
+            {% endfor %}
+            {{ ns.entities }}
 script:
   hall_of_holes_add_player:
     alias: Hall of Holes - Add Player
@@ -42,6 +65,12 @@ script:
               value: ''
           - service: automation.trigger
             entity_id: automation.hall_of_holes_load_players
+
+input_boolean:
+  hall_of_holes_winner_player_1:
+  hall_of_holes_winner_player_2:
+  hall_of_holes_winner_player_3:
+  hall_of_holes_winner_player_4:
 
 input_select:
   hall_of_holes_games:
