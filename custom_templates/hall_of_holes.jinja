@@ -5,7 +5,7 @@
         {% set ns.in_use_names = ns.in_use_names + [states('select.hall_of_holes_player_' + (i | string))] %}
     {% endif %}
 {% endfor %}
-{% for name in (state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') | list) %}
+{% for name in state_attr('sensor.hall_of_holes_player_id_mapping', 'mapping') | map(attribute='name') %}
     {% if name not in ns.in_use_names %}
         {% set ns.names = ns.names + [name] %}
     {% endif %}
