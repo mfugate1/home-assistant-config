@@ -30,7 +30,51 @@ script:
             entity_id: input_text.hall_of_holes_add_player_name
             data:
               value: ''
+          - service: script.hall_of_holes_load_players
+
+  hall_of_holes_load_players:
+    alias: Hall of Holes - Load Players
+    mode: queued
+    sequence:
+      - service: mysql_query.query
+        response_variable: existing_players_query
+        data:
+          query: SELECT name FROM players
+      - service: input_select.set_options
+        entity_id: input_select.hall_of_holes_players
+        data:
+          options: "{{ existing_players_query.result | map(attribute='name') | list }}"
+
+input_select:
+  hall_of_holes_players:
+    name: Player
+    icon: mdi:handball
+    options:
+      - "Reload Me!"
+  hall_of_holes_games:
+    name: Games
+    options:
+      - Air Hockey
+      - Basketball
+      - Darts
+      - Pinball
+      - Pool
+      - Skeeball
 
 input_text:
   hall_of_holes_add_player_name:
     name: Enter new player name here
+
+template:
+  - trigger:
+      - platform: state
+        entity_id: input_select.hall_of_holes_players
+    action:
+      - service: mysql_query.query
+        response_variable: id_query
+        data:
+          query: "SELECT id from players WHERE name = '{{ trigger.to_state.state }}'"
+    sensor:
+      - name: hall_of_holes_currently_selected_player_id
+        state: "{{ id_query.result[0].id }}"
+
