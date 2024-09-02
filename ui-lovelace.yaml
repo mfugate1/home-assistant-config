@@ -442,25 +442,6 @@ views:
         entity: sensor.office_sensor_air_temperature
         display_type: complete
         name: Office
-  - title: Hall of Holes
-    path: hall-of-holes
-    type: sections
-    sections:
-      - type: grid
-        cards:
-          - type: entities
-            entities:
-              - type: button
-                entity: input_text.hall_of_holes_add_player_name
-                action_name: Add Player
-                tap_action:
-                  action: perform-action
-                  perform_action: script.hall_of_holes_add_player
-                  data:
-                    browser_id: laptop-edge-browser
-              - type: custom:text-input-row
-                entity: input_text.hall_of_holes_add_player_name
-                name: ' '
   - type: sections
     max_columns: 4
     title: Presence
