@@ -1,0 +1,16 @@
+- url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+  type: module
+- url: /hacsfiles/lovelace-mushroom/mushroom.js
+  type: module
+- url: /hacsfiles/clock-weather-card/clock-weather-card.js
+  type: module
+- url: /hacsfiles/apexcharts-card/apexcharts-card.js
+  type: module
+- url: /hacsfiles/stack-in-card/stack-in-card.js
+  type: module
+- url: /hacsfiles/lovelace-text-input-row/lovelace-text-input-row.js
+  type: module
+- url: /hacsfiles/lovelace-template-entity-row/template-entity-row.js
+  type: module
+- url: /hacsfiles/lovelace-hui-element/hui-element.js
+  type: module

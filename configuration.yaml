@@ -27,6 +27,7 @@ http:
 
 lovelace:
   mode: yaml
+  resources: !include dashboards/resources.yaml
   dashboards:
     guest-room-single:
       mode: yaml
