@@ -31,6 +31,7 @@ script:
             data:
               value: ''
           - service: script.hall_of_holes_load_players
+          - event: reload_hall_of_holes_player_id_mapping
 
   hall_of_holes_load_players:
     alias: Hall of Holes - Load Players
@@ -41,16 +42,15 @@ script:
         data:
           query: SELECT name FROM players
       - service: input_select.set_options
-        entity_id: input_select.hall_of_holes_players
+        entity_id: 
+          - input_select.hall_of_holes_player_1
+          - input_select.hall_of_holes_player_2
+          - input_select.hall_of_holes_player_3
+          - input_select.hall_of_holes_player_4
         data:
           options: "{{ existing_players_query.result | map(attribute='name') | list }}"
 
 input_select:
-  hall_of_holes_players:
-    name: Player
-    icon: mdi:handball
-    options:
-      - "Reload Me!"
   hall_of_holes_games:
     name: Games
     options:
@@ -60,21 +60,49 @@ input_select:
       - Pinball
       - Pool
       - Skeeball
-
+  hall_of_holes_pool_game_types:
+    name: Game Type
+    options:
+      - Standard
+      - Teams
+      - Cutthroat
+  hall_of_holes_player_1:
+    name: Player 1
+    icon: mdi:handball
+    options:
+      - "Reload Me!"
+  hall_of_holes_player_2:
+    name: Player 2
+    icon: mdi:handball
+    options:
+      - "Reload Me!"
+  hall_of_holes_player_3:
+    name: Player 3
+    icon: mdi:handball
+    options:
+      - "Reload Me!"
+  hall_of_holes_player_4:
+    name: Player 4
+    icon: mdi:handball
+    options:
+      - "Reload Me!"
+  
 input_text:
   hall_of_holes_add_player_name:
     name: Enter new player name here
 
 template:
   - trigger:
-      - platform: state
-        entity_id: input_select.hall_of_holes_players
+      - platform: event
+        event_type: reload_hall_of_holes_player_id_mapping
     action:
       - service: mysql_query.query
-        response_variable: id_query
+        response_variable: query
         data:
-          query: "SELECT id from players WHERE name = '{{ trigger.to_state.state }}'"
+          query: SELECT id, name FROM players
     sensor:
-      - name: hall_of_holes_currently_selected_player_id
-        state: "{{ id_query.result[0].id }}"
-
+      # Query result is stored in an attribute to avoid the 255 character limit on states
+      - name: hall_of_holes_player_id_mapping
+        state: no_state
+        attributes:
+          mapping: "{{ query.result }}"
