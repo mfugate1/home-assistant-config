@@ -12,7 +12,7 @@ automation:
       - service: vacuum.start
         entity_id: vacuum.remus
 
-  - alias: Vacuum - Garage (Chester)
+  - alias: Vacuum - Garage (Julian)
     id: vacuum_garage
     trigger:
       platform: time
@@ -21,8 +21,20 @@ automation:
       - wait_template: "{{ is_state('binary_sensor.garage_presence_all_zones', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
+      - service: automation.turn_off
+        entity_id: automation.garage_lights_on
       - service: vacuum.start
-        entity_id: vacuum.chester
+        entity_id: vacuum.julian
+  
+  - alias: Vacuum - Garage (Julian) Enable Lights When Done
+    id: vacuum_garage_enable_lights_when
+    trigger:
+      - platform: state
+        entity_id: vacuum.julian
+        to: docked
+    action:
+      - service: automation.turn_on
+        entity_id: automation.garage_lights_on
 
   - alias: Vacuum - First Floor Unoccupied (Romulus)
     id: vacuum_first_floor_unoccupied
