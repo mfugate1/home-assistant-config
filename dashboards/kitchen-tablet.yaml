@@ -208,8 +208,8 @@ views:
                   action: call-service
                   service: vacuum.start
                   target:
-                    entity_id: vacuum.chester
-                entity: vacuum.chester
+                    entity_id: vacuum.julian
+                entity: vacuum.julian
       - type: grid
         cards:
           - show_state: true
