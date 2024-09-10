@@ -31,11 +31,12 @@ script:
               force_playback: true
         
       - alias: Turn shuffle on
-        service: media_player.shuffle_set
+        service: retry.call
+        data:
+          service: media_player.shuffle_set
+          shuffle: true
         target:
           entity_id: "{{ spotify_entity }}"
-        data:
-          shuffle: true
 
   office_audio_pc:
     alias: Office Audio - PC
