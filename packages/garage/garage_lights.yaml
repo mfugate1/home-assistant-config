@@ -64,29 +64,42 @@ automation:
             data:
               transition: 0
 
-  - alias: Garage - Lights On
-    id: garage_lights_on
-    mode: restart
+  - alias: Hall of Holes - Entry Light On
+    id: hall_of_holes_entry_light_on
+    mode: queued
     trigger:
-      platform: state
-      entity_id: binary_sensor.garage_presence_all_zones
-      to: "on"
+      - platform: state
+        entity_id: binary_sensor.garage_presence_entry_half_zone
+        to: "on"
     action:
-      service: light.turn_on
-      entity_id: light.garage
+      - service: switch.turn_on
+        entity_id: switch.garage_light_relay_left
 
-  - alias: Garage - Lights Off
-    id: garage_lights_off
-    mode: restart
+  - alias: Hall of Holes - Game Lights On
+    id: hall_of_holes_game_lights_on
+    mode: queued
     trigger:
-      platform: state
-      entity_id: binary_sensor.garage_presence_all_zones
-      to: "off"
-      for:
-        seconds: "{{ states('input_number.garage_lights_off_timeout') | int(60) }}"
+      - platform: state
+        entity_id: binary_sensor.garage_presence_game_half_zone
+        to: "on"
     action:
-      service: light.turn_off
-      entity_id: light.garage
+      - service: switch.turn_on
+        entity_id:
+          - switch.garage_light_relay_right
+          - switch.garage_neon_sign
+
+  - alias: Hall of Holes - Lights Off
+    id: hall_of_holes_lights_off
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.garage_presence_all_zones
+        to: "off"
+        for:
+          seconds: "{{ states('input_number.garage_lights_off_timeout') | int(60) }}"
+    action:
+      - service: light.turn_off
+        entity_id: light.garage
 
 input_number:
 
