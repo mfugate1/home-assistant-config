@@ -1,3 +1,57 @@
+automation:
+  - alias: Guest Room (Single) - Ceiling Light Off
+    id: guest_room_single_ceiling_light_off
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.guest_room_single_ceiling_light_timeout') | int(1) }}"
+    condition:
+      - condition: state
+        entity_id: input_select.guest_room_single_ceiling_light_mode
+        state:
+          - Auto Off
+          - Auto On/Off
+    action:
+      - service: light.turn_off
+        entity_id: light.guest_room_single_ceiling_fan_light
+
+  - alias: Guest Room (Single) - Ceiling Light On
+    id: guest_room_single_ceiling_light_on
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        to: 'on'
+    condition:
+      - or:
+          - condition: state
+            entity_id: input_boolean.guest_room_single_ceiling_light_level_enabled
+            state: 'off'
+          - condition: numeric_state
+            entity_id: sensor.guest_room_single_light_level
+            below: input_number.guest_room_single_light_level_threshold
+      - or:
+          - condition: state
+            entity_id: input_boolean.guest_room_single_sleep_mode_enabled
+            state: 'off'
+          - condition: state
+            entity_id: input_boolean.guest_room_single_sleep_mode
+            state: 'off'
+      - condition: state
+        entity_id: input_select.guest_room_single_ceiling_light_mode
+        state: Auto On/Off
+    action:
+      - service: light.turn_on
+        entity_id: light.guest_room_single_ceiling_fan_light
+
+input_boolean:
+  guest_room_single_ceiling_light_level_enabled:
+    name: Light Level Enabled
+    icon: mdi:lightbulb-night
+
 input_number:
   guest_room_single_ceiling_fan_light_brightness:
     min: 0
@@ -5,6 +59,26 @@ input_number:
   guest_room_single_ceiling_fan_light_temperature:
     min: 153
     max: 500
+  guest_room_single_ceiling_light_timeout:
+    name: Light Timeout
+    icon: mdi:timer
+    min: 0
+    max: 30
+    unit_of_measurement: m
+  guest_room_single_light_level_threshold:
+    name: Light Level Threshold
+    icon: mdi:lightbulb-night
+    min: 0
+    max: 150
+    unit_of_measurement: lx
+
+input_select:
+  guest_room_single_ceiling_light_mode:
+    name: Light Mode
+    options:
+      - None
+      - Auto Off
+      - Auto On/Off
 
 light:
   - platform: template
