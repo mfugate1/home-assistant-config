@@ -41,17 +41,21 @@ automation:
 input_boolean:
   guest_room_single_sleep_mode:
     name: Sleep Mode
+    icon: mdi:sleep
   guest_room_single_sleep_mode_enabled:
     name: Sleep Mode Enabled
+    icon: mdi:sleep
 
 input_number:
   guest_room_single_sleep_mode_on_delay:
     name: Sleep Mode On Delay
+    icon: mdi:timer
     min: 0
     max: 1000
     unit_of_measurement: s
   guest_room_single_sleep_mode_off_delay:
     name: Sleep Mode Off Delay
+    icon: mdi:timer
     min: 0
     max: 1000
     unit_of_measurement: s
