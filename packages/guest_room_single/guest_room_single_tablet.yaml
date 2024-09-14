@@ -20,6 +20,10 @@ automation:
         to: 'on'
         for:
           seconds: "{{ states('input_number.guest_room_single_tablet_screen_bed_timeout') | int(5) }}"
+    condition:
+      - condition: state
+        entity_id: input_boolean.guest_room_single_tablet_screen_automation_enabled
+        state: 'on'
     action:
       - service: switch.turn_{{ trigger.id }}
         entity_id: switch.guest_room_single_tablet_screen
@@ -30,6 +34,10 @@ automation:
       - platform: numeric_state
         entity_id: sensor.guest_room_single_tablet_battery
         below: input_number.guest_room_single_tablet_charging_threshold_low
+    condition:
+      - condition: state
+        entity_id: input_boolean.guest_room_single_tablet_charging_enabled
+        state: 'on'
     action:
       - service: switch.turn_on
         entity_id: switch.guest_room_single_tablet_charging_switch
@@ -47,6 +55,9 @@ automation:
       - condition: numeric_state
         entity_id: sensor.guest_room_single_tablet_battery
         above: input_number.guest_room_single_tablet_charging_threshold_high
+      - condition: state
+        entity_id: input_boolean.guest_room_single_tablet_charging_enabled
+        state: 'on'
     action:
       - service: switch.turn_off
         entity_id: switch.guest_room_single_tablet_charging_switch
@@ -59,7 +70,9 @@ automation:
         entity_id: binary_sensor.guest_room_single_tablet_plugged_in
     condition:
       - condition: state
-        entity_id: switch.guest_room_single_tablet_screen
+        entity_id: 
+          - switch.guest_room_single_tablet_screen
+          - input_boolean.guest_room_single_tablet_screen_automation_enabled
         state: 'on'
       - condition: state
         entity_id: binary_sensor.guest_room_single_presence_tablet_zone
@@ -68,34 +81,43 @@ automation:
       - service: switch.turn_off
         entity_id: switch.guest_room_single_tablet_screen
 
-input_number:
+input_boolean:
+  guest_room_single_tablet_charging_enabled:
+    name: Tablet Charging Enabled
+    icon: mdi:cellphone-charging
+  guest_room_single_tablet_screen_automation_enabled:
+    name: Tablet Screen Automation Enabled
+    icon: mdi:tablet-dashboard
 
+input_number:
   guest_room_single_tablet_screen_timeout:
+    name: Screen (Presence) Timeout
+    icon: mdi:timer
     min: 0
     max: 600
     mode: box
     unit_of_measurement: s
 
   guest_room_single_tablet_screen_bed_timeout:
+    name: Screen (Sleep Mode) Timeout
+    icon: mdi:timer
     min: 0
     max: 600
     mode: box
     unit_of_measurement: s
 
   guest_room_single_tablet_charging_threshold_high:
+    name: Upper Charging Threshold
+    icon: mdi:battery-charging-90
     min: 0
     max: 100
     mode: box
     unit_of_measurement: "%"
 
   guest_room_single_tablet_charging_threshold_low:
+    name: Lower Charging Threshold
+    icon: mdi:battery-charging-10
     min: 0
     max: 100
     mode: box
     unit_of_measurement: "%"
-
-  guest_room_single_tablet_screen_fix_wait_timeout:
-    min: 0
-    max: 100
-    mode: box
-    unit_of_measurement: m
