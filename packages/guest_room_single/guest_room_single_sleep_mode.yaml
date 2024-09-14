@@ -53,9 +53,11 @@ input_number:
     min: 0
     max: 1000
     unit_of_measurement: s
+    mode: box
   guest_room_single_sleep_mode_off_delay:
     name: Sleep Mode Off Delay
     icon: mdi:timer
     min: 0
     max: 1000
     unit_of_measurement: s
+    mode: box
