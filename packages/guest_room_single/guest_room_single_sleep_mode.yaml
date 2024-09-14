@@ -40,7 +40,9 @@ automation:
 
 input_boolean:
   guest_room_single_sleep_mode:
+    name: Sleep Mode
   guest_room_single_sleep_mode_enabled:
+    name: Sleep Mode Enabled
 
 input_number:
   guest_room_single_sleep_mode_on_delay:
