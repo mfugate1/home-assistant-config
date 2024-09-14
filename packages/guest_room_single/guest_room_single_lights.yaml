@@ -64,12 +64,14 @@ input_number:
     icon: mdi:timer
     min: 0
     max: 30
+    mode: box
     unit_of_measurement: m
   guest_room_single_light_level_threshold:
     name: Light Level Threshold
     icon: mdi:lightbulb-night
     min: 0
     max: 150
+    mode: box
     unit_of_measurement: lx
 
 input_select:
