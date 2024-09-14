@@ -1,3 +1,6 @@
+kiosk_mode:
+  hide_overflow: true
+
 views:
   - title: Home
     path: home-panel
