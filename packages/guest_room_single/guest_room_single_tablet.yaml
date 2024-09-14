@@ -16,7 +16,7 @@ automation:
           seconds: "{{ states('input_number.guest_room_single_tablet_screen_timeout') | int(30) }}"
       - id: 'off'
         platform: state
-        entity_id: binary_sensor.guest_room_single_presence_bed_zone
+        entity_id: input_boolean.guest_room_single_sleep_mode
         to: 'on'
         for:
           seconds: "{{ states('input_number.guest_room_single_tablet_screen_bed_timeout') | int(5) }}"
