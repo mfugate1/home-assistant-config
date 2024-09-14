@@ -16,3 +16,5 @@
   type: module
 - url: /hacsfiles/simple-clock-card/simple-clock-card.js
   type: module
+- url: /hacsfiles/decluttering-card/decluttering-card.js
+  type: module
