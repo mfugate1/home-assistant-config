@@ -1,0 +1,93 @@
+automation:
+
+  - alias: Guest Room (Single) - Ceiling Fan On
+    id: guest_room_single_ceiling_fan_on
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        to: 'on'
+      - platform: numeric_state
+        entity_id: sensor.guest_bedroom_single_sensor_air_temperature
+        above: input_number.guest_room_single_ceiling_fan_min_temperature
+    condition:
+      - or:
+          - condition: numeric_state
+            entity_id: sensor.guest_bedroom_single_sensor_air_temperature
+            above: input_number.guest_room_single_ceiling_fan_min_temperature
+          - condition: state
+            entity_id: input_boolean.guest_room_single_ceiling_fan_min_temperature_enabled
+            state: 'off'
+      - condition: state
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        state: 'on'
+      - condition: state
+        entity_id: input_select.guest_room_single_fan_mode
+        state: Auto On/Off
+    action:
+      - service: fan.turn_on
+        entity_id: fan.guest_room_single_ceiling_fan
+
+  - alias: Guest Room (Single) - Ceiling Fan Off
+    id: guest_room_single_ceiling_fan_off
+    mode: queued
+    trigger:
+      - platform: numeric_state
+        entity_id: sensor.guest_bedroom_single_sensor_air_temperature
+        below: input_number.guest_room_single_ceiling_fan_min_temperature
+      - platform: state
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.guest_room_single_ceiling_fan_off_timeout') | int(1) }}"
+    condition:
+      - condition: state
+        entity_id: input_select.guest_room_single_fan_mode
+        state:
+          - Auto Off
+          - Auto On/Off
+
+      # Don't run if the trigger was numeric_state and min temperature control is disabled
+      - or:
+          - condition: state
+            entity_id: input_boolean.guest_room_single_ceiling_fan_min_temperature_enabled
+            state: 'on'
+          - condition: template
+            value_template: "{{ trigger.platform != 'numeric_state' }}"
+    action:
+      - service: fan.turn_off
+        entity_id: fan.guest_room_single_ceiling_fan
+
+input_boolean:
+  guest_room_single_ceiling_fan_min_temperature_enabled:
+    name: Minimum Temperature Enabled
+    icon: mdi:thermometer
+
+input_number:
+
+  # The temperature in the room must be above this value for the ceiling fan to turn on.
+  guest_room_single_ceiling_fan_min_temperature:
+    name: Minimum Temperature
+    icon: mdi:thermometer
+    min: 50
+    max: 90
+    mode: box
+    unit_of_measurement: °F
+
+  # Amount of time (in seconds) the room must be unoccpied before the ceiling fan turns off
+  guest_room_single_ceiling_fan_off_timeout:
+    name: Timeout
+    icon: mdi:timer
+    min: 0
+    max: 30
+    mode: box
+    unit_of_measurement: m
+
+input_select:
+  guest_room_single_fan_mode:
+    name: Fan Mode
+    icon: mdi:fan
+    options:
+      - None
+      - Auto Off
+      - Auto On/Off
