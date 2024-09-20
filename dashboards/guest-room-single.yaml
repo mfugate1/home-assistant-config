@@ -65,28 +65,171 @@ views:
                   transition: none !important;
                 }
             entities:
+              - type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Light Automation (expand this row for more details)
+                entities:
+                  - type: custom:hui-element
+                    card_type: markdown
+                    card_mod:
+                      style: |
+                        ha-card.type-markdown {
+                          margin: 0px 0px 0px 0px;
+                          font-size: 12px;
+                          transition: none !important;
+                        }
+                    content: >
+                      {% set on_message = 'The light will turn on automatically
+                      when all of these conditions are met:' %}
+
+                      {% set off_message = 'The light will turn off
+                      automatically when all of these conditions are met:' %}
+
+                      {% set ns = namespace(on_list=[], off_list=[]) %}
+
+                      {% if
+                      is_state('input_select.guest_room_single_ceiling_light_mode',
+                      'Auto On/Off') %}
+                        {% set ns.on_list = ns.on_list + ['Presence is detected in the room.'] %}
+                      {% else %}
+                        {% set on_message = 'The light will never turn on automatically.' %}
+                      {% endif %}
+
+                      {% if
+                      is_state('input_select.guest_room_single_ceiling_light_mode',
+                      'None') %}
+                        {% set off_message = 'The light will never turn off automatically.' %}
+                      {% else %}
+                        {% set timeout = states('input_number.guest_room_single_ceiling_light_timeout') | int %}
+                        {% set units = 'minutes' %}
+                        {% if timeout == 1 %}{% set units = 'minute' %}{% endif %}
+                        {% set ns.off_list = ns.off_list + ['Presence is not detected in the room for at least ' + timeout | string + ' ' + units + '.'] %}
+                      {% endif %}
+
+                      {% if
+                      is_state('input_boolean.guest_room_single_ceiling_light_level_enabled',
+                      'on') %} 
+                        {% set ns.on_list = ns.on_list + ['The light level in the room is below ' + states('input_number.guest_room_single_light_level_threshold') | int | string + ' lx. The current light level is ' + states('sensor.guest_room_single_light_level') + ' lx.'] %}
+                      {% endif %}
+
+                      {% if
+                      is_state('input_boolean.guest_room_single_sleep_mode_enabled',
+                      'on') %}
+                        {% set ns.on_list = ns.on_list + ['No one is in the bed (configured on the sleep mode page).'] %}
+                      {% endif %}
+
+                      {{ on_message }}
+
+                      {% if
+                      is_state('input_select.guest_room_single_ceiling_light_mode',
+                      'Auto On/Off') %}
+
+                      {%- for item in ns.on_list %}
+                        - {{ item }}
+                      {%- endfor %}
+
+                      {% endif %}
+
+                      {{ off_message }}
+
+                      {% if not
+                      is_state('input_select.guest_room_single_ceiling_light_mode',
+                      'None') %}
+
+                      {%- for item in ns.off_list %}
+                        - {{ item }}
+                      {%- endfor %}
+
+                      {% endif %}
+
+                      The configuration options that determine all of these
+                      conditions can be modified by tapping the ceiling light
+                      icon at the top of this page.
               - input_select.guest_room_single_ceiling_light_mode
-              - type: custom:hui-element
-                card_type: markdown
-                card_mod:
-                  style: |
-                    ha-card.type-markdown {
-                      margin: -18px 0px 0px 0px;
-                      font-size: 12px;
-                      transition: none !important;
-                    }
-                content: >
-                  Configure the ceiling light automations here. The modes available are:<br>
-                   - None: The light will never turn on or off automatically.<br>
-                   - Auto Off: The light will turn off automatically when no presence is detected.<br>
-                   - Auto On/Off: The light will turn on and off automatically. See the light settings page for details.
+              - type: custom:fold-entity-row
+                head:
+                  type: section
+                  label: Fan Automation (expand this row for more details)
+                entities:
+                  - type: custom:hui-element
+                    card_type: markdown
+                    card_mod:
+                      style: |
+                        ha-card.type-markdown {
+                          margin: -10px 0px 0px 0px;
+                          font-size: 12px;
+                          transition: none !important;
+                        }
+                    content: >
+                      {% set on_message = 'The fan will turn on automatically
+                      when all of these conditions are met:' %}
+
+                      {% set off_message = 'The fan will turn off
+                      automatically when all of these conditions are met:' %}
+
+                      {% set ns = namespace(on_list=[], off_list=[]) %}
+
+                      {% if
+                      is_state('input_select.guest_room_single_fan_mode',
+                      'Auto On/Off') %}
+                        {% set ns.on_list = ns.on_list + ['Presence is detected in the room.'] %}
+                      {% else %}
+                        {% set on_message = 'The fan will never turn on automatically.' %}
+                      {% endif %}
+
+                      {% if
+                      is_state('input_select.guest_room_single_fan_mode',
+                      'None') %}
+                        {% set off_message = 'The fan will never turn off automatically.' %}
+                      {% else %}
+                        {% set timeout = states('input_number.guest_room_single_ceiling_fan_off_timeout') | int %}
+                        {% set units = 'minutes' %}
+                        {% if timeout == 1 %}{% set units = 'minute' %}{% endif %}
+                        {% set ns.off_list = ns.off_list + ['Presence is not detected in the room for at least ' + timeout | string + ' ' + units + '.'] %}
+                      {% endif %}
+
+                      {% if
+                      is_state('input_boolean.guest_room_single_ceiling_fan_min_temperature_enabled',
+                      'on') %} 
+                        {% set ns.on_list = ns.on_list + ['The temperature in the room is above ' + states('input_number.guest_room_single_ceiling_fan_min_temperature') | int | string + '°F. The current temperature is ' + states('sensor.guest_bedroom_single_sensor_air_temperature') + '°F.'] %}
+                      {% endif %}
+
+                      {{ on_message }}
+
+                      {% if
+                      is_state('input_select.guest_room_single_fan_mode',
+                      'Auto On/Off') %}
+
+                      {%- for item in ns.on_list %}
+                        - {{ item }}
+                      {%- endfor %}
+
+                      {% endif %}
+
+                      {{ off_message }}
+
+                      {% if not
+                      is_state('input_select.guest_room_single_fan_mode',
+                      'None') %}
+
+                      {%- for item in ns.off_list %}
+                        - {{ item }}
+                      {%- endfor %}
+
+                      {% endif %}
+
+                      The configuration options that determine all of these
+                      conditions can be modified by tapping the ceiling fan
+                      icon at the top of this page.
+              - input_select.guest_room_single_fan_mode
               - input_boolean.guest_room_single_tablet_screen_automation_enabled
               - type: custom:hui-element
                 card_type: markdown
                 card_mod:
                   style: |
                     ha-card.type-markdown {
-                      margin: -18px 0px 0px 0px;
+                      margin: -10px 0px 0px 0px;
                       font-size: 12px;
                       transition: none !important;
                     }
@@ -154,7 +297,8 @@ views:
                 card_type: markdown
                 no_card: true
                 content: >
-                  Configure the ceiling light automations here. The modes available are:<br>
+                  Configure the ceiling light automations here. The modes
+                  available are:<br>
                    - None: The light will never turn on or off automatically.<br>
                    - Auto Off: The light will turn off automatically when no presence is detected.<br>
                    - Auto On/Off: The light will turn on and off automatically based on the settings below.
@@ -163,18 +307,103 @@ views:
                 card_type: markdown
                 no_card: true
                 content: >
-                  This controls how long the light will stay on after presence is no longer detected.
+                  This controls how long the light will stay on after presence
+                  is no longer detected.
               - input_number.guest_room_single_ceiling_light_timeout
               - type: divider
               - type: custom:hui-element
                 card_type: markdown
                 no_card: true
                 content: >
-                  Enabling the light level option means that the light will only turn on automatically if the light
-                  level in the room is below the threshold set here. The current light level is 
-                  {{ states('sensor.guest_room_single_light_level') }} lx.
+                  Enabling the light level option means that the light will only
+                  turn on automatically if the light level in the room is below
+                  the threshold set here. The current light level is  {{
+                  states('sensor.guest_room_single_light_level') }} lx.
               - input_boolean.guest_room_single_ceiling_light_level_enabled
               - input_number.guest_room_single_light_level_threshold
+  - title: Fan Configuration
+    icon: mdi:ceiling-fan
+    path: fan-config
+    type: panel
+    cards:
+      - type: custom:stack-in-card
+        cards:
+          - type: entities
+            entities:
+              - type: custom:paper-buttons-row
+                buttons:
+                  - entity: light.guest_room_single_ceiling_fan_light
+                    name: false
+                    icon: mdi:ceiling-light
+                  - entity: fan.guest_room_single_ceiling_fan
+                    name: false
+                    icon: mdi:ceiling-fan
+                  - entity: binary_sensor.guest_room_single_presence_all_zones
+                    name: false
+                    layout: icon|state
+                    state_icons:
+                      'on': mdi:home
+                      'off': mdi:home-outline
+                    state_styles:
+                      'on':
+                        button:
+                          color: yellow
+                    state_text:
+                      'on': Occupied
+                      'off': Unoccupied
+                  - entity: binary_sensor.guest_room_single_presence_tablet_zone
+                    name: false
+                    layout: icon|state
+                    icon: mdi:tablet
+                    state_styles:
+                      'on':
+                        button:
+                          color: yellow
+                    state_text:
+                      'on': Occupied
+                      'off': Unoccupied
+                  - entity: binary_sensor.guest_room_single_presence_bed_zone
+                    name: false
+                    layout: icon|state
+                    state_icons:
+                      'on': mdi:bed
+                      'off': mdi:bed-outline
+                    state_styles:
+                      'on':
+                        button:
+                          color: yellow
+                    state_text:
+                      'on': Occupied
+                      'off': Unoccupied
+              - input_select.guest_room_single_fan_mode
+              - type: custom:hui-element
+                card_type: markdown
+                no_card: true
+                content: >
+                  Configure the ceiling fan automations here. The modes
+                  available are:<br>
+                   - None: The fan will never turn on or off automatically.<br>
+                   - Auto Off: The fan will turn off automatically when no presence is detected.<br>
+                   - Auto On/Off: The fan will turn on and off automatically based on the settings below.
+              - type: divider
+              - type: custom:hui-element
+                card_type: markdown
+                no_card: true
+                content: >
+                  This controls how long the fan will stay on after presence
+                  is no longer detected.
+              - input_number.guest_room_single_ceiling_fan_off_timeout
+              - type: divider
+              - type: custom:hui-element
+                card_type: markdown
+                no_card: true
+                content: >
+                  Enabling the minimum temperature option means that the fan will only
+                  turn on automatically if the temperature in the room is below
+                  the threshold set here. The current temperature is  {{
+                  states('sensor.guest_bedroom_single_sensor_air_temperature') }}°F.
+              - input_boolean.guest_room_single_ceiling_fan_min_temperature_enabled
+              - input_number.guest_room_single_ceiling_fan_min_temperature
   - title: Tablet Configuration
     icon: mdi:tablet
     path: tablet-config
@@ -234,17 +463,20 @@ views:
                 card_type: markdown
                 no_card: true
                 content: >
-                  When this option is enabled, the tablet screen automatically turns on and off based on
-                  whether presence is detected in the zone directly in front of the tablet. The screen
-                  can always be controlled manually with the power button on the top right side of the tablet.
-                  You can configure how long the screen stays on once presence is no longer detected with the 
-                  delay below.
+                  When this option is enabled, the tablet screen automatically
+                  turns on and off based on whether presence is detected in the
+                  zone directly in front of the tablet. The screen can always be
+                  controlled manually with the power button on the top right
+                  side of the tablet. You can configure how long the screen
+                  stays on once presence is no longer detected with the  delay
+                  below.
               - input_number.guest_room_single_tablet_screen_timeout
               - type: custom:hui-element
                 card_type: markdown
                 no_card: true
                 content: >
-                  The screen will also turn off if sleep mode turns on. You can configure that delay here.
+                  The screen will also turn off if sleep mode turns on. You can
+                  configure that delay here.
               - input_number.guest_room_single_tablet_screen_bed_timeout
               - type: divider
               - input_boolean.guest_room_single_tablet_charging_enabled
@@ -252,9 +484,11 @@ views:
                 card_type: markdown
                 no_card: true
                 content: >
-                  To keep the battery healthy, charging is turned on automatically when the battery level goes below
-                  the lower threshold, and off when the battery level goes above the upper threshold. You can disable
-                  that behavior with this toggle, and you can configure those thresholds below.
+                  To keep the battery healthy, charging is turned on
+                  automatically when the battery level goes below the lower
+                  threshold, and off when the battery level goes above the upper
+                  threshold. You can disable that behavior with this toggle, and
+                  you can configure those thresholds below.
               - input_number.guest_room_single_tablet_charging_threshold_low
               - input_number.guest_room_single_tablet_charging_threshold_high
   - title: Sleep Mode Configuration
@@ -328,16 +562,19 @@ views:
                 card_type: markdown
                 no_card: true
                 content: >
-                  Sleep mode ensures that the lights in the room do not turn on automatically while someone
-                  is sleeping. It uses the presence zone for the bed to turn on and off. You can configure
-                  how long someone must be in or out of the bed for it to update with the delays below.
+                  Sleep mode ensures that the lights in the room do not turn on
+                  automatically while someone is sleeping. It uses the presence
+                  zone for the bed to turn on and off. You can configure how
+                  long someone must be in or out of the bed for it to update
+                  with the delays below.
               - input_number.guest_room_single_sleep_mode_on_delay
               - input_number.guest_room_single_sleep_mode_off_delay
               - type: custom:hui-element
                 card_type: markdown
                 no_card: true
                 content: >
-                  This is the boolean that tracks sleep mode. You can manually change whether sleep mode is
-                  active or not by toggling it here. Note that changes to bed presence will continue to update
-                  it even if it is toggled here.
+                  This is the boolean that tracks sleep mode. You can manually
+                  change whether sleep mode is active or not by toggling it
+                  here. Note that changes to bed presence will continue to
+                  update it even if it is toggled here.
               - input_boolean.guest_room_single_sleep_mode
