@@ -81,6 +81,25 @@ automation:
       - service: switch.turn_off
         entity_id: switch.guest_room_single_tablet_screen
 
+  - alias: Guest Room (Single) Tablet - Return to Home Screen
+    id: guest_room_single_tablet_return_to_home_screen
+    mode: queued
+    trigger:
+      - platform: state
+        entity_id: sensor.guest_room_single_tablet_current_page
+      - platform: state
+        entity_id: switch.guest_room_single_tablet_screen
+        to: 'off'
+    condition:
+      - condition: state
+        entity_id: switch.guest_room_single_tablet_screen
+        state: 'off'
+      - condition: template
+        value_template: "{{ not states('sensor.guest_room_single_tablet_current_page').endswith('/guest-room-single/home-panel') }}"
+    action:
+      - service: button.press
+        entity_id: button.guest_room_single_tablet_load_start_url
+
 input_boolean:
   guest_room_single_tablet_charging_enabled:
     name: Tablet Charging Enabled
