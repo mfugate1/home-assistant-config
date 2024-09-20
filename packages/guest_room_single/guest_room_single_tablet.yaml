@@ -24,6 +24,12 @@ automation:
       - condition: state
         entity_id: input_boolean.guest_room_single_tablet_screen_automation_enabled
         state: 'on'
+      - or:
+          - condition: state
+            entity_id: input_boolean.guest_room_single_sleep_mode
+            state: 'off'
+          - condition: template
+            value_template: "{{ trigger.id == 'off' }}"
     action:
       - service: switch.turn_{{ trigger.id }}
         entity_id: switch.guest_room_single_tablet_screen
