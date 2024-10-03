@@ -1,24 +1,27 @@
 automation:
-
-  - alias: Kitchen Tablet - Turn On Charging
-    id: kitchen_tablet_turn_on_charging
+  - alias: Kitchen Tablet - Charging
+    id: kitchen_tablet_charging
+    mode: queued
     triggers:
-      - platform: numeric_state
+      - platform: state
         entity_id: sensor.kitchen_tablet_battery
-        below: input_number.kitchen_tablet_charging_threshold_low
     actions:
-      - action: switch.turn_on
-        entity_id: switch.kitchen_tablet_charging_switch
-
-  - alias: Kitchen Tablet - Turn Off Charging
-    id: kitchen_tablet_turn_off_charging
-    triggers:
-      - platform: numeric_state
-        entity_id: sensor.kitchen_tablet_battery
-        above: input_number.kitchen_tablet_charging_threshold_high
-    actions:
-      - action: switch.turn_off
-        entity_id: switch.kitchen_tablet_charging_switch
+      - variables:
+          battery_level: "{{ trigger.to_state.state | int }}"
+          low_threshold: "{{ states('input_number.kitchen_tablet_charging_threshold_low') | int }}"
+          high_threshold: "{{ states('input_number.kitchen_tablet_charging_threshold_high') | int }}"
+          switch_entity: switch.kitchen_tablet_charging_switch
+      - choose:
+          - conditions: "{{ battery_level < low_threshold and is_state(switch_entity, 'off') }}"
+            sequence:
+              - action: switch.turn_on
+                target:
+                  entity_id: "{{ switch_entity }}"
+          - conditions: "{{ battery_level > high_threshold and is_state(switch_entity, 'on') }}"
+            sequence:
+              - action: switch.turn_off
+                target:
+                  entity_id: "{{ switch_entity }}"
 
   - alias: Kitchen Tablet - Screen
     id: kitchen_tablet_screen
