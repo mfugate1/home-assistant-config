@@ -1,0 +1,31 @@
+automation:
+
+  - alias: Workout Room - Lights
+    id: workout_room_lights
+    mode: restart
+    triggers:
+      - platform: state
+        entity_id: binary_sensor.workout_room_presence_all_zones
+        to: 'on'
+      - platform: state
+        entity_id: binary_sensor.workout_room_presence_all_zones
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.workoutroom_lights_off_timeout_minutes') | int(0) }}"
+          seconds: "{{ states('input_number.workoutroom_lights_off_timeout_seconds') | int(10) }}"
+    actions:
+      - action: "light.turn_{{ trigger.to_state.state }}"
+        entity_id: light.workout_room_lights
+
+input_number:
+
+  workoutroom_lights_off_timeout_seconds:
+    min: 0
+    max: 60
+    mode: box
+    unit_of_measurement: s
+  workoutroom_lights_off_timeout_minutes:
+    min: 0
+    max: 30
+    mode: box
+    unit_of_measurement: m
