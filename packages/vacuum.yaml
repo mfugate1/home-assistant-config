@@ -2,73 +2,70 @@ automation:
 
   - alias: Vacuum - Basement (Remus)
     id: vacuum_basement
-    trigger:
-      platform: time
-      at: input_datetime.vacuum_basement_time
-    action:
+    triggers:
+      - trigger: time
+        at: input_datetime.vacuum_basement_time
+    actions:
       - wait_template: "{{ is_state('group.presence_basement', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
-      - service: vacuum.start
+      - action: vacuum.start
         entity_id: vacuum.remus
 
   - alias: Vacuum - Garage (Julian)
     id: vacuum_garage
-    trigger:
-      platform: time
-      at: input_datetime.vacuum_garage_time
-    action:
+    triggers:
+      - trigger: time
+        at: input_datetime.vacuum_garage_time
+    actions:
       - wait_template: "{{ is_state('binary_sensor.garage_presence_all_zones', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
-      - service: automation.turn_off
+      - action: automation.turn_off
         entity_id: automation.garage_lights_on
-      - service: vacuum.start
+      - action: vacuum.start
         entity_id: vacuum.julian
   
   - alias: Vacuum - Garage (Julian) Enable Lights When Done
     id: vacuum_garage_enable_lights_when
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: vacuum.julian
         to: docked
-    action:
-      - service: automation.turn_on
+    actions:
+      - action: automation.turn_on
         entity_id: automation.garage_lights_on
 
   - alias: Vacuum - First Floor Unoccupied (Romulus)
     id: vacuum_first_floor_unoccupied
-    trigger:
-      platform: time
-      at: input_datetime.vacuum_first_floor_unoccupied_time
-    condition:
-      - condition: state
-        entity_id: input_boolean.sarah_remote_week_with_kids
-        state: 'on'
+    triggers:
+      - trigger: time
+        at: input_datetime.vacuum_first_floor_unoccupied_time
+    conditions:
       - condition: state
         entity_id: person.mike
         state: not_home
-    action:
+    actions:
       - wait_template: "{{ is_state('group.presence_first_floor', 'off') }}"
         timeout: '01:00:00'
         continue_on_timeout: false
-      - service: vacuum.start
+      - action: vacuum.start
         entity_id: vacuum.romulus
 
   - alias: Vacuum - Second Floor (Ricky)
     id: vacuum_second_floor
     variables:
       minutes_since_floor_occupied: "{{ ((now() | as_timestamp) - (states('sensor.time_second_floor_was_last_occupied') | as_timestamp)) / 60 }}"
-    trigger:
-      - platform: time_pattern
+    triggers:
+      - trigger: time_pattern
         minutes: "/30"
-      - platform: state
+      - trigger: state
         entity_id: person.mike
         from: home
         to: not_home
         for:
           minutes: 1
-    condition:
+    conditions:
       - condition: state
         entity_id: vacuum.ricky
         state: docked
@@ -91,8 +88,8 @@ automation:
               weekday:
                 - sat
                 - sun
-    action:
-      - service: vacuum.start
+    actions:
+      - action: vacuum.start
         entity_id: vacuum.ricky
 
 input_datetime:
