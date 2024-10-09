@@ -47,6 +47,9 @@ lovelace:
       filename: dashboards/hall-of-holes-tablet.yaml
       title: Hall of Holes Tablet
 
+remote_homeassistant:
+  instances:
+
 spotcast:
   sp_dc: !secret SPOTIFY_SP_DC
   sp_key: !secret SPOTIFY_SP_KEY
