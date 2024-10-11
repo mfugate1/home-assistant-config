@@ -3,34 +3,7 @@ views:
     sections:
       - type: grid
         cards:
-          - type: custom:stack-in-card
-            keep:
-              background: false
-              box_shadow: false
-              margin: false
-              outer_padding: false
-              border_radius: false
-            cards:
-              - type: custom:simple-clock-card
-                use_military: false
-                card_mod:
-                  style: |
-                    ha-card {
-                      border: none;
-                      margin: -21px 0px -21px;
-                    }
-              - type: custom:clock-weather-card
-                entity: weather.home
-                temperature_sensor: sensor.front_porch_sensor_air_temperature
-                time_format: 12
-                hide_clock: true
-                hide_date: false
-                card_mod:
-                  style: |
-                    ha-card {
-                      border: none;
-                      margin: -37px 0px 0px;
-                    }
+          - !include dashboards/cards/weather_with_time.yaml
           - type: thermostat
             entity: climate.thermostat
             show_current_as_primary: true
