@@ -3,7 +3,7 @@ views:
     sections:
       - type: grid
         cards:
-          - !include dashboards/cards/weather_with_time.yaml
+          - !include cards/weather_with_time.yaml
           - type: thermostat
             entity: climate.thermostat
             show_current_as_primary: true
