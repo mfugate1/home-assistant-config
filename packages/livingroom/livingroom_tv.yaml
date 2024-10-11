@@ -2,19 +2,22 @@ automation:
   - alias: Living Room - Turn on TV with WakeOnLan
     id: living_room_turn_on_tv_with_wakeonlan
     max_exceeded: silent
-    trigger:
-      platform: webostv.turn_on
-      entity_id: media_player.livingroom_tv
-    action:
-      service: wake_on_lan.send_magic_packet
-      data:
-        mac: 78:5D:C8:12:91:49
+    triggers:
+      - trigger: webostv.turn_on
+        entity_id: media_player.livingroom_tv
+    actions:
+      - action: wake_on_lan.send_magic_packet
+        data:
+          mac: "{{ states('input_text.livingroom_tv_mac_address') }}"
 
 input_number:
   livingroom_tv_delay_for_source_select:
     min: 0
     max: 15
     unit_of_measurement: s
+
+input_text:
+  livingroom_tv_mac_address:
 
 script:
   livingroom_tv_turn_on:
@@ -37,12 +40,14 @@ script:
             {% else %}
               0
             {% endif %}
-      - service: media_player.turn_on
+      - action: media_player.turn_on
         entity_id: media_player.livingroom_tv
-      - delay: "{{ delay_seconds }}"
       - if: "{{ source is defined and source != none }}"
         then:
-          - service: media_player.select_source
+          - if: "{{ is_state('media_player.livingroom_tv', 'off') }}"
+            then:
+              - delay: "{{ states('input_number.livingroom_tv_delay_for_source_select') | int(10) }}"
+          - action: media_player.select_source
             entity_id: media_player.livingroom_tv
             data:
               source: "{{ source }}"
