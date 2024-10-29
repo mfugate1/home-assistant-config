@@ -1,0 +1,4 @@
+input_datetime:
+  cabin_arrival:
+    has_date: true
+    has_time: false
