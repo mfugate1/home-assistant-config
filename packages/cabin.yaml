@@ -2,3 +2,13 @@ input_datetime:
   cabin_arrival:
     has_date: true
     has_time: false
+
+template:
+  - sensor:
+      - name: days_until_cabin
+        state: >
+          {% set midnight = today_at() %}
+          {% set event = states('input_datetime.cabin_arrival') | as_datetime | as_local %}
+          {% set delta = event - midnight %}
+          {% set values = {0: "IT'S CABIN TIME!!!", 1: 'CABIN IS TOMORROW!!!'} %}
+          {{ values.get(delta.days, 'Cabin is %s days away'%delta.days) }}
