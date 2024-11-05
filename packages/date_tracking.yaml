@@ -1,0 +1,13 @@
+input_datetime:
+  motorcycle_registration_expiration:
+    has_date: true
+    has_time: false
+  motorcycle_inspection_expiration:
+    has_date: true
+    has_time: false
+  truck_registration_expiration:
+    has_date: true
+    has_time: false
+  truck_inspection_expiration:
+    has_date: true
+    has_time: false
