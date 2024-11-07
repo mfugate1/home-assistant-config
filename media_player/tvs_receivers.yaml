@@ -1,11 +1,3 @@
-- platform: onkyo
-  host: 192.168.1.43
-  name: garage_receiver
-  receiver_max_volume: 78
-- platform: onkyo
-  host: 192.168.1.45
-  name: livingroom_receiver
-  receiver_max_volume: 100
 - platform: aquostv
   host: 192.168.1.46
   name: basement_tv
