@@ -1,9 +1,0 @@
-- platform: wake_on_lan
-  name: PC
-  host: 192.168.1.21
-  mac: 04:7c:16:56:98:e0
-
-- platform: wake_on_lan
-  name: Laptop
-  host: 192.168.1.20
-  mac: 04:7b:cb:5a:9f:f7
