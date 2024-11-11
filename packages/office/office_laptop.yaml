@@ -1,2 +1,5 @@
-input_boolean:
-  laptop_on:
+input_number:
+  amp_threshold_for_laptop_to_be_considered_off:
+    min: 0
+    max: 2
+    step: 0.01
