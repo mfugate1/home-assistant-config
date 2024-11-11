@@ -1,9 +1,90 @@
+automation:
+  - alias: Office Laptop - Turn Off Dock
+    id: office_laptop_turn_off_dock
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.office_presence_all_zones
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.office_presence_timeout_for_laptop_dock') | int(1) }}"
+      - trigger: state
+        entity_id: binary_sensor.laptop_is_on_or_charging
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.office_laptop_off_timeout_for_laptop_dock') | int(1) }}"
+    conditions:
+      - condition: state
+        entity_id: 
+          - binary_sensor.laptop_is_on_or_charging
+          - binary_sensor.office_presence_all_zones
+        state: 'off'
+      - condition: state
+        entity_id: switch.laptop_dock
+        state: 'on'
+    actions:
+      - action: switch.turn_off
+        entity_id: switch.laptop_dock
+
+  - alias: Office - Turn Off Monitors
+    id: office_turn_off_monitors
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.office_presence_all_zones
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.office_presence_timeout_for_monitors') | int(1) }}"
+      - trigger: state
+        entity_id: binary_sensor.laptop_is_on_or_charging
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.office_laptop_off_timeout_for_monitors') | int(1) }}"
+      - trigger: state
+        entity_id: binary_sensor.desktop_pc
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.office_desktop_pc_off_timeout_for_monitors') | int(1) }}"
+    conditions:
+      - condition: state
+        entity_id: 
+          - binary_sensor.laptop_is_on_or_charging
+          - binary_sensor.office_presence_all_zones
+          - binary_sensor.desktop_pc
+        state: 'off'
+      - condition: state
+        entity_id: switch.office_monitors
+        state: 'on'
+    actions:
+      - action: switch.turn_off
+        entity_id: switch.office_monitors
+
 input_number:
   amp_threshold_for_laptop_to_be_considered_off:
     min: 0
     max: 2
     step: 0.01
-
+    unit_of_measurement: A
+  office_presence_timeout_for_laptop_dock:
+    min: 0
+    max: 10
+    unit_of_measurement: m
+  office_laptop_off_timeout_for_laptop_dock:
+    min: 0
+    max: 10
+    unit_of_measurement: m
+  office_presence_timeout_for_monitors:
+    min: 0
+    max: 10
+    unit_of_measurement: m
+  office_laptop_off_timeout_for_monitors:
+    min: 0
+    max: 10
+    unit_of_measurement: m
+  office_desktop_pc_off_timeout_for_monitors:
+    min: 0
+    max: 10
+    unit_of_measurement: m
 template:
   - binary_sensor:
     - name: laptop_is_on_or_charging
