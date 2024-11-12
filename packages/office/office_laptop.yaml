@@ -15,10 +15,15 @@ automation:
           minutes: "{{ states('input_number.office_laptop_off_timeout_for_laptop_dock') | int(1) }}"
     conditions:
       - condition: state
-        entity_id: 
-          - binary_sensor.laptop_is_on_or_charging
-          - binary_sensor.office_presence_all_zones
+        entity_id: binary_sensor.office_presence_all_zones
         state: 'off'
+        for:
+          minutes: "{{ states('input_number.office_presence_timeout_for_laptop_dock') | int(1) }}"
+      - condition: state
+        entity_id: binary_sensor.laptop_is_on_or_charging
+        state: 'off'
+        for:
+          minutes: "{{ states('input_number.office_laptop_off_timeout_for_laptop_dock') | int(1) }}"
       - condition: state
         entity_id: switch.laptop_dock
         state: 'on'
@@ -47,11 +52,20 @@ automation:
           minutes: "{{ states('input_number.office_desktop_pc_off_timeout_for_monitors') | int(1) }}"
     conditions:
       - condition: state
-        entity_id: 
-          - binary_sensor.laptop_is_on_or_charging
-          - binary_sensor.office_presence_all_zones
-          - binary_sensor.desktop_pc
+        entity_id: binary_sensor.office_presence_all_zones
         state: 'off'
+        for:
+          minutes: "{{ states('input_number.office_presence_timeout_for_monitors') | int(1) }}"
+      - condition: state
+        entity_id: binary_sensor.laptop_is_on_or_charging
+        state: 'off'
+        for:
+          minutes: "{{ states('input_number.office_laptop_off_timeout_for_monitors') | int(1) }}"
+      - condition: state
+        entity_id: binary_sensor.desktop_pc
+        state: 'off'
+        for:
+          minutes: "{{ states('input_number.office_desktop_pc_off_timeout_for_monitors') | int(1) }}"
       - condition: state
         entity_id: switch.office_monitors
         state: 'on'
@@ -85,6 +99,7 @@ input_number:
     min: 0
     max: 10
     unit_of_measurement: m
+
 template:
   - binary_sensor:
     - name: laptop_is_on_or_charging
