@@ -99,6 +99,33 @@ input_number:
     min: 0
     max: 10
     unit_of_measurement: m
+  office_laptop_turn_on_delay_after_monitors:
+    min: 0
+    max: 60
+    unit_of_measurement: s
+  office_laptop_turn_on_delay_after_dock:
+    min: 0
+    max: 60
+    unit_of_measurement: s
+
+script:
+  office_laptop_turn_on:
+    alias: Office Laptop - Turn On
+    mode: queued
+    sequence:
+      - condition: "{{ is_state('binary_sensor.laptop_is_on_or_charging', 'off') }}"
+      - if: "{{ is_state('switch.office_monitors', 'off') }}"
+        then:
+          - action: switch.turn_on
+            entity_id: switch.office_monitors
+          - delay: "{{ states('input_number.office_laptop_turn_on_delay_after_monitors') | int(10) }}"
+      - if: "{{ is_state('switch.laptop_dock', 'off') }}"
+        then:
+          - action: switch.turn_on
+            entity_id: switch.laptop_dock
+          - delay: "{{ states('input_number.office_laptop_turn_on_delay_after_dock') | int(10) }}"
+      - action: button.press
+        entity_id: button.laptop_wol
 
 template:
   - binary_sensor:
