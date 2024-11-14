@@ -33,23 +33,22 @@ switch:
              and not is_state('media_player.livingroom_tv', 'unavailable')
              and not is_state('media_player.livingroom_receiver', 'unavailable') }}
         turn_on:
-          - parallel:
-            - service: switch.turn_on
-              entity_id: switch.livingroom_ps5
-            - service: script.livingroom_tv_turn_on
-              data:
-                source: "{{ states('input_text.livingroom_ps5_tv_source') }}"
-            - service: script.livingroom_receiver_turn_on
-              data:
-                source: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
-                volume: "{{ states('input_number.livingroom_ps5_receiver_volume') }}"
+          - action: switch.turn_on
+            entity_id: switch.livingroom_ps5
+          - action: script.livingroom_tv_turn_on
+            data:
+              source: "{{ states('input_text.livingroom_ps5_tv_source') }}"
+          - action: script.livingroom_receiver_turn_on
+            data:
+              source: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
+              volume: "{{ states('input_number.livingroom_ps5_receiver_volume') }}"
         turn_off:
-          - service: script.turn_off_with_repeat
+          - action: script.turn_off_with_repeat
             data:
               entity_id: switch.livingroom_ps5
               repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
               max_retries: 20
-          - service: media_player.turn_off
+          - action: media_player.turn_off
             entity_id:
               - media_player.livingroom_tv
               - media_player.livingroom_receiver
@@ -63,7 +62,7 @@ template:
       state: "{{ states('input_text.livingroom_ps5_tv_source') }}"
       options: "{{ state_attr('media_player.livingroom_tv', 'source_list') }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.livingroom_ps5_tv_source
         data:
           value: "{{ option }}"
@@ -72,40 +71,7 @@ template:
       state: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
       options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.livingroom_ps5_receiver_source
         data:
           value: "{{ option }}"
-
-media_player:
-  - platform: media_player_template
-    media_players:
-      livingroom_ps5:
-        friendly_name: PS5
-        media_image_url_template: >
-          {% if is_state('sensor.livingroom_ps5', 'playing') %}
-            {{ state_attr('sensor.livingroom_ps5', 'title_image') }}
-          {% endif %}
-        album_art_template: >
-          {% if is_state('sensor.livingroom_ps5', 'playing') %}
-            {{ state_attr('sensor.livingroom_ps5', 'title_image') }}
-          {% endif %}
-        turn_off:
-          service: switch.turn_off
-          data_template:
-            entity_id: switch.livingroom_ps5
-        turn_on:
-          service: switch.turn_on
-          data_template:
-            entity_id: switch.livingroom_ps5
-        volume_up:
-          service: media_player.volume_up
-          data_template:
-            entity_id: media_player.livingroom_receiver
-        volume_down:
-          service: media_player.volume_down
-          data_template:
-            entity_id: media_player.livingroom_receiver
-        current_source_template: "{{ state_attr('sensor.livingroom_ps5', 'title_name') }}"
-        value_template: "{{ states('switch.livingroom_ps5') }}"
-        title_template: "{{ state_attr('sensor.livingroom_ps5', 'title_name') }}"
