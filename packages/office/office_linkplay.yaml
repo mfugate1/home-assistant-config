@@ -16,22 +16,22 @@ script:
           spotify_device_id: "{{ states('input_text.spotify_device_id') }}"
           spotify_device_name: "{{ states('input_text.spotify_device_name') }}"
           spotify_entity: "{{ states('select.spotify_entity') }}"
-
-      - alias: Add office linkplay to master
-        service: linkplay.join
+      - if: "{{ is_state('switch.office_speakers', 'off') }}"
+        then:
+          - action: switch.turn_on
+            entity_id: switch.office_speakers
+      - action: linkplay.join
         data:
           master: "{{ linkplay_master }}"
           entity_id: "{{ linkplay_office }}"
-
       - if: "{{ not is_state(spotify_entity, 'playing') or not is_state_attr(spotify_entity, 'source', spotify_device_name)}}"
         then:
-          - service: spotcast.start
+          - action: retry.call
             data:
+              service: spotcast.start
               spotify_device_id: "{{ spotify_device_id }}"
               force_playback: true
-        
-      - alias: Turn shuffle on
-        service: retry.call
+      - action: retry.call
         data:
           service: media_player.shuffle_set
           shuffle: true
@@ -42,12 +42,14 @@ script:
     alias: Office Audio - PC
     mode: queued
     sequence:
-      - alias: Ungroup office linkplay
-        service: linkplay.unjoin
+      - if: "{{ is_state('switch.office_speakers', 'off') }}"
+        then:
+          - action: switch.turn_on
+            entity_id: switch.office_speakers
+      - action: linkplay.unjoin
         data:
           entity_id: "{{ states('input_text.office_linkplay_entity') }}"
-      - alias: Switch office linkplay source to Line In
-        service: media_player.select_source
+      - action: media_player.select_source
         target:
           entity_id: "{{ states('input_text.office_linkplay_entity') }}"
         data:
@@ -68,7 +70,7 @@ template:
       state: "{{ states('input_text.office_linkplay_entity') }}"
       options: "{{ states('sensor.linkplay_media_players') | from_json }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.office_linkplay_entity
         data:
           value: "{{ option }}"
@@ -78,7 +80,7 @@ template:
       state: "{{ states('input_text.office_linkplay_pc_source') }}"
       options: "{{ state_attr(states('input_text.office_linkplay_entity'), 'source_list') }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.office_linkplay_pc_source
         data:
           value: "{{ option }}"
