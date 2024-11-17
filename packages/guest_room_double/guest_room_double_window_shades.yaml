@@ -10,6 +10,7 @@ automation:
     conditions:
       - condition: numeric_state
         entity_id: cover.guest_room_double_shade_side
+        attribute: current_position
         below: 100
     actions:
       - action: cover.open_cover
@@ -25,6 +26,7 @@ automation:
     conditions:
       - condition: numeric_state
         entity_id: cover.guest_room_double_shade_side
+        attribute: current_position
         above: 0
       - condition: state
         entity_id: sun.sun
