@@ -1,0 +1,116 @@
+automation:
+
+  - alias: Guest Room (Double) - Close Side Shade When TV is On
+    id: guest_room_double_close_shades_when_tv_is_on
+    mode: queued
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.guest_room_double_tv_current
+        above: input_number.guest_room_double_tv_current_threshold_for_shades
+    conditions:
+      - condition: numeric_state
+        entity_id: cover.guest_room_double_shade_side
+        below: 100
+    actions:
+      - action: cover.open_cover
+        entity_id: cover.guest_room_double_shade_side
+
+  - alias: Guest Room (Double) - Open Side Shade When TV is Off
+    id: guest_room_double_open_side_shade_when_tv_is_off
+    mode: queued
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.guest_room_double_tv_current
+        below: input_number.guest_room_double_tv_current_threshold_for_shades
+    conditions:
+      - condition: numeric_state
+        entity_id: cover.guest_room_double_shade_side
+        above: 0
+      - condition: state
+        entity_id: sun.sun
+        state: above_horizon
+    actions:
+      - action: cover.close_cover
+        entity_id: cover.guest_room_double_shade_side
+
+cover:
+  - platform: template
+    covers:
+      guest_room_double_shades:
+        friendly_name: Guest Room (Double) Shades
+        unique_id: guest_room_double_shades
+        device_class: blind
+        availability_template: "{{ states('cover.guest_room_double_shade_side') not in ['unavailable', 'unknown'] and states('cover.guest_room_double_shade_front') not in ['unavailable', 'unknown'] }}"
+        position_template: "{{ 100 - (state_attr('cover.guest_room_double_shade_front', 'current_position') | int(0)) }}"
+        open_cover:
+          action: cover.close_cover
+          entity_id: 
+            - cover.guest_room_double_shade_front
+            - cover.guest_room_double_shade_side
+        close_cover:
+          action: cover.open_cover
+          entity_id: 
+            - cover.guest_room_double_shade_front
+            - cover.guest_room_double_shade_side
+        stop_cover:
+          action: cover.stop_cover
+          entity_id: 
+            - cover.guest_room_double_shade_front
+            - cover.guest_room_double_shade_side
+        set_cover_position:
+          action: cover.set_cover_position
+          entity_id: 
+            - cover.guest_room_double_shade_front
+            - cover.guest_room_double_shade_side
+          data:
+            position: "{{ 100 - position }}"
+      
+      guest_room_double_shade_front_inverted:
+        friendly_name: Front Shade
+        unique_id: guest_room_double_shade_front_inverted
+        device_class: blind
+        availability_template: "{{ states('cover.guest_room_double_shade_front') not in ['unavailable', 'unknown'] }}"
+        position_template: "{{ 100 - (state_attr('cover.guest_room_double_shade_front', 'current_position') | int(0)) }}"
+        open_cover:
+          action: cover.close_cover
+          entity_id: cover.guest_room_double_shade_front
+        close_cover:
+          action: cover.open_cover
+          entity_id: cover.guest_room_double_shade_front
+        stop_cover:
+          action: cover.stop_cover
+          entity_id: cover.guest_room_double_shade_front
+        set_cover_position:
+          action: cover.set_cover_position
+          entity_id: cover.guest_room_double_shade_front
+          data:
+            position: "{{ 100 - position }}"
+
+      guest_room_double_shade_side_inverted:
+        friendly_name: Side Shade
+        unique_id: guest_room_double_shade_side_inverted
+        device_class: blind
+        availability_template: "{{ states('cover.guest_room_double_shade_side') not in ['unavailable', 'unknown'] }}"
+        position_template: "{{ 100 - (state_attr('cover.guest_room_double_shade_side', 'current_position') | int(0)) }}"
+        open_cover:
+          action: cover.close_cover
+          entity_id: cover.guest_room_double_shade_side
+        close_cover:
+          action: cover.open_cover
+          entity_id: cover.guest_room_double_shade_side
+        stop_cover:
+          action: cover.stop_cover
+          entity_id: cover.guest_room_double_shade_side
+        set_cover_position:
+          action: cover.set_cover_position
+          entity_id: cover.guest_room_double_shade_side
+          data:
+            position: "{{ 100 - position }}"
+
+input_number:
+  guest_room_double_tv_current_threshold_for_shades:
+    min: 0
+    max: 2
+    step: 0.01
+    mode: box
+    unit_of_measurement: A
