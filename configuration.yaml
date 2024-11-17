@@ -58,7 +58,6 @@ spotcast:
 
 automation: !include_dir_merge_list automation/
 binary_sensor: !include_dir_merge_list binary_sensor/
-cover: !include misc/cover.yaml
 group: !include misc/group.yaml
 input_boolean: !include input/input_boolean.yaml
 input_number: !include input/input_number.yaml
