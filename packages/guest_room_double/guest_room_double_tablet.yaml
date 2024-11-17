@@ -1,0 +1,148 @@
+automation:
+
+  - alias: Guest Room (Double) Tablet - Screen
+    id: guest_room_double_tablet_screen
+    mode: queued
+    triggers:
+      - id: 'on'
+        trigger: state
+        entity_id: binary_sensor.guest_room_double_presence_tablet_zone
+        to: 'on'
+      - id: 'off'
+        trigger: state
+        entity_id: binary_sensor.guest_room_double_presence_tablet_zone
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_tablet_screen_timeout') | int(30) }}"
+      - id: 'off'
+        trigger: state
+        entity_id: input_boolean.guest_room_double_sleep_mode
+        to: 'on'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_tablet_screen_bed_timeout') | int(5) }}"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.guest_room_double_tablet_screen_automation_enabled
+        state: 'on'
+      - or:
+          - condition: state
+            entity_id: input_boolean.guest_room_double_sleep_mode
+            state: 'off'
+          - condition: template
+            value_template: "{{ trigger.id == 'off' }}"
+    actions:
+      - action: switch.turn_{{ trigger.id }}
+        entity_id: switch.guest_room_double_tablet_screen
+
+  - alias: Guest Room (Double) Tablet - Turn On Charging
+    id: guest_room_double_tablet_turn_on_charging
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.guest_room_double_tablet_battery
+        below: input_number.guest_room_double_tablet_charging_threshold_low
+    conditions:
+      - condition: state
+        entity_id: input_boolean.guest_room_double_tablet_charging_enabled
+        state: 'on'
+    actions:
+      - action: switch.turn_on
+        entity_id: switch.guest_room_double_tablet_charging_switch
+
+  - alias: Guest Room (Double) Tablet - Turn Off Charging
+    id: guest_room_double_tablet_turn_off_charging
+    mode: queued
+    triggers:
+      - trigger: numeric_state
+        entity_id: sensor.guest_room_double_tablet_battery
+        above: input_number.guest_room_double_tablet_charging_threshold_high
+      - trigger: homeassistant
+        event: start
+    conditions:
+      - condition: numeric_state
+        entity_id: sensor.guest_room_double_tablet_battery
+        above: input_number.guest_room_double_tablet_charging_threshold_high
+      - condition: state
+        entity_id: input_boolean.guest_room_double_tablet_charging_enabled
+        state: 'on'
+    actions:
+      - action: switch.turn_off
+        entity_id: switch.guest_room_double_tablet_charging_switch
+
+  - alias: Guest Room (Double) Tablet - Turn Off Screen When Charging Status Changes
+    id: guest_room_double_tablet_turn_off_screen_when_charging_status_changes
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_tablet_plugged_in
+    conditions:
+      - condition: state
+        entity_id: 
+          - switch.guest_room_double_tablet_screen
+          - input_boolean.guest_room_double_tablet_screen_automation_enabled
+        state: 'on'
+      - condition: state
+        entity_id: binary_sensor.guest_room_double_presence_tablet_zone
+        state: 'off'
+    actions:
+      - action: switch.turn_off
+        entity_id: switch.guest_room_double_tablet_screen
+
+  - alias: Guest Room (Double) Tablet - Return to Home Screen
+    id: guest_room_double_tablet_return_to_home_screen
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: sensor.guest_room_double_tablet_current_page
+      - trigger: state
+        entity_id: switch.guest_room_double_tablet_screen
+        to: 'off'
+    conditions:
+      - condition: state
+        entity_id: switch.guest_room_double_tablet_screen
+        state: 'off'
+      - condition: template
+        value_template: "{{ not states('sensor.guest_room_double_tablet_current_page').endswith('/guest-room-double/home-panel') }}"
+    actions:
+      - action: button.press
+        entity_id: button.guest_room_double_tablet_load_start_url
+
+input_boolean:
+  guest_room_double_tablet_charging_enabled:
+    name: Tablet Charging Enabled
+    icon: mdi:cellphone-charging
+  guest_room_double_tablet_screen_automation_enabled:
+    name: Tablet Screen Automation Enabled
+    icon: mdi:tablet-dashboard
+
+input_number:
+  guest_room_double_tablet_screen_timeout:
+    name: Screen (Presence) Timeout
+    icon: mdi:timer
+    min: 0
+    max: 600
+    mode: box
+    unit_of_measurement: s
+
+  guest_room_double_tablet_screen_bed_timeout:
+    name: Screen (Sleep Mode) Timeout
+    icon: mdi:timer
+    min: 0
+    max: 600
+    mode: box
+    unit_of_measurement: s
+
+  guest_room_double_tablet_charging_threshold_high:
+    name: Upper Charging Threshold
+    icon: mdi:battery-charging-90
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
+
+  guest_room_double_tablet_charging_threshold_low:
+    name: Lower Charging Threshold
+    icon: mdi:battery-charging-10
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
