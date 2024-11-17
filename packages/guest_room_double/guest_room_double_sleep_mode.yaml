@@ -1,0 +1,63 @@
+automation:
+  - alias: Guest Room (Double) - Turn On Sleep Mode
+    id: guest_room_double_turn_on_sleep_mode
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_presence_bed_zone
+        to: 'on'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_sleep_mode_on_delay') | int(10) }}"
+    conditions:
+      - condition: state
+        entity_id: input_boolean.guest_room_double_sleep_mode_enabled
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.guest_room_double_sleep_mode
+        state: 'off'
+    actions:
+      - action: input_boolean.turn_on
+        entity_id: input_boolean.guest_room_double_sleep_mode
+
+  - alias: Guest Room (Double) - Turn Off Sleep Mode
+    id: guest_room_double_turn_off_sleep_mode
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_presence_bed_zone
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_sleep_mode_off_delay') | int(60) }}"
+    conditions:
+      - condition: state
+        entity_id: 
+          - input_boolean.guest_room_double_sleep_mode_enabled
+          - input_boolean.guest_room_double_sleep_mode
+        state: 'on'
+    actions:
+      - action: input_boolean.turn_off
+        entity_id: input_boolean.guest_room_double_sleep_mode
+
+input_boolean:
+  guest_room_double_sleep_mode:
+    name: Sleep Mode
+    icon: mdi:sleep
+  guest_room_double_sleep_mode_enabled:
+    name: Sleep Mode Enabled
+    icon: mdi:sleep
+
+input_number:
+  guest_room_double_sleep_mode_on_delay:
+    name: Sleep Mode On Delay
+    icon: mdi:timer
+    min: 0
+    max: 1000
+    unit_of_measurement: s
+    mode: box
+  guest_room_double_sleep_mode_off_delay:
+    name: Sleep Mode Off Delay
+    icon: mdi:timer
+    min: 0
+    max: 1000
+    unit_of_measurement: s
+    mode: box
