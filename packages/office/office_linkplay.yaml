@@ -20,10 +20,11 @@ script:
         then:
           - action: switch.turn_on
             entity_id: switch.office_speakers
-      - action: linkplay.join
+      - action: media_player.join
+        entity_id: "{{ linkplay_master }}"
         data:
-          master: "{{ linkplay_master }}"
-          entity_id: "{{ linkplay_office }}"
+          group_members: 
+            - "{{ linkplay_office }}"
       - if: "{{ not is_state(spotify_entity, 'playing') or not is_state_attr(spotify_entity, 'source', spotify_device_name)}}"
         then:
           - action: retry.call
@@ -46,9 +47,8 @@ script:
         then:
           - action: switch.turn_on
             entity_id: switch.office_speakers
-      - action: linkplay.unjoin
-        data:
-          entity_id: "{{ states('input_text.office_linkplay_entity') }}"
+      - action: media_player.unjoin
+        entity_id: "{{ states('input_text.office_linkplay_entity') }}"
       - action: media_player.select_source
         target:
           entity_id: "{{ states('input_text.office_linkplay_entity') }}"
