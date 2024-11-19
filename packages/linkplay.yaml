@@ -1,24 +1,16 @@
-automation:
-  - alias: Linkplay - Remember Last Spotify Playlist
-    id: linkplay_remember_last_spotify_playlist
-    mode: queued
-    trigger:
-      - platform: state
-        entity_id: sensor.linkplay_stream_uri_values
-    action:
-      - service: input_text.set_value
-        entity_id: input_text.linkplay_last_spotify_playlist
-        data:
-          value: >
-            {% set ns = namespace(value = states('input_text.linkplay_last_spotify_playlist')) %}
-            {% for player, stream_uri in (states('sensor.linkplay_stream_uri_values') | from_json).items() %}
-              {% if player == states('select.linkplay_group_master') %}
-                {% set ns.value = stream_uri %}
-              {% endif %}
-            {% endfor %}
-            {{ ns.value }}
+groups:
+  living_room_music_presence:
+    entities:
+      - binary_sensor.dining_room_presence_all_zones
+      - binary_sensor.kitchen_back_presence_all_zones
+      - binary_sensor.kitchen_side_presence_all_zones
+      - binary_sensor.living_room_presence_all_zones
 
 input_number:
+  livingroom_music_receiver_volume:
+    min: 0
+    max: 80
+    mode: box
   linkplay_delay_after_selecting_spotify_source:
     min: 0
     max: 15
@@ -27,13 +19,40 @@ input_number:
 
 input_text:
   linkplay_group_master:
-  linkplay_last_spotify_playlist:
   linkplay_spotify_source:
+  livingroom_music_receiver_source:
   spotify_playlist_uri_prefix:
   spotify_device_name:
   spotify_device_id:
   spotify_entity:
 
+script:
+  play_music:
+    alias: Play Music
+    mode: queued
+    sequence:
+      - variables:
+          linkplay_master: "{{ states('select.linkplay_group_master') }}"
+          linkplay_office: "{{ states('select.office_linkplay_entity') }}"
+          spotify_device_id: "{{ states('input_text.spotify_device_id') }}"
+          spotify_device_name: "{{ states('input_text.spotify_device_name') }}"
+          spotify_entity: "{{ states('select.spotify_entity') }}"
+      - if: "{{ not is_state(spotify_entity, 'playing') or not is_state_attr(spotify_entity, 'source', spotify_device_name)}}"
+        then:
+          - action: retry.call
+            data:
+              service: spotcast.start
+              spotify_device_id: "{{ spotify_device_id }}"
+              force_playback: true
+      - if: "{{ is_state('group.living_room_music_presence', 'on') }}"
+        then:
+          - action: script.livingroom_receiver_turn_on
+            data:
+              source: "{{ states('input_text.livingroom_music_receiver_source') }}"
+              volume: "{{ states('input_number.livingroom_music_receiver_volume') }}"
+          - action: media_player.turn_off
+            entity_id: media_player.livingroom_tv
+          
 template:
   - select:
     - name: linkplay_group_master
@@ -41,7 +60,7 @@ template:
       state: "{{ states('input_text.linkplay_group_master') }}"
       options: "{{ states('sensor.linkplay_media_players') | from_json }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.linkplay_group_master
         data:
           value: "{{ option }}"
@@ -51,7 +70,7 @@ template:
       state: "{{ states('input_text.spotify_entity') }}"
       options: "{{ states.media_player | map(attribute='entity_id') | list }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.spotify_entity
         data:
           value: "{{ option }}"
@@ -61,7 +80,7 @@ template:
       state: "{{ states('input_text.linkplay_spotify_source') }}"
       options: "{{ state_attr(states('select.spotify_entity'), 'source_list') }}"
       select_option:
-        service: input_text.set_value
+        action: input_text.set_value
         entity_id: input_text.linkplay_spotify_source
         data:
           value: "{{ option }}"
@@ -70,8 +89,8 @@ template:
     - name: linkplay_media_players
       state: >
         {% set entities = namespace(ids=[]) %}
-        {% for player in states.media_player  %}
-          {% if 'firmware' in player.attributes and player.attributes.firmware.startswith('Linkplay') %}
+        {% for player in states.media_player %}
+          {% if 'wiim' in player.entity_id %}
             {% set entities.ids = entities.ids + [player.entity_id] %}
           {% endif %}
         {% endfor %}
