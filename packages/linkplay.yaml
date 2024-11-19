@@ -95,14 +95,3 @@ template:
           {% endif %}
         {% endfor %}
         {{ entities.ids | to_json }}
-
-    - name: linkplay_stream_uri_values
-      state: >
-        {% set playlist_prefix = states('input_text.spotify_playlist_uri_prefix') %}
-        {% set ns = namespace(values={}) %}
-        {% for player in states('sensor.linkplay_media_players') | from_json  %}
-          {% if state_attr(player, 'stream_uri') and state_attr(player, 'stream_uri').startswith(playlist_prefix) %}
-            {% set ns.values = dict(ns.values, **{player: state_attr(player, 'stream_uri')}) %}
-          {% endif %}
-        {% endfor %}
-        {{ ns.values | to_json }}
