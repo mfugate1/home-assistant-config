@@ -1,5 +1,25 @@
 automation:
 
+  - alias: Guest Room (Double) - Close Shades at Sunset
+    id: guest_room_double_close_shades_at_sunset
+    mode: queued
+    triggers:
+      - trigger: sun
+        event: sunset
+    actions:
+      - action: cover.close_cover
+        entity_id: cover.guest_room_double_shades
+
+  - alias: Guest Room (Double) - Open Shades at Sunrise
+    id: guest_room_double_open_shades_at_sunrise
+    mode: queued
+    triggers:
+      - trigger: sun
+        event: sunrise
+    actions:
+      - action: cover.open_cover
+        entity_id: cover.guest_room_double_shades
+
   - alias: Guest Room (Double) - Close Side Shade When TV is On
     id: guest_room_double_close_shades_when_tv_is_on
     mode: queued
