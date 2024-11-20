@@ -1,4 +1,4 @@
-groups:
+group:
   living_room_music_presence:
     entities:
       - binary_sensor.dining_room_presence_all_zones
