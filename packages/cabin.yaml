@@ -7,6 +7,7 @@ template:
   - sensor:
       - name: days_until_cabin_human_readable
         state: >
+          {% set values = {0: "IT'S CABIN TIME!!!", 1: 'CABIN IS TOMORROW!!!'} %}
           {{ values.get(states('sensor.days_until_cabin'), 'Cabin is %s days away'%states('sensor.days_until_cabin')) }}
       - name: days_until_cabin
         state: >
