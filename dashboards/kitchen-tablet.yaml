@@ -186,7 +186,7 @@ views:
       - type: grid
         cards:
           - type: custom:mushroom-title-card
-            title: '{{ states(''sensor.days_until_cabin'') }}'
+            title: '{{ states(''sensor.days_until_cabin_human_readable'') }}'
             alignment: center
             title_tap_action:
               action: none
