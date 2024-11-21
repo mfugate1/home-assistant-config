@@ -21,7 +21,8 @@ script:
           - action: switch.turn_on
             entity_id: switch.office_speakers
       - action: media_player.join
-        entity_id: "{{ linkplay_master }}"
+        target:
+          entity_id: "{{ linkplay_master }}"
         data:
           group_members: 
             - "{{ linkplay_office }}"
@@ -48,7 +49,8 @@ script:
           - action: switch.turn_on
             entity_id: switch.office_speakers
       - action: media_player.unjoin
-        entity_id: "{{ states('input_text.office_linkplay_entity') }}"
+        target:
+          entity_id: "{{ states('input_text.office_linkplay_entity') }}"
       - action: media_player.select_source
         target:
           entity_id: "{{ states('input_text.office_linkplay_entity') }}"
