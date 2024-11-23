@@ -1,16 +1,16 @@
 - alias: Porch - Light On at Sunset
   id: porch_light_on_at_sunset
-  trigger:
-    - platform: sun
+  triggers:
+    - trigger: sun
       event: sunset
-  action:
-    service: light.turn_on
-    entity_id: light.porch_light
+  actions:
+    - action: light.turn_on
+      entity_id: light.porch_light
 - alias: Porch - Light Off at Sunrise
   id: porch_light_on_at_sunrise
-  trigger:
-    - platform: sun
+  triggers:
+    - trigger: sun
       event: sunrise
-  action:
-    service: light.turn_off
-    entity_id: light.porch_light
+  actions:
+    - action: light.turn_off
+      entity_id: light.porch_light

@@ -1,59 +1,58 @@
 - alias: Task notification
   id: task_notification
-  trigger:
-    platform: state
-    entity_id:
-      - input_boolean.change_contacts
-      - input_boolean.empty_vacuum
-      - input_boolean.replace_furnace_filter
-      - input_boolean.take_out_garbage_bins
-  action:
-    service: notify.mobile_app_sm_g981u1
-    data:
-      message: >-
-        {% if trigger.to_state.state == 'on' %}
-          {{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}
-        {% else %}
-          clear_notification
-        {% endif %}
+  triggers:
+    - trigger: state
+      entity_id:
+        - input_boolean.change_contacts
+        - input_boolean.empty_vacuum
+        - input_boolean.replace_furnace_filter
+        - input_boolean.take_out_garbage_bins
+  actions:
+    - action: notify.mobile_app_sm_g981u1
       data:
-        sticky: "true"
-        tag: "{{ trigger.entity_id }}"
-        actions:
-          - action: "{{ trigger.entity_id }}"
-            title: Mark as Complete
+        message: >-
+          {% if trigger.to_state.state == 'on' %}
+            {{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}
+          {% else %}
+            clear_notification
+          {% endif %}
+        data:
+          sticky: "true"
+          tag: "{{ trigger.entity_id }}"
+          actions:
+            - action: "{{ trigger.entity_id }}"
+              title: Mark as Complete
 
 - alias: Mark task as complete
   id: mark_task_as_complete
-  trigger:
-    platform: event
-    event_type: mobile_app_notification_action
-  action:
-    service: input_boolean.turn_off
-    target:
-      entity_id: >-
-        {{ trigger.event.data.action }}
+  triggers:
+    - trigger: event
+      event_type: mobile_app_notification_action
+  actions:
+    - action: input_boolean.turn_off
+      target:
+        entity_id: >-
+          {{ trigger.event.data.action }}
 
 - alias: Reset change contacts task
   id: reset_change_contacts_task
-  trigger:
-    platform: time
+  triggers:
+    trigger: time
     at: 06:00:00
-  condition: >-
-    {{ as_timestamp(now()) | timestamp_custom('%d') == '01' }}
-  action:
-    service: input_boolean.turn_on
+  conditions: "{{ as_timestamp(now()) | timestamp_custom('%d') == '01' }}"
+  actions:
+    action: input_boolean.turn_on
     entity_id: input_boolean.change_contacts
 
 - alias: Reset garbage bin task
   id: reset_garbage_bin_task
-  trigger:
-    platform: time
-    at: "06:00:00"
-  condition:
-    condition: time
-    weekday:
-      - thu
-  action:
-    service: input_boolean.turn_on
-    entity_id: input_boolean.take_out_garbage_bins
+  triggers:
+    - trigger: time
+      at: "06:00:00"
+  conditions:
+    - condition: time
+      weekday:
+        - thu
+  actions:
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.take_out_garbage_bins
