@@ -1,0 +1,25 @@
+script:
+  set_cover_position_and_verify:
+    alias: Set Cover Position and Verify
+    mode: parallel
+    max: 30
+    fields:
+      cover_entity_id: 
+        description: The cover entity_id to control.
+        required: true
+      position:
+        description: The position to move the cover to.
+        required: true
+      verify_delay:
+        description: Number of seconds to wait before checking position to verify the call worked.
+        default: 20
+    sequence:
+      - repeat:
+          while: "{{ not is_state_attr(cover_entity_id, 'position', position | int(100)) }}"
+          sequence:
+            - action: cover.set_cover_position
+              target:
+                entity_id: "{{ cover_entity_id }}"
+              data:
+                position: "{{ position | int(100) }}"
+            - delay: "{{ verify_delay | int(20) }}"
