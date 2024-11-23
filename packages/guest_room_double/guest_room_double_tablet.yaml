@@ -46,7 +46,7 @@ automation:
         state: 'on'
     actions:
       - action: switch.turn_on
-        entity_id: switch.guest_room_double_tablet_charging_switch
+        entity_id: switch.guest_room_double_power_strip_under_tablet
 
   - alias: Guest Room (Double) Tablet - Turn Off Charging
     id: guest_room_double_tablet_turn_off_charging
@@ -66,7 +66,7 @@ automation:
         state: 'on'
     actions:
       - action: switch.turn_off
-        entity_id: switch.guest_room_double_tablet_charging_switch
+        entity_id: switch.guest_room_double_power_strip_under_tablet
 
   - alias: Guest Room (Double) Tablet - Turn Off Screen When Charging Status Changes
     id: guest_room_double_tablet_turn_off_screen_when_charging_status_changes
