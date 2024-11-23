@@ -37,12 +37,13 @@
 - alias: Reset change contacts task
   id: reset_change_contacts_task
   triggers:
-    trigger: time
-    at: 06:00:00
-  conditions: "{{ as_timestamp(now()) | timestamp_custom('%d') == '01' }}"
+    - trigger: calendar
+      event: start
+      entity_id: calendar.automation_scheduler
+  conditions: "{{ 'Change Contacts' in trigger.calendar_event.summary }}"
   actions:
-    action: input_boolean.turn_on
-    entity_id: input_boolean.change_contacts
+    - action: input_boolean.turn_on
+      entity_id: input_boolean.change_contacts
 
 - alias: Reset garbage bin task
   id: reset_garbage_bin_task
