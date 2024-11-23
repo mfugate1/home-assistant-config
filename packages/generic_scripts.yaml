@@ -15,7 +15,7 @@ script:
         default: 20
     sequence:
       - repeat:
-          while: "{{ not is_state_attr(cover_entity_id, 'position', position | int(100)) }}"
+          while: "{{ not is_state_attr(cover_entity_id, 'current_position', position | int(100)) }}"
           sequence:
             - action: cover.set_cover_position
               target:
