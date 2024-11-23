@@ -22,4 +22,4 @@ script:
                 entity_id: "{{ cover_entity_id }}"
               data:
                 position: "{{ position | int(100) }}"
-            - delay: "{{ verify_delay | int(20) }}"
+            - delay: "{{ verify_delay | default(20) | int }}"
