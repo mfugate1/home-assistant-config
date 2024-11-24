@@ -1,0 +1,18 @@
+automation:
+  - alias: Set PTO Input Boolean
+    id: set_pto_input_boolean
+    triggers:
+      - trigger: calendar
+        entity_id: calendar.automation_scheduler
+    conditions: "{{ 'PTO' in trigger.calendar_event.summary }}"
+    actions:
+      - action: >
+          {% if trigger.event == 'start' %}
+            input_boolean.turn_on
+          {% else %}
+            input_boolean.turn_off
+          {% endif %}
+        entity_id: input_boolean.pto
+
+input_boolean:
+  pto:
