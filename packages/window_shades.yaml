@@ -1,0 +1,45 @@
+automation:
+  - alias: Close Shades at Sunset, Open Shades at Sunrise
+    id: close_shades_at_sunset_open_shades_at_sunrise
+    mode: single
+    triggers:
+      - trigger: numeric_state
+        entity_id: sun.sun
+        attribute: elevation
+        below: input_number.close_shades_below_sun_elevation
+        id: close
+      - trigger: numeric_state
+        entity_id: sun.sun
+        attribute: elevation
+        above: input_number.open_shades_above_sun_elevation
+        id: open
+    actions:
+      - variables:
+          shades:
+            - bedroom_shade_side
+            - guest_room_double_shade_front_inverted
+            - guest_room_double_shade_side_inverted
+      - action: "cover.{{ trigger.id }}_cover"
+        target:
+          entity_id: >
+            {% set entities = namespace(ids=[]) %}
+            {% for shade in shades %}
+              {% if is_state('input_boolean.' + shade + '_auto', 'on') %}
+                {% set entities.ids = entities.ids + ['cover.' + shade] %}
+              {% endif %}
+            {% endfor %}
+            {{ entities.ids }}
+
+input_boolean:
+  bedroom_shade_side_auto:
+  guest_room_double_shade_front_inverted_auto:
+  guest_room_double_shade_side_inverted_auto:
+
+input_number:
+  close_shades_below_sun_elevation: &elevation
+    min: -30
+    max: 30
+    step: 0.1
+    mode: box
+    unit_of_measurement: °
+  open_shades_above_sun_elevation: *elevation
