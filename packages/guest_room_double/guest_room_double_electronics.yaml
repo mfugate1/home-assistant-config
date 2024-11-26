@@ -49,4 +49,4 @@ switch:
 template:
   - binary_sensor:
     - name: guest_room_double_tv
-      state: "{{ states('sensor.guest_room_double_tv_current') | int(0) > states('input_number.guest_room_double_tv_current_threshold_when_on') | int(0) }}"
+      state: "{{ states('sensor.guest_room_double_tv_current') | float(0) > states('input_number.guest_room_double_tv_current_threshold_when_on') | float(0) }}"
