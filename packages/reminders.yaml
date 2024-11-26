@@ -1,0 +1,52 @@
+automation:
+  - alias: Task notification
+    id: task_notification
+    triggers:
+      - trigger: state
+        entity_id:
+          - input_boolean.reminder_change_contacts
+          - input_boolean.reminder_trash_only
+          - input_boolean.reminder_trash_and_recycling
+    actions:
+      - action: notify.mobile_app_sm_g981u1
+        data:
+          message: >-
+            {% if trigger.to_state.state == 'on' %}
+              {{ trigger.entity_id.split('.')[1].replace('_', ' ').capitalize() }}
+            {% else %}
+              clear_notification
+            {% endif %}
+          data:
+            sticky: "true"
+            tag: "{{ trigger.entity_id }}"
+            actions:
+              - action: "{{ trigger.entity_id }}"
+                title: Mark as Complete
+
+  - alias: Mark task as complete
+    id: mark_task_as_complete
+    triggers:
+      - trigger: event
+        event_type: mobile_app_notification_action
+    actions:
+      - action: input_boolean.turn_off
+        target:
+          entity_id: "{{ trigger.event.data.action }}"
+
+  - alias: Reminders - Turn On Input Boolean
+    id: reminders_turn_on_input_boolean
+    mode: parallel
+    triggers:
+      - trigger: calendar
+        event: start
+        entity_id: calendar.automation_scheduler
+    conditions: "{{ 'reminder' in trigger.calendar_event.summary }}"
+    actions:
+      - action: input_boolean.turn_on
+        target:
+          entity_id: "input_boolean.{{ trigger.calendar_event_summary }}"
+
+input_boolean:
+  reminder_change_contacts:
+  reminder_trash_only:
+  reminder_trash_and_recycling:

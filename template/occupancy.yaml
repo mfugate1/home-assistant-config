@@ -1,5 +1,3 @@
 - binary_sensor:
-  - name: laptop_in_use
-    state: "{{ is_state('switch.laptop', 'on') and is_state('input_boolean.laptop_in_use', 'on') }}"
   - name: someone_is_home
     state: "{{ is_state('person.mike', 'home') or is_state('group.guest_devices', 'home') }}"
