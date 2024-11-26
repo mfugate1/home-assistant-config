@@ -5,9 +5,16 @@ automation:
     triggers:
       - trigger: state
         entity_id: binary_sensor.guest_room_double_presence_all_zones
-        to:
-          - 'on'
-          - 'off'
+        to: 'on'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_electronics_on_delay_seconds') | int(5) }}"
+          minutes: "{{ states('input_number.guest_room_double_electronics_on_delay_minutes') | int(0) }}"
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_presence_all_zones
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_electronics_off_delay_seconds') | int(0) }}"
+          minutes: "{{ states('input_number.guest_room_double_electronics_off_delay_minutes') | int(1) }}"
     conditions:
       - or:
         - "{{ trigger.to_state.state == 'on' }}"
@@ -25,6 +32,18 @@ input_number:
     step: 0.01
     mode: box
     unit_of_measurement: A
+  guest_room_double_electronics_off_delay_seconds: &seconds
+    min: 0
+    max: 60
+    mode: box
+    unit_of_measurement: sec
+  guest_room_double_electronics_off_delay_minutes: &minutes
+    min: 0
+    max: 60
+    mode: box
+    unit_of_measurement: min
+  guest_room_double_electronics_on_delay_seconds: *seconds
+  guest_room_double_electronics_on_delay_minutes: *minutes
 
 switch:
   - platform: template
