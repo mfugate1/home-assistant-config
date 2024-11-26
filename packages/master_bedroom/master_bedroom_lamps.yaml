@@ -3,11 +3,11 @@ automation:
   - alias: Master Bedroom - Lamps On
     id: master_bedroom_lamps_on
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.presence_master_bedroom
         to: 'on'
-    condition:
+    conditions:
       - condition: state
         entity_id: 
           - light.bedroom_lamps
@@ -38,42 +38,42 @@ automation:
         - condition: state
           entity_id: input_boolean.master_bedroom_lamps_on_for_any_presence
           state: 'on'
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.bedroom_lamps
 
   - alias: Master Bedroom - Lamps Off (No Presence)
     id: master_bedroom_lamps_off_no_presence
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.master_bedroom_lamps_off_no_presence
         to: 'off'
         for:
           minutes: "{{ states('input_number.master_bedroom_lamps_off_no_presence_timeout') | int(10) }}"
-    condition:
+    conditions:
       - condition: state
         entity_id: light.bedroom_lamps
         state: 'on'
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         entity_id: light.bedroom_lamps
 
   - alias: Master Bedroom - Lamps Off (Sleep Mode)
     id: master_bedroom_lamps_off_sleep_mode
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.master_bedroom_sleep_mode
         to: 'on'
         for:
           seconds: "{{ states('input_number.master_bedroom_lamps_off_for_sleep_mode_delay') | int(10) }}"
-    condition:
+    conditions:
       - condition: state
         entity_id: light.bedroom_lamps
         state: 'on'
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         entity_id: light.bedroom_lamps
 
 group:

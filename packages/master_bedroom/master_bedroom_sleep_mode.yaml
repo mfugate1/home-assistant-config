@@ -2,13 +2,13 @@ automation:
   - alias: Master Bedroom - Turn On Sleep Mode
     id: master_bedroom_turn_on_sleep_mode
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.presence_master_bedroom_bed
         to: 'on'
         for:
           seconds: "{{ states('input_number.master_bedroom_sleep_mode_on_delay') | int(10) }}"
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.master_bedroom_disable_sleep_mode
         state: 'off'
@@ -20,24 +20,24 @@ automation:
           before: input_datetime.master_bedroom_sleep_mode_disable_time
         - condition: time
           after: input_datetime.master_bedroom_sleep_mode_enable_time
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         entity_id: input_boolean.master_bedroom_sleep_mode
 
   - alias: Master Bedroom - Turn Off Sleep Mode
     id: master_bedroom_turn_off_sleep_mode
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: group.master_bedroom_sleep_mode_off
         to: 'off'
         for:
           seconds: "{{ states('input_number.master_bedroom_sleep_mode_off_delay') | int(60) }}"
-      - platform: state
+      - trigger: state
         entity_id: input_boolean.master_bedroom_disable_sleep_mode
         to: 'on'
-    action:
-      - service: input_boolean.turn_off
+    actions:
+      - action: input_boolean.turn_off
         entity_id: input_boolean.master_bedroom_sleep_mode
 
 input_boolean:

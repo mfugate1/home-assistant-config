@@ -24,20 +24,20 @@ switch:
              and not is_state('media_player.livingroom_receiver', 'unavailable') }}
         turn_on:
           - parallel:
-            - service: script.livingroom_tv_turn_on
+            - action: script.livingroom_tv_turn_on
               data:
                 source: "{{ states('input_text.livingroom_netflix_tv_source') }}"
-            - service: script.livingroom_receiver_turn_on
+            - action: script.livingroom_receiver_turn_on
               data:
                 source: "{{ states('input_text.livingroom_netflix_receiver_source') }}"
                 volume: "{{ states('input_number.livingroom_netflix_receiver_volume') }}"
-            - service: script.turn_off_with_repeat
+            - action: script.turn_off_with_repeat
               data:
                 entity_id: switch.livingroom_ps5
                 repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
                 max_retries: 20
         turn_off:
-          service: script.turn_off_livingroom_tv_and_receiver
+          - action: script.turn_off_livingroom_tv_and_receiver
 
 # Dynamic select entities to configure which sources should be used for various media players
 # based on the activity the user has started.
@@ -48,7 +48,7 @@ template:
         state: "{{ states('input_text.livingroom_netflix_tv_source') }}"
         options: "{{ state_attr('media_player.livingroom_tv', 'source_list') }}"
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.livingroom_netflix_tv_source
           data:
             value: "{{ option }}"
@@ -57,7 +57,7 @@ template:
         state: "{{ states('input_text.livingroom_netflix_receiver_source') }}"
         options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.livingroom_netflix_receiver_source
           data:
             value: "{{ option }}"

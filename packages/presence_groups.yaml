@@ -33,7 +33,7 @@ group:
 
 template:
   - trigger:
-      - platform: state
+      - trigger: state
         entity_id: group.presence_second_floor
         to: 'off'
     sensor:
@@ -41,7 +41,7 @@ template:
         device_class: timestamp
         state: "{{ now() }}"
   - trigger:
-      - platform: state
+      - trigger: state
         entity_id: group.presence_first_floor
         to: 'off'
     sensor:

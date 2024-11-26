@@ -1,50 +1,50 @@
 automation:
   - alias: Close garage door after leaving
     id: close_garage_door_after_leaving
-    trigger:
-      platform: state
-      entity_id: person.mike
-      to: not_home
-    condition:
-      condition: state
-      entity_id: binary_sensor.garage_door_left
-      state: "on"
-    action:
-      - service: notify.mobile_app_sm_g981u1
+    triggers:
+      - trigger: state
+        entity_id: person.mike
+        to: not_home
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.garage_door_left
+        state: "on"
+    actions:
+      - action: notify.mobile_app_sm_g981u1
         data:
           message: Closing garage door because you left {{ states.sensor.date.state }} {{ states.sensor.time.state}}
           data:
             tag: garage
-      - service: cover.close_cover
+      - action: cover.close_cover
         entity_id: cover.garage_door_left
 
   - alias: Open garage door when arriving then close
     id: open_garage_door_when_arriving_then_close
-    trigger:
-      platform: state
-      entity_id: person.mike
-      to: home
-    condition:
-      condition: state
-      entity_id: binary_sensor.garage_door_left
-      state: "off"
-    action:
-      - service: notify.mobile_app_sm_g981u1
+    triggers:
+      - trigger: state
+        entity_id: person.mike
+        to: home
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.garage_door_left
+        state: "off"
+    actions:
+      - action: notify.mobile_app_sm_g981u1
         data:
           message: Opening garage door (arrival) {{ states.sensor.date.state }} {{ states.sensor.time.state}}
           data:
             tag: garage
-      - service: cover.open_cover
+      - action: cover.open_cover
         entity_id: cover.garage_door_left
       - wait_for_trigger:
-          - platform: state
+          - trigger: state
             entity_id: binary_sensor.garage_inner_door_left
             to: "on"
         timeout:
           minutes: 15
-      - service: cover.close_cover
+      - action: cover.close_cover
         entity_id: cover.garage_door_left
-      - service: notify.mobile_app_sm_g981u1
+      - action: notify.mobile_app_sm_g981u1
         data:
           message: clear_notification
           data:
@@ -52,63 +52,63 @@ automation:
 
   - alias: Left garage door relay shut off
     id: left_garage_door_relay_shut_off
-    trigger:
-      platform: state
-      entity_id: switch.garage_door_relay_left
-      to: "on"
-      for: 00:00:02
-    action:
-      service: switch.turn_off
-      entity_id: switch.garage_door_relay_left
+    triggers:
+      - trigger: state
+        entity_id: switch.garage_door_relay_left
+        to: "on"
+        for: 00:00:02
+    actions:
+      - action: switch.turn_off
+        entity_id: switch.garage_door_relay_left
 
   - alias: Right garage door relay shut off
     id: right_garage_door_relay_shut_off
-    trigger:
-      platform: state
-      entity_id: switch.garage_door_relay_right
-      to: "on"
-      for: 00:00:13
-    action:
-      service: switch.turn_off
-      entity_id: switch.garage_door_relay_right
+    triggers:
+      - trigger: state
+        entity_id: switch.garage_door_relay_right
+        to: "on"
+        for: 00:00:13
+    actions:
+      - action: switch.turn_off
+        entity_id: switch.garage_door_relay_right
 
   - alias: Garage switches - open garage door
     id: garage_switches_open_garage_door
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: zwave_js_value_notification
         event_data:
           node_id: 3
           property_key: "002"
           value: KeyPressed2x
-      - platform: event
+      - trigger: event
         event_type: zwave_js_value_notification
         event_data:
           node_id: 5
           property_key: "002"
           value: KeyPressed2x
-    action:
-      service: cover.open_cover
-      entity_id: cover.garage_door_left
+    actions:
+      - action: cover.open_cover
+        entity_id: cover.garage_door_left
 
   - alias: Garage switches - close garage door
     id: garage_switches_close_garage_door
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: zwave_js_value_notification
         event_data:
           node_id: 3
           property_key: "001"
           value: KeyPressed2x
-      - platform: event
+      - trigger: event
         event_type: zwave_js_value_notification
         event_data:
           node_id: 5
           property_key: "001"
           value: KeyPressed2x
-    action:
-      service: cover.close_cover
-      entity_id: cover.garage_door_left
+    actions:
+      - action: cover.close_cover
+        entity_id: cover.garage_door_left
 
 cover:
   - platform: template
@@ -120,17 +120,17 @@ cover:
         open_cover:
           - if: "{{ is_state('binary_sensor.garage_door_left', 'off') }}"
             then:
-              service: switch.turn_on
-              entity_id: switch.garage_door_relay_left
+              - action: switch.turn_on
+                entity_id: switch.garage_door_relay_left
         close_cover:
           - if: "{{ is_state('binary_sensor.garage_door_left', 'on') }}"
             then:
-              - service: switch.turn_on
+              - action: switch.turn_on
                 entity_id: switch.garage_door_relay_left
               - wait_template: "{{ is_state('binary_sensor.garage_door_left', 'off') }}"
         stop_cover:
-          service: switch.turn_on
-          entity_id: switch.garage_door_relay_left
+          - action: switch.turn_on
+            entity_id: switch.garage_door_relay_left
       garage_door_right:
         friendly_name: Right Garage Door
         device_class: garage
@@ -138,14 +138,14 @@ cover:
         open_cover:
           - if: "{{ is_state('binary_sensor.garage_door_right', 'off') }}"
             then:
-              service: switch.turn_on
+              action: switch.turn_on
               entity_id: switch.garage_door_relay_right
         close_cover:
           - if: "{{ is_state('binary_sensor.garage_door_right', 'on') }}"
             then:
-              - service: switch.turn_on
+              - action: switch.turn_on
                 entity_id: switch.garage_door_relay_right
               - wait_template: "{{ is_state('binary_sensor.garage_door_right', 'off') }}"
         stop_cover:
-          service: switch.turn_off
-          entity_id: switch.garage_door_relay_right
+          - action: switch.turn_off
+            entity_id: switch.garage_door_relay_right

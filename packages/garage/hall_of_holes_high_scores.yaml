@@ -2,25 +2,25 @@ automation:
   - alias: Hall of Holes - Load Players
     id: hall_of_holes_load_players
     mode: queued
-    trigger:
-      - platform: homeassistant
+    triggers:
+      - trigger: homeassistant
         event: start
-    action:
+    actions:
       - event: reload_hall_of_holes_player_id_mapping
 
   - alias: Hall of Holes - Winner Selected
     id: hall_of_holes_winner_selected
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id:
           - input_boolean.hall_of_holes_winner_player_1
           - input_boolean.hall_of_holes_winner_player_2
           - input_boolean.hall_of_holes_winner_player_3
           - input_boolean.hall_of_holes_winner_player_4
         to: 'on'
-    action:
-      - service: input_boolean.turn_off
+    actions:
+      - action: input_boolean.turn_off
         target:
           entity_id: >
             {% set my_id = trigger.entity_id.split('_')[-1] | int %}
@@ -42,28 +42,28 @@ script:
     sequence:
       - variables:
           new_name: "{{ states('input_text.hall_of_holes_add_player_name') }}"
-      - service: notify.hall_of_holes_db
+      - action: notify.hall_of_holes_db
         data:
           message: "CREATE TABLE IF NOT EXISTS players (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(64))"
-      - service: mysql_query.query
+      - action: mysql_query.query
         response_variable: existing_players_query
         data:
           query: SELECT name FROM players
       - if: "{{ new_name in (existing_players_query.result | map(attribute='name') | list) }}"
         then:
-          - service: browser_mod.popup
+          - action: browser_mod.popup
             data:
               browser_id: "{{ browser_id }}"
               content: Player already exists in database.
         else:
-          - service: notify.hall_of_holes_db
+          - action: notify.hall_of_holes_db
             data:
               message: "INSERT INTO players (name) VALUES ('{{ new_name }}')"
-          - service: input_text.set_value
+          - action: input_text.set_value
             entity_id: input_text.hall_of_holes_add_player_name
             data:
               value: ''
-          - service: automation.trigger
+          - action: automation.trigger
             entity_id: automation.hall_of_holes_load_players
 
 input_boolean:
@@ -99,10 +99,10 @@ input_text:
 
 template:
   - trigger:
-      - platform: event
+      - trigger: event
         event_type: reload_hall_of_holes_player_id_mapping
     action:
-      - service: mysql_query.query
+      - action: mysql_query.query
         response_variable: query
         data:
           query: SELECT id, name FROM players
@@ -120,7 +120,7 @@ template:
           {% from 'hall_of_holes.jinja' import get_player_list %}
           {{ get_player_list(1) }}
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.hall_of_holes_player_1
           data:
             value: "{{ option }}"
@@ -131,7 +131,7 @@ template:
           {% from 'hall_of_holes.jinja' import get_player_list %}
           {{ get_player_list(2) }}
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.hall_of_holes_player_2
           data:
             value: "{{ option }}"
@@ -142,7 +142,7 @@ template:
           {% from 'hall_of_holes.jinja' import get_player_list %}
           {{ get_player_list(3) }}
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.hall_of_holes_player_3
           data:
             value: "{{ option }}"
@@ -153,7 +153,7 @@ template:
           {% from 'hall_of_holes.jinja' import get_player_list %}
           {{ get_player_list(4) }}
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.hall_of_holes_player_4
           data:
             value: "{{ option }}"

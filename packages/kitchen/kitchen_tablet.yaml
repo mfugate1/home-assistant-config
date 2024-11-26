@@ -3,7 +3,7 @@ automation:
     id: kitchen_tablet_charging
     mode: queued
     triggers:
-      - platform: state
+      - trigger: state
         entity_id: sensor.kitchen_tablet_battery
     actions:
       - variables:
@@ -27,10 +27,10 @@ automation:
     id: kitchen_tablet_screen
     mode: queued
     triggers:
-      - platform: state
+      - trigger: state
         entity_id: group.presence_kitchen
         to: 'on'
-      - platform: state
+      - trigger: state
         entity_id: group.presence_kitchen
         to: 'off'
         for:
@@ -43,7 +43,7 @@ automation:
     id: kitchen_tablet_fix_for_screen_turning_on_randomly
     mode: queued
     triggers:
-      - platform: state
+      - trigger: state
         entity_id: switch.kitchen_tablet_screen
         to: 'on'
     conditions:

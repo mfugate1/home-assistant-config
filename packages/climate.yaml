@@ -1,10 +1,10 @@
 automation:
   - alias: Climate - Lower Temperature Before Bed
     id: climate_lower_temperature_before_bed
-    trigger:
-      - platform: time
+    triggers:
+      - trigger: time
         at: input_datetime.climate_lower_temperature_before_bed
-    condition:
+    conditions:
       - condition: state
         entity_id: person.mike
         state: home
@@ -14,8 +14,8 @@ automation:
       - condition: numeric_state
         entity_id: sensor.master_bedroom_sensor_air_temperature
         above: input_number.climate_lower_temperature_before_bed_bedroom_temperature_min
-    action:
-      - service: climate.set_temperature
+    actions:
+      - action: climate.set_temperature
         entity_id: climate.thermostat
         data:
           target_temp_high: "{{ states('input_number.climate_temperature_before_bed') | int(72) }}"
@@ -23,17 +23,17 @@ automation:
 
   - alias: Climate - Raise Temperature After Waking Up
     id: climate_raise_temperature_after_waking_up
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: input_boolean.master_bedroom_sleep_mode
         from: 'on'
         to: 'off'
-    condition:
+    conditions:
       - condition: state
         entity_id: sensor.last_hvac_state
         state: cooling
-    action:
-      - service: climate.set_temperature
+    actions:
+      - action: climate.set_temperature
         entity_id: climate.thermostat
         data:
           target_temp_high: "{{ states('input_number.climate_temperature_after_waking_up') | int(74) }}"
@@ -172,7 +172,7 @@ sensor:
 
 template:
   - trigger:
-    - platform: state
+    - trigger: state
       entity_id: climate.thermostat
       attribute: hvac_action
       to:

@@ -3,14 +3,14 @@ automation:
   - alias: Office - Ceiling Fan On
     id: office_ceiling_fan_on
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.office_presence_all_zones
         to: 'on'
-      - platform: numeric_state
+      - trigger: numeric_state
         entity_id: sensor.office_sensor_air_temperature
         above: input_number.office_ceiling_fan_min_temperature
-    condition:
+    conditions:
       - condition: state
         entity_id: fan.office_ceiling_fan
         state: 'off'
@@ -20,10 +20,10 @@ automation:
       - condition: state
         entity_id: binary_sensor.office_presence_all_zones
         state: 'on'
-    action:
-      - service: fan.turn_on
+    actions:
+      - action: fan.turn_on
         entity_id: fan.office_ceiling_fan
-      - service: fan.set_percentage
+      - action: fan.set_percentage
         entity_id: fan.office_ceiling_fan
         data:
           percentage: "{{ states('input_number.office_ceiling_fan_speed') | int(100) }}"
@@ -31,22 +31,22 @@ automation:
   - alias: Office - Ceiling Fan Off
     id: office_ceiling_fan_off
     mode: queued
-    trigger:
-      - platform: numeric_state
+    triggers:
+      - trigger: numeric_state
         entity_id: sensor.office_sensor_air_temperature
         below: input_number.office_ceiling_fan_min_temperature
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.office_presence_all_zones
         to: 'off'
         for:
           seconds: "{{ states('input_number.office_ceiling_fan_off_timeout') | int(30) }}"
-    condition:
-      condition: state
-      entity_id: fan.office_ceiling_fan
-      state: 'on'
-    action:
-      service: fan.turn_off
-      entity_id: fan.office_ceiling_fan
+    conditions:
+      - condition: state
+        entity_id: fan.office_ceiling_fan
+        state: 'on'
+    actions:
+      - action: fan.turn_off
+        entity_id: fan.office_ceiling_fan
 
 input_number:
 

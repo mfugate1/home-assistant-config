@@ -4,11 +4,11 @@ automation:
     id: living_room_lamp_on
     mode: queued
     max_exceeded: silent
-    trigger:
-      platform: state
-      entity_id: binary_sensor.living_room_presence_all_zones
-      to: 'on'
-    condition:
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.living_room_presence_all_zones
+        to: 'on'
+    conditions:
       - condition: state
         entity_id: 
           - input_boolean.master_bedroom_sleep_mode
@@ -17,27 +17,27 @@ automation:
       - condition: numeric_state
         entity_id: sensor.living_room_light_level
         below: input_number.livingroom_steve_french_lamp_light_on_threshold
-    action:
-      service: light.turn_on
-      entity_id: light.steve_french
+    actions:
+      - action: light.turn_on
+        entity_id: light.steve_french
 
   - alias: Living Room - Steve French Lamp Off
     id: living_room_lamp_off
     mode: queued
     max_exceeded: silent
-    trigger:
-      platform: state
-      entity_id: group.presence_first_floor
-      to: 'off'
-      for:
-        seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int(30) }}"
-    condition:
-      condition: state
-      entity_id: light.steve_french
-      state: 'on'
-    action:
-      service: light.turn_off
-      entity_id: light.steve_french
+    triggers:
+      - trigger: state
+        entity_id: group.presence_first_floor
+        to: 'off'
+        for:
+          seconds: "{{ states('input_number.livingroom_steve_french_lamp_off_timeout') | int(30) }}"
+    conditions:
+      - condition: state
+        entity_id: light.steve_french
+        state: 'on'
+    actions:
+      - action: light.turn_off
+        entity_id: light.steve_french
 
 input_number:
 

@@ -3,17 +3,17 @@ automation:
   - alias: First Floor Bathroom - Lights On
     id: first_floor_bathroom_lights_on
     max_exceeded: silent
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.first_floor_bathroom_presence_all_zones
         to: 'on'
-      - platform: state
+      - trigger: state
         entity_id: sensor.firstfloorbathroom_presence_sensor_presence_event
         to:
           - enter
           - approach
-    action:
-      - service: light.turn_on
+    actions:
+      - action: light.turn_on
         entity_id: light.firstfloorbathroom
         data:
           brightness: "{{ states('sensor.firstfloorbathroom_light_brightness') | int(255) }}"
@@ -24,18 +24,18 @@ automation:
             entity_id: binary_sensor.first_floor_bathroom_presence_all_zones
             state: 'off'
         then:
-          - service: automation.trigger
+          - action: automation.trigger
             entity_id: automation.first_floor_bathroom_lights_off
 
   - alias: First Floor Bathroom - Lights Off
     id: first_floor_bathroom_lights_off
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.first_floor_bathroom_presence_all_zones
         to: 'off'
-    action:
-      - service: light.turn_off
+    actions:
+      - action: light.turn_off
         entity_id: light.firstfloorbathroom
         data:
           transition: "{{ states('sensor.firstfloorbathroom_light_transition') | int(0) }}"

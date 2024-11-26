@@ -2,12 +2,12 @@ automation:
 
   - alias: Workout Room - Lights
     id: workout_room_lights
-    mode: restart
+    mode: queued
     triggers:
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.workout_room_presence_all_zones
         to: 'on'
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.workout_room_presence_all_zones
         to: 'off'
         for:

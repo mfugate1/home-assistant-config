@@ -2,40 +2,40 @@ automation:
   - alias: Guest Room (Single) - Turn On Sleep Mode
     id: guest_room_single_turn_on_sleep_mode
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.guest_room_single_presence_bed_zone
         to: 'on'
         for:
           seconds: "{{ states('input_number.guest_room_single_sleep_mode_on_delay') | int(10) }}"
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.guest_room_single_sleep_mode_enabled
         state: 'on'
       - condition: state
         entity_id: input_boolean.guest_room_single_sleep_mode
         state: 'off'
-    action:
-      - service: input_boolean.turn_on
+    actions:
+      - action: input_boolean.turn_on
         entity_id: input_boolean.guest_room_single_sleep_mode
 
   - alias: Guest Room (Single) - Turn Off Sleep Mode
     id: guest_room_single_turn_off_sleep_mode
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.guest_room_single_presence_bed_zone
         to: 'off'
         for:
           seconds: "{{ states('input_number.guest_room_single_sleep_mode_off_delay') | int(60) }}"
-    condition:
+    conditions:
       - condition: state
         entity_id: 
           - input_boolean.guest_room_single_sleep_mode_enabled
           - input_boolean.guest_room_single_sleep_mode
         state: 'on'
-    action:
-      - service: input_boolean.turn_off
+    actions:
+      - action: input_boolean.turn_off
         entity_id: input_boolean.guest_room_single_sleep_mode
 
 input_boolean:

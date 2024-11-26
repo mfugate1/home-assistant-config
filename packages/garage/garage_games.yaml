@@ -1,39 +1,39 @@
 automation:
   - alias: Hall of Holes - Toggle Arcade Cabinet
     id: hall_of_holes_toggle_arcade_cabinet
-    trigger:
-      platform: event
-      event_type: zwave_js_value_notification
-      event_data:
-        node_id: 4
-        property_key: "005"
-        value: KeyPressed
-    action:
-      service: switch.toggle
-      entity_id: switch.arcade_cabinet
+    triggers:
+      - trigger: event
+        event_type: zwave_js_value_notification
+        event_data:
+          node_id: 4
+          property_key: "005"
+          value: KeyPressed
+    actions:
+      - action: switch.toggle
+        entity_id: switch.arcade_cabinet
 
   - alias: Hall of Holes - Toggle Air Hockey Fan
     id: hall_of_holes_toggle_air_hockey_fan
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: zwave_js_value_notification
         event_data:
           node_id: 4
           property_key: "002"
           value: KeyPressed
-    action:
-      service: switch.toggle
-      entity_id: switch.air_hockey_table_fan
+    actions:
+      - action: switch.toggle
+        entity_id: switch.air_hockey_table_fan
 
   - alias: Hall of Holes - Toggle Pinball
     id: hall_of_holes_toggle_pinball
-    trigger:
-      - platform: event
+    triggers:
+      - trigger: event
         event_type: zwave_js_value_notification
         event_data:
           node_id: 4
           property_key: "001"
           value: KeyPressed
-    action:
-      service: switch.toggle
-      entity_id: switch.pinball
+    actions:
+      - action: switch.toggle
+        entity_id: switch.pinball

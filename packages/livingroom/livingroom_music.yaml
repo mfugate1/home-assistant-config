@@ -22,21 +22,21 @@ switch:
               house_source: "{{ states('sensor.spotify_whole_house_source_name') }}"
               spotify_entity: media_player.spotify_stukabombr1
           - parallel:
-            - service: script.livingroom_receiver_turn_on
+            - action: script.livingroom_receiver_turn_on
               data:
                 source: "{{ states('input_text.livingroom_music_receiver_source') }}"
                 volume: "{{ states('input_number.livingroom_music_volume') }}"
             - sequence:
               - if: "{{ not is_state_attr(spotify_entity, 'source', house_source)}}"
                 then:
-                  - service: media_player.select_source
+                  - action: media_player.select_source
                     target:
                       entity_id: "{{ spotify_entity }}"
                     data:
                       source: "{{ house_source }}"
                   - delay: "{{ states('input_number.spotify_source_change_delay') | int(5) }}"
-              - service: script.spotify_play_playlist
-            - service: script.turn_off_with_repeat
+              - action: script.spotify_play_playlist
+            - action: script.turn_off_with_repeat
               data:
                 entity_id: switch.livingroom_ps5
                 repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
@@ -44,11 +44,11 @@ switch:
         turn_off:
           - variables:
               number_of_rooms_music_is_playing_in: "{{ state_attr('active_music_rooms', 'rooms') | length }}"
-          - service: media_player.turn_off
+          - action: media_player.turn_off
             entity_id: media_player.livingroom_receiver
           - if: "{{ number_of_rooms_music_is_playing_in == 1 }}"
             then:
-              service: media_player.media_pause
+              action: media_player.media_pause
               target:
                 entity_id: media_player.spotify_stukabombr1
 
@@ -61,7 +61,7 @@ template:
         state: "{{ states('input_text.livingroom_receiver_music_source') }}"
         options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.livingroom_receiver_music_source
           data:
             value: "{{ option }}"
@@ -72,7 +72,7 @@ template:
         state: "{{ states('input_text.livingroom_spotify_playlist') }}"
         options: "{{ state_attr('input_select.spotify_playlists', 'options') }}"
         select_option:
-          service: input_text.set_value
+          action: input_text.set_value
           entity_id: input_text.livingroom_spotify_playlist
           data:
             value: "{{ option }}"
