@@ -3,14 +3,14 @@ automation:
   - alias: Guest Room (Single) - Ceiling Fan On
     id: guest_room_single_ceiling_fan_on
     mode: queued
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: binary_sensor.guest_room_single_presence_all_zones
         to: 'on'
-      - platform: numeric_state
+      - trigger: numeric_state
         entity_id: sensor.guest_bedroom_single_sensor_air_temperature
         above: input_number.guest_room_single_ceiling_fan_min_temperature
-    condition:
+    conditions:
       - or:
           - condition: numeric_state
             entity_id: sensor.guest_bedroom_single_sensor_air_temperature
@@ -24,23 +24,23 @@ automation:
       - condition: state
         entity_id: input_select.guest_room_single_fan_mode
         state: Auto On/Off
-    action:
-      - service: fan.turn_on
+    actions:
+      - action: fan.turn_on
         entity_id: fan.guest_room_single_ceiling_fan
 
   - alias: Guest Room (Single) - Ceiling Fan Off
     id: guest_room_single_ceiling_fan_off
     mode: queued
-    trigger:
-      - platform: numeric_state
+    triggers:
+      - trigger: numeric_state
         entity_id: sensor.guest_bedroom_single_sensor_air_temperature
         below: input_number.guest_room_single_ceiling_fan_min_temperature
-      - platform: state
+      - trigger: state
         entity_id: binary_sensor.guest_room_single_presence_all_zones
         to: 'off'
         for:
           minutes: "{{ states('input_number.guest_room_single_ceiling_fan_off_timeout') | int(1) }}"
-    condition:
+    conditions:
       - condition: state
         entity_id: input_select.guest_room_single_fan_mode
         state:
@@ -54,8 +54,8 @@ automation:
             state: 'on'
           - condition: template
             value_template: "{{ trigger.platform != 'numeric_state' }}"
-    action:
-      - service: fan.turn_off
+    actions:
+      - action: fan.turn_off
         entity_id: fan.guest_room_single_ceiling_fan
 
 input_boolean:
