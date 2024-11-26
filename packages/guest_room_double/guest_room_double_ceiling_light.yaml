@@ -39,7 +39,7 @@ automation:
       - or:
         - "{{ trigger.id != 'sleep' }}"
         - condition: state
-          entity_id: input_boolean.guest_room_double_sleep_mode_light_off
+          entity_id: input_boolean.guest_room_double_sleep_mode_light_off_enabled
           state: 'on'
     actions:
       - action: light.turn_off
@@ -47,7 +47,7 @@ automation:
 
 input_boolean:
   guest_room_double_light_level_threshold_enabled:
-  guest_room_double_sleep_mode_light_off:
+  guest_room_double_sleep_mode_light_off_enabled:
 
 input_number:
   guest_room_double_ceiling_fan_light_brightness:
