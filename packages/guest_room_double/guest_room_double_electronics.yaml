@@ -1,0 +1,19 @@
+switch:
+  - platform: template
+    switches:
+      guest_room_double_electronics:
+        friendly_name: TV
+        icon_template: mdi:television
+        value_template: >
+          {{     is_state('switch.guest_room_double_tv', 'on')
+             and is_state('switch.guest_room_double_roku', 'on') }}
+        turn_on:
+          - action: switch.turn_on
+            entity_id: 
+              - switch.guest_room_double_tv
+              - switch.guest_room_double_roku
+        turn_off:
+          - action: switch.turn_off
+            entity_id: 
+              - switch.guest_room_double_tv
+              - switch.guest_room_double_roku
