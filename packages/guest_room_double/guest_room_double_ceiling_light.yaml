@@ -14,6 +14,12 @@ automation:
         - condition: state
           entity_id: input_boolean.guest_room_double_light_level_threshold_enabled
           state: 'off'
+      - condition: state
+        entity_id: 
+          - input_boolean.guest_room_double_sleep_mode
+          - input_boolean.guest_room_double_no_light_during_sleep_mode
+        match: any
+        state: 'off'
     actions:
       - action: light.turn_on
         entity_id: light.guest_room_double_ceiling_fan_light
@@ -48,6 +54,7 @@ automation:
 input_boolean:
   guest_room_double_light_level_threshold_enabled:
   guest_room_double_sleep_mode_light_off_enabled:
+  guest_room_double_no_light_during_sleep_mode:
 
 input_number:
   guest_room_double_ceiling_fan_light_brightness:
