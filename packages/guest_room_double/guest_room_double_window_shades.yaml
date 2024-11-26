@@ -4,9 +4,9 @@ automation:
     id: guest_room_double_close_shades_when_tv_is_on
     mode: queued
     triggers:
-      - trigger: numeric_state
-        entity_id: sensor.guest_room_double_tv_current
-        above: input_number.guest_room_double_tv_current_threshold_for_shades
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_tv
+        to: 'on'
     conditions:
       - condition: numeric_state
         entity_id: cover.guest_room_double_shade_side
@@ -20,9 +20,9 @@ automation:
     id: guest_room_double_open_side_shade_when_tv_is_off
     mode: queued
     triggers:
-      - trigger: numeric_state
-        entity_id: sensor.guest_room_double_tv_current
-        below: input_number.guest_room_double_tv_current_threshold_for_shades
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_tv
+        to: 'off'
     conditions:
       - condition: numeric_state
         entity_id: cover.guest_room_double_shade_side
@@ -108,11 +108,3 @@ cover:
           entity_id: cover.guest_room_double_shade_side
           data:
             position: "{{ 100 - position }}"
-
-input_number:
-  guest_room_double_tv_current_threshold_for_shades:
-    min: 0
-    max: 2
-    step: 0.01
-    mode: box
-    unit_of_measurement: A

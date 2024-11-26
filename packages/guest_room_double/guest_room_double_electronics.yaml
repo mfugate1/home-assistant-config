@@ -1,8 +1,36 @@
+automation:
+  - alias: Guest Room (Double) - Toggle Electronics on Presence
+    id: guest_room_double_toggle_electronics_on_presence
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_presence_all_zones
+        to:
+          - 'on'
+          - 'off'
+    conditions:
+      - or:
+        - "{{ trigger.to_state.state == 'on' }}"
+        - condition: state
+          entity_id: binary_sensor.guest_room_double_tv
+          state: 'off'
+    actions:
+      - action: switch.turn_{{ trigger.to_state.state }}
+        entity_id: switch.guest_room_double_electronics
+
+input_number:
+  guest_room_double_tv_current_threshold_when_on:
+    min: 0
+    max: 2
+    step: 0.01
+    mode: box
+    unit_of_measurement: A
+
 switch:
   - platform: template
     switches:
       guest_room_double_electronics:
-        friendly_name: TV
+        friendly_name: Electronics
         icon_template: mdi:television
         value_template: >
           {{     is_state('switch.guest_room_double_tv', 'on')
@@ -17,3 +45,8 @@ switch:
             entity_id: 
               - switch.guest_room_double_tv
               - switch.guest_room_double_roku
+
+template:
+  - binary_sensor:
+    - name: guest_room_double_tv
+      state: "{{ states('sensor.guest_room_double_tv_current') | int(0) > states('input_number.guest_room_double_tv_current_threshold_when_on') | int(0) }}"
