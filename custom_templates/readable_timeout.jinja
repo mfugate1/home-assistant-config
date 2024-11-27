@@ -2,16 +2,14 @@
 {{- unit if value == 1 else unit + 's' -}}
 {%- endmacro -%}
 {%- macro readable_timeout(minutes, seconds) -%}
-{%- set minutes_int = minutes | int(0) -%}
-{%- set seconds_int = seconds | int(0) -%}
-{%- set m_units = pluralize_units(minutes_int, 'minute') -%}
-{%- set s_units = pluralize_units(seconds_int, 'second') -%}
-{%- if minutes_int == 0 -%}
-{%- set output = seconds + ' ' + s_units -%}
+{%- set m_units = pluralize_units(minutes, 'minute') -%}
+{%- set s_units = pluralize_units(seconds, 'second') -%}
+{%- if minutes == 0 -%}
+{%- set output = (seconds | string) + ' ' + s_units -%}
 {%- else -%}
-{%- set output = minutes + ' ' + m_units -%}
-{%- if seconds_int > 0 -%}
-{%- set output = output + ' and ' + seconds + ' ' + s_units -%}
+{%- set output = (minutes | string) + ' ' + m_units -%}
+{%- if seconds > 0 -%}
+{%- set output = output + ' and ' + (seconds | string) + ' ' + s_units -%}
 {%- endif -%}
 {%- endif -%}
 {{- output -}}
