@@ -7,7 +7,11 @@ automation:
         entity_id: binary_sensor.guest_room_double_presence_bed_zone
         to: 'on'
         for:
-          seconds: "{{ states('input_number.guest_room_double_sleep_mode_on_delay') | int(10) }}"
+          seconds: "{{ states('input_number.guest_room_double_sleep_mode_on_delay_seconds') | int(20) }}"
+          minutes: "{{ states('input_number.guest_room_double_sleep_mode_on_delay_minutes') | int(0) }}"
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_tv
+        to: 'off'
     conditions:
       - condition: state
         entity_id: input_boolean.guest_room_double_sleep_mode_enabled
@@ -15,24 +19,49 @@ automation:
       - condition: state
         entity_id: input_boolean.guest_room_double_sleep_mode
         state: 'off'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_sleep_mode_on_delay_seconds') | int(20) }}"
+          minutes: "{{ states('input_number.guest_room_double_sleep_mode_on_delay_minutes') | int(0) }}"
+      - condition: state
+        entity_id:
+          - input_boolean.guest_room_double_sleep_mode_require_tv_off_to_turn_on
+          - binary_sensor.guest_room_double_tv
+        match: any
+        state: 'off'
     actions:
       - action: input_boolean.turn_on
         entity_id: input_boolean.guest_room_double_sleep_mode
 
-  - alias: Guest Room (Double) - Turn Off Sleep Mode
-    id: guest_room_double_turn_off_sleep_mode
+  # Keeping the "turn off" automations separate so they can be toggled on/off individually without
+  # the need for additional input_booleans to control them
+  - alias: Guest Room (Double) - Turn Off Sleep Mode [Presence]
+    id: guest_room_double_turn_off_sleep_mode_presence
     mode: queued
     triggers:
       - trigger: state
         entity_id: binary_sensor.guest_room_double_presence_bed_zone
         to: 'off'
         for:
-          seconds: "{{ states('input_number.guest_room_double_sleep_mode_off_delay') | int(60) }}"
+          seconds: "{{ states('input_number.guest_room_double_sleep_mode_off_delay_seconds') | int(0) }}"
+          minutes: "{{ states('input_number.guest_room_double_sleep_mode_off_delay_minutes') | int(1) }}"
     conditions:
       - condition: state
-        entity_id: 
-          - input_boolean.guest_room_double_sleep_mode_enabled
-          - input_boolean.guest_room_double_sleep_mode
+        entity_id: input_boolean.guest_room_double_sleep_mode_enabled
+        state: 'on'
+    actions:
+      - action: input_boolean.turn_off
+        entity_id: input_boolean.guest_room_double_sleep_mode
+
+  - alias: Guest Room (Double) - Turn Off Sleep Mode [TV]
+    id: guest_room_double_turn_off_sleep_mode_tv
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.guest_room_double_tv
+        to: 'on'
+    conditions:
+      - condition: state
+        entity_id: input_boolean.guest_room_double_sleep_mode_enabled
         state: 'on'
     actions:
       - action: input_boolean.turn_off
@@ -45,19 +74,22 @@ input_boolean:
   guest_room_double_sleep_mode_enabled:
     name: Sleep Mode Enabled
     icon: mdi:sleep
+  guest_room_double_sleep_mode_require_tv_off_to_turn_on:
+    name: Require TV Off
+    icon: mdi:television
 
 input_number:
-  guest_room_double_sleep_mode_on_delay:
-    name: Sleep Mode On Delay
+  guest_room_double_sleep_mode_on_delay_seconds: &seconds
     icon: mdi:timer
     min: 0
-    max: 1000
-    unit_of_measurement: s
+    max: 60
+    unit_of_measurement: sec
     mode: box
-  guest_room_double_sleep_mode_off_delay:
-    name: Sleep Mode Off Delay
+  guest_room_double_sleep_mode_on_delay_minutes: &minutes
     icon: mdi:timer
     min: 0
-    max: 1000
-    unit_of_measurement: s
+    max: 60
+    unit_of_measurement: min
     mode: box
+  guest_room_double_sleep_mode_off_delay_seconds: *seconds
+  guest_room_double_sleep_mode_off_delay_minutes: *minutes
