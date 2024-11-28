@@ -6,6 +6,9 @@ automation:
       - trigger: state
         entity_id: binary_sensor.guest_room_double_presence_all_zones
         to: 'on'
+        for:
+          seconds: "{{ states('input_number.guest_room_double_light_on_delay_seconds') | int(0) }}"
+          minutes: "{{ states('input_number.guest_room_double_light_on_delay_minutes') | int(1) }}"
     conditions:
       - or:
         - condition: numeric_state
@@ -80,6 +83,8 @@ input_number:
     unit_of_measurement: m
   guest_room_double_sleep_mode_light_timeout_seconds: *seconds
   guest_room_double_sleep_mode_light_timeout_minutes: *minutes
+  guest_room_double_light_on_delay_seconds: *seconds
+  guest_room_double_light_on_delay_minutes: *minutes
 
 light:
   - platform: template
