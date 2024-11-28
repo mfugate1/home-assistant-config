@@ -1,0 +1,33 @@
+{%- macro ceiling_light_on_description(room) -%}
+  {%- if is_state('automation.' + room + '_ceiling_light_on', 'on') -%}
+    {%- set on_message = 'Enabled: The ceiling light will turn on automatically when presence is detected in the room' -%}
+    {%- if is_state('input_boolean.' + room + '_light_level_threshold_enabled', 'on') -%}
+        {%- set on_message = on_message + ' and the light level is below ' 
+            + states('input_number.guest_room_double_light_level_threshold', with_unit=True) + '. ' -%}
+        {%- set on_message = on_message + 'The current light level is ' 
+            + states('sensor.guest_room_double_light_level', with_unit=True) -%}
+    {%- endif -%}
+    {%- set on_message = on_message + '.' -%}
+    {%- if is_state('input_boolean.' + room + '_sleep_mode_enabled', 'on') -%}
+      {%- set on_message = on_message + ' Sleep mode is enabled, so the light will not turn on automatically if sleep mode is active (when presence is detected in the bed).' -%}
+    {%- endif -%}
+    {{- on_message -}}
+  {%- else -%}
+    Disabled: The ceiling light will never turn on automatically. Control it manually from the tablet or the wall remote.
+  {%- endif -%}
+{%- endmacro -%}
+{%- macro ceiling_light_off_description(room) -%}
+  {%- if is_state('automation.guest_room_double_ceiling_light_off', 'on')
+    -%}
+    {% from 'readable_timeout.jinja' import readable_timeout %}
+    {%- set presence_timeout = readable_timeout(states('input_number.' + room + '_light_timeout_minutes') | int, states('input_number.' + room + '_light_timeout_seconds') | int) -%}
+    {%- set on_message = 'Enabled: The ceiling light will turn off automatically when no presence is detected in the room for ' + presence_timeout -%}
+    {%- if is_state('input_boolean.' + room + '_sleep_mode_light_off_enabled', 'on') -%}
+      {%- set sleep_timeout = readable_timeout(states('input_number.' + room + '_sleep_mode_light_timeout_minutes') | int, states('input_number.' + room + '_sleep_mode_light_timeout_seconds') | int) -%}
+      {%- set on_message = on_message + ' or [Sleep Mode](http://192.168.1.17:8123/' + room.replace('_', '-') + '/sleep-mode) is active for ' + sleep_timeout -%}
+    {%- endif -%}
+    {{- on_message + '.' -}}
+  {%- else -%}
+    Disabled: The ceiling light will never turn off automatically. Control it manually from the tablet or the wall remote.
+  {%- endif -%}
+{%- endmacro -%}
