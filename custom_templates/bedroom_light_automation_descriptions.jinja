@@ -9,7 +9,7 @@
     {%- endif -%}
     {%- set on_message = on_message + '.' -%}
     {%- if is_state('input_boolean.' + room + '_sleep_mode_enabled', 'on') -%}
-      {%- set on_message = on_message + ' Sleep mode is enabled, so the light will not turn on automatically if sleep mode is active (when presence is detected in the bed).' -%}
+      {%- set on_message = on_message + ' [Sleep Mode](http://192.168.1.17:8123/' + room.replace('_', '-') + '/sleep-mode) is enabled, so the light will not turn on automatically if sleep mode is active (when presence is detected in the bed).' -%}
     {%- endif -%}
     {{- on_message -}}
   {%- else -%}
