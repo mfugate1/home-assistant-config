@@ -28,3 +28,7 @@
   type: module
 - url: /hacsfiles/button-card/button-card.js
   type: module
+- url: /hacsfiles/Bubble-Card/bubble-card.js
+  type: module
+- url: /hacsfiles/service-call-tile-feature/custom-features-row.min.js
+  type: module
