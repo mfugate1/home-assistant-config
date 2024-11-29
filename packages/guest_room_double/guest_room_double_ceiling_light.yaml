@@ -196,13 +196,16 @@ light:
               - light.guest_room_double_ceiling_fan_white
 
 template:
+  - binary_sensor:
+    - name: guest_room_double_light_on_delay_enabled
+      state: "{{ states('input_boolean.guest_room_double_light_on_delay_enabled') }}"
+      attributes:
+        description: Time to wait after presence is detected before turning on the light.
   - sensor:
     - name: guest_room_double_light_on_delay
       state: >-
         {%- from 'get_readable_time.jinja' import get_readable_time -%}
         {{- get_readable_time('guest_room_double_light_on_delay') -}}
-      attributes:
-        description: Time to wait after presence is detected before turning on the light.
     - name: guest_room_double_light_on_delay_seconds
       state: >-
         {%- from 'time_sensor.jinja' import time_sensor -%}
