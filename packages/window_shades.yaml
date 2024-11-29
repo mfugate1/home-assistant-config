@@ -16,6 +16,7 @@ automation:
     actions:
       - variables:
           shades:
+            - bedroom_shade_front
             - bedroom_shade_side
             - guest_room_double_shade_front_inverted
             - guest_room_double_shade_side_inverted
@@ -31,6 +32,7 @@ automation:
             {{ entities.ids }}
 
 input_boolean:
+  bedroom_shade_front_auto:
   bedroom_shade_side_auto:
   guest_room_double_shade_front_inverted_auto:
   guest_room_double_shade_side_inverted_auto:
