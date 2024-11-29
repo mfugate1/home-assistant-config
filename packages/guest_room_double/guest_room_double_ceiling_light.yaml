@@ -199,6 +199,6 @@ template:
       - name: guest_room_double_light_on_delay
         state: >-
           {%- from 'get_readable_time.jinja' import get_readable_time -%}
-          {{- get_readable_timeout('guest_room_double_light_on_delay') -}}
+          {{- get_readable_time('guest_room_double_light_on_delay') -}}
         attributes:
           description: Time to wait after presence is detected before turning on the light.
