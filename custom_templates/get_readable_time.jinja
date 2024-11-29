@@ -2,8 +2,8 @@
   {{- unit if value == 1 else unit + 's' -}}
 {%- endmacro -%}
 {%- macro get_readable_time(name) -%}
-  {%- set minutes = states('input_number.' + name + '_minutes) -%}
-  {%- set seconds = states('input_number.' + name + '_seconds) -%}
+  {%- set minutes = states('input_number.' + name + '_minutes') -%}
+  {%- set seconds = states('input_number.' + name + '_seconds') -%}
   {%- set minutes_int = minutes | int -%}
   {%- set seconds_int = seconds | int -%}
   {%- set m_units = pluralize_units(minutes, 'minute') -%}
