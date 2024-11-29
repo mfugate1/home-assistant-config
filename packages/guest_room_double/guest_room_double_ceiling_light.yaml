@@ -23,6 +23,12 @@ automation:
           - input_boolean.guest_room_double_no_light_during_sleep_mode
         match: any
         state: 'off'
+      - condition: state
+        entity_id:
+          - binary_sensor.guest_room_double_tv
+          - input_boolean.guest_room_double_no_light_if_tv_is_on
+        match: any
+        state: 'off'
     actions:
       - action: light.turn_on
         entity_id: light.guest_room_double_ceiling_fan_light
@@ -71,6 +77,7 @@ input_boolean:
   guest_room_double_light_level_threshold_enabled:
   guest_room_double_sleep_mode_light_off_enabled:
   guest_room_double_no_light_during_sleep_mode:
+  guest_room_double_no_light_if_tv_is_on:
   guest_room_double_light_on_delay_enabled:
   guest_room_double_light_off_delay_enabled:
 
@@ -123,6 +130,10 @@ template:
       state: "{{ states('input_boolean.guest_room_double_sleep_mode_light_off_enabled') }}"
       attributes:
         description: Controls whether the light will turn off when sleep mode becomes active.
+    - name: guest_room_double_no_light_if_tv_is_on
+      state: "{{ states('input_boolean.guest_room_double_no_light_if_tv_is_on') }}"
+      attributes:
+        description: Controls whether the light can turn on if the TV is on.
 
   - sensor:
     - name: guest_room_double_light_on_delay
