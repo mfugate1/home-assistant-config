@@ -32,24 +32,37 @@ automation:
     mode: queued
     triggers:
       - trigger: state
+        id: presence
         entity_id: binary_sensor.guest_room_double_presence_all_zones
         to: 'off'
         for:
-          seconds: "{{ states('input_number.guest_room_double_light_timeout_seconds') | int(0) }}"
-          minutes: "{{ states('input_number.guest_room_double_light_timeout_minutes') | int(1) }}"
+          seconds: "{{ states('sensor.guest_room_double_light_off_delay_seconds') | int(0) }}"
+          minutes: "{{ states('sensor.guest_room_double_light_off_delay_minutes') | int(1) }}"
       - trigger: state
         id: sleep
         entity_id: input_boolean.guest_room_double_sleep_mode
         to: 'on'
         for:
-          seconds: "{{ states('input_number.guest_room_double_sleep_mode_light_timeout_seconds') | int(0) }}"
-          minutes: "{{ states('input_number.guest_room_double_sleep_mode_light_timeout_minutes') | int(1) }}"
+          seconds: "{{ states('sensor.guest_room_double_light_sleep_mode_off_delay_seconds') | int(30) }}"
+          minutes: "{{ states('sensor.guest_room_double_light_sleep_mode_off_delay_minutes') | int(0) }}"
+      - trigger: state
+        id: sleep_mode_enabled
+        entity_id: input_boolean.guest_room_double_sleep_mode_light_off_enabled
+        to: 'on'
+        from: 'off'
     conditions:
       - or:
-        - "{{ trigger.id != 'sleep' }}"
-        - condition: state
-          entity_id: input_boolean.guest_room_double_sleep_mode_light_off_enabled
-          state: 'on'
+        - "{{ trigger.id == 'presence' }}"
+        - and:
+          - "{{ trigger.id == 'sleep' }}"
+          - condition: state
+            entity_id: input_boolean.guest_room_double_sleep_mode_light_off_enabled
+            state: 'on'
+        - and:
+          - "{{ trigger.id == 'sleep_mode_enabled' }}"
+          - condition: state
+            entity_id: input_boolean.guest_room_double_sleep_mode
+            state: 'on'
     actions:
       - action: light.turn_off
         entity_id: light.guest_room_double_ceiling_fan_light
@@ -59,6 +72,7 @@ input_boolean:
   guest_room_double_sleep_mode_light_off_enabled:
   guest_room_double_no_light_during_sleep_mode:
   guest_room_double_light_on_delay_enabled:
+  guest_room_double_light_off_delay_enabled:
 
 input_number:
   guest_room_double_ceiling_fan_light_brightness:
@@ -72,20 +86,77 @@ input_number:
     max: 200
     mode: box
     unit_of_measurement: lx
-  guest_room_double_light_timeout_seconds: &seconds
+  guest_room_double_light_off_delay_seconds: &seconds
     min: 0
     max: 60
     mode: box
-    unit_of_measurement: s
-  guest_room_double_light_timeout_minutes: &minutes
+    unit_of_measurement: sec
+  guest_room_double_light_off_delay_minutes: &minutes
     min: 0
     max: 120
     mode: box
-    unit_of_measurement: m
-  guest_room_double_sleep_mode_light_timeout_seconds: *seconds
-  guest_room_double_sleep_mode_light_timeout_minutes: *minutes
+    unit_of_measurement: min
+  guest_room_double_light_sleep_mode_off_delay_seconds: *seconds
+  guest_room_double_light_sleep_mode_off_delay_minutes: *minutes
   guest_room_double_light_on_delay_seconds: *seconds
   guest_room_double_light_on_delay_minutes: *minutes
+
+template:
+  - binary_sensor:
+    - name: guest_room_double_light_on_delay_enabled
+      state: "{{ states('input_boolean.guest_room_double_light_on_delay_enabled') }}"
+      attributes:
+        description: Time to wait after presence is detected before turning on the light.
+    - name: guest_room_double_light_off_delay_enabled
+      state: "{{ states('input_boolean.guest_room_double_light_off_delay_enabled') }}"
+      attributes:
+        description: Time to wait after no presence is detected before turning off the light.
+    - name: guest_room_double_light_level_threshold_enabled
+      state: "{{ states('input_boolean.guest_room_double_light_level_threshold_enabled') }}"
+      attributes:
+        description: Light level the room must be below for the light to turn on.
+    - name: guest_room_double_no_light_during_sleep_mode
+      state: "{{ states('input_boolean.guest_room_double_no_light_during_sleep_mode') }}"
+      attributes:
+        description: Controls whether the light can turn on if sleep mode is active.
+    - name: guest_room_double_sleep_mode_light_off_enabled
+      state: "{{ states('input_boolean.guest_room_double_sleep_mode_light_off_enabled') }}"
+      attributes:
+        description: Controls whether the light will turn off when sleep mode becomes active.
+
+  - sensor:
+    - name: guest_room_double_light_on_delay
+      state: >-
+        {%- from 'get_readable_time.jinja' import get_readable_time -%}
+        {{- get_readable_time('guest_room_double_light_on_delay') -}}
+    - name: guest_room_double_light_off_delay
+      state: >-
+        {%- from 'get_readable_time.jinja' import get_readable_time -%}
+        {{- get_readable_time('guest_room_double_light_off_delay') -}}
+    - name: guest_room_double_light_on_delay_seconds
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_double_light_on_delay', 'seconds') -}}
+    - name: guest_room_double_light_on_delay_minutes
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_double_light_on_delay', 'minutes') -}}
+    - name: guest_room_double_light_off_delay_seconds
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_double_light_off_delay', 'seconds') -}}
+    - name: guest_room_double_light_off_delay_minutes
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_double_light_off_delay', 'minutes') -}}
+    - name: guest_room_double_light_sleep_mode_off_delay_seconds
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_double_light_sleep_mode_off_delay', 'seconds') -}}
+    - name: guest_room_double_light_sleep_mode_off_delay_minutes
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_double_light_sleep_mode_off_delay', 'minutes') -}}
 
 light:
   - platform: template
@@ -194,23 +265,3 @@ light:
             entity_id: 
               - light.guest_room_double_ceiling_fan_yellow
               - light.guest_room_double_ceiling_fan_white
-
-template:
-  - binary_sensor:
-    - name: guest_room_double_light_on_delay_enabled
-      state: "{{ states('input_boolean.guest_room_double_light_on_delay_enabled') }}"
-      attributes:
-        description: Time to wait after presence is detected before turning on the light.
-  - sensor:
-    - name: guest_room_double_light_on_delay
-      state: >-
-        {%- from 'get_readable_time.jinja' import get_readable_time -%}
-        {{- get_readable_time('guest_room_double_light_on_delay') -}}
-    - name: guest_room_double_light_on_delay_seconds
-      state: >-
-        {%- from 'time_sensor.jinja' import time_sensor -%}
-        {{- time_sensor('guest_room_double_light_on_delay', 'seconds') -}}
-    - name: guest_room_double_light_on_delay_minutes
-      state: >-
-        {%- from 'time_sensor.jinja' import time_sensor -%}
-        {{- time_sensor('guest_room_double_light_on_delay', 'minutes') -}}
