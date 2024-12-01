@@ -1,25 +1,20 @@
-{%- macro ceiling_light_on_description(room) -%}
-  {%- if is_state('automation.' + room + '_ceiling_light_on', 'on') -%}
-    {%- set on_message = 'Enabled: The ceiling light will turn on automatically when the following conditions are met:<br>' -%}
-    {%- set on_message = on_message + '- Presence is detected in the room' -%}
-    {%- if is_state('input_boolean.' + room + '_ceiling_light_on_delay_enabled', 'on') and not is_state('sensor.' + room + '_ceiling_light_on_delay', '0 seconds') -%}
-      {%- set on_message = on_message + ' for ' + states('sensor.' + room + '_light_on_delay') -%}
-    {%- endif -%}
-    {%- if is_state('input_boolean.' + room + '_ceiling_light_on_light_level_threshold_enabled', 'on') -%}
-      {%- set on_message = on_message + '- The light level is below ' + states('input_number.' + room + '_light_level_threshold', with_unit=True) -%} 
-      {%- set on_message = on_message + ' (currently ' + states('sensor.' + room + '_light_level', with_unit=True) + ').' -%}
-    {%- endif -%}
-    {%- if is_state('input_boolean.' + room + '_ceiling_light_on_sleep_mode_block', 'on') -%}
-      {%- set on_message = on_message + '- [Sleep Mode](http://192.168.1.17:8123/' + room.replace('_', '-') + '/sleep-mode) is off.' -%}
-    {%- endif -%}
-    {%- if is_state('input_boolean.' + room + '_ceiling_light_on_tv_block', 'on') -%}
-      {%- set on_message = on_message + '- The TV is off.' -%}
-    {%- endif -%}
-    {{- on_message -}}
-  {%- else -%}
+{% macro ceiling_light_on_description(room) %}
+  {% if is_state('automation.' + room + '_ceiling_light_on', 'on') %}
+    Enabled: The ceiling light will turn on automatically when the following conditions are met:
+    - Presence is detected in the room{% if is_state('input_boolean.' + room + '_ceiling_light_on_delay', 'on') and not is_state('sensor.' + room + '_ceiling_light_on_delay', '0 seconds') %} for {{ states('sensor.' + room + '_ceiling_light_on_delay') }}{% endif -%}.
+  {% if is_state('input_boolean.' + room + '_ceiling_light_on_light_level_threshold', 'on') -%}
+    - The light level is below {{ states('input_number.' + room + '_ceiling_light_on_light_level_threshold') | int }} lx (currently {{ states('sensor.' + room + '_light_level', with_unit=True) }}).
+  {% endif -%}
+  {% if is_state('input_boolean.' + room + '_ceiling_light_on_sleep_mode_block', 'on') -%}
+    - [Sleep Mode](http://192.168.1.17:8123/{{ room.replace('_', '-') }}/sleep-mode) is off.
+  {% endif -%}
+  {% if is_state('input_boolean.' + room + '_ceiling_light_on_tv_block', 'on') -%}
+    - The TV is off.
+  {% endif -%}
+  {% else -%}
     Disabled: The ceiling light will never turn on automatically. Control it manually from the tablet or the wall remote.
-  {%- endif -%}
-{%- endmacro -%}
+  {% endif -%}
+{% endmacro %}
 {%- macro ceiling_light_off_description(room) -%}
   {%- if is_state('automation.guest_room_double_ceiling_light_off', 'on')
     -%}
