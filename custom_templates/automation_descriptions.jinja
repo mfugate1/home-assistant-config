@@ -1,7 +1,7 @@
 {% macro ceiling_light_on_description(room) %}
   {% if is_state('automation.' + room + '_ceiling_light_on', 'on') %}
     Enabled: The ceiling light will turn on automatically when the following conditions are met:
-    - Presence is detected in the room{% if is_state('input_boolean.' + room + '_ceiling_light_on_delay', 'on') and not is_state('sensor.' + room + '_ceiling_light_on_delay', '0 seconds') %} for {{ states('sensor.' + room + '_ceiling_light_on_delay') }}{% endif -%}.
+  - Presence is detected in the room{% if is_state('input_boolean.' + room + '_ceiling_light_on_delay', 'on') and not is_state('sensor.' + room + '_ceiling_light_on_delay', '0 seconds') %} for {{ states('sensor.' + room + '_ceiling_light_on_delay') }}{% endif -%}.
   {% if is_state('input_boolean.' + room + '_ceiling_light_on_light_level_threshold', 'on') -%}
     - The light level is below {{ states('input_number.' + room + '_ceiling_light_on_light_level_threshold') | int }} lx (currently {{ states('sensor.' + room + '_light_level', with_unit=True) }}).
   {% endif -%}
