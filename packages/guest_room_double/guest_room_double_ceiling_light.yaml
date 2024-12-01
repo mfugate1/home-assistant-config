@@ -97,7 +97,7 @@ input_number:
     mode: box
     unit_of_measurement: min
   guest_room_double_ceiling_light_on_light_level_threshold:
-    min: 0
+    min: 1
     max: 200
     mode: box
     unit_of_measurement: lx
