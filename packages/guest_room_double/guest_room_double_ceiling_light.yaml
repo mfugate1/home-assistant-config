@@ -133,7 +133,12 @@ template:
     - name: guest_room_double_ceiling_light_on_sleep_mode_block
       state: "{{ states('input_boolean.guest_room_double_ceiling_light_on_sleep_mode_block') }}"
       attributes:
-        description: Controls whether the light can turn on if sleep mode is active.
+        description: >-
+          {% if value == 'on' %}
+            Enabled: The light will not turn on if sleep mode is on.
+          {% else %}
+            Disabled: The light can turn on even if sleep mode is on.
+          {% endif %}
     - name: guest_room_double_ceiling_light_off_sleep_mode
       state: "{{ states('input_boolean.guest_room_double_ceiling_light_off_sleep_mode') }}"
       attributes:
