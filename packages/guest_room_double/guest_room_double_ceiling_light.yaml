@@ -134,7 +134,7 @@ template:
       state: "{{ states('input_boolean.guest_room_double_ceiling_light_on_sleep_mode_block') }}"
       attributes:
         description: >-
-          {% if value == 'on' %}
+          {% if is_state('input_boolean.guest_room_double_ceiling_light_on_sleep_mode_block', 'on') %}
             Enabled: The light will not turn on if sleep mode is on.
           {% else %}
             Disabled: The light can turn on even if sleep mode is on.
@@ -142,11 +142,21 @@ template:
     - name: guest_room_double_ceiling_light_off_sleep_mode
       state: "{{ states('input_boolean.guest_room_double_ceiling_light_off_sleep_mode') }}"
       attributes:
-        description: Controls whether the light will turn off when sleep mode becomes active.
+        description: >-
+          {% if is_state('input_boolean.guest_room_double_ceiling_light_off_sleep_mode', 'on') %}
+            Enabled: The light will turn off when sleep mode turns on.
+          {% else %}
+            Disabled: The light will not turn off automatically when sleep mode turns on.
+          {% endif %}
     - name: guest_room_double_ceiling_light_on_tv_block
       state: "{{ states('input_boolean.guest_room_double_ceiling_light_on_tv_block') }}"
       attributes:
-        description: Controls whether the light can turn on if the TV is on.
+        description: >-
+          {% if is_state('input_boolean.guest_room_double_ceiling_light_on_tv_block', 'on') %}
+            Enabled: The light will not turn on if the TV is on.
+          {% else %}
+            Disabled: The light can turn on automatically even if the TV is on.
+          {% endif %}
 
   - sensor:
     - name: guest_room_double_ceiling_light_on_delay
