@@ -1,6 +1,9 @@
 {%- macro ceiling_light_on_description(room) -%}
   {%- if is_state('automation.' + room + '_ceiling_light_on', 'on') -%}
     {%- set on_message = 'Enabled: The ceiling light will turn on automatically when presence is detected in the room' -%}
+    {%- if is_state('input_boolean.' + room + '_light_on_delay_enabled', 'on') -%}
+      {%- set on_message = on_message + ' for ' + states('sensor.' + room + '_light_on_delay') -%}
+    {%- endif -%}
     {%- if is_state('input_boolean.' + room + '_light_level_threshold_enabled', 'on') -%}
         {%- set on_message = on_message + ' and the light level is below ' 
             + states('input_number.guest_room_double_light_level_threshold', with_unit=True) + '. ' -%}
