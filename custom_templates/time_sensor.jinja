@@ -1,5 +1,5 @@
 {%- macro time_sensor(name, units) -%}
-  {%- if is_state('input_boolean.' + name + '_enabled', 'on') -%}
+  {%- if is_state('input_boolean.' + name, 'on') -%}
     {{- states('input_number.' + name + '_' + units) | int -}}
   {%- else -%}
     0
