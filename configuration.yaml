@@ -35,14 +35,6 @@ lovelace:
       mode: yaml
       filename: dashboards/guest-room-single.yaml
       title: Guest Room (Single)
-    kitchen-tablet:
-      mode: yaml
-      filename: dashboards/kitchen-tablet.yaml
-      title: Kitchen Tablet
-    hall-of-holes-tablet:
-      mode: yaml
-      filename: dashboards/hall-of-holes-tablet.yaml
-      title: Hall of Holes Tablet
 
 remote_homeassistant:
   instances:
