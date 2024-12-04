@@ -1,3 +1,24 @@
 - name: Docker
+  containers:
+    - firefly-iii
+    - firefly-iii-cron
+    - glances
+    - gotenberg
+    - home-assistant
+    - homebox
+    - immich
+    - immich-machine-learning
+    - immich_postgres
+    - jenkins
+    - jenkins-watchtower
+    - mariadb
+    - mealie
+    - mqtt-broker
+    - nginx-proxy-manager
+    - paperless
+    - ps5mqtt
+    - redis
+    - tika
+    - unifi
   monitored_conditions:
     - allinone
