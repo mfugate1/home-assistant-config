@@ -6,6 +6,7 @@ conversation:
 grad_vol:
 history:
 logbook:
+lovelace:
 media_source:
 mobile_app:
 sun:
@@ -26,15 +27,6 @@ http:
   trusted_proxies:
     - 192.168.1.0/24
     - 172.0.0.0/8
-
-lovelace:
-  mode: yaml
-  resources: !include dashboards/resources.yaml
-  dashboards:
-    guest-room-single:
-      mode: yaml
-      filename: dashboards/guest-room-single.yaml
-      title: Guest Room (Single)
 
 remote_homeassistant:
   instances:
