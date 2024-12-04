@@ -12,7 +12,7 @@ automation:
     conditions:
       - or:
         - condition: numeric_state
-          entity_id: sensor.guest_room_double_ceiling_light_level
+          entity_id: sensor.guest_room_double_light_level
           below: input_number.guest_room_double_ceiling_light_on_light_level_threshold
         - condition: state
           entity_id: input_boolean.guest_room_double_ceiling_light_on_light_level_threshold
