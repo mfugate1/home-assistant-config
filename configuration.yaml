@@ -17,7 +17,7 @@ frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
     - /local/community/custom-brand-icons/custom-brand-icons.js
-    - /hacsfiles/kiosk-mode/kiosk-mode.js?v6.1.1
+    - /hacsfiles/kiosk-mode/kiosk-mode.js
 
 homeassistant:
   packages: !include_dir_named packages
