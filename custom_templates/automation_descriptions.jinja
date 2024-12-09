@@ -30,3 +30,13 @@
     Disabled: The ceiling light will never turn off automatically. Control it manually from the tablet or the wall remote.
   {%- endif -%}
 {%- endmacro -%}
+{%- macro light_level_description(room) -%}
+  {%- if is_state('input_boolean.' + room + '_ceiling_light_on_light_level_threshold', 'on') -%}
+    Enabled: The ceiling light can only turn on automatically if the light level in the room is above
+    {{ states('input_number.' + room + '_ceiling_light_on_light_level_threshold', with_unit=True) }} (and all
+    other active conditions are met).
+  {%- else -%}
+    Disabled: The ceiling light can turn on automatically regardless of the light level in the room, as long as all other
+    active conditions are met.
+  {%- endif -%}
+{%- endmacro -%}
