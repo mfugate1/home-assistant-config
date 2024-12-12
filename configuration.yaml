@@ -1,17 +1,27 @@
+assist_pipeline:
 auth:
 backup:
 battery_notes:
 config:
 conversation:
+dhcp:
 grad_vol:
 history:
+homeassistant_alerts:
+image_upload:
 logbook:
 lovelace:
 media_source:
 mobile_app:
+my:
+ssdp:
+stream:
 sun:
 system_health:
+usb:
 wake_on_lan:
+webhook:
+zeroconf:
 
 frontend:
   extra_module_url:
