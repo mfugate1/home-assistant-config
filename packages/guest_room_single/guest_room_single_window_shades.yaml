@@ -13,9 +13,9 @@ automation:
       - condition: numeric_state
         entity_id: cover.guest_room_single_shade_back
         attribute: current_position
-        below: 100
+        above: 0
     actions:
-      - action: cover.open_cover
+      - action: cover.close_cover
         entity_id: cover.guest_room_single_shade_back
 
   - alias: Guest Room (Single) - Open Back Shade When TV is Off
@@ -31,10 +31,10 @@ automation:
       - condition: numeric_state
         entity_id: cover.guest_room_single_shade_back
         attribute: current_position
-        above: 0
+        below: 100
       - condition: state
         entity_id: sun.sun
         state: above_horizon
     actions:
-      - action: cover.close_cover
+      - action: cover.open_cover
         entity_id: cover.guest_room_single_shade_back
