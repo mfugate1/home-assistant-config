@@ -20,6 +20,8 @@ automation:
             - bedroom_shade_side
             - guest_room_double_shade_front_inverted
             - guest_room_double_shade_side_inverted
+            - guest_room_single_shade_back
+            - guest_room_single_shade_side
             - office_shade_side
       - action: "cover.{{ trigger.id }}_cover"
         target:
