@@ -1,0 +1,306 @@
+automation:
+  - alias: Guest Room (Single) - Ceiling Light On
+    id: guest_room_single_ceiling_light_on
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        to: 'on'
+        for:
+          seconds: "{{ states('sensor.guest_room_single_ceiling_light_on_delay_seconds') | int(0) }}"
+          minutes: "{{ states('sensor.guest_room_single_ceiling_light_on_delay_minutes') | int(0) }}"
+    conditions:
+      - or:
+        - condition: numeric_state
+          entity_id: sensor.guest_room_single_light_level
+          below: input_number.guest_room_single_ceiling_light_on_light_level_threshold
+        - condition: state
+          entity_id: input_boolean.guest_room_single_ceiling_light_on_light_level_threshold
+          state: 'off'
+      - condition: state
+        entity_id: 
+          - input_boolean.guest_room_single_sleep_mode
+          - input_boolean.guest_room_single_ceiling_light_on_sleep_mode_block
+        match: any
+        state: 'off'
+      - condition: state
+        entity_id:
+          - binary_sensor.guest_room_single_tv
+          - input_boolean.guest_room_single_ceiling_light_on_tv_block
+        match: any
+        state: 'off'
+    actions:
+      - action: light.turn_on
+        entity_id: light.guest_room_single_ceiling_fan_light
+
+  - alias: Guest Room (Double) - Ceiling Light Off
+    id: guest_room_single_ceiling_light_off
+    mode: queued
+    triggers:
+      - trigger: state
+        id: presence
+        entity_id: binary_sensor.guest_room_single_presence_all_zones
+        to: 'off'
+        for:
+          seconds: "{{ states('sensor.guest_room_single_ceiling_light_off_delay_seconds') | int(0) }}"
+          minutes: "{{ states('sensor.guest_room_single_ceiling_light_off_delay_minutes') | int(1) }}"
+      - trigger: state
+        id: sleep
+        entity_id: input_boolean.guest_room_single_sleep_mode
+        to: 'on'
+        for:
+          seconds: "{{ states('sensor.guest_room_single_ceiling_light_off_sleep_mode_delay_seconds') | int(30) }}"
+          minutes: "{{ states('sensor.guest_room_single_ceiling_light_off_sleep_mode_delay_minutes') | int(0) }}"
+      - trigger: state
+        id: sleep_mode_enabled
+        entity_id: input_boolean.guest_room_single_ceiling_light_off_sleep_mode
+        to: 'on'
+        from: 'off'
+    conditions:
+      - or:
+        - "{{ trigger.id == 'presence' }}"
+        - and:
+          - "{{ trigger.id == 'sleep' }}"
+          - condition: state
+            entity_id: input_boolean.guest_room_single_ceiling_light_off_sleep_mode
+            state: 'on'
+        - and:
+          - "{{ trigger.id == 'sleep_mode_enabled' }}"
+          - condition: state
+            entity_id: input_boolean.guest_room_single_sleep_mode
+            state: 'on'
+    actions:
+      - action: light.turn_off
+        entity_id: light.guest_room_single_ceiling_fan_light
+
+input_boolean:
+  # Light on
+  guest_room_single_ceiling_light_on_delay:
+  guest_room_single_ceiling_light_on_light_level_threshold:
+  guest_room_single_ceiling_light_on_sleep_mode_block:
+  guest_room_single_ceiling_light_on_tv_block:
+  
+  # Light off
+  guest_room_single_ceiling_light_off_sleep_mode:
+  guest_room_single_ceiling_light_off_delay:
+
+input_number:
+  # Light on
+  guest_room_single_ceiling_light_on_delay_seconds: &seconds
+    min: 0
+    max: 60
+    mode: box
+    unit_of_measurement: sec
+  guest_room_single_ceiling_light_on_delay_minutes: &minutes
+    min: 0
+    max: 120
+    mode: box
+    unit_of_measurement: min
+  guest_room_single_ceiling_light_on_light_level_threshold:
+    min: 1
+    max: 200
+    mode: box
+    unit_of_measurement: lx
+
+  # Light off
+  guest_room_single_ceiling_light_off_delay_seconds: *seconds
+  guest_room_single_ceiling_light_off_delay_minutes: *minutes
+  guest_room_single_ceiling_light_off_sleep_mode_delay_seconds: *seconds
+  guest_room_single_ceiling_light_off_sleep_mode_delay_minutes: *minutes
+  
+  # Light template
+  guest_room_single_ceiling_fan_light_brightness:
+    min: 0
+    max: 255
+  guest_room_single_ceiling_fan_light_temperature:
+    min: 153
+    max: 500
+
+template:
+  - binary_sensor:
+    - name: guest_room_single_ceiling_light_on_delay
+      state: "{{ states('input_boolean.guest_room_single_ceiling_light_on_delay') }}"
+      attributes:
+        description: >-
+          {% if is_state('input_boolean.guest_room_single_ceiling_light_on_delay', 'on') %}
+            Enabled: Light will not turn on until presence is detected for {{ states('guest_room_single_ceiling_light_on_delay') }}.
+          {% else %}
+            Disabled: No delay between presence detection and the light turning on.
+          {% endif %}
+    - name: guest_room_single_ceiling_light_off_delay
+      state: "{{ states('input_boolean.guest_room_single_ceiling_light_off_delay') }}"
+      attributes:
+        description: Time to wait after no presence is detected before turning off the light.
+    - name: guest_room_single_ceiling_light_on_light_level_threshold
+      state: "{{ states('input_boolean.guest_room_single_ceiling_light_on_light_level_threshold') }}"
+      attributes:
+        description: Light level the room must be below for the light to turn on.
+    - name: guest_room_single_ceiling_light_on_sleep_mode_block
+      state: "{{ states('input_boolean.guest_room_single_ceiling_light_on_sleep_mode_block') }}"
+      attributes:
+        description: >-
+          {% if is_state('input_boolean.guest_room_single_ceiling_light_on_sleep_mode_block', 'on') %}
+            Enabled: The light will not turn on if sleep mode is on.
+          {% else %}
+            Disabled: The light can turn on even if sleep mode is on.
+          {% endif %}
+    - name: guest_room_single_ceiling_light_off_sleep_mode
+      state: "{{ states('input_boolean.guest_room_single_ceiling_light_off_sleep_mode') }}"
+      attributes:
+        description: >-
+          {% if is_state('input_boolean.guest_room_single_ceiling_light_off_sleep_mode', 'on') %}
+            Enabled: The light will turn off when sleep mode turns on.
+          {% else %}
+            Disabled: The light will not turn off automatically when sleep mode turns on.
+          {% endif %}
+    - name: guest_room_single_ceiling_light_on_tv_block
+      state: "{{ states('input_boolean.guest_room_single_ceiling_light_on_tv_block') }}"
+      attributes:
+        description: >-
+          {% if is_state('input_boolean.guest_room_single_ceiling_light_on_tv_block', 'on') %}
+            Enabled: The light will not turn on if the TV is on.
+          {% else %}
+            Disabled: The light can turn on automatically even if the TV is on.
+          {% endif %}
+
+  - sensor:
+    - name: guest_room_single_ceiling_light_on_delay
+      state: >-
+        {%- from 'get_readable_time.jinja' import get_readable_time -%}
+        {{- get_readable_time('guest_room_single_ceiling_light_on_delay') -}}
+    - name: guest_room_single_ceiling_light_off_delay
+      state: >-
+        {%- from 'get_readable_time.jinja' import get_readable_time -%}
+        {{- get_readable_time('guest_room_single_ceiling_light_off_delay') -}}
+    - name: guest_room_single_ceiling_light_on_delay_seconds
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_single_ceiling_light_on_delay', 'seconds') -}}
+    - name: guest_room_single_ceiling_light_on_delay_minutes
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_single_ceiling_light_on_delay', 'minutes') -}}
+    - name: guest_room_single_ceiling_light_off_delay_seconds
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_single_ceiling_light_off_delay', 'seconds') -}}
+    - name: guest_room_single_ceiling_light_off_delay_minutes
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_single_ceiling_light_off_delay', 'minutes') -}}
+    - name: guest_room_single_ceiling_light_off_sleep_mode_delay_seconds
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_single_ceiling_light_off_sleep_mode_delay', 'seconds') -}}
+    - name: guest_room_single_ceiling_light_off_sleep_mode_delay_minutes
+      state: >-
+        {%- from 'time_sensor.jinja' import time_sensor -%}
+        {{- time_sensor('guest_room_single_ceiling_light_off_sleep_mode_delay', 'minutes') -}}
+
+light:
+  - platform: template
+    lights:
+      guest_room_single_ceiling_fan_light:
+        friendly_name: Light
+        value_template: "{{ ( state_attr('light.guest_room_single_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.guest_room_single_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
+        level_template: "{{ states('input_number.guest_room_single_ceiling_fan_light_brightness') | int(0)   }}"
+        temperature_template: "{{ states('input_number.guest_room_single_ceiling_fan_light_temperature') | int(500) }}"
+        set_level:
+          - action: input_number.set_value
+            target:
+              entity_id: input_number.guest_room_single_ceiling_fan_light_brightness
+            data:
+              value: "{{ brightness | int(0) }}"
+          - if:
+              - condition: numeric_state
+                entity_id: input_number.guest_room_single_ceiling_fan_light_brightness
+                above: 128
+            then:
+              - variables:
+                  perc_above_mid: "{{ ((states('input_number.guest_room_single_ceiling_fan_light_brightness') | int(0) - 128) / 127) | float(0) }}"
+              - if:
+                  - condition: numeric_state
+                    entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+                    above: 327
+                then:
+                  - variables:
+                      warmest: "{{ (500 - (perc_above_mid * 173)) | int(500) }}"
+                  - if:
+                      - condition: numeric_state
+                        entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+                        above: 0
+                        value_template: "{{ (float(state.state) - warmest) | int(0) }}"
+                    then:
+                      - action: input_number.set_value
+                        target:
+                          entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+                        data:
+                          value: "{{ warmest | int(500) }}"
+              - if:
+                  - condition: numeric_state
+                    entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+                    below: 327
+                then:
+                  - variables:
+                      coldest: "{{ (153 + (perc_above_mid * 174)) | int(153) }}"
+                  - if:
+                      - condition: numeric_state
+                        entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+                        below: 0
+                        value_template: "{{ (float(state.state) - coldest) | int(0) }}"
+                    then:
+                      - action: input_number.set_value
+                        target:
+                          entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+                        data:
+                          value: "{{ coldest | int(153) }}"
+          - action: light.turn_on
+            target:
+              entity_id: light.guest_room_single_ceiling_fan_light
+        set_temperature:
+          - action: input_number.set_value
+            target:
+              entity_id: input_number.guest_room_single_ceiling_fan_light_temperature
+            data:
+              value: "{{ ((153, color_temp, 500) | sort)[1] | int(500) }}"
+          - if:
+              - condition: numeric_state
+                entity_id: input_number.guest_room_single_ceiling_fan_light_brightness
+                above: 128
+            then:
+              - variables:
+                  delta_perc_mean_temp: "{{ (((( (states('input_number.guest_room_single_ceiling_fan_light_temperature') | int(500) - 152) / 348) - 0.5) | abs ) * 2) | float(0) }}"
+                  max_brightness: "{{ ( (1 - delta_perc_mean_temp) * 127 + 128 ) | int(0) }}"
+              - if:
+                  - condition: numeric_state
+                    entity_id: input_number.guest_room_single_ceiling_fan_light_brightness
+                    above: 0
+                    value_template: "{{ (float(state.state) - max_brightness) | int(0) }}"
+                then:
+                  - action: input_number.set_value
+                    target:
+                      entity_id: input_number.guest_room_single_ceiling_fan_light_brightness
+                    data:
+                      value: "{{ max_brightness | int(0) }}"
+          - action: light.turn_on
+            target:
+              entity_id: light.guest_room_single_ceiling_fan_light
+        turn_on:
+          - variables:
+              ww_ratio: "{{ ((   states('input_number.guest_room_single_ceiling_fan_light_temperature') | int(500) - 152 ) / 348 ) | float(0) }}"
+          - action: light.turn_on
+            target:
+              entity_id: light.guest_room_single_ceiling_fan_yellow
+            data:
+              brightness: "{{ (2 * states('input_number.guest_room_single_ceiling_fan_light_brightness') | int(0) * ww_ratio) | int(0) }}"
+          - action: light.turn_on
+            target:
+              entity_id: light.guest_room_single_ceiling_fan_white
+            data:
+              brightness: "{{ (2 * states('input_number.guest_room_single_ceiling_fan_light_brightness') | int(0) * (1 - ww_ratio) ) | int(0) }}"
+        turn_off:
+          action: light.turn_off
+          target:
+            entity_id: 
+              - light.guest_room_single_ceiling_fan_yellow
+              - light.guest_room_single_ceiling_fan_white
