@@ -1,0 +1,12 @@
+input_number:
+  guest_room_single_tv_current_threshold_when_on:
+    min: 0
+    max: 2
+    step: 0.01
+    mode: box
+    unit_of_measurement: A
+
+template:
+  - binary_sensor:
+    - name: guest_room_single_tv
+      state: "{{ states('sensor.guest_room_single_tv_current') | float(0) > states('input_number.guest_room_single_tv_current_threshold_when_on') | float(0) }}"
