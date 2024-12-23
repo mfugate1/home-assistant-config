@@ -35,6 +35,11 @@ automation:
       - condition: state
         entity_id: sun.sun
         state: above_horizon
+      - condition: state
+        entity_id:
+          - binary_sensor.guest_room_single_tv
+          - switch.guest_room_single_ps4
+        state: 'off'
     actions:
       - action: cover.open_cover
         entity_id: cover.guest_room_single_shade_back
