@@ -39,6 +39,8 @@ input_boolean:
   bedroom_shade_side_auto:
   guest_room_double_shade_front_inverted_auto:
   guest_room_double_shade_side_inverted_auto:
+  guest_room_single_shade_back_auto:
+  guest_room_single_shade_side_auto:
   office_shade_side_auto:
 
 input_number:
