@@ -1,0 +1,6 @@
+template:
+  - sensor:
+    - name: all_media_players
+      state: use_entities_attribute
+      attributes:
+        entities: "{{ states.media_player | map(attribute='entity_id') | list | sort }}"
