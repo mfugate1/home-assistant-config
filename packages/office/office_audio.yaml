@@ -1,3 +1,12 @@
+group:
+  office_music_presence:
+    entities:
+      - binary_sensor.master_bathroom_presence_all_zones
+      - binary_sensor.master_bedroom_presence_all_zones
+      - binary_sensor.office_presence_all_zones
+      - binary_sensor.guest_room_single_presence_all_zones
+      - binary_sensor.guest_room_double_presence_all_zones
+
 automation:
   - alias: Office - Music - Adjust Volume For Presence
     id: office_music_adjust_volume_for_presence
@@ -38,6 +47,22 @@ automation:
         data:
           value: "{{ state_attr('media_player.office_wiim', 'volume_level') | float * 100 }}"
 
+script:
+  office_audio_pc:
+    alias: Office Audio - PC
+    mode: queued
+    sequence:
+      - action: switch.turn_on
+        entity_id: switch.office_speakers
+      - action: media_player.unjoin
+        target:
+          entity_id: media_player.office_wiim
+      - action: media_player.select_source
+        target:
+          entity_id: media_player.office_wiim
+        data:
+          source: "{{ states('input_text.office_linkplay_pc_source') }}"
+
 input_number:
   office_music_adjust_volume_for_presence_duration:
     min: 0
@@ -49,3 +74,18 @@ input_number:
     max: 100
     mode: box
   office_music_adjust_volume_for_presence_level_on: *level
+
+input_text:
+  office_pc_source:
+
+template:
+  - select:
+    - name: office_pc_source
+      unique_id: office_pc_source
+      state: "{{ states('input_text.office_pc_source') }}"
+      options: "{{ state_attr('media_player.office_wiim', 'source_list') }}"
+      select_option:
+        action: input_text.set_value
+        entity_id: input_text.office_pc_source
+        data:
+          value: "{{ option }}"
