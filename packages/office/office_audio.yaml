@@ -1,0 +1,36 @@
+automation:
+  - alias: Office - Music - Adjust Volume For Presence
+    id: office_music_adjust_volume_for_presence
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.office_presence_all_zones
+        to:
+          - 'off'
+          - 'on'
+    conditions:
+      - condition: state
+        entity_id: media_player.office_wiim
+        state: playing
+      - condition: state
+        entity_id: media_player.office_wiim
+        attribute: source
+        state: Spotify
+    actions:
+      - action: grad_vol.set_volume
+        entity_id: media_player.office_wiim
+        data:
+          duration: "{{ states('input_number.office_music_adjust_volume_for_presence_duration') | int(5) }}"
+          volume: "{{ states('input_number.office_music_adjust_volume_for_presence_level_' + trigger.to_state.state) | float / 100 }}"
+
+input_number:
+  office_music_adjust_volume_for_presence_duration:
+    min: 0
+    max: 30
+    mode: box
+    unit_of_measurement: s
+  office_music_adjust_volume_for_presence_level_off: &level
+    min: 0
+    max: 100
+    mode: box
+  office_music_adjust_volume_for_presence_level_on: *level
