@@ -18,10 +18,25 @@ automation:
         state: Spotify
     actions:
       - action: grad_vol.set_volume
-        entity_id: media_player.office_wiim
+        target:
+          entity_id: media_player.office_wiim
         data:
           duration: "{{ states('input_number.office_music_adjust_volume_for_presence_duration') | int(5) }}"
           volume: "{{ states('input_number.office_music_adjust_volume_for_presence_level_' + trigger.to_state.state) | float / 100 }}"
+
+  - alias: Office - Music - Save Volume Adjustments
+    id: office_music_save_volume_adjustments
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id: media_player.office_wiim
+        attribute: volume_level
+    actions:
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.office_music_adjust_volume_for_presence_level_{{ states('binary_sensor.office_presence_all_zones') }}
+        data:
+          value: "{{ state_attr('media_player.office_wiim', 'volume_level') | float * 100 }}"
 
 input_number:
   office_music_adjust_volume_for_presence_duration:
