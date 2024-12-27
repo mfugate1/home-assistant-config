@@ -27,7 +27,7 @@ automation:
           entity_id: media_player.office_wiim
         data:
           duration: >
-            {% if is_state('', 'idle') %}
+            {% if is_state('assist_satellite.home_assistant_voice_office_assist_satellite', 'idle') %}
               {{ states('input_number.office_music_adjust_volume_for_presence_duration') | int(5) }}
             {% else %}
               0
