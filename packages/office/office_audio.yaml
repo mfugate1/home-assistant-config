@@ -19,12 +19,8 @@ automation:
           - 'on'
     conditions:
       - condition: state
-        entity_id: media_player.office_wiim
-        state: playing
-      - condition: state
-        entity_id: media_player.office_wiim
-        attribute: source
-        state: Spotify
+        entity_id: binary_sensor.office_music_playing
+        state: 'on'
     actions:
       - action: grad_vol.set_volume
         target:
@@ -47,6 +43,28 @@ automation:
         data:
           value: "{{ state_attr('media_player.office_wiim', 'volume_level') | float * 100 }}"
 
+  - alias: Office - Music - Adjust Volume For Assist
+    id: office_music_lower_volume_for_assist
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: assist_satellite.home_assistant_voice_office_assist_satellite
+    conditions:
+      - condition: state
+        entity_id: binary_sensor.office_music_playing
+        state: 'on'
+    actions:
+      - action: media_player.set_volume
+        target:
+          entity_id: media_player.office_wiim
+        data:
+          volume_level: >
+            {% if trigger.to_state.state == 'idle' %}
+              {{ states('input_number.office_music_adjust_volume_for_presence_level_' + states('binary_sensor.office_presence_all_zones')) | float / 100 }}
+            {% else %}
+              {{ states('input_number.office_music_adjust_volume_for_assist_active' + suffix) | float / 100 }}
+            {% endif %}
+
 script:
   office_audio_pc:
     alias: Office Audio - PC
@@ -54,14 +72,14 @@ script:
     sequence:
       - action: switch.turn_on
         entity_id: switch.office_speakers
-      - action: media_player.unjoin
-        target:
+      - action: linkplay.unjoin
+        data:
           entity_id: media_player.office_wiim
       - action: media_player.select_source
         target:
           entity_id: media_player.office_wiim
         data:
-          source: "{{ states('input_text.office_linkplay_pc_source') }}"
+          source: "{{ states('input_text.office_pc_source') }}"
 
 input_number:
   office_music_adjust_volume_for_presence_duration:
@@ -74,11 +92,16 @@ input_number:
     max: 100
     mode: box
   office_music_adjust_volume_for_presence_level_on: *level
+  office_music_adjust_volume_for_assist_active: *level
 
 input_text:
   office_pc_source:
 
 template:
+  - binary_sensor:
+    - name: office_music_playing
+      state: "{{ is_state('media_player.office_wiim', 'playing') and is_state_attr('media_player.office_wiim', 'source', 'Spotify') }}"
+
   - select:
     - name: office_pc_source
       unique_id: office_pc_source
