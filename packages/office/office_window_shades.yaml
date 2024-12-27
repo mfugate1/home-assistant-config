@@ -7,7 +7,7 @@ automation:
         command:
           - "{command} the [window] (shades|blinds|shade|blind)"
     actions:
-      - set_conversation_response: Closing the shades
+      - set_conversation_response: "{{ 'closing' if trigger.slots.command == 'close' else 'opening'}} the shades"
       - action: cover.{{ trigger.slots.command }}_cover
         target:
           entity_id: cover.office_shade_side
