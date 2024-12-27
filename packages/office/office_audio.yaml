@@ -32,7 +32,7 @@ automation:
             {% else %}
               0
             {% endif %}
-          volume: "{{ states('input_number.office_music_adjust_volume_for_presence_level_' + trigger.to_state.state) | float / 100 }}"
+          volume: "{{ states('sensor.office_audio_volume_level') | float }}"
 
   - alias: Office - Music - Save Volume Adjustments
     id: office_music_save_volume_adjustments
