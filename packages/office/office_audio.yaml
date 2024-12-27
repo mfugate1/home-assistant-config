@@ -41,7 +41,7 @@ automation:
       - trigger: state
         entity_id: media_player.office_wiim
         attribute: volume_level
-    conditions: "{{ trigger.context.user_id != null }}"
+    conditions: "{{ trigger.to_state.context.user_id != null }}"
     actions:
       - action: input_number.set_value
         target:
