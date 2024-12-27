@@ -54,7 +54,7 @@ automation:
         entity_id: binary_sensor.office_music_playing
         state: 'on'
     actions:
-      - action: media_player.set_volume
+      - action: media_player.volume_set
         target:
           entity_id: media_player.office_wiim
         data:
