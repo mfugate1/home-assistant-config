@@ -7,7 +7,13 @@ automation:
         command:
           - "{command} the [window] (shades|blinds|shade|blind)"
     actions:
-      - set_conversation_response: "{{ 'closing' if trigger.slots.command == 'close' else 'opening'}} the shades"
-      - action: cover.{{ trigger.slots.command }}_cover
-        target:
-          entity_id: cover.office_shade_side
+      - if: "{{ trigger.slots.command not in ['open', 'close'] }}"
+        then:
+          - set_conversation_response: >
+              It looks like you're trying to control the shades in this room, but you didn't use a supported command.
+              Try saying 'open the shades' or 'close the shades'.
+        else:
+        - set_conversation_response: "{{ 'closing' if trigger.slots.command == 'close' else 'opening'}} the shades"
+        - action: cover.{{ trigger.slots.command }}_cover
+          target:
+            entity_id: cover.office_shade_side
