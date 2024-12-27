@@ -89,11 +89,12 @@ script:
 
 intent_script:
   PCAudio:
-    speech: Audio switched to line in
+    speech: 
+      text: Audio switched to line in
     action:
-      action: script.turn_on
-      target:
-        entity_id: script.office_audio_pc
+      - action: script.turn_on
+        target:
+          entity_id: script.office_audio_pc
 
 input_number:
   office_music_adjust_volume_for_presence_duration:
