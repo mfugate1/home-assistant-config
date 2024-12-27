@@ -7,6 +7,6 @@ automation:
         command:
           - "{command} the [window] (shades|blinds|shade|blind)"
     actions:
-      - action: cover.{{ trigger.slots.command }}
+      - action: cover.{{ trigger.slots.command }}_cover
         target:
           entity_id: cover.office_shade_side
