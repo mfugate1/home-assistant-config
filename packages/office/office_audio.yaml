@@ -87,6 +87,14 @@ script:
         data:
           source: "{{ states('input_text.office_pc_source') }}"
 
+intent_script:
+  PCAudio:
+    speech: Audio switched to line in
+    action:
+      action: script.turn_on
+      target:
+        entity_id: script.office_audio_pc
+
 input_number:
   office_music_adjust_volume_for_presence_duration:
     min: 0

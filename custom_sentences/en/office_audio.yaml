@@ -1,0 +1,8 @@
+language: en
+
+intents:
+  PCAudio:
+    data:
+      - sentences:
+        - "(switch|change|go) [to] [the] pc audio"
+        - "(switch|change|go) [to] [the] line in"
