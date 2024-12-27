@@ -1,0 +1,12 @@
+automation:
+
+  - alias: Office - Control Shades With Voice
+    id: office_control_shades_with_voice
+    triggers:
+      - trigger: conversation
+        command:
+          - "{command} the [window] (shades|blinds|shade|blind)"
+    actions:
+      - action: cover.{{ trigger.slots.command }}
+        target:
+          entity_id: cover.office_shade_side
