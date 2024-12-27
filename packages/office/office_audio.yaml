@@ -22,6 +22,9 @@ automation:
         entity_id: binary_sensor.office_music_playing
         state: 'on'
     actions:
+      - action: automation.turn_off
+        target:
+          entity_id: automation.office_music_save_volume_adjustments
       - action: grad_vol.set_volume
         target:
           entity_id: media_player.office_wiim
@@ -33,6 +36,9 @@ automation:
               0
             {% endif %}
           volume: "{{ states('sensor.office_audio_volume_level') | float }}"
+      - action: automation.turn_on
+        target:
+          entity_id: automation.office_music_save_volume_adjustments
 
   - alias: Office - Music - Save Volume Adjustments
     id: office_music_save_volume_adjustments
@@ -41,10 +47,6 @@ automation:
       - trigger: state
         entity_id: media_player.office_wiim
         attribute: volume_level
-    conditions:
-      - condition: state
-        entity_id: assist_satellite.home_assistant_voice_office_assist_satellite
-        state: idle
     actions:
       - action: input_number.set_value
         target:
