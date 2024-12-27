@@ -8,15 +8,15 @@ group:
       - binary_sensor.guest_room_double_presence_all_zones
 
 automation:
-  - alias: Office - Music - Adjust Volume For Presence
-    id: office_music_adjust_volume_for_presence
+  - alias: Office - Music - Adjust Volume
+    id: office_music_adjust_volume
     mode: queued
     triggers:
       - trigger: state
-        entity_id: binary_sensor.office_presence_all_zones
-        to:
-          - 'off'
-          - 'on'
+        entity_id: sensor.office_audio_volume_level
+      - trigger: state
+        entity_id: binary_sensor.office_music_playing
+        to: 'on'
     conditions:
       - condition: state
         entity_id: binary_sensor.office_music_playing
@@ -26,7 +26,12 @@ automation:
         target:
           entity_id: media_player.office_wiim
         data:
-          duration: "{{ states('input_number.office_music_adjust_volume_for_presence_duration') | int(5) }}"
+          duration: >
+            {% if is_state('', 'idle') %}
+              {{ states('input_number.office_music_adjust_volume_for_presence_duration') | int(5) }}
+            {% else %}
+              0
+            {% endif %}
           volume: "{{ states('input_number.office_music_adjust_volume_for_presence_level_' + trigger.to_state.state) | float / 100 }}"
 
   - alias: Office - Music - Save Volume Adjustments
@@ -36,40 +41,16 @@ automation:
       - trigger: state
         entity_id: media_player.office_wiim
         attribute: volume_level
+    conditions:
+      - condition: state
+        entity_id: assist_satellite.home_assistant_voice_office_assist_satellite
+        state: idle
     actions:
       - action: input_number.set_value
         target:
           entity_id: input_number.office_music_adjust_volume_for_presence_level_{{ states('binary_sensor.office_presence_all_zones') }}
         data:
           value: "{{ state_attr('media_player.office_wiim', 'volume_level') | float * 100 }}"
-
-  - alias: Office - Music - Adjust Volume For Assist
-    id: office_music_lower_volume_for_assist
-    mode: restart
-    triggers:
-      - trigger: state
-        entity_id: assist_satellite.home_assistant_voice_office_assist_satellite
-    conditions:
-      - condition: state
-        entity_id: binary_sensor.office_music_playing
-        state: 'on'
-    actions:
-      - action: automation.turn_off
-        target:
-          entity_id: automation.office_music_save_volume_adjustments
-      - action: media_player.volume_set
-        target:
-          entity_id: media_player.office_wiim
-        data:
-          volume_level: >
-            {% if trigger.to_state.state == 'idle' %}
-              {{ states('input_number.office_music_adjust_volume_for_presence_level_' + states('binary_sensor.office_presence_all_zones')) | float / 100 }}
-            {% else %}
-              {{ states('input_number.office_music_adjust_volume_for_assist_active') | float / 100 }}
-            {% endif %}
-      - action: automation.turn_on
-        target:
-          entity_id: automation.office_music_save_volume_adjustments
 
 script:
   office_audio_pc:
@@ -116,6 +97,16 @@ template:
   - binary_sensor:
     - name: office_music_playing
       state: "{{ is_state('media_player.office_wiim', 'playing') and is_state_attr('media_player.office_wiim', 'source', 'Spotify') }}"
+
+  - sensor:
+    - name: office_audio_volume_level
+      state: >
+        {% if not is_state('assist_satellite.home_assistant_voice_office_assist_satellite', 'idle') %}
+          {% set entity = 'office_music_adjust_volume_for_assist_active' %}
+        {% else %}
+          {% set entity = 'office_music_adjust_volume_for_presence_level_' + states('binary_sensor.office_presence_all_zones') %}
+        {% endif %}
+        {{ states('input_number.' + entity) | float / 100 }}
 
   - select:
     - name: office_pc_source
