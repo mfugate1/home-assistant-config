@@ -62,7 +62,7 @@ automation:
             {% if trigger.to_state.state == 'idle' %}
               {{ states('input_number.office_music_adjust_volume_for_presence_level_' + states('binary_sensor.office_presence_all_zones')) | float / 100 }}
             {% else %}
-              {{ states('input_number.office_music_adjust_volume_for_assist_active' + suffix) | float / 100 }}
+              {{ states('input_number.office_music_adjust_volume_for_assist_active') | float / 100 }}
             {% endif %}
 
 script:
