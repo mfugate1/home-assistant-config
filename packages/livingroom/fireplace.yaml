@@ -2,58 +2,47 @@ automation:
   - alias: Living Room - Fireplace Nightlight
     id: living_room_fireplace_nightlight
     mode: queued
+    variables:
+      do_this: >
+        {% if is_state('binary_sensor.living_room_presence_all_zones', 'on') and is_state('sun.sun', 'below_horizon') %}
+          on
+        {% else %}
+          off
+        {% endif %}
     triggers:
       - trigger: state
         entity_id: binary_sensor.living_room_presence_all_zones
-        to:
-          - 'off'
-          - 'on'
+        to: ['off', 'on']
       - trigger: state
         entity_id: sun.sun
-        to: below_horizon
-    conditions:
-      - or:
-        - condition: state
-          entity_id: sun.sun
-          state: below_horizon
-        - condition: state
-          entity_id: binary_sensor.living_room_presence_all_zones
-          state: 'off'
+        to: ['above_horizon', 'below_horizon']
     actions:
-      - action: light.turn_{{ states('binary_sensor.living_room_presence_all_zones') }}
+      - action: light.turn_{{ do_this }}
         entity_id: light.fireplace_night_light
 
   - alias: Living Room - Turn On Fireplace
     id: living_room_turn_on_fireplace
     mode: queued
+    variables:
+      room_temp: "{{ states('sensor.living_room_temperature_sensor_air_temperature') | float }}"
+      outside_temp: "{{ states('sensor.front_porch_sensor_air_temperature') | float }}"
+      on_threshold_temp: "{{ states('input_number.living_room_fireplace_on_temperature_threshold') | float }}"
+      on_outside_threshold_temp: "{{ states('input_number.living_room_fireplace_on_outside_temperature_threshold') | float }}"
     triggers:
       - trigger: state
         entity_id: binary_sensor.living_room_presence_couch_zone
         to: 'on'
         for:
           seconds: "{{ states('input_number.living_room_fireplace_on_delay') }}"
-      - trigger: numeric_state
+      - trigger: state
         entity_id: sensor.living_room_temperature_sensor_air_temperature
-        below: input_number.living_room_fireplace_temperature_on_threshold
-    conditions:
-      - condition: state
-        entity_id: light.fireplace_flame
-        state: 'off'
-      - condition: state
-        entity_id: person.mike
-        state: home
-      - condition: state
-        entity_id: binary_sensor.living_room_presence_couch_zone
-        state: 'on'
-      - condition: numeric_state
-        entity_id: sensor.living_room_temperature_sensor_air_temperature
-        below: input_number.living_room_fireplace_temperature_on_threshold
-      - condition: state
-        entity_id: sensor.last_hvac_state
-        state: heating
-      - condition: numeric_state
-        entity_id: sensor.front_porch_sensor_air_temperature
-        below: input_number.living_room_fireplace_outside_temperature_on_threshold
+    conditions: >
+      {{     is_state('light.fireplace_flame', 'off')
+          and is_state('person.mike', 'home')
+          and is_state('binary_sensor.living_room_presence_couch_zone', 'on')
+          and is_state('sensor.last_hvac_state', 'heating')
+          and room_temp <= on_threshold_temp
+          and outside_temp <= on_outside_threshold_temp }}
     actions:
       - action: light.turn_on
         entity_id: light.fireplace_flame
@@ -71,11 +60,7 @@ automation:
           seconds: "{{ states('input_number.living_room_fireplace_off_delay') }}"
       - trigger: numeric_state
         entity_id: sensor.living_room_temperature_sensor_air_temperature
-        above: input_number.living_room_fireplace_temperature_off_threshold
-    conditions:
-      - condition: state
-        entity_id: light.fireplace_flame
-        state: 'on'
+        above: input_number.living_room_fireplace_off_temperature_threshold
     actions:
       - action: light.turn_off
         entity_id: light.fireplace_flame
@@ -86,9 +71,7 @@ automation:
     triggers:
       - trigger: state
         entity_id: light.fireplace_flame
-        to:
-          - 'on'
-          - 'off'
+        to: ['off', 'on']
     actions:
       - if: "{{ trigger.to_state.state == 'on' }}"
         then:
@@ -107,10 +90,10 @@ input_number:
     mode: box
     unit_of_measurement: s
   living_room_fireplace_on_delay: *delay
-  living_room_fireplace_temperature_on_threshold: &temp
+  living_room_fireplace_off_temperature_threshold: &temp
     min: 30
     max: 90
     mode: box
     unit_of_measurement: °F
-  living_room_fireplace_temperature_off_threshold: *temp
-  living_room_fireplace_outside_temperature_on_threshold: *temp
+  living_room_fireplace_on_outside_temperature_threshold: *temp
+  living_room_fireplace_on_temperature_threshold: *temp
