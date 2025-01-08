@@ -4,6 +4,7 @@ mysql_query:
   mysql_username: homeassistant
   mysql_password: !secret HASS_MARIADB_PASSWORD
   mysql_db: hall_of_holes
+  mysql_collation: utf8mb4_unicode_ci
 
 recorder:
   db_url: !secret RECORDER_DB_URL
