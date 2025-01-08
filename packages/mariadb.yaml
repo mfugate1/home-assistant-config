@@ -5,13 +5,5 @@ mysql_query:
   mysql_password: !secret HASS_MARIADB_PASSWORD
   mysql_db: hall_of_holes
 
-notify:
-  - platform: mysql_command
-    name: hall_of_holes_db
-    host: 192.168.1.17
-    username: homeassistant
-    password: !secret HASS_MARIADB_PASSWORD
-    db: hall_of_holes
-
 recorder:
   db_url: !secret RECORDER_DB_URL
