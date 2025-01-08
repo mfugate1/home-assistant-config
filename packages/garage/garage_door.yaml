@@ -61,17 +61,6 @@ automation:
       - action: switch.turn_off
         entity_id: switch.garage_door_relay_left
 
-  - alias: Right garage door relay shut off
-    id: right_garage_door_relay_shut_off
-    triggers:
-      - trigger: state
-        entity_id: switch.garage_door_relay_right
-        to: "on"
-        for: 00:00:13
-    actions:
-      - action: switch.turn_off
-        entity_id: switch.garage_door_relay_right
-
   - alias: Garage switches - open garage door
     id: garage_switches_open_garage_door
     triggers:
@@ -131,21 +120,3 @@ cover:
         stop_cover:
           - action: switch.turn_on
             entity_id: switch.garage_door_relay_left
-      garage_door_right:
-        friendly_name: Right Garage Door
-        device_class: garage
-        value_template: "{{ is_state('binary_sensor.garage_door_right', 'on') }}"
-        open_cover:
-          - if: "{{ is_state('binary_sensor.garage_door_right', 'off') }}"
-            then:
-              action: switch.turn_on
-              entity_id: switch.garage_door_relay_right
-        close_cover:
-          - if: "{{ is_state('binary_sensor.garage_door_right', 'on') }}"
-            then:
-              - action: switch.turn_on
-                entity_id: switch.garage_door_relay_right
-              - wait_template: "{{ is_state('binary_sensor.garage_door_right', 'off') }}"
-        stop_cover:
-          - action: switch.turn_off
-            entity_id: switch.garage_door_relay_right
