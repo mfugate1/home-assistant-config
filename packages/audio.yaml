@@ -22,7 +22,7 @@ automation:
           direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots else 'unknown' }}"
           multiplier: "{{ 1 if direction == 'up' else -1 }}"
           volume_adjustment: "{{ trigger.slots.volume_adjustment | replace('%', '') | int if 'volume_adjustment' in trigger.slots else -1 }}"
-          set_volume_to: "{{ trigger.slots.set_volume_to | int if 'set_volume_to' in trigger.slots else -1 }}"
+          set_volume_to: "{{ trigger.slots.set_volume_to | replace('%', '') | int if 'set_volume_to' in trigger.slots else -1 }}"
           final_value: >
             {% if set_volume_to != -1 %}
               {{ set_volume_to }}
@@ -41,19 +41,18 @@ automation:
           - conditions: "{{ direction == 'unknown' and volume_adjustment_raw != -1 }}"
             sequence:
               - set_conversation_response: >
-                  It sounds like you're trying to adjust the volume up or down by {{ volume_adjustment_raw }}
+                  It sounds like you're trying to adjust the volume up or down by {{ volume_adjustment }}
                   percent, but I couldn't parse the direction. Try saying 'Turn the volume up by 
-                  {{ volume_adjustment }}' or 'Turn the volume down by {{ volume_adjustment }}'
+                  {{ volume_adjustment }}%' or 'Turn the volume down by {{ volume_adjustment }}%'
         default:
-          - action: grad_vol.set_volume
+          - action: input_number.set_value
             target:
-              entity_id: "{{ media_player_entity }}"
+              entity_id: "{{ input_number_entity }}"
             data:
-              duration: 5
-              volume: "{{ set_volume_to }}"
+              value: "{{ final_value }}"
           - set_conversation_response: >
               {% if set_volume_to != -1 %}
-                Setting the volume to {{ set_volume_to }} percent
+                Setting the volume to {{ set_volume_to }}%
               {% else %}
-                Turning {{ direction }} the volume by {{ volume_adjustment }} percent
+                Turning {{ direction }} the volume by {{ volume_adjustment }}%
               {% endif %}
