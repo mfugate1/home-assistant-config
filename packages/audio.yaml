@@ -35,7 +35,7 @@ automation:
           - conditions: "{{ input_number_entity == 'unknown' }}"
             sequence:
               - set_conversation_response: Sorry, I can't control the volume in this room.
-          - conditions: "{{ set_volume_to == -1 }}"
+          - conditions: "{{ final_value == -1 }}"
             sequence:
               - set_conversation_response: Sorry, I wasn't able to parse that.
           - conditions: "{{ direction == 'unknown' and volume_adjustment_raw != -1 }}"
