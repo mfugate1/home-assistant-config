@@ -1,7 +1,7 @@
 automation:
   - alias: Voice - Adjust Speaker Volume
     id: voice_adjust_speaker_volume
-    mode: queued
+    mode: parallel
     triggers:
       - trigger: conversation
         command:
@@ -50,4 +50,4 @@ automation:
               entity_id: "{{ input_number_entity }}"
             data:
               value: "{{ final_value }}"
-          - set_conversation_response: "setting the volume to {{ final_volume }} percent"
+          - set_conversation_response: "setting the volume to {{ final_value }} percent"
