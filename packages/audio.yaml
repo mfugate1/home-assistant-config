@@ -38,7 +38,7 @@ automation:
           - conditions: "{{ final_value == -1 }}"
             sequence:
               - set_conversation_response: Sorry, I wasn't able to parse that.
-          - conditions: "{{ direction == 'unknown' and volume_adjustment_raw != -1 }}"
+          - conditions: "{{ direction == 'unknown' and volume_adjustment != -1 }}"
             sequence:
               - set_conversation_response: >
                   It sounds like you're trying to adjust the volume up or down by {{ volume_adjustment }}
