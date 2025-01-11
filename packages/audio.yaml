@@ -7,8 +7,10 @@ automation:
         command:
           - "(turn|bump) the volume {direction}"
           - "(turn|bump) the volume {direction} by {volume_adjustment} [percent]"
+          - "(turn|bump) the volume {direction} by {volume_adjustment}[%]"
           - "(turn|bump) {direction} the volume "
           - "(turn|bump) {direction} the volume by {volume_adjustment} [percent]"
+          - "(turn|bump) {direction} the volume by {volume_adjustment}[%]"
           - "set the volume to {set_volume_to} [percent]"
     actions:
       - variables:
