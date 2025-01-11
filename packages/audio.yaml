@@ -1,7 +1,7 @@
 automation:
   - alias: Voice - Adjust Speaker Volume
     id: voice_adjust_speaker_volume
-    mode: queued
+    mode: parallel
     triggers:
       - trigger: conversation
         command:
