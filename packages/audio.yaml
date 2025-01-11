@@ -17,7 +17,7 @@ automation:
               office='input_number.office_music_adjust_volume_for_presence_level_on',
               bedroom='input_number.office_music_adjust_volume_for_presence_level_off'
             ) %}
-            {{ select[area_id] | default('unknown') }}
+            {{ select[trigger.device_id | area_id] | default('unknown') }}
           current_vol: "{{ states(input_number_entity) | int }}"
           direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots else 'unknown' }}"
           multiplier: "{{ 1 if direction == 'up' else -1 }}"
