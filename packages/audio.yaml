@@ -1,0 +1,59 @@
+automation:
+  - alias: Voice - Adjust Speaker Volume
+    id: voice_adjust_speaker_volume
+    mode: queued
+    triggers:
+      - trigger: conversation
+        command:
+          - "(turn|bump) the volume {direction}"
+          - "(turn|bump) the volume {direction} by {volume_adjustment} [percent]"
+          - "(turn|bump) {direction} the volume "
+          - "(turn|bump) {direction} the volume by {volume_adjustment} [percent]"
+          - "set the volume to {set_volume_to} [percent]"
+    actions:
+      - variables:
+          input_number_entity: >
+            {% set select = dict (
+              office='input_number.office_music_adjust_volume_for_presence_level_on',
+              bedroom='input_number.office_music_adjust_volume_for_presence_level_off'
+            ) %}
+            {{ select[area_id] | default('unknown') }}
+          current_vol: "{{ states(input_number_entity) | int }}"
+          direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots else 'unknown' }}"
+          multiplier: "{{ 1 if direction == 'up' else -1 }}"
+          volume_adjustment: "{{ trigger.slots.volume_adjustment | int if 'volume_adjustment' in trigger.slots else -1 }}"
+          set_volume_to: "{{ trigger.slots.set_volume_to | int if 'set_volume_to' in trigger.slots else -1 }}"
+          final_value: >
+            {% if set_volume_to != -1 %}
+              {{ set_volume_to }}
+            {% elif volume_adjustment != -1 %}
+              {{ current_vol + (multiplier * volume_adjustment)}}
+            {% else %}
+              -1
+            {% endif %}
+      - choose:
+          - conditions: "{{ input_number_entity == 'unknown' }}"
+            sequence:
+              - set_conversation_response: Sorry, I can't control the volume in this room.
+          - conditions: "{{ set_volume_to == -1 }}"
+            sequence:
+              - set_conversation_response: Sorry, I wasn't able to parse that.
+          - conditions: "{{ direction == 'unknown' and volume_adjustment_raw != -1 }}"
+            sequence:
+              - set_conversation_response: >
+                  It sounds like you're trying to adjust the volume up or down by {{ volume_adjustment_raw }}
+                  percent, but I couldn't parse the direction. Try saying 'Turn the volume up by 
+                  {{ volume_adjustment }}' or 'Turn the volume down by {{ volume_adjustment }}'
+        default:
+          - action: grad_vol.set_volume
+            target:
+              entity_id: "{{ media_player_entity }}"
+            data:
+              duration: 5
+              volume: "{{ set_volume_to }}"
+          - set_conversation_response: >
+              {% if set_volume_to != -1 %}
+                Setting the volume to {{ set_volume_to }} percent
+              {% else %}
+                Turning {{ direction }} the volume by {{ volume_adjustment }} percent
+              {% endif %}
