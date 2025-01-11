@@ -6,11 +6,9 @@ automation:
       - trigger: conversation
         command:
           - "(turn|bump) the volume {direction}"
-          - "(turn|bump) the volume {direction} by {volume_adjustment} [percent]"
-          - "(turn|bump) the volume {direction} by {volume_adjustment}[%]"
-          - "(turn|bump) {direction} the volume "
-          - "(turn|bump) {direction} the volume by {volume_adjustment} [percent]"
-          - "(turn|bump) {direction} the volume by {volume_adjustment}[%]"
+          - "(turn|bump) the volume {direction} by {volume_adjustment}"
+          - "(turn|bump) {direction} the volume"
+          - "(turn|bump) {direction} the volume by {volume_adjustment}"
           - "set the volume to {set_volume_to} [percent]"
     actions:
       - variables:
@@ -23,7 +21,7 @@ automation:
           current_vol: "{{ states(input_number_entity) | int }}"
           direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots else 'unknown' }}"
           multiplier: "{{ 1 if direction == 'up' else -1 }}"
-          volume_adjustment: "{{ trigger.slots.volume_adjustment | int if 'volume_adjustment' in trigger.slots else -1 }}"
+          volume_adjustment: "{{ trigger.slots.volume_adjustment | replace('%', '') | int if 'volume_adjustment' in trigger.slots else -1 }}"
           set_volume_to: "{{ trigger.slots.set_volume_to | int if 'set_volume_to' in trigger.slots else -1 }}"
           final_value: >
             {% if set_volume_to != -1 %}
