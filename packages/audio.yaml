@@ -19,7 +19,7 @@ automation:
             ) %}
             {{ select[trigger.device_id | area_id] | default('unknown') }}
           current_vol: "{{ states(input_number_entity) | int }}"
-          direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots else 'unknown' }}"
+          direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots and trigger.slots.direction.lower() in ['up', 'down'] else 'unknown' }}"
           multiplier: "{{ 1 if direction == 'up' else -1 }}"
           volume_adjustment: "{{ trigger.slots.volume_adjustment | replace('%', '') | int if 'volume_adjustment' in trigger.slots else -1 }}"
           set_volume_to: "{{ trigger.slots.set_volume_to | replace('%', '') | int if 'set_volume_to' in trigger.slots else -1 }}"
