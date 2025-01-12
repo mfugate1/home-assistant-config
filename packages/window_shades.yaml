@@ -18,6 +18,28 @@ automation:
         target:
           entity_id: "{{ states.cover | selectattr('entity_id', 'search', '^cover.window') | map(attribute='entity_id') | list }}"
 
+  - alias: Windows - Control Shades Based on TV States
+    id: windows_control_shades_based_on_tv_states
+    mode: queued
+    triggers:
+      - trigger: state
+        entity_id:
+          - binary_sensor.guestroomdouble_tv
+          - binary_sensor.guestroomsingle_tv
+        to:
+          - 'off'
+          - 'on'
+    conditions: "{{ trigger.to_state.state == 'on' or is_state('sun.sun', 'above_horizon') }}"
+    actions:
+      - variables:
+          room: "{{ trigger.entity_id.split('.')[1].split('_')[0] }}"
+          shade: "{{ 'side' if room == 'guestroomdouble' else 'back' }}"
+          action: "{{ 'close' if trigger.to_state.state == 'on' else 'open' }}"
+      - action: cover.{{ action }}_cover
+        target:
+          entity_id: cover.window_{{ room }}_{{ shade }}
+
+
   - alias: Voice - Control Window Shades
     id: voice_control_window_shades
     mode: parallel
