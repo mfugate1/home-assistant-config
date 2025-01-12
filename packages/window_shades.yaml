@@ -1,6 +1,6 @@
 automation:
-  - alias: Close Shades at Sunset, Open Shades at Sunrise
-    id: close_shades_at_sunset_open_shades_at_sunrise
+  - alias: Windows - Sunrise and Sunset Control
+    id: windows_sunrise_and_sunset_control
     mode: single
     triggers:
       - trigger: numeric_state
