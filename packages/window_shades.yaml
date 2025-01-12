@@ -39,7 +39,6 @@ automation:
         target:
           entity_id: cover.window_{{ room }}_{{ shade }}
 
-
   - alias: Voice - Control Window Shades
     id: voice_control_window_shades
     mode: parallel
@@ -50,7 +49,7 @@ automation:
     actions:
       - variables:
           command: "{{ trigger.slots.command.lower() }}"
-          entities: "{{ trigger.device_id | area_id | area_entities | select('search', '^cover') | list }}"
+          entities: "{{ trigger.device_id | area_id | area_entities | select('search', '^cover.window_') | list }}"
       - choose:
           - conditions: "{{ not entities }}"
             sequence:
