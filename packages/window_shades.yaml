@@ -34,8 +34,8 @@ automation:
             {% endfor %}
             {{ entities.ids }}
 
-  - alias: House - Control Window Shades With Voice
-    id: house_control_window_shades_with_voice
+  - alias: Voice - Control Window Shades
+    id: voice_control_window_shades
     mode: parallel
     triggers:
       - trigger: conversation
