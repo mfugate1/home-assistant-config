@@ -70,7 +70,9 @@ automation:
           - action: cover.{{ command }}_cover
             target:
               entity_id: "{{ entities }}"
-          - set_conversation_response: "{{ 'closing' if command == 'close' else 'opening' }} the window covers"
+          - set_conversation_response: >
+              {{ 'closing' if command == 'close' else 'opening' }}
+              {{ 'the window covers' if specific_window == 'none' else 'the ' + specific_window + ' window cover'}}
 
 input_number:
   close_shades_below_sun_elevation: &elevation
