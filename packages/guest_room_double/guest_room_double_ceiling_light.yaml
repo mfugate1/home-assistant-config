@@ -25,7 +25,7 @@ automation:
         state: 'off'
       - condition: state
         entity_id:
-          - binary_sensor.guest_room_double_tv
+          - binary_sensor.guestroomdouble_tv
           - input_boolean.guest_room_double_ceiling_light_on_tv_block
         match: any
         state: 'off'

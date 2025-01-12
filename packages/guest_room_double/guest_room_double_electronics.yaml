@@ -19,7 +19,7 @@ automation:
       - or:
         - "{{ trigger.to_state.state == 'on' }}"
         - condition: state
-          entity_id: binary_sensor.guest_room_double_tv
+          entity_id: binary_sensor.guestroomdouble_tv
           state: 'off'
     actions:
       - action: switch.turn_{{ trigger.to_state.state }}
@@ -52,17 +52,17 @@ switch:
         friendly_name: Electronics
         icon_template: mdi:television
         value_template: >
-          {{     is_state('switch.guest_room_double_tv', 'on')
+          {{     is_state('switch.guestroomdouble_tv', 'on')
              and is_state('switch.guest_room_double_roku', 'on') }}
         turn_on:
           - action: switch.turn_on
             entity_id: 
-              - switch.guest_room_double_tv
+              - switch.guestroomdouble_tv
               - switch.guest_room_double_roku
         turn_off:
           - action: switch.turn_off
             entity_id: 
-              - switch.guest_room_double_tv
+              - switch.guestroomdouble_tv
               - switch.guest_room_double_roku
 
 template:
