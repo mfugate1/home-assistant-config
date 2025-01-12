@@ -46,11 +46,18 @@ automation:
       - trigger: conversation
         command:
           - "{command} the [window] (shades|shade|blinds|blind|curtains|curtain|covers|cover)"
+          - "{command} the {specific_window} [window] (shades|shade|blinds|blind|curtains|curtain|covers|cover)"
     actions:
       - variables:
           command: "{{ trigger.slots.command.lower() }}"
-          entities: "{{ trigger.device_id | area_id | area_entities | select('search', '^cover.window_') | list }}"
+          specific_window: "{{ trigger.slots.specific_window if 'specific_window' in trigger.slots else 'none' }}"
+          entities: >
+            {% set window_covers = trigger.device_id | area_id | area_entities | select('search', '^cover.window_') | list %}
+            {{ window_covers | select('search', '_' + specific_window + '$') | list if specific_window != 'none' else window_covers }}
       - choose:
+          - conditions: "{{ not entities and specific_window != 'none' }}"
+            sequence:
+              - set_conversation_response: Sorry, I couldn't find a window called {{ specific_window }}
           - conditions: "{{ not entities }}"
             sequence:
               - set_conversation_response: Sorry, there aren't any window covers to control in this area.
