@@ -9,12 +9,12 @@ automation:
         to: 'on'
     conditions:
       - condition: numeric_state
-        entity_id: cover.guest_room_double_shade_side
+        entity_id: cover.window_guestroomdouble_side
         attribute: current_position
         below: 100
     actions:
       - action: cover.open_cover
-        entity_id: cover.guest_room_double_shade_side
+        entity_id: cover.window_guestroomdouble_side
 
   - alias: Guest Room (Double) - Open Side Shade When TV is Off
     id: guest_room_double_open_side_shade_when_tv_is_off
@@ -25,7 +25,7 @@ automation:
         to: 'off'
     conditions:
       - condition: numeric_state
-        entity_id: cover.guest_room_double_shade_side
+        entity_id: cover.window_guestroomdouble_side
         attribute: current_position
         above: 0
       - condition: state
@@ -33,40 +33,11 @@ automation:
         state: above_horizon
     actions:
       - action: cover.close_cover
-        entity_id: cover.guest_room_double_shade_side
+        entity_id: cover.window_guestroomdouble_side
 
 cover:
   - platform: template
     covers:
-      guest_room_double_shades:
-        friendly_name: Guest Room (Double) Shades
-        unique_id: guest_room_double_shades
-        device_class: blind
-        availability_template: "{{ states('cover.guest_room_double_shade_side') not in ['unavailable', 'unknown'] and states('cover.guest_room_double_shade_front') not in ['unavailable', 'unknown'] }}"
-        position_template: "{{ 100 - (state_attr('cover.guest_room_double_shade_front', 'current_position') | int(0)) }}"
-        open_cover:
-          action: cover.close_cover
-          entity_id: 
-            - cover.guest_room_double_shade_front
-            - cover.guest_room_double_shade_side
-        close_cover:
-          action: cover.open_cover
-          entity_id: 
-            - cover.guest_room_double_shade_front
-            - cover.guest_room_double_shade_side
-        stop_cover:
-          action: cover.stop_cover
-          entity_id: 
-            - cover.guest_room_double_shade_front
-            - cover.guest_room_double_shade_side
-        set_cover_position:
-          action: cover.set_cover_position
-          entity_id: 
-            - cover.guest_room_double_shade_front
-            - cover.guest_room_double_shade_side
-          data:
-            position: "{{ 100 - position }}"
-      
       guest_room_double_shade_front_inverted:
         friendly_name: Front Shade
         unique_id: guest_room_double_shade_front_inverted
