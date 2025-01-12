@@ -10,7 +10,7 @@ automation:
           seconds: "{{ states('input_number.guest_room_double_sleep_mode_on_delay_seconds') | int(20) }}"
           minutes: "{{ states('input_number.guest_room_double_sleep_mode_on_delay_minutes') | int(0) }}"
       - trigger: state
-        entity_id: binary_sensor.guest_room_double_tv
+        entity_id: binary_sensor.guestroomdouble_tv
         to: 'off'
     conditions:
       - condition: state
@@ -25,7 +25,7 @@ automation:
       - condition: state
         entity_id:
           - input_boolean.guest_room_double_sleep_mode_require_tv_off_to_turn_on
-          - binary_sensor.guest_room_double_tv
+          - binary_sensor.guestroomdouble_tv
         match: any
         state: 'off'
     actions:
@@ -57,7 +57,7 @@ automation:
     mode: queued
     triggers:
       - trigger: state
-        entity_id: binary_sensor.guest_room_double_tv
+        entity_id: binary_sensor.guestroomdouble_tv
         to: 'on'
     conditions:
       - condition: state
