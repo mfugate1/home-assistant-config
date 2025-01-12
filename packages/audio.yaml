@@ -21,7 +21,8 @@ automation:
           current_vol: "{{ states(input_number_entity) | int }}"
           direction: "{{ trigger.slots.direction.lower() if 'direction' in trigger.slots and trigger.slots.direction.lower() in ['up', 'down'] else 'unknown' }}"
           multiplier: "{{ 1 if direction == 'up' else -1 }}"
-          volume_adjustment: "{{ trigger.slots.volume_adjustment | replace('%', '') | int if 'volume_adjustment' in trigger.slots else -1 }}"
+          default_adjustment: "{{ states('input_number.voice_adjust_speaker_volume_default_adjustment') | int }}"
+          volume_adjustment: "{{ trigger.slots.volume_adjustment | replace('%', '') | int if 'volume_adjustment' in trigger.slots else default_adjustment }}"
           set_volume_to: "{{ trigger.slots.set_volume_to | replace('%', '') | int if 'set_volume_to' in trigger.slots else -1 }}"
           final_value: >
             {% if set_volume_to != -1 %}
@@ -38,7 +39,7 @@ automation:
           - conditions: "{{ final_value == -1 }}"
             sequence:
               - set_conversation_response: Sorry, I wasn't able to parse that.
-          - conditions: "{{ direction == 'unknown' and volume_adjustment != -1 }}"
+          - conditions: "{{ direction == 'unknown' and set_volume_to == -1 }}"
             sequence:
               - set_conversation_response: >
                   It sounds like you're trying to adjust the volume up or down by {{ volume_adjustment }}
@@ -51,3 +52,10 @@ automation:
             data:
               value: "{{ final_value }}"
           - set_conversation_response: "setting the volume to {{ final_value }} percent"
+
+input_number:
+  voice_adjust_speaker_volume_default_adjustment:
+    min: 1
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
