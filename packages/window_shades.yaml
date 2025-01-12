@@ -14,25 +14,9 @@ automation:
         above: input_number.open_shades_above_sun_elevation
         id: open
     actions:
-      - variables:
-          shades:
-            - bedroom_shade_front
-            - bedroom_shade_side
-            - guest_room_double_shade_front_inverted
-            - guest_room_double_shade_side_inverted
-            - guest_room_single_shade_back
-            - guest_room_single_shade_side
-            - office_shade_side
       - action: "cover.{{ trigger.id }}_cover"
         target:
-          entity_id: >
-            {% set entities = namespace(ids=[]) %}
-            {% for shade in shades %}
-              {% if is_state('input_boolean.' + shade + '_auto', 'on') %}
-                {% set entities.ids = entities.ids + ['cover.' + shade] %}
-              {% endif %}
-            {% endfor %}
-            {{ entities.ids }}
+          entity_id: "{{ states.cover | selectattr('entity_id', 'search', '^cover.window') | map(attribute='entity_id') | list }}"
 
   - alias: Voice - Control Window Shades
     id: voice_control_window_shades
@@ -59,15 +43,6 @@ automation:
             target:
               entity_id: "{{ entities }}"
           - set_conversation_response: "{{ 'closing' if command == 'close' else 'opening' }} the window covers"
-
-input_boolean:
-  bedroom_shade_front_auto:
-  bedroom_shade_side_auto:
-  guest_room_double_shade_front_inverted_auto:
-  guest_room_double_shade_side_inverted_auto:
-  guest_room_single_shade_back_auto:
-  guest_room_single_shade_side_auto:
-  office_shade_side_auto:
 
 input_number:
   close_shades_below_sun_elevation: &elevation
