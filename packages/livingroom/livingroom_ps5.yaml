@@ -28,10 +28,6 @@ switch:
              and is_state('media_player.livingroom_receiver', 'on')
              and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI2')
              and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 3') }}
-        availability_template: >
-          {{     not is_state('switch.livingroom_ps5', 'unavailable')
-             and not is_state('media_player.livingroom_tv', 'unavailable')
-             and not is_state('media_player.livingroom_receiver', 'unavailable') }}
         turn_on:
           - action: switch.turn_on
             entity_id: switch.livingroom_ps5
