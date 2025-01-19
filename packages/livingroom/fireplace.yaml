@@ -73,17 +73,22 @@ automation:
         entity_id: light.fireplace_flame
         to: ['off', 'on']
     actions:
-      - if: "{{ trigger.to_state.state == 'on' }}"
-        then:
-          - action: fan.turn_on
-            entity_id: fan.fireplace_blower
-            data:
-              percentage: 50
-        else:
-          - action: fan.turn_off
-            entity_id: fan.fireplace_blower
+      - variables:
+          current_state: "{{ states('light.fireplace_flame') }}"
+      - action: fan.turn_{{ current_state }}
+        data: >
+          {% if current_state == 'on' %}
+            {"percentage": {{ states('input_number.livingroom_fireplace_blower_default_speed') }} }
+          {% else %}
+            {}
+          {% endif %}
 
 input_number:
+  livingroom_fireplace_blower_default_speed:
+    min: 0
+    max: 100
+    mode: box
+    unit_of_measurement: "%"
   living_room_fireplace_off_delay: &delay
     min: 0
     max: 5000
