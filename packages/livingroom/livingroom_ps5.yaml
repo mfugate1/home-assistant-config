@@ -34,8 +34,9 @@ switch:
           - action: script.livingroom_tv_turn_on
             data:
               source: "{{ states('input_text.livingroom_ps5_tv_source') }}"
-          - action: script.livingroom_audio_turn_on
+          - action: script.media_player_turn_on
             data:
+              entity_id: "{{ states('input_text.livingroom_audio_entity') }}"
               source: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
               volume: "{{ states('input_number.livingroom_ps5_receiver_volume') }}"
         turn_off:

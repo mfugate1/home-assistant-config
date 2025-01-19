@@ -4,3 +4,44 @@ template:
       state: use_entities_attribute
       attributes:
         entities: "{{ states.media_player | map(attribute='entity_id') | list | sort }}"
+
+script:
+  media_player_turn_on:
+    alias: Media Player - Turn on
+    description: >
+      Turns on a media player and optionally sets it to a specifc source and volume
+      level, if those fields are set. Automatically adds a delay if the device is off when
+      the script is run, to allow time for it to start before attempting to send
+      more commands.
+    mode: parallel
+    fields:
+      entity_id:
+        description: The media player entity ID to turn on.
+        example: media_player.livingroom_receiver
+      source:
+        description: Source to set the media player to.
+        example: Video 3
+      volume:
+        description: Volume to set the media player to.
+        example: "50"
+    sequence:
+      - if: "{{ is_state(entity_id, 'off') }}"
+        then:
+          - action: media_player.turn_on
+            target:
+              entity_id: "{{ entity_id }}"
+          - delay: "{{ states('input_number.' + entity_id.split('.')[1] + '_delay_for_source_select') | int(5) }}"
+      - if: "{{ source is defined and source != none }}"
+        then:
+          action: media_player.select_source
+          target:
+            entity_id: "{{ entity_id }}"
+          data:
+            source: "{{ source }}"
+      - if: "{{ volume is defined and volume != none }}"
+        then:
+          action: media_player.volume_set
+          target:
+            entity_id: "{{ entity_id }}"
+          data:
+            volume_level: "{{ (volume | int) / 100 }}"

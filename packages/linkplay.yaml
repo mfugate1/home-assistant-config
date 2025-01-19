@@ -46,8 +46,9 @@ script:
               force_playback: true
       - if: "{{ is_state('group.living_room_music_presence', 'on') }}"
         then:
-          - action: script.livingroom_audio_turn_on
+          - action: script.media_player_turn_on
             data:
+              entity_id: "{{ states('input_text.livingroom_audio_entity') }}"
               source: "{{ states('input_text.livingroom_music_receiver_source') }}"
               volume: "{{ states('input_number.livingroom_music_receiver_volume') }}"
           - action: media_player.turn_off

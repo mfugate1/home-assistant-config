@@ -1,0 +1,20 @@
+input_number:
+  livingroom_receiver_delay_for_source_select:
+    min: 0
+    max: 15
+    unit_of_measurement: s
+
+input_text:
+  livingroom_audio_entity:
+
+template:
+  - select:
+    - name: livingroom_audio_entity
+      unique_id: livingroom_audio_entity
+      state: "{{ states('input_text.livingroom_audio_entity') }}"
+      options: "{{ state_attr('sensor.all_media_players', 'entities') }}"
+      select_option:
+        action: input_text.set_value
+        entity_id: input_text.livingroom_audio_entity
+        data:
+          value: "{{ option }}"
