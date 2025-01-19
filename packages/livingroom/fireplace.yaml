@@ -195,8 +195,8 @@ input_number:
   living_room_fireplace_on_outside_temperature_threshold: *temp
   living_room_fireplace_on_temperature_threshold: *temp
   livingroom_fireplace_nightlight_on_below_elevation:
-    min: -20
-    max: 20
+    min: -40
+    max: 40
     mode: box
     unit_of_measurement: °
   livingroom_fireplace_nightlight_default_brightness: *percentage
