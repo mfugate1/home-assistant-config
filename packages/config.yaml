@@ -1,0 +1,15 @@
+input_select:
+  active_config_card_room:
+    name: Room
+    options:
+      - Bedroom
+      - Hall of Holes
+      - Living Room
+  active_config_card_livingroom_devices:
+    name: Devices
+    options:
+      - Audio
+      - Video
+      - Fireplace
+      - Lighting
+      - PS5
