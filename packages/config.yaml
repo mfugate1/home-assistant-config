@@ -1,15 +1,32 @@
-input_select:
-  active_config_card_room:
-    name: Room
-    options:
-      - Bedroom
-      - Hall of Holes
-      - Living Room
-  active_config_card_livingroom_devices:
-    name: Devices
-    options:
-      - Audio
-      - Video
-      - Fireplace
-      - Lighting
-      - PS5
+template:
+  - select:
+    - name: active_config_card_room
+      unique_id: QSnUAhUvS3yGkFhu6IGByFufO0kInU
+      state: "{{ states('input_text.active_config_card_rooms') }}"
+      options: >
+        ['Bedroom', 'Hall of Holes', 'Living Room']
+      select_option:
+        - action: input_text.set_value
+          target:
+            entity_id: input_text.active_config_card_rooms
+          data:
+            value: "{{ option }}"
+    - name: active_config_card_devices
+      unique_id: f8VKiFnkwkBku2UPioQ24o3nUw8jpV
+      state: "{{ states('input_text.active_config_card_devices') }}"
+      options: >
+        {% if is_state('select.active_config_card_room', 'Living Room') %}
+          ['Audio', 'Video', 'Fireplace', 'Lighting']
+        {% else %}
+          ['Unknown Room']
+        {% endif %}
+      select_option:
+        - action: input_text.set_value
+          target:
+            entity_id: input_text.hall_of_holes_player_1
+          data:
+            value: "{{ option }}"
+
+input_text:
+  active_config_card_rooms:
+  active_config_card_devices:
