@@ -35,23 +35,26 @@ switch:
             target:
               entity_id: script.media_player_turn_on
             data:
-              entity_id: "{{ states('input_text.livingroom_video_entity') }}"
-              source: "{{ states('input_text.livingroom_ps5_tv_source') }}"
+              variables:
+                entity_id: "{{ states('input_text.livingroom_video_entity') }}"
+                source: "{{ states('input_text.livingroom_ps5_tv_source') }}"
           - action: script.turn_on
             target:
               entity_id: script.media_player_turn_on
             data:
-              entity_id: "{{ states('input_text.livingroom_audio_entity') }}"
-              source: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
-              volume: "{{ states('input_number.livingroom_ps5_receiver_volume') }}"
+              variables:
+                entity_id: "{{ states('input_text.livingroom_audio_entity') }}"
+                source: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
+                volume: "{{ states('input_number.livingroom_ps5_receiver_volume') }}"
         turn_off:
           - action: script.turn_on
             target:
               entity_id: script.turn_off_with_repeat
             data:
-              entity_id: switch.livingroom_ps5
-              repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
-              max_retries: 20
+              variables:
+                entity_id: switch.livingroom_ps5
+                repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
+                max_retries: 20
           - action: media_player.turn_off
             entity_id:
               - media_player.livingroom_tv
