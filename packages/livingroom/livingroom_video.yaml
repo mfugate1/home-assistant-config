@@ -1,0 +1,33 @@
+automation:
+  - alias: Living Room - Turn on TV with WakeOnLan
+    id: living_room_turn_on_tv_with_wakeonlan
+    max_exceeded: silent
+    triggers:
+      - trigger: webostv.turn_on
+        entity_id: media_player.livingroom_tv
+    actions:
+      - action: wake_on_lan.send_magic_packet
+        data:
+          mac: "{{ states('input_text.livingroom_tv_mac_address') }}"
+
+input_number:
+  livingroom_tv_delay_for_source_select:
+    min: 0
+    max: 15
+    unit_of_measurement: s
+
+input_text:
+  livingroom_tv_mac_address:
+  livingroom_video_entity:
+
+template:
+  - select:
+    - name: livingroom_video_entity
+      unique_id: livingroom_video_entity
+      state: "{{ states('input_text.livingroom_video_entity') }}"
+      options: "{{ state_attr('sensor.all_media_players', 'entities') }}"
+      select_option:
+        action: input_text.set_value
+        entity_id: input_text.livingroom_video_entity
+        data:
+          value: "{{ option }}"
