@@ -153,16 +153,21 @@ template:
         {% set elevation_threshold = states('input_number.livingroom_fireplace_nightlight_on_below_elevation') | float(0) %}
         {% set elevation_enabled = is_state('input_boolean.livingroom_nightlight_sun_elevation_enabled', 'on') %}
         {% set below_elevation_threshold = state_attr('sun.sun', 'elevation') | float(100) < elevation_threshold %}
+        {% set light_level_threshold = state('input_number.livingroom_fireplace_nightlight_on_light_level_threshold') | float(10) %}
+        {% set light_level_enabled = is_state('input_boolean.livingroom_nightlight_light_level_enabled', 'on') %}
+        {% set below_light_level_threshold = state('sensor.living_room_light_level') | float(500) < light_level_threshold %}
         {% set default_brightness = states('input_number.livingroom_fireplace_nightlight_default_brightness') | int(100) %}
         {% set presence_check = presence_enabled and presence or not presence_enabled %}
         {% set elevation_check = elevation_enabled and below_elevation_threshold or not elevation_enabled %}
-        {{ default_brightness if presence_check and elevation_check else 0 }}
+        {% set light_level_check = light_level_enabled below_light_level_threshold or not light_level_enabled %}
+        {{ default_brightness if presence_check and elevation_check and light_level_check else 0 }}
 
 input_boolean:
   livingroom_enable_fireplace_automation_presence_off_enabled:
   livingroom_enable_fireplace_automation_fire_on_enabled:
   livingroom_enable_fireplace_automation_daily_reset_enabled:
 
+  livingroom_nightlight_light_level_enabled:
   livingroom_nightlight_presence_enabled:
   livingroom_nightlight_sun_elevation_enabled:
 
@@ -211,3 +216,8 @@ input_number:
     mode: box
     unit_of_measurement: °
   livingroom_fireplace_nightlight_default_brightness: *percentage
+  livingroom_fireplace_nightlight_on_light_level_threshold:
+    min: 0
+    max: 300
+    mode: box
+    unit_of_measurement: lx
