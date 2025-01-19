@@ -8,8 +8,12 @@ automation:
         to: ['off', 'on']
     conditions: "{{ states('binary_sensor.livingroom_fireplace_desired_state') in ['off', 'on'] }}"
     actions:
-      - action: light.turn_{{ states('binary_sensor.livingroom_fireplace_desired_state') }}
+      - variables:
+          desired_state: "{{ states('binary_sensor.livingroom_fireplace_desired_state') }}"
+          brightness: "{{ states('input_number.livingroom_fireplace_nightlight_default_brightness') | int(100) }}"
+      - action: light.turn_{{ desired_state }}
         entity_id: light.fireplace_night_light
+        data: "{{ {'brightness_pct': brightness} if desired_state == 'on' else {} }}"
 
   - alias: Living Room - Turn On Fireplace
     id: living_room_turn_on_fireplace
@@ -172,7 +176,7 @@ input_number:
     max: 30
     mode: box
     unit_of_measurement: s
-  livingroom_fireplace_blower_default_speed:
+  livingroom_fireplace_blower_default_speed: &percentage
     min: 0
     max: 100
     mode: box
@@ -195,3 +199,4 @@ input_number:
     max: 20
     mode: box
     unit_of_measurement: °
+  livingroom_fireplace_nightlight_default_brightness: *percentage
