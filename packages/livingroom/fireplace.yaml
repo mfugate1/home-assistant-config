@@ -1,23 +1,14 @@
 automation:
   - alias: Living Room - Fireplace Nightlight
-    id: living_room_fireplace_nightlight
-    mode: queued
-    variables:
-      do_this: >
-        {% if is_state('binary_sensor.living_room_presence_all_zones', 'on') and is_state('sun.sun', 'below_horizon') %}
-          on
-        {% else %}
-          off
-        {% endif %}
+    id: KxV6hw10KLBN5HG92qd8D0hv2SsCE7
+    mode: restart
     triggers:
       - trigger: state
-        entity_id: binary_sensor.living_room_presence_all_zones
+        entity_id: binary_sensor.livingroom_fireplace_desired_state
         to: ['off', 'on']
-      - trigger: state
-        entity_id: sun.sun
-        to: ['above_horizon', 'below_horizon']
+    conditions: "{{ states('binary_sensor.livingroom_fireplace_desired_state') in ['off', 'on'] }}"
     actions:
-      - action: light.turn_{{ do_this }}
+      - action: light.turn_{{ states('binary_sensor.livingroom_fireplace_desired_state') }}
         entity_id: light.fireplace_night_light
 
   - alias: Living Room - Turn On Fireplace
@@ -146,6 +137,15 @@ automation:
         target:
           entity_id: automation.living_room_turn_on_fireplace
 
+template:
+  - binary_sensor:
+    - name: livingroom_fireplace_desired_state
+      unique_id: OY6OI7d4ad9o3NuTJeLWLXimM2wrlW
+      state: >
+        {% set presence = is_state('binary_sensor.living_room_presence_all_zones', 'on') %}
+        {% set elevation_threshold = states('input_number.livingroom_fireplace_nightlight_on_below_elevation') | float %}
+        {{ presence and state_attr('sun.sun', 'elevation') | float < elevation_threshold }}
+
 input_boolean:
   livingroom_enable_fireplace_automation_presence_off_enabled:
   livingroom_enable_fireplace_automation_fire_on_enabled:
@@ -190,3 +190,8 @@ input_number:
     unit_of_measurement: °F
   living_room_fireplace_on_outside_temperature_threshold: *temp
   living_room_fireplace_on_temperature_threshold: *temp
+  livingroom_fireplace_nightlight_on_below_elevation:
+    min: -20
+    max: 20
+    mode: box
+    unit_of_measurement: °
