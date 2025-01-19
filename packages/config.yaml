@@ -16,6 +16,8 @@ template:
       options: >
         {% if is_state('select.active_config_card_room', 'Living Room') %}
           {{ ['Audio', 'Video', 'Fireplace', 'Lighting'] }}
+        {% elif is_state('select.active_config_card_room', 'Hall of Holes') %}
+          {{ ['Garage Door'] }}
         {% else %}
           {{ ['Unknown Room'] }}
         {% endif %}
