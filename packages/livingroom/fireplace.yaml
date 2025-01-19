@@ -2,18 +2,17 @@ automation:
   - alias: Living Room - Fireplace Nightlight
     id: KxV6hw10KLBN5HG92qd8D0hv2SsCE7
     mode: restart
+    variables:
+      desired_brightness: "{{ states('sensor.livingroom_fireplace_desired_brightness') | int(0) }}"
     triggers:
       - trigger: state
-        entity_id: binary_sensor.livingroom_fireplace_desired_state
-        to: ['off', 'on']
-    conditions: "{{ states('binary_sensor.livingroom_fireplace_desired_state') in ['off', 'on'] }}"
+        entity_id: sensor.livingroom_fireplace_desired_brightness
+    conditions: "{{ desired_brightness >= 0 and desired_brightness <= 100 }}"
     actions:
-      - variables:
-          desired_state: "{{ states('binary_sensor.livingroom_fireplace_desired_state') }}"
-          brightness: "{{ states('input_number.livingroom_fireplace_nightlight_default_brightness') | int(100) }}"
-      - action: light.turn_{{ desired_state }}
+      - action: light.turn_on
         entity_id: light.fireplace_night_light
-        data: "{{ {'brightness_pct': brightness} if desired_state == 'on' else {} }}"
+        data:
+          brightness_pct: "{{ desired_brightness }}"
 
   - alias: Living Room - Turn On Fireplace
     id: living_room_turn_on_fireplace
@@ -142,13 +141,15 @@ automation:
           entity_id: automation.living_room_turn_on_fireplace
 
 template:
-  - binary_sensor:
-    - name: livingroom_fireplace_desired_state
-      unique_id: OY6OI7d4ad9o3NuTJeLWLXimM2wrlW
+  - sensor:
+    - name: livingroom_fireplace_desired_brightness
+      unique_id: bc86z6m73yxsUq3BvXDh32UuvNoz4h
       state: >
         {% set presence = is_state('binary_sensor.living_room_presence_all_zones', 'on') %}
         {% set elevation_threshold = states('input_number.livingroom_fireplace_nightlight_on_below_elevation') | float %}
-        {{ presence and state_attr('sun.sun', 'elevation') | float < elevation_threshold }}
+        {% set below_elevation_threshold = state_attr('sun.sun', 'elevation') | float < elevation_threshold %}
+        {% set default_brightness = states('input_number.livingroom_fireplace_nightlight_default_brightness') | int(100) %}
+        {{ default_brightness if presence and below_elevation_threshold else 0 }}
 
 input_boolean:
   livingroom_enable_fireplace_automation_presence_off_enabled:
