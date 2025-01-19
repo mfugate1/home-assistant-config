@@ -1,16 +1,16 @@
 input_number:
-  livingroom_receiver_delay_for_source_select:
+  livingroom_audio_delay_for_source_select:
     min: 0
     max: 15
     unit_of_measurement: s
 
 script:
-  livingroom_receiver_turn_on:
-    alias: Living Room - Receiver - Turn on
+  livingroom_audio_turn_on:
+    alias: Living Room - Audio - Turn on
     description: >
-      Turns on the living room receiver and optionally sets it to a specifc source and volume
-      level, if those fields are set. Automatically adds a delay if the receiver is off when
-      the script is run, to allow time for the receiver to start before attempting to send
+      Turns on the living room audio and optionally sets it to a specifc source and volume
+      level, if those fields are set. Automatically adds a delay if the device is off when
+      the script is run, to allow time for it to start before attempting to send
       more commands.
     mode: queued
     fields:
@@ -22,24 +22,39 @@ script:
         example: "50"
     sequence:
       - variables:
-          delay_seconds: >
-            {% if is_state('media_player.livingroom_receiver', 'off') %}
-              {{ states('input_number.livingroom_receiver_delay_for_source_select') | int(5) }}
-            {% else %}
-              0
-            {% endif %}
-      - action: media_player.turn_on
-        entity_id: media_player.livingroom_receiver
-      - delay: "{{ delay_seconds }}"
+          entity_id: "{{ states('input_text.livingroom_audio_entity') }}"
+      - if: "{{ is_state(entity_id, 'off') }}"
+        then:
+          - action: media_player.turn_on
+            target:
+              entity_id: "{{ entity_id }}"
+          - delay: "{{ states('input_number.livingroom_audio_delay_for_source_select') | int(5) }}"
       - if: "{{ source is defined and source != none }}"
         then:
           action: media_player.select_source
-          entity_id: media_player.livingroom_receiver
+          target:
+            entity_id: "{{ entity_id }}"
           data:
             source: "{{ source }}"
       - if: "{{ volume is defined and volume != none }}"
         then:
           action: media_player.volume_set
-          entity_id: media_player.livingroom_receiver
+          target:
+            entity_id: "{{ entity_id }}"
           data:
             volume_level: "{{ (volume | int) / 100 }}"
+
+input_text:
+  livingroom_audio_entity:
+
+template:
+  - select:
+    - name: livingroom_audio_entity
+      unique_id: livingroom_audio_entity
+      state: "{{ states('input_text.livingroom_audio_entity') }}"
+      options: "{{ state_attr('sensor.all_media_players', 'entities') }}"
+      select_option:
+        action: input_text.set_value
+        entity_id: input_text.livingroom_audio_entity
+        data:
+          value: "{{ option }}"

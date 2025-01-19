@@ -22,7 +22,7 @@ switch:
               house_source: "{{ states('sensor.spotify_whole_house_source_name') }}"
               spotify_entity: media_player.spotify_stukabombr1
           - parallel:
-            - action: script.livingroom_receiver_turn_on
+            - action: script.livingroom_audio_turn_on
               data:
                 source: "{{ states('input_text.livingroom_music_receiver_source') }}"
                 volume: "{{ states('input_number.livingroom_music_volume') }}"
