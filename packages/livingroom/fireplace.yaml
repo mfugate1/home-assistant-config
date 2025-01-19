@@ -72,6 +72,11 @@ automation:
       - trigger: state
         entity_id: light.fireplace_flame
         to: ['off', 'on']
+        id: light_change
+      - trigger: state
+        entity_id: input_number.livingroom_fireplace_blower_default_speed
+        id: speed_change
+    conditions: "{{ trigger.id == 'light_change' or is_state('light.fireplace_flame', 'on') }}"
     actions:
       - variables:
           current_state: "{{ states('light.fireplace_flame') }}"
@@ -85,7 +90,29 @@ automation:
             {}
           {% endif %}
 
+  - alias: Living Room - Save Fireplace Blower Speed
+    id: livingroom_save_fireplace_blower_speed
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: fan.fireplace_blower
+        attribute: percentage
+    conditions: "{{ is_state('light.fireplace_flame', 'on') }}"
+    actions:
+      - delay:
+          seconds: "{{ states('input_number.livingroom_fireplace_blower_save_blower_speed_debounce_delay') | int(5) }}"
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.livingroom_fireplace_blower_default_speed
+        data:
+          value: "{{ state_attr('fan.fireplace_blower', 'percentage') | int }}"
+
 input_number:
+  livingroom_fireplace_blower_save_blower_speed_debounce_delay:
+    min: 0
+    max: 30
+    mode: box
+    unit_of_measurement: s
   livingroom_fireplace_blower_default_speed:
     min: 0
     max: 100
