@@ -3,10 +3,10 @@ automation:
     id: KxV6hw10KLBN5HG92qd8D0hv2SsCE7
     mode: restart
     variables:
-      desired_brightness: "{{ states('sensor.livingroom_fireplace_desired_brightness') | int(0) }}"
+      desired_brightness: "{{ states('sensor.livingroom_fireplace_nightlight_desired_brightness') | int(0) }}"
     triggers:
       - trigger: state
-        entity_id: sensor.livingroom_fireplace_desired_brightness
+        entity_id: sensor.livingroom_fireplace_nightlight_desired_brightness
         not_to:
           - unavailable
           - unknown
@@ -145,7 +145,7 @@ automation:
 
 template:
   - sensor:
-    - name: livingroom_fireplace_desired_brightness
+    - name: livingroom_fireplace_nightlight_desired_brightness
       unique_id: bc86z6m73yxsUq3BvXDh32UuvNoz4h
       state: >
         {% set presence = is_state('binary_sensor.living_room_presence_all_zones', 'on') %}
