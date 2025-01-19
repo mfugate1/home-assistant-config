@@ -7,6 +7,11 @@ template:
       select_option:
         - action: input_text.set_value
           target:
+            entity_id: input_text.active_config_card_devices
+          data:
+            value: ''
+        - action: input_text.set_value
+          target:
             entity_id: input_text.active_config_card_rooms
           data:
             value: "{{ option }}"
@@ -15,9 +20,9 @@ template:
       state: "{{ states('input_text.active_config_card_devices') }}"
       options: >
         {% if is_state('select.active_config_card_room', 'Living Room') %}
-          {{ ['Audio', 'Video', 'Fireplace', 'Lighting'] }}
+          {{ ['', 'Audio', 'Video', 'Fireplace', 'Lighting'] }}
         {% elif is_state('select.active_config_card_room', 'Hall of Holes') %}
-          {{ ['Garage Door'] }}
+          {{ ['', 'Garage Door'] }}
         {% else %}
           {{ ['Unknown Room'] }}
         {% endif %}
