@@ -76,6 +76,8 @@ automation:
       - variables:
           current_state: "{{ states('light.fireplace_flame') }}"
       - action: fan.turn_{{ current_state }}
+        target:
+          entity_id: fan.fireplace_blower
         data: >
           {% if current_state == 'on' %}
             {"percentage": {{ states('input_number.livingroom_fireplace_blower_default_speed') }} }
