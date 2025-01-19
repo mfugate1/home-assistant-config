@@ -127,20 +127,29 @@ automation:
     max_exceeded: silent
     triggers:
       - trigger: state
+        id: presence_off
         entity_id: binary_sensor.living_room_presence_all_zones
         to: 'off'
         for:
           minutes: "{{ states('input_number.livingroom_enable_fireplace_automation_after_minutes') | int(0) }}"
           hours: "{{ states('input_number.livingroom_enable_fireplace_automation_after_hours') | int(4) }}"
       - trigger: state
+        id: fire_on
         entity_id: light.fireplace_flame
         to: 'on'
       - trigger: time
+        id: daily_reset
         at: input_datetime.livingroom_enable_fireplace_automation_daily_reset
+    conditions: "{{ is_state('input_boolean.livingroom_enable_fireplace_automation_' + trigger.id + '_enabled', 'on') }}"
     actions:
       - action: automation.turn_on
         target:
           entity_id: automation.living_room_turn_on_fireplace
+
+input_boolean:
+  livingroom_enable_fireplace_automation_presence_off_enabled:
+  livingroom_enable_fireplace_automation_fire_on_enabled:
+  livingroom_enable_fireplace_automation_daily_reset_enabled:
 
 input_datetime:
   livingroom_enable_fireplace_automation_daily_reset:
