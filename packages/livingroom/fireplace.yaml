@@ -7,6 +7,9 @@ automation:
     triggers:
       - trigger: state
         entity_id: sensor.livingroom_fireplace_desired_brightness
+        not_to:
+          - unavailable
+          - unknown
     conditions: "{{ desired_brightness >= 0 and desired_brightness <= 100 }}"
     actions:
       - action: light.turn_on
