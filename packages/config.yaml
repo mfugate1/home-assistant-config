@@ -22,7 +22,7 @@ template:
       select_option:
         - action: input_text.set_value
           target:
-            entity_id: input_text.hall_of_holes_player_1
+            entity_id: input_text.active_config_card_devices
           data:
             value: "{{ option }}"
 
