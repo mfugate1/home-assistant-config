@@ -107,7 +107,57 @@ automation:
         data:
           value: "{{ state_attr('fan.fireplace_blower', 'percentage') | int }}"
 
+  - alias: Living Room - Disable Fireplace Automation When User Turns Fireplace Off
+    id: livingroom_disable_fireplace_automation_when_user_turns_fireplace_off
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id: light.fireplace_flame
+        to: 'off'
+    conditions: "{{ trigger.to_state.context.user_id is not none and is_state('binary_sensor.living_room_presence_all_zones', 'off') }}"
+    actions:
+      - action: automation.turn_off
+        target:
+          entity_id: automation.living_room_turn_on_fireplace
+
+  - alias: Living Room - Enable Fireplace On Automation
+    id: livingroom_enable_fireplace_on_automation
+    mode: single
+    max_exceeded: silent
+    triggers:
+      - trigger: state
+        entity_id: binary_sensor.living_room_presence_all_zones
+        to: 'off'
+        for:
+          minutes: "{{ states('input_number.livingroom_enable_fireplace_automation_after_minutes') | int(0) }}"
+          hours: "{{ states('input_number.livingroom_enable_fireplace_automation_after_hours') | int(4) }}"
+      - trigger: state
+        entity_id: light.fireplace_flame
+        to: 'on'
+      - trigger: time
+        at: input_datetime.livingroom_enable_fireplace_automation_daily_reset
+    actions:
+      - action: automation.turn_on
+        target:
+          entity_id: automation.living_room_turn_on_fireplace
+
+input_datetime:
+  livingroom_enable_fireplace_automation_daily_reset:
+    has_date: false
+    has_time: true
+
 input_number:
+  livingroom_enable_fireplace_automation_after_minutes:
+    min: 0
+    max: 60
+    mode: box
+    unit_of_measurement: min
+  livingroom_enable_fireplace_automation_after_hours:
+    min: 0
+    max: 24
+    mode: box
+    unit_of_measurement: hr
   livingroom_fireplace_blower_save_blower_speed_debounce_delay:
     min: 0
     max: 30
