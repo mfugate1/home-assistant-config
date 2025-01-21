@@ -39,12 +39,37 @@ automation:
           target_temp_high: "{{ states('input_number.climate_temperature_after_waking_up') | int(74) }}"
           target_temp_low: "{{ state_attr('climate.thermostat', 'target_temp_low') | int(60) }}"
 
+  - alias: Climate - Alert If Heat Not Working
+    id: wmLC0aDdMIw2NQy5P3hKoO0or01wlF
+    mode: restart
+    variables:
+      current_temp: "{{ states('sensor.thermostat_air_temperature') | float }}"
+      target_temp_low: "{{ state_attr('climate.thermostat', 'target_temp_low') | float }}"
+      differential: "{{ states('input_number.climate_alert_heat_not_working_differential') | float }}"
+    triggers:
+      - trigger: state
+        entity_id: 
+          - sensor.thermostat_air_temperature
+          - input_number.climate_alert_heat_not_working_differential
+    conditions: >
+      {{ is_state('sensor.last_hvac_state', 'heating') and
+         target_temp_low - current_temp > differential }}
+    actions:
+      - action: notify.mobile_app_sm_g981u1
+        data:
+          message: "WARNING! The current thermostat temperature is more than {{ different }}°F below the target temperature."
+      
 input_datetime:
   climate_lower_temperature_before_bed:
     has_date: false
     has_time: true
 
 input_number:
+  climate_alert_heat_not_working_differential:
+    min: 0
+    max: 10
+    mode: box
+    unit_of_measurement: °F
   climate_lower_temperature_before_bed_bedroom_temperature_min:
     min: 60
     max: 90
