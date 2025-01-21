@@ -94,7 +94,7 @@ automation:
       - trigger: state
         entity_id: light.fireplace_flame
         to: 'off'
-    conditions: "{{ trigger.to_state.context.user_id is not none and is_state('binary_sensor.living_room_presence_all_zones', 'off') }}"
+    conditions: "{{ trigger.to_state.context.user_id is not none and is_state('binary_sensor.living_room_presence_all_zones', 'on') }}"
     actions:
       - action: automation.turn_off
         target:
