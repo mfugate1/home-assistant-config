@@ -57,7 +57,7 @@ automation:
     actions:
       - action: notify.mobile_app_sm_g981u1
         data:
-          message: "WARNING! The current thermostat temperature is more than {{ different }}°F below the target temperature."
+          message: "WARNING! The current thermostat temperature is more than {{ differential }}°F below the target temperature."
       
 input_datetime:
   climate_lower_temperature_before_bed:
