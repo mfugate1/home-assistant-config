@@ -40,9 +40,10 @@ automation:
 
   - alias: Garage - Keep light switches in sync with relays
     id: garage_keep_light_switches_in_sync_with_relays
+    mode: restart
     triggers:
-      trigger: state
-      entity_id: light.garage
+      - trigger: state
+        entity_id: light.garage
     actions:
       - variables:
           entities:
