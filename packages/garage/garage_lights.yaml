@@ -44,26 +44,16 @@ automation:
     triggers:
       - trigger: state
         entity_id: light.garage
+        to: ['off', 'on']
     actions:
       - variables:
-          entities:
+          current_state: "{{ states('light.garage') }}"
+      - action: light.turn_{{ current_state }}
+        target:
+          entity_id:
             - light.garage_outer_switch
             - light.garage_inner_switch
-      - choose:
-          - conditions: "{{ trigger.to_state.state == 'on' }}"
-            sequence:
-              - action: light.turn_on
-                target:
-                  entity_id: "{{ entities }}"
-                data:
-                  brightness_pct: 100
-                  transition: 0
-        default:
-          - action: light.turn_off
-            target:
-              entity_id: "{{ entities }}"
-            data:
-              transition: 0
+        data: "{{ {'brightness_pct': 100, 'transition': 0} if current_state == 'on' else {'transition': 0} }}"
 
   - alias: Hall of Holes - Entry Light On
     id: hall_of_holes_entry_light_on
