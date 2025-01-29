@@ -115,6 +115,7 @@ input_number:
 light:
   - platform: group
     name: Bedroom Lamps
+    unique_id: X663Q6nnR8nkHy5bQutp9RyWFQwNEF
     entities:
       - light.master_bedroom_left_lamp
       - light.master_bedroom_right_lamp
