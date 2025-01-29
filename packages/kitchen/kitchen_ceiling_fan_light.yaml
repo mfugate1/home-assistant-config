@@ -11,6 +11,7 @@ light:
     lights:
       kitchen_ceiling_fan_light:
         friendly_name: Light
+        unique_id: Nf683dtLyacq1uwTNTbgW5swcArknJ
         value_template: "{{ ( state_attr('light.kitchen_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.kitchen_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
         level_template: "{{ states('input_number.kitchen_ceiling_fan_light_brightness') | int(0)   }}"
         temperature_template: "{{ states('input_number.kitchen_ceiling_fan_light_temperature') | int(500) }}"

@@ -202,6 +202,7 @@ light:
     lights:
       guest_room_single_ceiling_fan_light:
         friendly_name: Light
+        unique_id: iD2vja6hm4ZcfwA7Qx5Tzzcme8lGXC
         value_template: "{{ ( state_attr('light.guest_room_single_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.guest_room_single_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
         level_template: "{{ states('input_number.guest_room_single_ceiling_fan_light_brightness') | int(0)   }}"
         temperature_template: "{{ states('input_number.guest_room_single_ceiling_fan_light_temperature') | int(500) }}"
