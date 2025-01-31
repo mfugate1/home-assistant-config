@@ -1,3 +1,7 @@
+# For Tuya ceiling fans that give two light entities, one for white and one for yellow
+# These light templates combine those two entities into one that supports both
+# brightness and color temperature being set.
+
 input_number:
   office_ceiling_fan_light_brightness: &combined_brightness
     min: 0
@@ -5,6 +9,14 @@ input_number:
   office_ceiling_fan_light_temperature: &combined_temp
     min: 153
     max: 500
+  guestroomfront_ceiling_fan_light_brightness: *combined_brightness
+  guestroomfront_ceiling_fan_light_temperature: *combined_temp
+  guestroomback_ceiling_fan_light_brightness: *combined_brightness
+  guestroomback_ceiling_fan_light_temperature: *combined_temp
+  bedroom_ceiling_fan_light_brightness: *combined_brightness
+  bedroom_ceiling_fan_light_temperature: *combined_temp
+  kitchen_ceiling_fan_light_brightness: *combined_brightness
+  kitchen_ceiling_fan_light_temperature: *combined_temp
 
 script:
   ceiling_light_combined_template_set_level:
@@ -108,3 +120,131 @@ script:
           entity_id:
             - light.{{ room }}_ceiling_fan_yellow
             - light.{{ room }}_ceiling_fan_white
+
+light:
+  - platform: template
+    lights:
+      office_ceiling_fan_light:
+        friendly_name: Light
+        unique_id: 4SO2QIFUi4U6z3xRiCwdBcjtCpuPmc
+        value_template: "{{ ( state_attr('light.office_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.office_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
+        level_template: "{{ states('input_number.office_ceiling_fan_light_brightness') | int(0)   }}"
+        temperature_template: "{{ states('input_number.office_ceiling_fan_light_temperature') | int(500) }}"
+        set_level:
+          - action: script.ceiling_light_combined_template_set_level
+            data:
+              room: office
+              brightness: "{{ brightness }}"
+        set_temperature:
+          - action: script.ceiling_light_combined_template_set_temperature
+            data:
+              room: office
+              color_temp: "{{ color_temp }}"
+        turn_on:
+          - action: script.ceiling_light_combined_template_turn_on
+            data:
+              room: office
+        turn_off:
+          - action: script.ceiling_light_combined_template_turn_off
+            data:
+              room: office
+
+      guestroomfront_ceiling_fan_light:
+        friendly_name: Light
+        unique_id: EC7l1ZCqgSzMTKgkXNOVQR9f1a9IZ9
+        value_template: "{{ ( state_attr('light.guestroomfront_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.guestroomfront_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
+        level_template: "{{ states('input_number.guestroomfront_ceiling_fan_light_brightness') | int(0)   }}"
+        temperature_template: "{{ states('input_number.guestroomfront_ceiling_fan_light_temperature') | int(500) }}"
+        set_level:
+          - action: script.ceiling_light_combined_template_set_level
+            data:
+              room: guestroomfront
+              brightness: "{{ brightness }}"
+        set_temperature:
+          - action: script.ceiling_light_combined_template_set_temperature
+            data:
+              room: guestroomfront
+              color_temp: "{{ color_temp }}"
+        turn_on:
+          - action: script.ceiling_light_combined_template_turn_on
+            data:
+              room: guestroomfront
+        turn_off:
+          - action: script.ceiling_light_combined_template_turn_off
+            data:
+              room: guestroomfront
+
+      guestroomback_ceiling_fan_light:
+        friendly_name: Light
+        unique_id: qhuPGai48oQi6rhZsUiGg2R1uvZFmL
+        value_template: "{{ ( state_attr('light.guestroomback_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.guestroomback_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
+        level_template: "{{ states('input_number.guestroomback_ceiling_fan_light_brightness') | int(0)   }}"
+        temperature_template: "{{ states('input_number.guestroomback_ceiling_fan_light_temperature') | int(500) }}"
+        set_level:
+          - action: script.ceiling_light_combined_template_set_level
+            data:
+              room: guestroomback
+              brightness: "{{ brightness }}"
+        set_temperature:
+          - action: script.ceiling_light_combined_template_set_temperature
+            data:
+              room: guestroomback
+              color_temp: "{{ color_temp }}"
+        turn_on:
+          - action: script.ceiling_light_combined_template_turn_on
+            data:
+              room: guestroomback
+        turn_off:
+          - action: script.ceiling_light_combined_template_turn_off
+            data:
+              room: guestroomback
+
+      bedroom_ceiling_fan_light:
+        friendly_name: Light
+        unique_id: tx3RBFeSY3vhIo0JmLdlSWeXAy7a1y
+        value_template: "{{ ( state_attr('light.bedroom_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.bedroom_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
+        level_template: "{{ states('input_number.bedroom_ceiling_fan_light_brightness') | int(0)   }}"
+        temperature_template: "{{ states('input_number.bedroom_ceiling_fan_light_temperature') | int(500) }}"
+        set_level:
+          - action: script.ceiling_light_combined_template_set_level
+            data:
+              room: bedroom
+              brightness: "{{ brightness }}"
+        set_temperature:
+          - action: script.ceiling_light_combined_template_set_temperature
+            data:
+              room: bedroom
+              color_temp: "{{ color_temp }}"
+        turn_on:
+          - action: script.ceiling_light_combined_template_turn_on
+            data:
+              room: bedroom
+        turn_off:
+          - action: script.ceiling_light_combined_template_turn_off
+            data:
+              room: bedroom
+
+      kitchen_ceiling_fan_light:
+        friendly_name: Light
+        unique_id: iMo1HGfAoTG76qnmMsrsBhudm6VLUp
+        value_template: "{{ ( state_attr('light.kitchen_ceiling_fan_yellow', 'brightness') | int(0) + state_attr('light.kitchen_ceiling_fan_white', 'brightness') | int(0) ) > 0 }}"
+        level_template: "{{ states('input_number.kitchen_ceiling_fan_light_brightness') | int(0)   }}"
+        temperature_template: "{{ states('input_number.kitchen_ceiling_fan_light_temperature') | int(500) }}"
+        set_level:
+          - action: script.ceiling_light_combined_template_set_level
+            data:
+              room: kitchen
+              brightness: "{{ brightness }}"
+        set_temperature:
+          - action: script.ceiling_light_combined_template_set_temperature
+            data:
+              room: kitchen
+              color_temp: "{{ color_temp }}"
+        turn_on:
+          - action: script.ceiling_light_combined_template_turn_on
+            data:
+              room: kitchen
+        turn_off:
+          - action: script.ceiling_light_combined_template_turn_off
+            data:
+              room: kitchen
