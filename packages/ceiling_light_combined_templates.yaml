@@ -1,0 +1,110 @@
+input_number:
+  office_ceiling_fan_light_brightness: &combined_brightness
+    min: 0
+    max: 255
+  office_ceiling_fan_light_temperature: &combined_temp
+    min: 153
+    max: 500
+
+script:
+  ceiling_light_combined_template_set_level:
+    mode: parallel
+    fields:
+      room: {}
+      brightness: {}
+    sequence:
+      - variables: &entity_vars
+          brightness_entity: input_number.{{ room }}_ceiling_fan_light_brightness
+          temperature_entity: input_number.{{ room }}_ceiling_fan_light_temperature
+      - action: input_number.set_value
+        target:
+          entity_id: "{{ brightness_entity }}"
+        data:
+          value: "{{ brightness | int(0) }}"
+      - if: "{{ states(brightness_entity) | int > 128 }}"
+        then:
+          - variables:
+              perc_above_mid: "{{ ((states(brightness_entity) | int(0) - 128) / 127) | float(0) }}"
+          - if: "{{ states(temperature_entity) | int(0) > 327 }}"
+            then:
+              - variables:
+                  warmest: "{{ (500 - (perc_above_mid * 173)) | int(500) }}"
+              - if: "{{ (states(temperature_entity) | float(0) - warmest) | int(0) > 0}}"
+                then:
+                  - action: input_number.set_value
+                    target:
+                      entity_id: "{{ temperature_entity }}"
+                    data:
+                      value: "{{ warmest | int(500) }}"
+          - if: "{{ states(temperature_entity) | int(0) < 327 }}"
+            then:
+              - variables:
+                  coldest: "{{ (153 + (perc_above_mid * 174)) | int(153) }}"
+              - if: "{{ (states(temperature_entity) | float(0) - coldest) | int(0) < 0 }}"
+                then:
+                  - action: input_number.set_value
+                    target:
+                      entity_id: "{{ temperature_entity }}"
+                    data:
+                      value: "{{ coldest | int(153) }}"
+      - action: light.turn_on
+        target:
+          entity_id: light.{{ room }}_ceiling_fan_light
+
+  ceiling_light_combined_template_set_temperature:
+    mode: parallel
+    fields:
+      room: {}
+      color_temp: {}
+    sequence:
+      - variables: *entity_vars
+      - action: input_number.set_value
+        target:
+          entity_id: "{{ temperature_entity }}"
+        data:
+          value: "{{ ((153, color_temp, 500) | sort)[1] | int(500) }}"
+      - if: "{{ states(brightness_entity) | int(0) > 128 }}"
+        then:
+          - variables:
+              delta_perc_mean_temp: "{{ (((( (states(temperature_entity) | int(500) - 152) / 348) - 0.5) | abs ) * 2) | float(0) }}"
+              max_brightness: "{{ ( (1 - delta_perc_mean_temp) * 127 + 128 ) | int(0) }}"
+          - if: "{{ ((states(brightness_entity) | float(0)) - max_brightness) | int(0) > 0 }}"
+            then:
+              - action: input_number.set_value
+                target:
+                  entity_id: "{{ brightness_entity }}"
+                data:
+                  value: "{{ max_brightness | int(0) }}"
+      - action: light.turn_on
+        target:
+          entity_id: light.{{ room }}_ceiling_fan_light
+
+  ceiling_light_combined_template_turn_on:
+    mode: parallel
+    fields:
+      room: {}
+    sequence:
+      - variables:
+          <<: *entity_vars
+          ww_ratio: "{{ (( states(temperature_entity) | int(500) - 152 ) / 348 ) | float(0) }}"
+      - action: light.turn_on
+        target:
+          entity_id: light.{{ room }}_ceiling_fan_yellow
+        data:
+          brightness: "{{ (2 * states(brightness_entity) | int(0) * ww_ratio) | int(0) }}"
+      - action: light.turn_on
+        target:
+          entity_id: light.{{ room }}_ceiling_fan_white
+        data:
+          brightness: "{{ (2 * states(brightness_entity) | int(0) * (1 - ww_ratio) ) | int(0) }}"
+
+  ceiling_light_combined_template_turn_off:
+    mode: parallel
+    fields:
+      room: {}
+    sequence:
+      - action: light.turn_off
+        target:
+          entity_id:
+            - light.{{ room }}_ceiling_fan_yellow
+            - light.{{ room }}_ceiling_fan_white
