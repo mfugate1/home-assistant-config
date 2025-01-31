@@ -28,7 +28,8 @@ template:
         {% set elevation_enabled = is_state('input_boolean.livingroom_fireplace_nightlight_sun_elevation_enabled', 'on') %}
         {% set below_elevation_threshold = state_attr('sun.sun', 'elevation') | float(100) < elevation_threshold %}
         {% set light_level_threshold = states('input_number.livingroom_fireplace_nightlight_on_light_level_threshold') | float(10) %}
-        {% set light_level_enabled = is_state('input_boolean.livingroom_fireplace_nightlight_light_level_enabled', 'on') %}
+        {% set light_level_disabled_by_tv = is_state('livingroom_fireplace_nightlight_tv_disables_light_level', 'on') and is_state('media_player.livingroom_tv', 'on') %}
+        {% set light_level_enabled = is_state('input_boolean.livingroom_fireplace_nightlight_light_level_enabled', 'on') and not light_level_disabled_by_tv %}
         {% set below_light_level_threshold = states('sensor.living_room_light_level') | float(500) < light_level_threshold %}
         {% set default_brightness = states('input_number.livingroom_fireplace_nightlight_default_brightness') | int(100) %}
         {% set presence_check = presence_enabled and presence or not presence_enabled %}
@@ -41,6 +42,7 @@ input_boolean:
   livingroom_fireplace_nightlight_light_level_enabled:
   livingroom_fireplace_nightlight_presence_enabled:
   livingroom_fireplace_nightlight_sun_elevation_enabled:
+  livingroom_fireplace_nightlight_tv_disables_light_level:
 
 input_number:
   livingroom_fireplace_nightlight_on_below_elevation:
