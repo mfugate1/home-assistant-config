@@ -3,7 +3,7 @@ automation:
     id: KxV6hw10KLBN5HG92qd8D0hv2SsCE7
     mode: restart
     variables:
-      desired_brightness: "{{ states('sensor.livingroom_fireplace_nightlight_desired_brightness') | int(0) }}"
+      desired_brightness: "{{ states('sensor.livingroom_fireplace_nightlight_desired_brightness') | int(-1) }}"
     triggers:
       - trigger: state
         entity_id: sensor.livingroom_fireplace_nightlight_desired_brightness
