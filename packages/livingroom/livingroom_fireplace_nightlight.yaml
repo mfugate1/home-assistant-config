@@ -36,7 +36,7 @@ template:
         {% set elevation_check = elevation_enabled and below_elevation_threshold or not elevation_enabled %}
         {% set light_level_check = light_level_enabled and below_light_level_threshold or not light_level_enabled %}
         {% set fireplace_off = is_state('light.fireplace_flame', 'off') %}
-        {{ default_brightness if fireplace_off and presence_check and elevation_check and light_level_check else 0 }}
+        {{ default_brightness if fireplace_off and presence_check and (elevation_check or light_level_check) else 0 }}
 
 input_boolean:
   livingroom_fireplace_nightlight_light_level_enabled:
