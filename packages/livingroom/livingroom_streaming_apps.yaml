@@ -13,6 +13,7 @@ switch:
     switches:
       livingroom_netflix:
         friendly_name: Netflix
+        unique_id: qmxSfL78aPtDUf2r1k2GhmyqjLivKk
         icon_template: mdi:netflix
         value_template: >
           {{     is_state('media_player.livingroom_tv', 'on')
@@ -54,7 +55,7 @@ switch:
 template:
   - select:
       - name: livingroom_netflix_tv_source
-        unique_id: livingroom_netflix_tv_source
+        unique_id: ZZfTrRbUm3XnJa1FKaPl0YidEvc8Pi
         state: "{{ states('input_text.livingroom_netflix_tv_source') }}"
         options: "{{ state_attr('media_player.livingroom_tv', 'source_list') }}"
         select_option:
@@ -63,7 +64,7 @@ template:
           data:
             value: "{{ option }}"
       - name: livingroom_netflix_receiver_source
-        unique_id: livingroom_netflix_receiver_source
+        unique_id: R485Q1PLoNoSnImQlPvDAFrmSaHuUn
         state: "{{ states('input_text.livingroom_netflix_receiver_source') }}"
         options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
         select_option:
