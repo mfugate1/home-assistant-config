@@ -26,4 +26,4 @@ automation:
           - action: fan.turn_{{ command }}
             target:
               entity_id: "{{ entities }}"
-          - set_conversation_response: Turned {{ command }} the fan
+          - set_conversation_response: Turned {{ command }} the {{ 'fans' if entities | length > 1 else 'fan' }}
