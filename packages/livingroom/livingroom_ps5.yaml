@@ -21,6 +21,7 @@ switch:
     switches:
       livingroom_ps5:
         friendly_name: PS5
+        unique_id: eImdL3b4h4rspg4q5zL1gRYrfnXBs4
         icon_template: mdi:sony-playstation
         value_template: >
           {{     is_state('switch.livingroom_ps5', 'on')
@@ -30,7 +31,7 @@ switch:
              and is_state_attr('media_player.livingroom_receiver', 'source', 'Video 3') }}
         turn_on:
           - action: switch.turn_on
-            entity_id: switch.livingroom_ps5
+            entity_id: switch.livingroom_ps5_power
           - action: script.turn_on
             target:
               entity_id: script.media_player_turn_on
@@ -52,7 +53,7 @@ switch:
               entity_id: script.turn_off_with_repeat
             data:
               variables:
-                entity_id: switch.livingroom_ps5
+                entity_id: switch.livingroom_ps5_power
                 repeat_delay: "{{ states('input_number.livingroom_ps5_turn_off_repeat_delay') | int(20) }}"
                 max_retries: 20
           - action: media_player.turn_off
@@ -65,7 +66,7 @@ switch:
 template:
   - select:
     - name: livingroom_ps5_tv_source
-      unique_id: livingroom_ps5_tv_source
+      unique_id: n3WuZ3EequPmvMeGx3gP6ayySCI0z0
       state: "{{ states('input_text.livingroom_ps5_tv_source') }}"
       options: "{{ state_attr('media_player.livingroom_tv', 'source_list') }}"
       select_option:
@@ -74,7 +75,7 @@ template:
         data:
           value: "{{ option }}"
     - name: livingroom_ps5_receiver_source
-      unique_id: livingroom_ps5_receiver_source
+      unique_id: OlDczdfVCyU1VnmO56L8pA4mSfm0Z0
       state: "{{ states('input_text.livingroom_ps5_receiver_source') }}"
       options: "{{ state_attr('media_player.livingroom_receiver', 'source_list') }}"
       select_option:
