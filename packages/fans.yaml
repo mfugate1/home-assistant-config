@@ -2,6 +2,9 @@ automation:
   - alias: Voice - Control Fans
     id: PWebNn80fXWgVlfVhKEYmR3sMTIXBa
     mode: parallel
+    variables:
+      exclusions:
+        - fan.fireplace_blower
     triggers:
       - trigger: conversation
         command:
@@ -9,7 +12,7 @@ automation:
     actions:
       - variables:
           command: "{{ trigger.slots.command.lower() }}"
-          entities: "{{ trigger.device_id | area_id | area_entities | select('search', '^fan.') | list }}"
+          entities: "{{ trigger.device_id | area_id | area_entities | select('search', '^fan.') | reject('in', exclusions) | list }}"
       - choose:
           - conditions: "{{ command not in ['off', 'on'] }}"
             sequence:
