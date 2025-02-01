@@ -1,0 +1,25 @@
+automation:
+  - alias: Voice - Control Fans
+    id: PWebNn80fXWgVlfVhKEYmR3sMTIXBa
+    mode: parallel
+    triggers:
+      - trigger: conversation
+        command:
+          - "turn {command} the [ceiling] (fan|fans)"
+    actions:
+      - variables:
+          command: "{{ trigger.slots.command.lower() }}"
+          entities: "{{ trigger.device_id | area_id | area_entities | select('search', '^fan.') | list }}"
+      - choose:
+          - conditions: "{{ command not in ['off', 'on'] }}"
+            sequence:
+              - set_conversation_response: >
+                  It seems like you're trying to control a fan, but I couldn't understand the command you said.
+                  I heard you say {{ trigger.sentence }}. Try saying 'turn on the fan' or 'turn off the fan'
+          - conditions: "{{ not entities }}"
+            sequence:
+              - set_conversation_response: Sorry, there are no fans in this room I can control.
+        default:
+          - action: fan.turn_{{ command }}
+            target:
+              entity_id: "{{ entities }}"
