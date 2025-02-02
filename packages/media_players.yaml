@@ -1,6 +1,7 @@
 template:
   - sensor:
     - name: all_media_players
+      unique_id: YX3Ga8HY7iLuWhWbu1vJ3PJXgrjVtW
       state: use_entities_attribute
       attributes:
         entities: "{{ states.media_player | map(attribute='entity_id') | list | sort }}"
