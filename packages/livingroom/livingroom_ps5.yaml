@@ -24,7 +24,7 @@ switch:
         unique_id: eImdL3b4h4rspg4q5zL1gRYrfnXBs4
         icon_template: mdi:sony-playstation
         value_template: >
-          {{     is_state('switch.livingroom_ps5', 'on')
+          {{     is_state('switch.livingroom_ps5_power', 'on')
              and is_state('media_player.livingroom_tv', 'on')
              and is_state('media_player.livingroom_receiver', 'on')
              and is_state_attr('media_player.livingroom_tv', 'source', 'HDMI2')
