@@ -23,6 +23,19 @@ wake_on_lan:
 webhook:
 zeroconf:
 
+amcrest:
+  - host: 192.168.1.38
+    name: garage_exterior
+    username: admin
+    password: !secret garage_exterior_camera_password
+    binary_sensors:
+      - motion_detected
+      - online
+    sensors:
+      - sdcard
+    switches:
+      - privacy_mode
+
 frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
